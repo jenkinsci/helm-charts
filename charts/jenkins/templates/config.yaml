@@ -166,9 +166,9 @@ data:
     fi
 {{- end }}
     echo "applying Jenkins configuration"
-    mkdir -p {{ .Values.master.jenkinsRef }}/secrets/;
 {{- if .Values.master.enableXmlConfig }}
     echo "apply XML configuration"
+    mkdir -p {{ .Values.master.jenkinsRef }}/secrets/;
     echo "false" > {{ .Values.master.jenkinsRef }}/secrets/slave-to-master-security-kill-switch;
 {{- if .Values.master.overwriteConfig }}
     echo "overwriting existing configuration"
@@ -256,6 +256,7 @@ data:
 {{- end }}
 {{- if .Values.master.secretsFilesSecret }}
     echo "copy secrets"
+    mkdir -p {{ .Values.master.jenkinsRef }}/secrets/;
     yes n | cp -i /var/jenkins_secrets/* {{ .Values.master.jenkinsRef }}/secrets/;
 {{- end }}
     echo "finished initialization"
