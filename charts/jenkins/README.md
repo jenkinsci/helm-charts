@@ -13,12 +13,19 @@ This chart will do the following:
 * 1 x Jenkins Master with port 8080 exposed on an external LoadBalancer
 * All using Kubernetes Deployments
 
+## Get Repo Info
+
+```console
+helm repo add jenkinsci https://jenkinsci.github.io/helm-charts
+helm repo update
+```
+
 ## Installing the Chart
 
 To install the chart with the release name `my-release`:
 
 ```bash
-$ helm install my-release stable/jenkins
+$ helm install my-release jenkinsci/jenkins
 ```
 
 ## Upgrading an existing Release to a new major version
@@ -410,7 +417,7 @@ Specify each parameter using the `--set key=value[,key=value]` argument to `helm
 Alternatively, a YAML file that specifies the values for the parameters can be provided while installing the chart. For example,
 
 ```bash
-$ helm install my-release -f values.yaml stable/jenkins
+$ helm install my-release -f values.yaml jenkinsci/jenkins
 ```
 
 > **Tip**: You can use the default [values.yaml](values.yaml)
@@ -442,7 +449,7 @@ the DefaultDeny namespace annotation. Note: this will enforce policy for _all_ p
 
 Install helm chart with network policy enabled:
 
-    $ helm install stable/jenkins --set networkPolicy.enabled=true
+    $ helm install jenkinsci/jenkins --set networkPolicy.enabled=true
 
 You can use `master.networkPolicy.internalAgents` and `master.networkPolicy.externalAgents` stanzas to fine grained controls over where internal/external agents can connect from. Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
 
@@ -512,7 +519,7 @@ It is possible to mount several volumes using `persistence.volumes` and `persist
 3. Install the chart
 
 ```bash
-$ helm install my-release --set persistence.existingClaim=PVC_NAME stable/jenkins
+$ helm install my-release --set persistence.existingClaim=PVC_NAME jenkinsci/jenkins
 ```
 
 #### Storage Class
@@ -520,7 +527,7 @@ $ helm install my-release --set persistence.existingClaim=PVC_NAME stable/jenkin
 It is possible to define which storage class to use:
 
 ```bash
-$ helm install my-release --set persistence.storageClass=customStorageClass stable/jenkins
+$ helm install my-release --set persistence.storageClass=customStorageClass jenkinsci/jenkins
 ```
 
 If set to a dash (`-`, as in `persistence.storageClass=-`), the dynamic provision is disabled.
@@ -566,7 +573,7 @@ rbac:
 
 RBAC is enabled by default if you want to disable it you will need to do the following:
 
-* `helm install stable/jenkins --set rbac.create=false`
+* `helm install jenkinsci/jenkins --set rbac.create=false`
 
 ## Backup
 
