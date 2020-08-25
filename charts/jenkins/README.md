@@ -4,7 +4,7 @@
 
 This chart installs a Jenkins master and agent cluster on [Kubernetes](http://kubernetes.io) utilizing the [Jenkins Kubernetes plugin](https://plugins.jenkins.io/kubernetes/).
 
-Inspired by the awesome work of Carlos Sanchez <mailto:carlos@apache.org>
+Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 
 ## Get Repo Info
 
