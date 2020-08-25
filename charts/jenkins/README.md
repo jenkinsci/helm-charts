@@ -2,7 +2,7 @@
 
 [Jenkins](https://www.jenkins.io/) is the leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 
-This chart installs a Jenkins master and agent cluster on [Kubernetes](http://kubernetes.io) utilizing the [Jenkins Kubernetes plugin](https://plugins.jenkins.io/kubernetes/).
+This chart installs a Jenkins server which allows to spawn agents on [Kubernetes](http://kubernetes.io) utilizing the [Jenkins Kubernetes plugin](https://plugins.jenkins.io/kubernetes/).
 
 Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 
