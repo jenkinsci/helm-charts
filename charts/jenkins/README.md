@@ -156,7 +156,6 @@ $ helm inspect values jenkinsci/jenkins
 $ helm show values jenkinsci/jenkins
 ```
 
-You may similarly use the above configuration commands on each chart [dependency](#dependencies) to see it's configurations.
 
 ### Mounting Volumes into Your Agent Pods
 
