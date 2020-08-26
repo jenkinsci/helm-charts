@@ -9,7 +9,7 @@ Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 ## Get Repo Info
 
 ```console
-helm repo add jenkinsci https://jenkinsci.github.io/helm-charts
+helm repo add jenkinsci https://charts.jenkins.io
 helm repo update
 ```
 

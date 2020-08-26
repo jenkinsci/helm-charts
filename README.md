@@ -12,7 +12,7 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-helm repo add jenkinsci https://jenkinsci.github.io/helm-charts
+helm repo add jenkinsci https://charts.jenkins.io
 ```
 
 You can then run `helm search repo jenkinsci` to see the charts.
