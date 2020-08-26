@@ -53,7 +53,7 @@ Add an option to specify pod based on labels that can connect to master if Netwo
 ## 2.2.0 increase retry for config auto reload
 
 Configure `REQ_RETRY_CONNECT` to `10` to give Jenkins more time to start up.
-https://github.com/kiwigrid/k8s-sidecar
+<https://github.com/kiwigrid/k8s-sidecar>
 
 Value can be configured via `master.sidecars.configAutoReload.reqRetryConnect`
 
@@ -131,13 +131,13 @@ Add support for overriding Ingress paths via `master.ingress.paths`
 
 ## 1.20.0
 
-  Add the following options for configuring the Kubernetes plugin.
+Add the following options for configuring the Kubernetes plugin.
 
- - master.slaveDefaultsProviderTemplate
- - master.slaveJenkinsUrl
- - master.slaveJenkinsTunnel
- - master.slaveConnectTimeout
- - master.slaveReadTimeout
+- master.slaveDefaultsProviderTemplate
+- master.slaveJenkinsUrl
+- master.slaveJenkinsTunnel
+- master.slaveConnectTimeout
+- master.slaveReadTimeout
 
 ## 1.19.0
 
@@ -269,7 +269,7 @@ Update docs for Helm 3
 
 Make `jenkins-home` attachable to Azure Disks without pvc
 
-```
+```yaml
  volumes:
   - name: jenkins-home
     azureDisk:
@@ -317,7 +317,7 @@ configuration-as-code | 1.27        | 1.32
 
 ## 1.9.6
 
-Enables jenkins to use keystore inorder to have native ssl support [#17790](https: https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777)
+Enables jenkins to use keystore inorder to have native ssl support #17790 <https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777>
 
 ## 1.9.5 Enable remoting security
 
@@ -327,7 +327,7 @@ Enables jenkins to use keystore inorder to have native ssl support [#17790](http
 
 Google application credentials are kept in a file, which has to be mounted to a pod. You can set `gcpcredentials` in `existingSecret` as follows:
 
-```
+```yaml
  existingSecret:
     jenkins-service-account:
       gcpcredentials: application_default_credentials.json
@@ -476,7 +476,7 @@ JCasC default configuration includes:
 
 Example `values.yaml` which enables JCasC, it's default config and configAutoReload:
 
-```
+```yaml
 master:
   JCasC:
     enabled: true
@@ -746,24 +746,24 @@ commit: 48c58a430
 helm chart best practices (#13136)
 commit: b02ae3f48
 
-### Breaking changes:
+### Breaking changes
 
 - values have been renamed to follow helm chart best practices for naming conventions so
   that all variables start with a lowercase letter and words are separated with camelcase
-  https://helm.sh/docs/chart_best_practices/#naming-conventions
+  <https://helm.sh/docs/chart_best_practices/#naming-conventions>
 - all resources are now using recommended standard labels
-  https://helm.sh/docs/chart_best_practices/#standard-labels
+  <https://helm.sh/docs/chart_best_practices/#standard-labels>
 
 As a result of the label changes also the selectors of the deployment have been updated.
 Those are immutable so trying an updated will cause an error like:
 
-```
+```text
 Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-master", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
 ```
 
 In order to upgrade, delete the Jenkins Deployment before upgrading:
 
-```
+```console
 kubectl delete deploy jenkins
 ```
 
@@ -1332,12 +1332,6 @@ commit: e3e617a0b
 Merge branch 'master' into jenkins-test-timeout
 commit: 9a230a6b1
 
-## 0.8.1
-
-Double retry count for Jenkins test
-commit: 129c8e824
-
-## 0.10.1
 
 Jenkins: Update README | Master.ServiceAnnotations (#2757)
 commit: 6571810bc
@@ -1362,8 +1356,6 @@ commit: d044f99be
 Review jenkins networkpolicy docs (#2618)
 commit: 49911e458
 
-## 0.9.2
-
 Add image pull secrets to jenkins templates (#1389)
 commit: 4dfae21fd
 
@@ -1372,22 +1364,18 @@ commit: 4dfae21fd
 Added persistent volume claim annotations (#2619)
 commit: ac9e5306e
 
-## 0.9.1
-
 Fix failing CI lint (#2758)
 commit: 26f709f0e
 
 ## 0.9.0
 
-#1785 namespace defined templates with chart name (#2140)
+namespace defined templates with chart name (#2140)
 commit: 408ae0b3f
 
 ## 0.8.9
 
 added useSecurity and adminUser to params (#1903)
 commit: 39d2a03cd
-
-## 0.8.9
 
 Use storageClassName for jenkins. (#1997)
 commit: 802f6449b
@@ -1396,8 +1384,6 @@ commit: 802f6449b
 
 Remove old plugin locks before installing plugins (#1746)
 commit: 6cd7b8ff4
-
-## 0.8.8
 
 promote initContainrs to podspec (#1740)
 commit: fecc804fc
@@ -1432,17 +1418,11 @@ commit: 0dc349b44
 Remove path from ingress specification to allow other paths (#1599)
 commit: e727f6b32
 
-## 0.8.2
-
 Update git plugin to 3.4.0 for CVE-2017-1000084 (#1505)
 commit: 03482f995
 
-## 0.8.1
-
 Use consistent whitespace in template placeholders (#1437)
 commit: 912f50c71
-
-## 0.8.1
 
 add configurable service annotations #1234 (#1244)
 commit: 286861ca8
@@ -1562,8 +1542,6 @@ commit: 6fc0ff242
 Changed default value of Kubernetes Cloud name to match one in kubernetes plugin (#404)
 commit: 68351304a
 
-## 0.1.10
-
 Add support for overriding the Jenkins ConfigMap (#524)
 commit: f97ca53b1
 
@@ -1577,17 +1555,11 @@ commit: d76a09588
 Change description (#553)
 commit: 91f5c24e1
 
-## 0.1.8
-
 Removed default Persistence.StorageClass: generic (#530)
 commit: c87494c10
 
-## 0.1.8
-
 Update to the recommended pvc patterns. (#448)
 commit: a7fc595aa
-
-## 0.1.8
 
 Remove helm.sh/created annotations (#505)
 commit: f380da2fb
@@ -1597,12 +1569,8 @@ commit: f380da2fb
 add support for explicit NodePort on jenkins chart (#342)
 commit: f63c188da
 
-## 0.1.7
-
 Add configurable loadBalancerSourceRanges for jenkins chart (#360)
 commit: 44007c50e
-
-## 0.1.7
 
 Update Jenkins version to current LTS (2.19.4) and Kubernetes Plugin to 0.10 (#341)
 commit: 6c8678167
@@ -1622,17 +1590,11 @@ commit: 4aa9cf5b1
 removed `*` from `jenkins/templates/NOTES.txt`
 commit: 76212230b
 
-## 0.1.4
-
 apply standard metadata labels to PVC's
 commit: 58b730836
 
-## 0.1.4
-
 specify namespace in `kubectl get svc` commands in NOTES.txt
 commit: 7d3287e81
-
-## 0.1.4
 
 Update Jenkins version to current LTS (#194)
 commit: 2c0404049
@@ -1642,22 +1604,14 @@ commit: 2c0404049
 escape fixed
 commit: 2026e1d15
 
-## 0.1.1
-
 .status.loadBalancer.ingress[0].ip is empty in AWS
 commit: 1810e37f4
-
-## 0.1.1
 
 .status.loadBalancer.ingress[0].ip is empty in AWS
 commit: 3cbd3ced6
 
-## 0.1.1
-
 Remove 'Getting Started:' from various NOTES.txt. (#181)
 commit: 2f63fd524
-
-## 0.1.1
 
 docs(\*): update READMEs to reference chart repos (#119)
 commit: c7d1bff05
