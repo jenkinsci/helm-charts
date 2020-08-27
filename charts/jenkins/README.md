@@ -380,7 +380,7 @@ master:
 |   └── config.xml
 ```
 
-Docs taken from https://github.com/jenkinsci/docker/blob/master/Dockerfile:
+Docs taken from <https://github.com/jenkinsci/docker/blob/master/Dockerfile>:
 _Jenkins is run with user `jenkins`, uid = 1000. If you bind mount a volume from the host or a data container,ensure you use the same uid_
 
 ### Adding Custom Pod Templates
