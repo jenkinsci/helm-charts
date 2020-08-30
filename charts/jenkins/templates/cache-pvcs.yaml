@@ -1,0 +1,29 @@
+{{- /* create list of agents */}}
+{{- $_ := set .Values "agentList" (list .Values.agent) }}
+{{- range $name, $additionalAgent := .Values.additionalAgents }}
+    {{- /* merge .Values.agent into additional agent to ensure it at least has the default values */}}
+    {{- $_ := set $.Values "agentList" (append $.Values.agentList (merge $additionalAgent $.Values.agent)) }}
+{{- end }}
+{{- range $agent := .Values.agentList }}
+{{- if $agent.cache.persistence.enabled }}
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ tpl ($agent.cache.persistence.componentName | required "cache persistence componentName is required") $ }}
+  labels:
+    "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
+    "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
+    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
+    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
+    "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+spec:
+  accessModes:
+    - "ReadWriteMany"
+  resources:
+    requests:
+      storage: {{ $agent.cache.persistence.size | required "size is required" }}
+  storageClassName: {{ $agent.cache.persistence.storageClass | default "" }}
+{{- end }}
+{{- end }}
+{{- $_ := unset .Values "agentList" }}

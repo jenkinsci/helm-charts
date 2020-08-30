@@ -480,6 +480,26 @@ agent:
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
+  # create a cache for this agent, the chart will create a PVC as per componentName
+  # and storageClass, if defined. This PVC can be mounted for use  in the volumes section.
+  cache:
+    # create PVC
+    persistence:
+      enabled: false
+      componentName: "{{ .Release.Name }}-cache"
+      storageClass:
+      size: "4Gi"
+    # storageClass:
+    # create CronJob (mounts an agent volume)
+    clear:
+      enabled: false
+      componentName: "{{ .Release.Name }}-clear-cache"
+      claimName: "{{ .Release.Name }}-cache"
+      mountPath: "/tmp/cache"
+      schedule: "0 0 * * SUN"
+      image: "maorfr/kube-tasks"
+      tag: "0.2.0"
+      command: "kube-tasks execute --command 'rm -rf'"
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
