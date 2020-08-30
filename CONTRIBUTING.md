@@ -42,7 +42,7 @@ Once changes have been merged, the release job will automatically run to package
 
 ### Immutability
 
-Chart releases must be immutable. Any change to a chart warrants a chart version bump even if it is only changed to the documentation.
+Chart releases must be immutable. Any change to a chart warrants a chart version bump even if it is only a change to the documentation.
 
 ### Versioning
 
