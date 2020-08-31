@@ -1,6 +1,7 @@
 {{- $root := . }}
 {{- if and (.Values.master.JCasC.enabled) (.Values.master.sidecars.configAutoReload.enabled) }}
 {{- range $key, $val := .Values.master.JCasC.configScripts }}
+{{- if $val }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -17,6 +18,7 @@ metadata:
 data:
   {{ $key }}.yaml: |-
 {{ tpl $val $| indent 4 }}
+{{- end }}
 {{- end }}
 {{- if .Values.master.JCasC.defaultConfig }}
 ---
