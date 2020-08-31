@@ -70,6 +70,55 @@ $ helm inspect values jenkinsci/jenkins
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
 
+### Configuration as Code
+
+Jenkins Configuration as Code is now a standard component in the Jenkins project.
+Add a key under configScripts for each configuration area, where each corresponds to a plugin or section of the UI.
+The keys (prior to `|` character) are just labels, and can be any value.
+They are only used to give the section a meaningful name.
+The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
+Each key will become the name of a configuration yaml file on the master in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+The lines after each `|` become the content of the configuration yaml file.
+The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
+Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
+The example below creates ldap settings:
+
+```yaml
+configScripts:
+  ldap-settings: |
+    jenkins:
+      securityRealm:
+        ldap:
+          configurations:
+            - server: ldap.acme.com
+              rootDN: dc=acme,dc=uk
+              managerPasswordSecret: ${LDAP_PASSWORD}
+              groupMembershipStrategy:
+                fromUserRecord:
+                  attributeName: "memberOf"
+```
+
+Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
+
+#### Config as Code With or Without Auto-Reload
+
+Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
+If you set `master.sidecars.autoConfigReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
+This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
+You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
+If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
+
+```yaml
+master:
+  JCasC:
+    enabled: true
+  sidecars:
+    configAutoReload:
+      enabled: true
+rbac:
+  create: true
+```
+
 ### Allow Limited HTML Markup in User-Submitted Text
 Some third-party systems (e.g. GitHub) use HTML-formatted data in their payload sent to a Jenkins webhook (e.g. URL of a pull-request being built).
 To display such data as processed HTML instead of raw text set `master.enableRawHtmlMarkupFormatter` to true.
@@ -161,54 +210,6 @@ It is possible to define which storage class to use, by setting `persistence.sto
 If set to a dash (`-`), dynamic provisioning is disabled.
 If the storage class is set to null or left undefined (`""`), the default provisioner is used (gp2 on AWS, standard on GKE, AWS & OpenStack).
 
-### Configuration as Code
-
-Jenkins Configuration as Code is now a standard component in the Jenkins project.
-Add a key under configScripts for each configuration area, where each corresponds to a plugin or section of the UI.
-The keys (prior to `|` character) are just labels, and can be any value.
-They are only used to give the section a meaningful name.
-The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
-Each key will become the name of a configuration yaml file on the master in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
-The lines after each `|` become the content of the configuration yaml file.
-The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
-Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
-The example below creates ldap settings:
-
-```yaml
-configScripts:
-  ldap-settings: |
-    jenkins:
-      securityRealm:
-        ldap:
-          configurations:
-            - server: ldap.acme.com
-              rootDN: dc=acme,dc=uk
-              managerPasswordSecret: ${LDAP_PASSWORD}
-              groupMembershipStrategy:
-                fromUserRecord:
-                  attributeName: "memberOf"
-```
-
-Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
-
-#### Config as Code With or Without Auto-Reload
-
-Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
-If you set `master.sidecars.autoConfigReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
-This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
-You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
-If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
-
-```yaml
-master:
-  JCasC:
-    enabled: true
-  sidecars:
-    configAutoReload:
-      enabled: true
-rbac:
-  create: true
-```
 
 ### RBAC
 
