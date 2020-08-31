@@ -315,19 +315,6 @@ To restore a backup, you can use the `kube-tasks` underlying tool called [skbn](
 The best way to do it would be using a `Job` to copy files from the desired backup tag to the Jenkins pod.
 See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/examples/in-cluster) for more details.
 
-### Run Jenkins as Non-Root User
-
-The default settings of this helm chart let Jenkins run as root user with uid `0`.
-Due to security reasons you may want to run Jenkins as a non-root user.
-Fortunately the default jenkins docker image `jenkins/jenkins` contains a user `jenkins` with uid `1000` that can be used for this purpose.
-
-Simply use the following settings to run Jenkins as `jenkins` user with uid `1000`:
-
-```yaml
-master:
-  runAsUser: 1000
-  fsGroup: 1000
-```
 
 ### Providing Jobs XML
 
