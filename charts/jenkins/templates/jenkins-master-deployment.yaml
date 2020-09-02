@@ -139,8 +139,10 @@ spec:
               readOnly: true
             {{- end }}
             {{- end }}
+            {{- if or (.Values.master.enableXmlConfig) (.Values.master.secretsFilesSecret) }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
+            {{- end }}
             {{- if .Values.master.secretsFilesSecret }}
             - mountPath: /var/jenkins_secrets
               name: jenkins-secrets
@@ -288,10 +290,12 @@ spec:
               readOnly: true
             {{- end }}
             {{- end }}
+            {{- if or .Values.master.secretsFilesSecret }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
               readOnly: false
-            {{- if or .Values.master.secretsFilesSecret }}
+            {{- end }}
+            {{- if or (.Values.master.enableXmlConfig) (.Values.master.secretsFilesSecret) }}
             - mountPath: /var/jenkins_secrets
               name: jenkins-secrets
               readOnly: true
@@ -370,8 +374,10 @@ spec:
           name: {{ template "jenkins.fullname" . }}-jobs
       {{- end }}
       {{- end }}
+      {{- if or (.Values.master.enableXmlConfig) (.Values.master.secretsFilesSecret) }}
       - name: secrets-dir
         emptyDir: {}
+      {{- end }}
       {{- if .Values.master.secretsFilesSecret }}
       - name: jenkins-secrets
         secret:
