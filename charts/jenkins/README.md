@@ -327,6 +327,12 @@ Upgrade an existing release from `stable/jenkins` to `jenkinsci/jenkins` seamles
 
 Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
 
+### To 3.0.0
+
+All values which used XML to configure settings have been removed.
+You need to use JCasC to configure settings instead.
+Upgrade guide to 2.0.0 contains pointers how to do that.
+
 ### To 2.0.0
 
 Configuration as Code is now default + container does not run as root anymore.
