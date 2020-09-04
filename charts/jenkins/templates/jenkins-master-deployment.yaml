@@ -290,12 +290,12 @@ spec:
               readOnly: true
             {{- end }}
             {{- end }}
-            {{- if or .Values.master.secretsFilesSecret }}
+            {{- if or (.Values.master.enableXmlConfig) (.Values.master.secretsFilesSecret) }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
               readOnly: false
             {{- end }}
-            {{- if or (.Values.master.enableXmlConfig) (.Values.master.secretsFilesSecret) }}
+            {{- if .Values.master.secretsFilesSecret }}
             - mountPath: /var/jenkins_secrets
               name: jenkins-secrets
               readOnly: true
