@@ -81,21 +81,60 @@ Each key will become the name of a configuration yaml file on the master in /var
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
-The example below creates ldap settings:
+
+The example below sets custom systemMessage:
 
 ```yaml
-configScripts:
-  ldap-settings: |
-    jenkins:
-      securityRealm:
-        ldap:
-          configurations:
-            - server: ldap.acme.com
-              rootDN: dc=acme,dc=uk
-              managerPasswordSecret: ${LDAP_PASSWORD}
-              groupMembershipStrategy:
-                fromUserRecord:
-                  attributeName: "memberOf"
+master:
+  JCasC:
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: Welcome to our CI\CD server.
+```
+
+More complex example that creates ldap settings:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      ldap-settings: |
+        jenkins:
+          securityRealm:
+            ldap:
+              configurations:
+                - server: ldap.acme.com
+                  rootDN: dc=acme,dc=uk
+                  managerPasswordSecret: ${LDAP_PASSWORD}
+                  groupMembershipStrategy:
+                    fromUserRecord:
+                      attributeName: "memberOf"
+```
+
+Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
+
+For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflictig configuration error.
+
+Incorrect:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      jenkins-url: |
+        unclassified:
+          location:
+            url: https://example.com/jenkins
+            adminAddress: example@mail.com
+```
+
+Correct:
+
+```yaml
+master:
+  jenkinsUrl: https://example.com/jenkins
+  jenkinsAdminEmail: example@mail.com
 ```
 
 Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
