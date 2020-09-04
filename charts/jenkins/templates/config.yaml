@@ -39,7 +39,6 @@ data:
           <defaultsProviderTemplate>{{ .Values.master.slaveDefaultsProviderTemplate }}</defaultsProviderTemplate>
           <templates>
 {{- if .Values.agent.enabled }}
-  {{- include "jenkins.xml.podTemplate" . | nindent 12 }}
   {{- if .Values.additionalAgents }}
     {{- /* save .Values.agent */}}
     {{- $agent := .Values.agent }}
@@ -48,7 +47,6 @@ data:
       {{- $additionalAgent := merge $additionalAgent $agent }}
       {{- /* set .Values.agent to $additionalAgent */}}
       {{- $_ := set $.Values "agent" $additionalAgent }}
-      {{- include "jenkins.xml.podTemplate" $ | nindent 12 }}
     {{- end }}
     {{- /* restore .Values.agent */}}
     {{- $_ := set .Values "agent" $agent }}
