@@ -26,7 +26,6 @@ data:
       <numExecutors>{{ .Values.master.numExecutors }}</numExecutors>
       <mode>{{ .Values.master.executorMode }}</mode>
       <useSecurity>{{ .Values.master.useSecurity }}</useSecurity>
-{{ .Values.master.authorizationStrategy | indent 6 }}
 {{ .Values.master.securityRealm | indent 6 }}
       <disableRememberMe>{{ .Values.master.disableRememberMe }}</disableRememberMe>
       <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>

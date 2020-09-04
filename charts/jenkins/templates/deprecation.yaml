@@ -37,10 +37,6 @@
            {{ fail "`Master.SecurityRealm` does no longer exist. It has been renamed to `master.securityRealm`" }}
         {{- end }}
 
-        {{- if .Values.Master.AuthorizationStrategy }}
-           {{ fail "`Master.AuthorizationStrategy` does no longer exist. It has been renamed to `master.authorizationStrategy`" }}
-        {{- end }}
-
         {{- if .Values.Master.DeploymentLabels }}
            {{ fail "`Master.DeploymentLabels` does no longer exist. It has been renamed to `master.deploymentLabels`" }}
         {{- end }}
