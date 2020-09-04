@@ -127,8 +127,6 @@ spec:
               {{- end }}
             - mountPath: /var/jenkins_config
               name: jenkins-config
-            - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
-              name: secrets-dir
             {{- if .Values.master.installPlugins }}
             {{- if .Values.master.overwritePluginsFromImage }}
             - mountPath: {{ .Values.master.jenkinsRef }}/plugins
@@ -259,9 +257,6 @@ spec:
             - mountPath: /var/jenkins_config
               name: jenkins-config
               readOnly: true
-            - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
-              name: secrets-dir
-              readOnly: false
             {{- if .Values.master.installPlugins }}
             - mountPath: {{ .Values.master.jenkinsRef }}/plugins/
               name: plugin-dir
@@ -324,8 +319,6 @@ spec:
       - name: jenkins-config
         configMap:
           name: {{ template "jenkins.fullname" . }}
-      - name: secrets-dir
-        emptyDir: {}
       {{- if .Values.master.installPlugins }}
       - name: plugin-dir
         emptyDir: {}

@@ -19,8 +19,6 @@ data:
       exit 0
     fi
 {{- end }}
-    echo "applying Jenkins configuration"
-    mkdir -p {{ .Values.master.jenkinsRef }}/secrets/;
 {{- if .Values.master.JCasC.enabled }}
     echo "disable Setup Wizard"
     # Prevent Setup Wizard when JCasC is enabled
