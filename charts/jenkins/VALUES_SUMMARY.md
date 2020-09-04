@@ -239,7 +239,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 #### Deprecated
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `master.customConfigMap`          | Deprecated: Use a custom ConfigMap   | `false`                                   |
 | `master.additionalConfig`         | Deprecated: Add additional config files | `{}`                                   |
 
 ### Jenkins Agent(s)

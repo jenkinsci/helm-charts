@@ -309,29 +309,6 @@ master:
     -Dhttps.proxyPort=3128
 ```
 
-### Custom ConfigMap
-
-The following configuration method is deprecated and will be removed in an upcoming version of this chart.
-We recommend you use Jenkins Configuration as Code to configure instead.
-When creating a new parent chart with this chart as a dependency, the `customConfigMap` parameter can be used to override the default `config.xml` provided.
-It also allows for providing additional xml configuration files that will be copied into `/var/jenkins_home`. In the parent chart's values.yaml, set the `jenkins.master.customConfigMap` value to `true` like so:
-
-```yaml
-jenkins:
-  master:
-    customConfigMap: true
-```
-
-and provide the file `templates/config.tpl` in your parent chart for your use case.
-You can start by copying the contents of `config.yaml` from this chart into your parent charts `templates/config.tpl` as a basis for customization.
-Finally, you'll need to wrap the contents of `templates/config.tpl` like so:
-
-```yaml
-{{- define "override_config_map" }}
-    <CONTENTS_HERE>
-{{ end }}
-```
-
 ### HTTPS Keystore Configuration
 
 [This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve https.

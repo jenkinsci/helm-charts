@@ -227,10 +227,6 @@
            {{ fail "`Master.PodAnnotations` does no longer exist. It has been renamed to `master.podAnnotations`" }}
         {{- end }}
 
-        {{- if .Values.Master.CustomConfigMap }}
-           {{ fail "`Master.CustomConfigMap` does no longer exist. It has been renamed to `master.customConfigMap`" }}
-        {{- end }}
-
         {{- if .Values.Master.JenkinsUriPrefix }}
            {{ fail "`Master.JenkinsUriPrefix` does no longer exist. It has been renamed to `master.jenkinsUriPrefix`" }}
         {{- end }}
