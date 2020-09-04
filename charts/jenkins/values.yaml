@@ -88,9 +88,6 @@ master:
 
   # enables configuration done directly via XML files
   enableXmlConfig: false
-  # Allows to configure different SecurityRealm using Jenkins XML
-  securityRealm: |-
-    <securityRealm class="hudson.security.LegacySecurityRealm"/>
   hostNetworking: false
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
@@ -274,10 +271,10 @@ master:
     enabled: true
     defaultConfig: true
     configScripts: {}
-    # Ignored if securityRealm is defined in master.JCasC.configScripts and
-    # ignored if master.enableXmlConfig=true as master.securityRealm takes precedence
+    # Ignored if securityRealm is defined in master.JCasC.configScripts
     securityRealm: |-
       legacy
+    # Ignored if authorizationStrategy is defined in master.JCasC.configScripts
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: false

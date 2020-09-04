@@ -26,7 +26,6 @@ data:
       <numExecutors>{{ .Values.master.numExecutors }}</numExecutors>
       <mode>{{ .Values.master.executorMode }}</mode>
       <useSecurity>{{ .Values.master.useSecurity }}</useSecurity>
-{{ .Values.master.securityRealm | indent 6 }}
       <disableRememberMe>{{ .Values.master.disableRememberMe }}</disableRememberMe>
       <projectNamingStrategy class="jenkins.model.ProjectNamingStrategy$DefaultProjectNamingStrategy"/>
       <workspaceDir>${JENKINS_HOME}/workspace/${ITEM_FULLNAME}</workspaceDir>

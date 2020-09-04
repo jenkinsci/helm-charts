@@ -149,22 +149,6 @@ To make use of the NetworkPolicy resources created by default, install [a networ
 You can use `master.networkPolicy.internalAgents` and `master.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
 
-### Custom Security Realm
-
-`master.securityRealm` in values can be used to support custom security realm instead of default `LegacySecurityRealm`.
-For example, you can add a security realm to authenticate via keycloak:
-
-```yaml
-securityRealm: |-
-  <securityRealm class="org.jenkinsci.plugins.oic.OicSecurityRealm" plugin="oic-auth@1.0">
-    <clientId>testId</clientId>
-    <clientSecret>testsecret</clientSecret>
-    <tokenServerUrl>https:testurl</tokenServerUrl>
-    <authorizationServerUrl>https:testAuthUrl</authorizationServerUrl>
-    <userNameField>email</userNameField>
-    <scopes>openid email</scopes>
-  </securityRealm>
-```
 
 ### Additional Configs
 
