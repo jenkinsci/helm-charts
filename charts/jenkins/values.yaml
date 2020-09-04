@@ -408,8 +408,6 @@ master:
     annotations: {}
     # path: "/jenkins"
 
-  additionalConfig: {}
-
   # master.hostAliases allows for adding entries to Pod /etc/hosts:
   # https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   hostAliases: []

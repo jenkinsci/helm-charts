@@ -150,19 +150,6 @@ You can use `master.networkPolicy.internalAgents` and `master.networkPolicy.exte
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
 
 
-### Additional Configs
-
-`master.additionalConfig` can be used to add additional config files in `config.yaml`.
-For example, it can be used to add additional config files for keycloak authentication:
-
-```yaml
-additionalConfig:
-  testConfig.txt: |-
-    - name: testName
-      clientKey: testKey
-      clientURL: testUrl
-```
-
 ### Custom Labels
 
 `master.serviceLabels` can be used to add custom labels in `jenkins-master-svc.yaml`.

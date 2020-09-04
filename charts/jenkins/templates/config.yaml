@@ -26,19 +26,8 @@ data:
     echo "false" > {{ .Values.master.jenkinsRef }}/secrets/slave-to-master-security-kill-switch;
 {{- if .Values.master.overwriteConfig }}
     echo "overwriting existing configuration"
-  {{- if .Values.master.additionalConfig }}
-  {{- range $key, $val := .Values.master.additionalConfig }}
-    echo "copying additional configuration"
-    cp /var/jenkins_config/{{- $key }} {{ $jenkinsHome }};
-  {{- end }}
-  {{- end }}
 {{- else }}
     echo "copy XML configuration"
-  {{- if .Values.master.additionalConfig }}
-  {{- range $key, $val := .Values.master.additionalConfig }}
-    yes n | cp -i /var/jenkins_config/{{- $key }} {{ $jenkinsHome }};
-  {{- end }}
-  {{- end }}
 {{- end }}
 {{- else }}
 {{- if .Values.master.JCasC.enabled }}
@@ -136,7 +125,4 @@ data:
     {{- end }}
     {{- $addlPlugin | nindent 4 }}
   {{- end }}
-{{- end }}
-{{- if .Values.master.additionalConfig }}
-{{- toYaml .Values.master.additionalConfig | indent 2 }}
 {{- end }}

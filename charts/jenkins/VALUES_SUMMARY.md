@@ -236,11 +236,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `serviceAccountAgent.create`      | Configures if an agent ServiceAccount with this name should be created | `false`         |
 | `serviceAccountAgent.annotations` | Configures annotation for the agent ServiceAccount | `{}`                              |
 
-#### Deprecated
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `master.additionalConfig`         | Deprecated: Add additional config files | `{}`                                   |
-
 ### Jenkins Agent(s)
 | Parameter                  | Description                                     | Default                |
 | -------------------------- | ----------------------------------------------- | ---------------------- |
