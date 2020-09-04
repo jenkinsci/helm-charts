@@ -14,12 +14,6 @@ metadata:
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
 data:
 {{- if .Values.master.enableXmlConfig }}
-  jenkins.model.JenkinsLocationConfiguration.xml: |-
-    <?xml version='1.1' encoding='UTF-8'?>
-    <jenkins.model.JenkinsLocationConfiguration>
-      <adminAddress>{{ default "" .Values.master.jenkinsAdminEmail }}</adminAddress>
-      <jenkinsUrl>{{ template "jenkins.url" . }}</jenkinsUrl>
-    </jenkins.model.JenkinsLocationConfiguration>
   jenkins.CLI.xml: |-
     <?xml version='1.1' encoding='UTF-8'?>
     <jenkins.CLI>
@@ -40,7 +34,6 @@ data:
 {{- if .Values.master.overwriteConfig }}
     echo "overwriting existing configuration"
     cp /var/jenkins_config/jenkins.CLI.xml {{ .Values.master.jenkinsHome }};
-    cp /var/jenkins_config/jenkins.model.JenkinsLocationConfiguration.xml {{ .Values.master.jenkinsHome }};
   {{- if .Values.master.additionalConfig }}
   {{- range $key, $val := .Values.master.additionalConfig }}
     echo "copying additional configuration"
@@ -50,7 +43,6 @@ data:
 {{- else }}
     echo "copy XML configuration"
     yes n | cp -i /var/jenkins_config/jenkins.CLI.xml {{ .Values.master.jenkinsHome }};
-    yes n | cp -i /var/jenkins_config/jenkins.model.JenkinsLocationConfiguration.xml {{ .Values.master.jenkinsHome }};
   {{- if .Values.master.additionalConfig }}
   {{- range $key, $val := .Values.master.additionalConfig }}
     yes n | cp -i /var/jenkins_config/{{- $key }} {{ $jenkinsHome }};
