@@ -128,11 +128,6 @@ spec:
             - mountPath: /var/jenkins_config
               name: jenkins-config
             {{- if .Values.master.enableXmlConfig }}
-            {{- if .Values.master.jobs }}
-            - mountPath: /var/jenkins_jobs
-              name: jenkins-jobs
-              readOnly: true
-            {{- end }}
             {{- end }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
@@ -267,11 +262,6 @@ spec:
               name: jenkins-config
               readOnly: true
             {{- if .Values.master.enableXmlConfig }}
-            {{- if .Values.master.jobs }}
-            - mountPath: /var/jenkins_jobs
-              name: jenkins-jobs
-              readOnly: true
-            {{- end }}
             {{- end }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
@@ -339,11 +329,6 @@ spec:
         configMap:
           name: {{ template "jenkins.fullname" . }}
       {{- if .Values.master.enableXmlConfig }}
-      {{- if .Values.master.jobs }}
-      - name: jenkins-jobs
-        configMap:
-          name: {{ template "jenkins.fullname" . }}-jobs
-      {{- end }}
       {{- end }}
       - name: secrets-dir
         emptyDir: {}

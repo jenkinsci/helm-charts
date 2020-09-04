@@ -62,15 +62,6 @@ data:
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if .Values.master.enableXmlConfig }}
-{{- if .Values.master.jobs }}
-    echo "copy jobs"
-    for job in $(ls /var/jenkins_jobs); do
-      mkdir -p {{ .Values.master.jenkinsHome }}/jobs/$job
-      yes {{ if not .Values.master.overwriteJobs }}n{{ end }} | cp -i /var/jenkins_jobs/$job {{ .Values.master.jenkinsHome }}/jobs/$job/config.xml
-    done
-{{- end }}
-{{- end }}
     echo "finished initialization"
 {{- if .Values.master.initializeOnce }}
     touch {{ .Values.master.jenkinsHome }}/initialization-completed

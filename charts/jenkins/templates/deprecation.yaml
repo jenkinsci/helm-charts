@@ -179,10 +179,6 @@
            {{ fail "`Master.InitScripts` does no longer exist. It has been renamed to `master.initScripts`" }}
         {{- end }}
 
-        {{- if .Values.Master.Jobs }}
-           {{ fail "`Master.Jobs` does no longer exist. It has been renamed to `master.jobs`" }}
-        {{- end }}
-
         {{- if .Values.Master.InstallPlugins }}
            {{ fail "`Master.InstallPlugins` does no longer exist. It has been renamed to `master.installPlugins`" }}
         {{- end }}
