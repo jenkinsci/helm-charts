@@ -45,7 +45,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `master.useSecurity`              | Use basic security                   | `true`                                    |
 | `master.disableRememberMe`        | Disable use of remember me           | `false`                                   |
-| `master.enableRawHtmlMarkupFormatter` | Enable HTML parsing using (see below) | false                                |
+| `master.enableRawHtmlMarkupFormatter` | Enable HTML parsing using        | false                                     |
 | `master.markupFormatter`          | Yaml of the markup formatter to use  | `plainText`                               |
 | `master.disabledAgentProtocols`   | Disabled agent protocols             | `JNLP-connect JNLP2-connect`              |
 | `master.csrf.defaultCrumbIssuer.enabled` | Enable the default CSRF Crumb issuer | `true`                             |
