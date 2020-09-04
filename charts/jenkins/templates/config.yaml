@@ -19,12 +19,10 @@ data:
       exit 0
     fi
 {{- end }}
-{{- if .Values.master.JCasC.enabled }}
     echo "disable Setup Wizard"
     # Prevent Setup Wizard when JCasC is enabled
     echo $JENKINS_VERSION > {{ .Values.master.jenkinsHome }}/jenkins.install.UpgradeWizard.state
     echo $JENKINS_VERSION > {{ .Values.master.jenkinsHome }}/jenkins.install.InstallUtil.lastExecVersion
-{{- end }}
 {{- if .Values.master.overwritePlugins }}
     echo "remove all plugins from shared volume"
     # remove all plugins from shared volume
@@ -45,7 +43,6 @@ data:
     mkdir -p {{ .Values.master.jenkinsHome }}/init.groovy.d/;
     yes n | cp -i /var/jenkins_config/*.groovy {{ .Values.master.jenkinsHome }}/init.groovy.d/;
 {{- end }}
-{{- if .Values.master.JCasC.enabled}}
   {{- if not .Values.master.sidecars.configAutoReload.enabled }}
     echo "copy configuration as code files"
     mkdir -p {{ .Values.master.jenkinsHome }}/casc_configs;
@@ -54,7 +51,6 @@ data:
     cp -v /var/jenkins_config/*.yaml {{ .Values.master.jenkinsHome }}/casc_configs
     {{- end }}
   {{- end }}
-{{- end }}
     echo "finished initialization"
 {{- if .Values.master.initializeOnce }}
     touch {{ .Values.master.jenkinsHome }}/initialization-completed
@@ -63,7 +59,6 @@ data:
   init{{ $key }}.groovy: |-
 {{ $val | indent 4 }}
 {{- end }}
-{{- if .Values.master.JCasC.enabled }}
   {{- if not .Values.master.sidecars.configAutoReload.enabled }}
 # Only add config to this script if we aren't auto-reloading otherwise the pod will restart upon each config change:
 {{- if .Values.master.JCasC.defaultConfig }}
@@ -73,7 +68,6 @@ data:
 {{- range $key, $val := .Values.master.JCasC.configScripts }}
   {{ $key }}.yaml: |-
 {{ tpl $val $| indent 4 }}
-{{- end }}
 {{- end }}
 {{- end }}
   plugins.txt: |-

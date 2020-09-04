@@ -255,7 +255,6 @@ master:
   # become the content of the configuration yaml file.  The first line after this is a JCasC root element, eg jenkins, credentials,
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
-    enabled: true
     defaultConfig: true
     configScripts: {}
     # Ignored if securityRealm is defined in master.JCasC.configScripts
@@ -512,7 +511,6 @@ agent:
   # Keys are only used to give the pod template a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label
   # characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers.
   # For this pod templates configuration to be loaded the following values must be set:
-  # master.JCasC.enabled: true
   # master.JCasC.defaultConfig: true
   # Best reference is https://<jenkins_url>/configuration-as-code/reference#Cloud-kubernetes. The example below creates a python pod template.
   podTemplates: {}

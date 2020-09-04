@@ -18,7 +18,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 #### Jenkins Configuration as Code (JCasC)
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `master.JCasC.enabled`            | Whether Jenkins Configuration as Code is enabled or not | `true`                  |
 | `master.JCasC.defaultConfig`      | Enables default Jenkins configuration via configuration as code plugin | `true`  |
 | `master.JCasC.configScripts`      | List of Jenkins Config as Code scripts | `{}`                                    |
 | `master.JCasC.securityRealm`      | Jenkins Config as Code for Security Realm | `legacy`                             |

@@ -110,8 +110,6 @@ If you want to enable auto-reload then you also need to configure rbac as the co
 
 ```yaml
 master:
-  JCasC:
-    enabled: true
   sidecars:
     configAutoReload:
       enabled: true
@@ -206,7 +204,6 @@ There's no need to add the *jnlp* container since the kubernetes plugin will aut
 For this pod templates configuration to be loaded the following values must be set:
 
 ```yaml
-master.JCasC.enabled: true
 master.JCasC.defaultConfig: true
 ```
 

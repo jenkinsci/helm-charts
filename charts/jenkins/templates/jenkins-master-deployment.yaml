@@ -193,10 +193,8 @@ spec:
             {{- if .Values.master.containerEnv }}
 {{ toYaml .Values.master.containerEnv | indent 12 }}
             {{- end }}
-            {{- if .Values.master.JCasC.enabled }}
             - name: CASC_JENKINS_CONFIG
               value: {{ .Values.master.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.master.jenkinsRef)) }}
-            {{- end }}
           ports:
             {{- if .Values.master.httpsKeyStore.enable }}
             - containerPort: {{.Values.master.httpsKeyStore.httpPort}}
@@ -262,12 +260,12 @@ spec:
               name: plugin-dir
               readOnly: false
             {{- end }}
-            {{- if and (.Values.master.JCasC.enabled) (.Values.master.sidecars.configAutoReload.enabled) }}
+            {{- if .Values.master.sidecars.configAutoReload.enabled }}
             - name: sc-config-volume
               mountPath: {{ .Values.master.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.master.jenkinsRef)) }}
             {{- end }}
 
-{{- if and (.Values.master.JCasC.enabled) (.Values.master.sidecars.configAutoReload.enabled) }}
+{{- if .Values.master.sidecars.configAutoReload.enabled }}
         - name: jenkins-sc-config
           image: "{{ .Values.master.sidecars.configAutoReload.image }}"
           imagePullPolicy: {{ .Values.master.sidecars.configAutoReload.imagePullPolicy }}
@@ -331,11 +329,9 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end -}}
-      {{- end -}}
-      {{- if .Values.master.JCasC.enabled }}
+      {{- end }}
       - name: sc-config-volume
         emptyDir: {}
-      {{- end }}
 
       {{- if .Values.master.httpsKeyStore.enable }}
       - name: jenkins-https-keystore
