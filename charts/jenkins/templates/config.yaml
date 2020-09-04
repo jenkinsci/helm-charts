@@ -79,10 +79,6 @@ data:
     done
 {{- end }}
 {{- end }}
-{{- if .Values.master.secretsFilesSecret }}
-    echo "copy secrets"
-    yes n | cp -i /var/jenkins_secrets/* {{ .Values.master.jenkinsRef }}/secrets/;
-{{- end }}
     echo "finished initialization"
 {{- if .Values.master.initializeOnce }}
     touch {{ .Values.master.jenkinsHome }}/initialization-completed

@@ -136,11 +136,6 @@ spec:
             {{- end }}
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
-            {{- if .Values.master.secretsFilesSecret }}
-            - mountPath: /var/jenkins_secrets
-              name: jenkins-secrets
-              readOnly: true
-            {{- end }}
             {{- if .Values.master.installPlugins }}
             {{- if .Values.master.overwritePluginsFromImage }}
             - mountPath: {{ .Values.master.jenkinsRef }}/plugins
@@ -281,11 +276,6 @@ spec:
             - mountPath: {{ .Values.master.jenkinsRef }}/secrets/
               name: secrets-dir
               readOnly: false
-            {{- if or .Values.master.secretsFilesSecret }}
-            - mountPath: /var/jenkins_secrets
-              name: jenkins-secrets
-              readOnly: true
-            {{- end }}
             {{- if .Values.master.installPlugins }}
             - mountPath: {{ .Values.master.jenkinsRef }}/plugins/
               name: plugin-dir
@@ -357,11 +347,6 @@ spec:
       {{- end }}
       - name: secrets-dir
         emptyDir: {}
-      {{- if .Values.master.secretsFilesSecret }}
-      - name: jenkins-secrets
-        secret:
-          secretName: {{ .Values.master.secretsFilesSecret }}
-      {{- end }}
       {{- if .Values.master.installPlugins }}
       - name: plugin-dir
         emptyDir: {}
