@@ -24,11 +24,6 @@ data:
 {{- if .Values.master.enableXmlConfig }}
     echo "apply XML configuration"
     echo "false" > {{ .Values.master.jenkinsRef }}/secrets/slave-to-master-security-kill-switch;
-{{- if .Values.master.overwriteConfig }}
-    echo "overwriting existing configuration"
-{{- else }}
-    echo "copy XML configuration"
-{{- end }}
 {{- else }}
 {{- if .Values.master.JCasC.enabled }}
     echo "disable Setup Wizard"
@@ -55,9 +50,6 @@ data:
 {{- if .Values.master.initScripts }}
     echo "copy init scripts"
     mkdir -p {{ .Values.master.jenkinsHome }}/init.groovy.d/;
-    {{- if .Values.master.overwriteConfig }}
-    rm -f {{ .Values.master.jenkinsHome }}/init.groovy.d/*.groovy
-    {{- end }}
     yes n | cp -i /var/jenkins_config/*.groovy {{ .Values.master.jenkinsHome }}/init.groovy.d/;
 {{- end }}
 {{- if .Values.master.JCasC.enabled}}

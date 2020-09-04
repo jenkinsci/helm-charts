@@ -346,12 +346,6 @@ master:
   # Add deployment annotation
   deploymentAnnotations: {}
 
-  # By default, the configMap is only used to set the initial config the first time
-  # that the chart is installed.  Setting `overwriteConfig` to `true` will overwrite
-  # the jenkins config with the contents of the configMap every time the pod starts.
-  # This will also overwrite all init scripts
-  overwriteConfig: false
-
   # By default, the Jobs Map is only used to set the initial jobs the first time
   # that the chart is installed.  Setting `overwriteJobs` to `true` will overwrite
   # the jenkins jobs configuration with the contents of Jobs every time the pod starts.

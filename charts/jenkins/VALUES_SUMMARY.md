@@ -34,7 +34,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `master.initScripts`              | List of Jenkins init scripts         | `[]`                                      |
-| `master.overwriteConfig`          | Replace init scripts and config w/ ConfigMap on boot  | `false`                  |
 | `master.jobs`                     | Jenkins XML job configs              | `{}`                                      |
 | `master.overwriteJobs`            | Replace jobs w/ ConfigMap on boot    | `false`                                   |
 
