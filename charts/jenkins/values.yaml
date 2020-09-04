@@ -86,8 +86,6 @@ master:
   # configAutoReload requires UseSecurity is set to true:
   useSecurity: true
 
-  # enables configuration done directly via XML files
-  enableXmlConfig: false
   hostNetworking: false
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,

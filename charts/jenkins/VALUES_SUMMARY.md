@@ -13,7 +13,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `fullnameOverride`                | Override the full resource names     | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
 | `namespaceOverride`               | Override the deployment namespace    | Not set (`Release.Namespace`)             |
 | `master.componentName`            | Jenkins master name                  | `jenkins-master`                          |
-| `master.enableXmlConfig`          | enables configuration done via XML files | `false`                               |
 | `master.testEnabled`              | Can be used to disable rendering test resources when using helm template | `true`                         |
 
 #### Jenkins Configuration as Code (JCasC)

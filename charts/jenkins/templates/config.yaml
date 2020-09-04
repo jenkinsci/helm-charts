@@ -21,16 +21,11 @@ data:
 {{- end }}
     echo "applying Jenkins configuration"
     mkdir -p {{ .Values.master.jenkinsRef }}/secrets/;
-{{- if .Values.master.enableXmlConfig }}
-    echo "apply XML configuration"
-    echo "false" > {{ .Values.master.jenkinsRef }}/secrets/slave-to-master-security-kill-switch;
-{{- else }}
 {{- if .Values.master.JCasC.enabled }}
     echo "disable Setup Wizard"
     # Prevent Setup Wizard when JCasC is enabled
     echo $JENKINS_VERSION > {{ .Values.master.jenkinsHome }}/jenkins.install.UpgradeWizard.state
     echo $JENKINS_VERSION > {{ .Values.master.jenkinsHome }}/jenkins.install.InstallUtil.lastExecVersion
-{{- end }}
 {{- end }}
 {{- if .Values.master.overwritePlugins }}
     echo "remove all plugins from shared volume"
