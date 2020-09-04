@@ -71,10 +71,6 @@ data:
   {{- end }}
 {{- end }}
 {{- if .Values.master.enableXmlConfig }}
-{{- if .Values.master.credentialsXmlSecret }}
-    echo "copy credentials.xml"
-    yes n | cp -i /var/jenkins_credentials/credentials.xml {{ .Values.master.jenkinsHome }};
-{{- end }}
 {{- if .Values.master.jobs }}
     echo "copy jobs"
     for job in $(ls /var/jenkins_jobs); do

@@ -128,11 +128,6 @@ spec:
             - mountPath: /var/jenkins_config
               name: jenkins-config
             {{- if .Values.master.enableXmlConfig }}
-            {{- if .Values.master.credentialsXmlSecret }}
-            - mountPath: /var/jenkins_credentials
-              name: jenkins-credentials
-              readOnly: true
-            {{- end }}
             {{- if .Values.master.jobs }}
             - mountPath: /var/jenkins_jobs
               name: jenkins-jobs
@@ -277,11 +272,6 @@ spec:
               name: jenkins-config
               readOnly: true
             {{- if .Values.master.enableXmlConfig }}
-            {{- if .Values.master.credentialsXmlSecret }}
-            - mountPath: /var/jenkins_credentials
-              name: jenkins-credentials
-              readOnly: true
-            {{- end }}
             {{- if .Values.master.jobs }}
             - mountPath: /var/jenkins_jobs
               name: jenkins-jobs
@@ -359,11 +349,6 @@ spec:
         configMap:
           name: {{ template "jenkins.fullname" . }}
       {{- if .Values.master.enableXmlConfig }}
-      {{- if .Values.master.credentialsXmlSecret }}
-      - name: jenkins-credentials
-        secret:
-          secretName: {{ .Values.master.credentialsXmlSecret }}
-      {{- end }}
       {{- if .Values.master.jobs }}
       - name: jenkins-jobs
         configMap:

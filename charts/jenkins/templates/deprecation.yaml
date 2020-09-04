@@ -183,16 +183,8 @@
            {{ fail "`Master.InitScripts` does no longer exist. It has been renamed to `master.initScripts`" }}
         {{- end }}
 
-        {{- if .Values.Master.CredentialsXmlSecret }}
-           {{ fail "`Master.CredentialsXmlSecret` does no longer exist. It has been renamed to `master.credentialsXmlSecret`" }}
-        {{- end }}
-
         {{- if .Values.Master.SecretsFilesSecret }}
            {{ fail "`Master.SecretsFilesSecret` does no longer exist. It has been renamed to `master.secretsFilesSecret`" }}
-        {{- end }}
-
-        {{- if .Values.Master.CredentialsXmlSecret }}
-           {{ fail "`Master.CredentialsXmlSecret` does no longer exist. It has been renamed to `master.credentialsXmlSecret`" }}
         {{- end }}
 
         {{- if .Values.Master.Jobs }}
