@@ -13,12 +13,6 @@ metadata:
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
 data:
-{{- if .Values.master.enableXmlConfig }}
-  jenkins.CLI.xml: |-
-    <?xml version='1.1' encoding='UTF-8'?>
-    <jenkins.CLI>
-    </jenkins.CLI>
-{{- end }}
   apply_config.sh: |-
 {{- if .Values.master.initializeOnce }}
     if [ -f {{ .Values.master.jenkinsHome }}/initialization-completed ]; then
@@ -33,7 +27,6 @@ data:
     echo "false" > {{ .Values.master.jenkinsRef }}/secrets/slave-to-master-security-kill-switch;
 {{- if .Values.master.overwriteConfig }}
     echo "overwriting existing configuration"
-    cp /var/jenkins_config/jenkins.CLI.xml {{ .Values.master.jenkinsHome }};
   {{- if .Values.master.additionalConfig }}
   {{- range $key, $val := .Values.master.additionalConfig }}
     echo "copying additional configuration"
@@ -42,7 +35,6 @@ data:
   {{- end }}
 {{- else }}
     echo "copy XML configuration"
-    yes n | cp -i /var/jenkins_config/jenkins.CLI.xml {{ .Values.master.jenkinsHome }};
   {{- if .Values.master.additionalConfig }}
   {{- range $key, $val := .Values.master.additionalConfig }}
     yes n | cp -i /var/jenkins_config/{{- $key }} {{ $jenkinsHome }};
