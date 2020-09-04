@@ -172,7 +172,6 @@ master:
     defaultCrumbIssuer:
       enabled: true
       proxyCompatability: true
-  cli: false
   # Kubernetes service type for the JNLP agent service
   # slaveListenerServiceType is the Kubernetes Service type for the JNLP agent service,
   # either 'LoadBalancer', 'NodePort', or 'ClusterIP'

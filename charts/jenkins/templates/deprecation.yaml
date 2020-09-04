@@ -147,10 +147,6 @@
             {{- end }}
         {{- end }}
 
-        {{- if .Values.Master.CLI }}
-           {{ fail "`Master.CLI` does no longer exist. It has been renamed to `master.cli`" }}
-        {{- end }}
-
         {{- if .Values.Master.LoadBalancerSourceRanges }}
            {{ fail "`Master.LoadBalancerSourceRanges` does no longer exist. It has been renamed to `master.loadBalancerSourceRanges`" }}
         {{- end }}

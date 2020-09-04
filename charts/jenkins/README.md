@@ -210,63 +210,6 @@ The best way to do it would be using a `Job` to copy files from the desired back
 See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/examples/in-cluster) for more details.
 
 
-### Providing Jobs XML
-
-Jobs can be created (and overwritten) by providing jenkins config xml within the `values.yaml` file.
-The keys of the map will become a directory within the jobs directory.
-The values of the map will become the `config.xml` file in the respective directory.
-
-Below is an example of a `values.yaml` file and the directory structure created:
-
-```yaml
-master:
-  jobs:
-    test-job: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
-        <keepDependencies>false</keepDependencies>
-        <properties/>
-        <scm class="hudson.scm.NullSCM"/>
-        <canRoam>false</canRoam>
-        <disabled>false</disabled>
-        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-        <triggers/>
-        <concurrentBuild>false</concurrentBuild>
-        <builders/>
-        <publishers/>
-        <buildWrappers/>
-      </project>
-    test-job-2: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
-        <keepDependencies>false</keepDependencies>
-        <properties/>
-        <scm class="hudson.scm.NullSCM"/>
-        <canRoam>false</canRoam>
-        <disabled>false</disabled>
-        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-        <triggers/>
-        <concurrentBuild>false</concurrentBuild>
-        <builders/>
-        <publishers/>
-        <buildWrappers/>
-```
-
-#### Jobs Directory Structure
-
-```console
-.
-├── _test-job-1
-|   └── config.xml
-├── _test-job-2
-|   └── config.xml
-```
-
-Docs taken from <https://github.com/jenkinsci/docker/blob/master/Dockerfile>:
-_Jenkins is run with user `jenkins`, uid = 1000. If you bind mount a volume from the host or a data container,ensure you use the same uid_
-
 ### Adding Custom Pod Templates
 
 It is possible to add custom pod templates for the default configured kubernetes cloud.

@@ -50,7 +50,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.disabledAgentProtocols`   | Disabled agent protocols             | `JNLP-connect JNLP2-connect`              |
 | `master.csrf.defaultCrumbIssuer.enabled` | Enable the default CSRF Crumb issuer | `true`                             |
 | `master.csrf.defaultCrumbIssuer.proxyCompatability` | Enable proxy compatibility | `true`                            |
-| `master.cli`                      | Enable CLI over remoting             | `false`                                   |
 
 #### Jenkins Global Settings
 | Parameter                         | Description                          | Default                                   |
