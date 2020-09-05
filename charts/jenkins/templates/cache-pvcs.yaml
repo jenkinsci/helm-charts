@@ -5,12 +5,13 @@
     {{- $_ := set $.Values "agentList" (append $.Values.agentList (merge $additionalAgent $.Values.agent)) }}
 {{- end }}
 {{- range $agent := .Values.agentList }}
-{{- if $agent.cache.persistence.enabled }}
+{{- if $agent.cache.pvc.create }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ tpl ($agent.cache.persistence.componentName | required "cache persistence componentName is required") $ }}
+  name: {{ tpl ($agent.cache.pvc.componentName | required "cache pvc componentName is required") $ }}
+  namespace: {{ template "jenkins.master.slaveKubernetesNamespace" $ }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
     "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
@@ -22,8 +23,8 @@ spec:
     - "ReadWriteMany"
   resources:
     requests:
-      storage: {{ $agent.cache.persistence.size | required "size is required" }}
-  storageClassName: {{ $agent.cache.persistence.storageClass | default "" }}
+      storage: {{ $agent.cache.pvc.size | required "size is required" }}
+  storageClassName: {{ $agent.cache.pvc.storageClass | default "" }}
 {{- end }}
 {{- end }}
 {{- $_ := unset .Values "agentList" }}

@@ -418,23 +418,29 @@ $ helm install my-release -f values.yaml stable/jenkins
 
 #### Defining Caches for your agent pods
 
-Its possible to define a set of cache volumes that can be mounted by agent pods for storing libraries and other artifacts for build. The volume defined, under `persistence`, will be created as a new `PVC` by the chart. The volume has to be mounted under the `volumes` section. Along with the cache, a `CronJob` can be defined under the `clear` section to perform cache activies, including clearing old libraries, on a periodic basis. The `CronJob` is required both to prevent unused libraries from accumulating over time and to avoid security issues.
+Its possible to define a set of cache volumes that can be mounted by agent pods for storing libraries and other artifacts for build.
+- The volume defined, under `pvc`, will be created by the chart.
+- The volume has to be mounted under the `volumes` section.
+- Along with the cache, a `CronJob` can be defined under the `clearJob` section to perform cache activities, including clearing old libraries, on a periodic basis.
+- The `CronJob` is required both to prevent unused libraries from accumulating over time and to avoid security issues.
 
-> **Tip**: Ensure a PVC and CronJob with a given `componentName` is defined only once
+> **Tip**: For jobs that are running frequently during the day it may be easier just to configure `idleMinutes` which keeps the agent container running between jobs
+
+> **Note**: Ensure a PVC and CronJob with a given `componentName` is created only once, else template rendering will fail with a `"<componentName>" already exists` error
 
 The cache is defined in the format below:
 
 ```
     cache:
       # create PVC
-      persistence:
-        enabled: true
+      pvc:
+        create: true
         componentName: "{{ .Release.Name }}-maven-cache"
         storageClass:
         size: "8Gi"
       # create CronJob (which mounts all agent volumes)
-      clear:
-        enabled: true
+      clearJob:
+        create: true
         componentName: "{{ .Release.Name }}-clear-maven-cache"
         claimName: "{{ .Release.Name }}-maven-cache"
         mountPath: "/home/jenkins/agent/.m2/repository"

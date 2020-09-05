@@ -484,15 +484,15 @@ agent:
   # and storageClass, if defined. This PVC can be mounted for use  in the volumes section.
   cache:
     # create PVC
-    persistence:
-      enabled: false
+    pvc:
+      create: false
       componentName: "{{ .Release.Name }}-cache"
       storageClass:
       size: "4Gi"
     # storageClass:
     # create CronJob (mounts an agent volume)
-    clear:
-      enabled: false
+    clearJob:
+      create: false
       componentName: "{{ .Release.Name }}-clear-cache"
       claimName: "{{ .Release.Name }}-cache"
       mountPath: "/tmp/cache"

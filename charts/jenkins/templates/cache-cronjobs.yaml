@@ -1,16 +1,27 @@
-{{- /* create list of agents */}}
-{{- $_ := set .Values "agentList" (list .Values.agent) }}
+{{- /* create map of agents by clearJob.componentName */}}
+{{- if .Values.agent.cache.clearJob.create }}
+  {{- $_ := set .Values "agentMap" (dict .Values.agent.cache.clearJob.componentName .Values.agent) }}
+{{- else }}
+  {{- $_ := set .Values "agentMap" (dict) }}
+{{- end }}
 {{- range $name, $additionalAgent := .Values.additionalAgents }}
     {{- /* merge .Values.agent into additional agent to ensure it at least has the default values */}}
-    {{- $_ := set $.Values "agentList" (append $.Values.agentList (merge $additionalAgent $.Values.agent)) }}
+    {{- $mergedAgent := (merge $additionalAgent $.Values.agent) }}
+    {{- if $mergedAgent.cache.clearJob.create }}
+      {{- if get $.Values.agentMap $mergedAgent.cache.clearJob.componentName }}
+        {{- fail "Cannot create more than one clearJob with a given componentName" }}
+      {{- else }}
+        {{- $_ := set $.Values.agentMap $mergedAgent.cache.clearJob.componentName $mergedAgent }}
+      {{- end }}
+    {{- end }}
 {{- end }}
-{{- range $agent := .Values.agentList }}
-{{- if $agent.cache.clear.enabled }}
+{{- range $_, $agent := .Values.agentMap }}
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ tpl ($agent.cache.clear.componentName | required "cache clear componentName is required") $ }}
+  name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clearJob componentName is required") $ }}
+  namespace: {{ template "jenkins.master.slaveKubernetesNamespace" $ }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
     "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
@@ -21,7 +32,7 @@ spec:
   concurrencyPolicy : "Forbid"
   failedJobsHistoryLimit : 5
   successfulJobsHistoryLimit: 5
-  schedule: "{{ $agent.cache.clear.schedule }}"
+  schedule: "{{ $agent.cache.clearJob.schedule }}"
   jobTemplate:
     spec:
       backoffLimit: 6
@@ -37,12 +48,12 @@ spec:
           volumes:
           - name: cache-volume
             persistentVolumeClaim:
-              claimName: {{ tpl ($agent.cache.clear.claimName | required "cache clear.claimName is required") $ }}
+              claimName: {{ tpl ($agent.cache.clearJob.claimName | required "cache clear.claimName is required") $ }}
           containers:
-          - name: {{ tpl ($agent.cache.clear.componentName | required "cache clear componentName is required") $ }}
-            image: "docker-registry.default.svc:5000/{{ $agent.cache.clear.image }}:{{ $agent.cache.clear.tag }}"
+          - name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clear componentName is required") $ }}
+            image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
             volumeMounts:
-            - mountPath: {{ tpl ($agent.cache.clear.mountPath | required "cache mountPath is required") $ }}
+            - mountPath: {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
               name: cache-volume
             resources:
               limits:
@@ -55,9 +66,8 @@ spec:
             - /bin/sh
             - -c
             - |
-              cd {{ tpl ($agent.cache.clear.mountPath | required "cache mountPath is required") $ }}
-              {{- tpl $agent.cache.clear.command $ | nindent 14 }}
+              cd {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
+              {{- tpl $agent.cache.clearJob.command $ | nindent 14 }}
           restartPolicy: OnFailure
-{{- end }}
 {{- end }}
 {{- $_ := unset .Values "agentList" }}
