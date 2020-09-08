@@ -1,21 +1,14 @@
-{{- /* create map of agents by clearJob.componentName */}}
-{{- if .Values.agent.cache.clearJob.create }}
-  {{- $_ := set .Values "agentMap" (dict .Values.agent.cache.clearJob.componentName .Values.agent) }}
-{{- else }}
-  {{- $_ := set .Values "agentMap" (dict) }}
-{{- end }}
+{{- /* create agent map */}}
+{{- /* merge .Values.agent into additional agent(s) to propogate values except cache.clearJob.create */}}
+{{- $_ := set .Values "agentMap" (dict "agent" .Values.agent) }}
+{{- $agentCopy := deepCopy .Values.agentMap.agent }}
+{{- $_ := set $agentCopy.cache.clearJob "create" false }}
 {{- range $name, $additionalAgent := .Values.additionalAgents }}
-    {{- /* merge .Values.agent into additional agent to ensure it at least has the default values */}}
-    {{- $mergedAgent := (merge $additionalAgent $.Values.agent) }}
-    {{- if $mergedAgent.cache.clearJob.create }}
-      {{- if get $.Values.agentMap $mergedAgent.cache.clearJob.componentName }}
-        {{- fail "Cannot create more than one clearJob with a given componentName" }}
-      {{- else }}
-        {{- $_ := set $.Values.agentMap $mergedAgent.cache.clearJob.componentName $mergedAgent }}
-      {{- end }}
-    {{- end }}
+    {{- /* use mergeOverwrite - see helm issue 7313 */}}
+    {{- $_ := set $.Values.agentMap $name (mergeOverwrite (deepCopy $agentCopy) $additionalAgent) }}
 {{- end }}
-{{- range $_, $agent := .Values.agentMap }}
+{{- range $name, $agent := .Values.agentMap }}
+{{- if and $agent.cache.clearJob.create $agent.cache.volume }}
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
@@ -67,4 +60,5 @@ spec:
               args: {{ toYaml $agent.cache.clearJob.args | nindent 16 }}
           restartPolicy: OnFailure
 {{- end }}
-{{- $_ := unset .Values "agentList" }}
+{{- end }}
+{{- $_ := unset .Values "agentMap" }}
