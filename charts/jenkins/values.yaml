@@ -305,7 +305,7 @@ master:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:0.1.144
+      image: kiwigrid/k8s-sidecar:0.1.193
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
