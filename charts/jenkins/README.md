@@ -478,6 +478,11 @@ master:
       enabled: true       # was false
 ```
 
+## Prometheus Metrics
+If you have implemented Prometheus Operator, set `master.prometheus.enabled` to `true` to enable Prometheus metrics.  
+If you have implemented Prometheus without using the operator, you can add just the `/prometheus` metrics endpoint by 
+installing the Jenkins Prometheus Metrics Plugin and leave `master.prometheus.enabled` set to `false`.
+
 #### Migration steps
 
 Migration instructions heavily depend on your current setup.
