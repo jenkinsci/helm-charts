@@ -62,12 +62,9 @@ spec:
                 requests:
                   cpu: 500m
                   memory: 512Mi
-              command:
-              - /bin/sh
-              - -c
-              - |
-                cd {{ $agent.cache.volume.mountPath }}
-                {{- tpl $agent.cache.clearJob.command $ | nindent 14 }}
+              workingDir: {{ $agent.cache.volume.mountPath }}
+              command: {{ toYaml $agent.cache.clearJob.command | nindent 16 }}
+              args: {{ toYaml $agent.cache.clearJob.args | nindent 16 }}
           restartPolicy: OnFailure
 {{- end }}
 {{- $_ := unset .Values "agentList" }}

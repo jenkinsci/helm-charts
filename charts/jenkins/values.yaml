@@ -500,7 +500,9 @@ agent:
       schedule: "0 0 * * SUN"
       image: "maorfr/kube-tasks"
       tag: "0.2.0"
-      command: "kube-tasks execute --command 'rm -rf'"
+      workingDir: "/var/cache"
+      command: ["kube-tasks"]
+      args: ["execute", "--command", "rm -rf *"]
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
