@@ -46,28 +46,28 @@ spec:
             "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
         spec:
           volumes:
-          - name: cache-volume
-            persistentVolumeClaim:
-              claimName: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.clearJob.claimName }}
+            - name: cache-volume
+              persistentVolumeClaim:
+                claimName: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.volume.pvcComponentName }}
           containers:
-          - name: clear-cache
-            image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
-            volumeMounts:
-            - mountPath: {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
-              name: cache-volume
-            resources:
-              limits:
-                cpu: 500m
-                memory: 512Mi
-              requests:
-                cpu: 500m
-                memory: 512Mi
-            command:
-            - /bin/sh
-            - -c
-            - |
-              cd {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
-              {{- tpl $agent.cache.clearJob.command $ | nindent 14 }}
+            - name: clear-cache
+              image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
+              volumeMounts:
+                - name: cache-volume
+                  mountPath: {{ $agent.cache.volume.mountPath }}
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+              command:
+              - /bin/sh
+              - -c
+              - |
+                cd {{ $agent.cache.volume.mountPath }}
+                {{- tpl $agent.cache.clearJob.command $ | nindent 14 }}
           restartPolicy: OnFailure
 {{- end }}
 {{- $_ := unset .Values "agentList" }}

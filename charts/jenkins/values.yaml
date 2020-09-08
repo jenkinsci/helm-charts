@@ -491,11 +491,12 @@ agent:
       size: "4Gi"
     # storageClass:
     # create CronJob (mounts an agent volume)
+    volume:
+      pvcComponentName: "agent-cache"
+      mountPath: "/var/cache"
     clearJob:
       create: false
       componentName: "clear-agent-cache"
-      claimName: "agent-cache"
-      mountPath: "/tmp/cache"
       schedule: "0 0 * * SUN"
       image: "maorfr/kube-tasks"
       tag: "0.2.0"

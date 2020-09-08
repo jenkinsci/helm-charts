@@ -242,6 +242,11 @@ Returns kubernetes pod template configuration as code
       {{- end }}
     {{- end }}
   {{- end }}
+  {{- if .Values.agent.cache.volume }}
+    - persistentVolumeClaim:
+        claimName: {{ .Release.Name }}-{{ .Values.agent.cache.volume.pvcComponentName }}
+        mountPath: {{ .Values.agent.cache.volume.mountPath }}
+  {{- end }}
 {{- end }}
 {{- if .Values.agent.yamlTemplate }}
   yaml: |-
