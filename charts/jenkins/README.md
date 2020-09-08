@@ -20,9 +20,6 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 ```console
 # Helm 3
 $ helm install [RELEASE_NAME] jenkinsci/jenkins [flags]
-
-# Helm 2
-$ helm install --name [RELEASE_NAME] jenkinsci/jenkins [flags]
 ```
 
 _See [configuration](#configuration) below._
@@ -34,9 +31,6 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 ```console
 # Helm 3
 $ helm uninstall [RELEASE_NAME]
-
-# Helm 2
-# helm delete --purge [RELEASE_NAME]
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
@@ -46,7 +40,7 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 ## Upgrade Chart
 
 ```console
-# Helm 3 or 2
+# Helm 3
 $ helm upgrade [RELEASE_NAME] jenkinsci/jenkins [flags]
 ```
 
@@ -325,6 +319,8 @@ Upgrade an existing release from `stable/jenkins` to `jenkinsci/jenkins` seamles
 Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
 
 ### To 3.0.0
+
+Starting from this version we require Helm 3.
 
 All values which used XML to configure settings have been removed.
 You need to use JCasC to configure settings instead.
