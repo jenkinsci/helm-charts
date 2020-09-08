@@ -51,7 +51,7 @@ please put the output of it here
 
 **How to reproduce it** (as minimally and precisely as possible):
 
-<~--
+<!--
 This could be something like:
 
 values.yaml (only put values which differ from the defaults)
