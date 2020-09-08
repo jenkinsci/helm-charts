@@ -10,6 +10,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 3.0.0
+
+Remove all XML configuration options
+
+
 ## 2.6.3
 
 Update k8s-sidecar image to 0.1.193
