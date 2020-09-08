@@ -10,6 +10,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.6.4
+
+Add timja as a maintainer
+
+## 2.6.3
+
+Update k8s-sidecar image to 0.1.193
+
 ## 2.6.2
 
 Only mount empty dir secrets-dir if either `master.enableXmlConfig` or `master.secretsFilesSecret` is set
@@ -1635,4 +1643,4 @@ commit: c7d1bff05
 ## 0.1.0
 
 Move first batch of PVC charts to stable
-commit: d745f4879
+COMMIt: d745f4879
