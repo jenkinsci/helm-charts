@@ -486,15 +486,15 @@ agent:
     # create PVC
     pvc:
       create: false
-      componentName: "{{ .Release.Name }}-cache"
+      componentName: "agent-cache"
       storageClass:
       size: "4Gi"
     # storageClass:
     # create CronJob (mounts an agent volume)
     clearJob:
       create: false
-      componentName: "{{ .Release.Name }}-clear-cache"
-      claimName: "{{ .Release.Name }}-cache"
+      componentName: "clear-agent-cache"
+      claimName: "agent-cache"
       mountPath: "/tmp/cache"
       schedule: "0 0 * * SUN"
       image: "maorfr/kube-tasks"

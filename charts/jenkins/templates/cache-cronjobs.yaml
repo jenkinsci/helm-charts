@@ -20,14 +20,14 @@
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clearJob componentName is required") $ }}
+  name: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.clearJob.componentName }}
   namespace: {{ template "jenkins.master.slaveKubernetesNamespace" $ }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
     "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
     "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-    "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
 spec:
   concurrencyPolicy : "Forbid"
   failedJobsHistoryLimit : 5
@@ -43,14 +43,14 @@ spec:
             "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
             "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
             "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-            "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+            "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
         spec:
           volumes:
           - name: cache-volume
             persistentVolumeClaim:
-              claimName: {{ tpl ($agent.cache.clearJob.claimName | required "cache clear.claimName is required") $ }}
+              claimName: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.clearJob.claimName }}
           containers:
-          - name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clear componentName is required") $ }}
+          - name: clear-cache
             image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
             volumeMounts:
             - mountPath: {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
