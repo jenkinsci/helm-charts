@@ -12,7 +12,8 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 ## 3.0.0
 
-Remove all XML configuration options
+- Remove all XML configuration options
+- This chart now requires Helm 3
 
 
 ## 2.6.3

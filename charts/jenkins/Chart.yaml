@@ -1,4 +1,4 @@
-apiVersion: v1
+apiVersion: v2
 name: jenkins
 home: https://jenkins.io/
 version: 3.0.0
