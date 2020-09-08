@@ -25,7 +25,8 @@ spec:
   concurrencyPolicy : "Forbid"
   failedJobsHistoryLimit : 5
   successfulJobsHistoryLimit: 5
-  schedule: "{{ $agent.cache.clearJob.schedule }}"
+  schedule: {{ $agent.cache.clearJob.schedule | quote }}
+  startingDeadlineSeconds: 120
   jobTemplate:
     spec:
       backoffLimit: 6
@@ -38,6 +39,7 @@ spec:
             "app.kubernetes.io/instance": "{{ $.Release.Name }}"
             "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
         spec:
+          restartPolicy: OnFailure
           volumes:
             - name: cache-volume
               persistentVolumeClaim:
@@ -58,7 +60,6 @@ spec:
               workingDir: {{ $agent.cache.volume.mountPath }}
               command: {{ toYaml $agent.cache.clearJob.command | nindent 16 }}
               args: {{ toYaml $agent.cache.clearJob.args | nindent 16 }}
-          restartPolicy: OnFailure
 {{- end }}
 {{- end }}
 {{- $_ := unset .Values "agentMap" }}

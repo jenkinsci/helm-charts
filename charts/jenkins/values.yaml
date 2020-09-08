@@ -483,18 +483,17 @@ agent:
   # create a cache for this agent, the chart will create a PVC as per componentName
   # and storageClass, if defined. This PVC can be mounted for use  in the volumes section.
   cache:
-    # create PVC
     pvc:
+      # create PVC to host the cache
       create: false
       componentName: "agent-cache"
       storageClass:
       size: "4Gi"
-    # storageClass:
-    # create CronJob (mounts an agent volume)
     volume:
       pvcComponentName: "agent-cache"
       mountPath: "/var/cache"
     clearJob:
+      # create CronJob to clear the cache
       create: false
       componentName: "clear-agent-cache"
       schedule: "0 0 * * SUN"
