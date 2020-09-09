@@ -1,30 +1,33 @@
-{{- /* create list of agents */}}
-{{- $_ := set .Values "agentList" (list .Values.agent) }}
+{{- /* create agent map */}}
+{{- /* merge .Values.agent into additional agent(s) to propogate values except cache.pvc.create */}}
+{{- $_ := set .Values "agentMap" (dict "agent" .Values.agent) }}
+{{- $agentCopy := deepCopy .Values.agentMap.agent }}
+{{- $_ := set $agentCopy.cache.pvc "create" false }}
 {{- range $name, $additionalAgent := .Values.additionalAgents }}
-    {{- /* merge .Values.agent into additional agent to ensure it at least has the default values */}}
-    {{- $_ := set $.Values "agentList" (append $.Values.agentList (merge $additionalAgent $.Values.agent)) }}
+    {{- /* use mergeOverwrite - see helm issue 7313 */}}
+    {{- $_ := set $.Values.agentMap $name (mergeOverwrite (deepCopy $agentCopy) $additionalAgent) }}
 {{- end }}
-{{- range $agent := .Values.agentList }}
+{{- range $name, $agent := .Values.agentMap }}
 {{- if $agent.cache.pvc.create }}
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ tpl ($agent.cache.pvc.componentName | required "cache pvc componentName is required") $ }}
+  name: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.pvc.componentName }}
   namespace: {{ template "jenkins.master.slaveKubernetesNamespace" $ }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
     "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
     "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-    "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-cache"
 spec:
   accessModes:
     - "ReadWriteMany"
   resources:
     requests:
-      storage: {{ $agent.cache.pvc.size | required "size is required" }}
+      storage: {{ $agent.cache.pvc.size }}
   storageClassName: {{ $agent.cache.pvc.storageClass | default "" }}
 {{- end }}
 {{- end }}
-{{- $_ := unset .Values "agentList" }}
+{{- $_ := unset .Values "agentMap" }}

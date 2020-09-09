@@ -1,38 +1,32 @@
-{{- /* create map of agents by clearJob.componentName */}}
-{{- if .Values.agent.cache.clearJob.create }}
-  {{- $_ := set .Values "agentMap" (dict .Values.agent.cache.clearJob.componentName .Values.agent) }}
-{{- else }}
-  {{- $_ := set .Values "agentMap" (dict) }}
-{{- end }}
+{{- /* create agent map */}}
+{{- /* merge .Values.agent into additional agent(s) to propogate values except cache.clearJob.create */}}
+{{- $_ := set .Values "agentMap" (dict "agent" .Values.agent) }}
+{{- $agentCopy := deepCopy .Values.agentMap.agent }}
+{{- $_ := set $agentCopy.cache.clearJob "create" false }}
 {{- range $name, $additionalAgent := .Values.additionalAgents }}
-    {{- /* merge .Values.agent into additional agent to ensure it at least has the default values */}}
-    {{- $mergedAgent := (merge $additionalAgent $.Values.agent) }}
-    {{- if $mergedAgent.cache.clearJob.create }}
-      {{- if get $.Values.agentMap $mergedAgent.cache.clearJob.componentName }}
-        {{- fail "Cannot create more than one clearJob with a given componentName" }}
-      {{- else }}
-        {{- $_ := set $.Values.agentMap $mergedAgent.cache.clearJob.componentName $mergedAgent }}
-      {{- end }}
-    {{- end }}
+    {{- /* use mergeOverwrite - see helm issue 7313 */}}
+    {{- $_ := set $.Values.agentMap $name (mergeOverwrite (deepCopy $agentCopy) $additionalAgent) }}
 {{- end }}
-{{- range $_, $agent := .Values.agentMap }}
+{{- range $name, $agent := .Values.agentMap }}
+{{- if and $agent.cache.clearJob.create $agent.cache.volume }}
 ---
 apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
-  name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clearJob componentName is required") $ }}
+  name: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.clearJob.componentName }}
   namespace: {{ template "jenkins.master.slaveKubernetesNamespace" $ }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" $ }}'
     "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
     "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-    "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
 spec:
   concurrencyPolicy : "Forbid"
   failedJobsHistoryLimit : 5
   successfulJobsHistoryLimit: 5
-  schedule: "{{ $agent.cache.clearJob.schedule }}"
+  schedule: {{ $agent.cache.clearJob.schedule | quote }}
+  startingDeadlineSeconds: 120
   jobTemplate:
     spec:
       backoffLimit: 6
@@ -43,31 +37,29 @@ spec:
             "helm.sh/chart": "{{ $.Chart.Name }}-{{ $.Chart.Version }}"
             "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
             "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-            "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
+            "app.kubernetes.io/component": "{{ $.Values.agent.componentName }}-clear-cache"
         spec:
-          volumes:
-          - name: cache-volume
-            persistentVolumeClaim:
-              claimName: {{ tpl ($agent.cache.clearJob.claimName | required "cache clear.claimName is required") $ }}
-          containers:
-          - name: {{ tpl ($agent.cache.clearJob.componentName | required "cache clear componentName is required") $ }}
-            image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
-            volumeMounts:
-            - mountPath: {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
-              name: cache-volume
-            resources:
-              limits:
-                cpu: 500m
-                memory: 512Mi
-              requests:
-                cpu: 500m
-                memory: 512Mi
-            command:
-            - /bin/sh
-            - -c
-            - |
-              cd {{ tpl ($agent.cache.clearJob.mountPath | required "cache mountPath is required") $ }}
-              {{- tpl $agent.cache.clearJob.command $ | nindent 14 }}
           restartPolicy: OnFailure
+          volumes:
+            - name: cache-volume
+              persistentVolumeClaim:
+                claimName: {{ include "jenkins.fullname" $ }}-{{ $agent.cache.volume.pvcComponentName }}
+          containers:
+            - name: clear-cache
+              image: "{{ $agent.cache.clearJob.image }}:{{ $agent.cache.clearJob.tag }}"
+              volumeMounts:
+                - name: cache-volume
+                  mountPath: {{ $agent.cache.volume.mountPath }}
+              resources:
+                limits:
+                  cpu: 500m
+                  memory: 512Mi
+                requests:
+                  cpu: 500m
+                  memory: 512Mi
+              workingDir: {{ $agent.cache.volume.mountPath }}
+              command: {{ toYaml $agent.cache.clearJob.command | nindent 16 }}
+              args: {{ toYaml $agent.cache.clearJob.args | nindent 16 }}
 {{- end }}
-{{- $_ := unset .Values "agentList" }}
+{{- end }}
+{{- $_ := unset .Values "agentMap" }}

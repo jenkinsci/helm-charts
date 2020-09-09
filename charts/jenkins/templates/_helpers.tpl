@@ -132,7 +132,7 @@ jenkins:
       {{- $agent := .Values.agent }}
       {{- range $name, $additionalAgent := .Values.additionalAgents }}
         {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
-        {{- $additionalAgent := merge $additionalAgent $agent }}
+        {{- $additionalAgent := mergeOverwrite (deepCopy $agent) $additionalAgent }}
         {{- /* set .Values.agent to $additionalAgent */}}
         {{- $_ := set $.Values "agent" $additionalAgent }}
         {{- include "jenkins.casc.podTemplate" $ | nindent 8 }}
@@ -241,6 +241,11 @@ Returns kubernetes pod template configuration as code
         {{ $key }}: {{ if kindIs "string" $value }}{{ tpl $value $ | quote }}{{ else }}{{ $value }}{{ end }}
       {{- end }}
     {{- end }}
+  {{- end }}
+  {{- if .Values.agent.cache.volume }}
+    - persistentVolumeClaim:
+        claimName: {{ .Release.Name }}-{{ .Values.agent.cache.volume.pvcComponentName }}
+        mountPath: {{ .Values.agent.cache.volume.mountPath }}
   {{- end }}
 {{- end }}
 {{- if .Values.agent.yamlTemplate }}
