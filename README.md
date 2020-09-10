@@ -17,12 +17,15 @@ helm repo add jenkinsci https://charts.jenkins.io
 
 You can then run `helm search repo jenkinsci` to see the charts.
 
-Chart documentation is available in [jenkins directory](./charts/jenkins/README.md).
+<!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+Chart documentation is available in [jenkins directory](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md).
 
 ## Contributing
 
-We'd love to have you contribute! Please refer to our [contribution guidelines](CONTRIBUTING.md) for details.
+<!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+We'd love to have you contribute! Please refer to our [contribution guidelines](https://github.com/jenkinsci/helm-charts/blob/main/CONTRIBUTING.md) for details.
 
 ## License
 
-[Apache 2.0 License](./LICENSE).
+<!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+[Apache 2.0 License](https://github.com/jenkinsci/helm-charts/blob/main/LICENSE).
