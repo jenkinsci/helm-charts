@@ -479,7 +479,13 @@ master:
 ```
 
 ## Prometheus Metrics
-If you have implemented Prometheus Operator, set `master.prometheus.enabled` to `true` to enable Prometheus metrics.  
+
+If you want to expose Prometheus metrics you need to install the [Jenkins Prometheus Metrics Plugin](https://github.com/jenkinsci/prometheus-plugin).
+It will expose an endpoint (default `/prometheus`) with metrics where a Prometheus Server can scrape.
+
+If you have implemented [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator), you can set `master.prometheus.enabled` to `true` to configure a `ServiceMonitor` and `PrometheusRule`.
+If you want to further adjust alerting rules you can do so by configuring `master.prometheus.alertingrules`
+
 If you have implemented Prometheus without using the operator, you can add just the `/prometheus` metrics endpoint by 
 installing the Jenkins Prometheus Metrics Plugin and leave `master.prometheus.enabled` set to `false`.
 
