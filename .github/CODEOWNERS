@@ -5,5 +5,5 @@
 # Unless a later match takes precedence, they will be requested for review when someone opens a pull request.
 * @jenkinsci/helm-charts-admins
 
-/charts/jenkins/ lachie83 viglesiasce maorfr torstenwalter mogaal wmcdona89 timja
+/charts/jenkins/ @jenkinsci/helm-chart-jenkins
 
