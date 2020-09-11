@@ -486,6 +486,8 @@ It will expose an endpoint (default `/prometheus`) with metrics where a Promethe
 If you have implemented [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator), you can set `master.prometheus.enabled` to `true` to configure a `ServiceMonitor` and `PrometheusRule`.
 If you want to further adjust alerting rules you can do so by configuring `master.prometheus.alertingrules`
 
+If you have implemented Prometheus without using the operator, you can leave `master.prometheus.enabled` set to `false`.
+
 #### Migration steps
 
 Migration instructions heavily depend on your current setup.
