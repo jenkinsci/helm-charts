@@ -478,6 +478,8 @@ master:
       enabled: true       # was false
 ```
 
+`runAsUser` and `fsGroup` can be left unset, which will cause those values to not be rendered in the deployment yaml. `fsGroup` can now be set independently of `runAsUser`, where before `runAsUser` was required to be set to a non-root user.
+
 #### Migration steps
 
 Migration instructions heavily depend on your current setup.
