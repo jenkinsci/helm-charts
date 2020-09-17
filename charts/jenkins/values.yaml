@@ -665,9 +665,10 @@ backup:
   schedule: "0 2 * * *"
   labels: {}
   annotations: {}
-    # Example for authorization to AWS S3 using kube2iam
+    # Example for authorization to AWS S3 using kube2iam or IRSA
     # Can also be done using environment variables
     # iam.amazonaws.com/role: "jenkins"
+    # "eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/jenkins-backup"
   image:
     repository: "maorfr/kube-tasks"
     tag: "0.2.0"
