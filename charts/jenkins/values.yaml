@@ -403,6 +403,28 @@ master:
     # - secretName: jenkins.cluster.local
     #   hosts:
     #     - jenkins.cluster.local
+  
+  # often you want to have your controller all locked down and private
+  # but you still want to get webhooks from your SCM
+  # A secondary ingress will let you expose different urls
+  # with a differnt configuration
+  secondaryingress:
+    enabled: false
+    # paths you want forwarded to the backend
+    # ex /github-webhook
+    paths: []
+    # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
+    apiVersion: "extensions/v1beta1"
+    labels: {}
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # configures the hostname e.g. jenkins-external.example.com
+    hostName:
+    tls:
+    # - secretName: jenkins-external.example.com
+    #   hosts:
+    #     - jenkins-external.example.com
 
   # If you're running on GKE and need to configure a backendconfig
   # to finish ingress setup, use the following values.
