@@ -61,7 +61,7 @@ key: value
 ```
 
 ```
-helm install my-release jenkinsci/jenkins --version version --values values.yaml
+helm install my-release jenkins/jenkins --version version --values values.yaml
 ```
 
 -->
