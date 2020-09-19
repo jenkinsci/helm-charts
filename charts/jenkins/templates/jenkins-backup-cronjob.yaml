@@ -29,8 +29,15 @@ spec:
         spec:
           restartPolicy: OnFailure
           serviceAccountName: {{ template "jenkins.fullname" . }}-backup
+{{- if .Values.backup.usePodSecurityContext }}
           securityContext:
-            fsGroup: 65534
+            runAsUser: {{ default 0 .Values.backup.runAsUser }}
+{{- if and (.Values.backup.runAsUser) (.Values.backup.fsGroup) }}
+{{- if not (eq (int .Values.backup.runAsUser) 0) }}
+            fsGroup: {{ .Values.backup.fsGroup }}
+{{- end }}
+{{- end }}
+{{- end }}
           containers:
           - name: jenkins-backup
             image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"

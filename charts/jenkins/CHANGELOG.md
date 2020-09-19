@@ -12,7 +12,7 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 ## 2.6.5
 
-Added security context for jenkins backup CronJob and annotations to its serviceaccount.
+Added configurable security context for jenkins backup CronJob and annotations to its serviceaccount.
 
 ## 2.6.4
 
