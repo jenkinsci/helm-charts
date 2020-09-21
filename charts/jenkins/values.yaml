@@ -403,7 +403,7 @@ master:
     # - secretName: jenkins.cluster.local
     #   hosts:
     #     - jenkins.cluster.local
-  
+
   # often you want to have your controller all locked down and private
   # but you still want to get webhooks from your SCM
   # A secondary ingress will let you expose different urls
