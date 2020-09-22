@@ -15,13 +15,12 @@ metadata:
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
-{{- if .Values.master.secondaryingress.labels }}
-{{ toYaml .Values.master.secondaryingress.labels | indent 4 }}
-{{- end }}
-{{- if .Values.master.secondaryingress.annotations }}
-  annotations:
-{{ toYaml .Values.master.secondaryingress.annotations | indent 4 }}
-{{- end }}
+    {{- if .Values.master.secondaryingress.labels -}}
+    {{ toYaml .Values.master.secondaryingress.labels | nindent 4 }}
+    {{- end }}
+  {{- if .Values.master.secondaryingress.annotations }}
+  annotations: {{ toYaml .Values.master.secondaryingress.annotations | nindent 4 }}
+  {{- end }}
   name: {{ template "jenkins.fullname" . }}-secondary
 spec:
   rules:
