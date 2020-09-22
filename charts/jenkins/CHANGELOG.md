@@ -10,7 +10,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.7.0
+
+Add a secondary ingress template for those who want a second ingress with different labels or annotations or whatever else.
+
+Example: You want /github-webhook to be on a public ingress, while the main Jenkins intance to be on a private locked down ingress.
+
 ## 2.6.5
+
 Update configScripts example
 
 ## 2.6.4
