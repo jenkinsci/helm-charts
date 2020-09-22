@@ -1,4 +1,6 @@
 {{- if .Values.master.secondaryingress.enabled }}
+{{- $serviceName := include "jenkins.fullname" . -}}
+{{- $servicePort := .Values.master.servicePort -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
@@ -20,19 +22,18 @@ metadata:
   annotations:
 {{ toYaml .Values.master.secondaryingress.annotations | indent 4 }}
 {{- end }}
-  name: {{ template "jenkins.fullname" . }}
+  name: {{ template "jenkins.fullname" . }}-secondary
 spec:
   rules:
-    - host: 
+    - host: {{ .Values.master.secondaryingress.hostName }}
       http:
         paths:
-        - path: /testpath
-          backend:
-            serviceName: {{ template "jenkins.fullname" . }}
-            servicePort: {{ .Values.master.servicePort }}
-{{- if .Values.master.secondaryingress.hostName }}
-      host: {{ .Values.master.secondaryingress.hostName | quote }}
-{{- end }}
+        {{- range .Values.master.secondaryingress.paths }}
+          - path: {{ . | quote }}
+            backend:
+              serviceName: {{ $serviceName }}
+              servicePort: {{ $servicePort }}
+        {{- end}}
 {{- if .Values.master.secondaryingress.tls }}
   tls:
 {{ toYaml .Values.master.secondaryingress.tls | indent 4 }}
