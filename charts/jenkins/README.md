@@ -81,21 +81,60 @@ Each key will become the name of a configuration yaml file on the master in /var
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
-The example below creates ldap settings:
+
+The example below sets custom systemMessage:
 
 ```yaml
-configScripts:
-  ldap-settings: |
-    jenkins:
-      securityRealm:
-        ldap:
-          configurations:
-            - server: ldap.acme.com
-              rootDN: dc=acme,dc=uk
-              managerPasswordSecret: ${LDAP_PASSWORD}
-              groupMembershipStrategy:
-                fromUserRecord:
-                  attributeName: "memberOf"
+master:
+  JCasC:
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: Welcome to our CI\CD server.
+```
+
+More complex example that creates ldap settings:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      ldap-settings: |
+        jenkins:
+          securityRealm:
+            ldap:
+              configurations:
+                - server: ldap.acme.com
+                  rootDN: dc=acme,dc=uk
+                  managerPasswordSecret: ${LDAP_PASSWORD}
+                  groupMembershipStrategy:
+                    fromUserRecord:
+                      attributeName: "memberOf"
+```
+
+Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
+
+For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflictig configuration error.
+
+Incorrect:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      jenkins-url: |
+        unclassified:
+          location:
+            url: https://example.com/jenkins
+            adminAddress: example@mail.com
+```
+
+Correct:
+
+```yaml
+master:
+  jenkinsUrl: https://example.com/jenkins
+  jenkinsAdminEmail: example@mail.com
 ```
 
 Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
@@ -103,7 +142,7 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 #### Config as Code With or Without Auto-Reload
 
 Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
-If you set `master.sidecars.autoConfigReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
+If you set `master.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
 You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
