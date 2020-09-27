@@ -34,7 +34,7 @@
         {{- end }}
 
         {{- if .Values.Master.DeploymentLabels }}
-           {{ fail "`Master.DeploymentLabels` does no longer exist. It has been renamed to `master.deploymentLabels`" }}
+           {{ fail "`Master.DeploymentLabels` does no longer exist. It has been renamed to `master.statefulSetLabels`" }}
         {{- end }}
 
         {{- if .Values.Master.ServiceLabels }}
@@ -316,5 +316,17 @@
 
     {{- if .Values.master.JCasC.pluginVersion }}
        {{ fail "master.JCasC.pluginVersion has been deprecated, please use master.installPlugins instead" }}
+    {{- end }}
+
+    {{- if .Values.master.deploymentLabels }}
+      {{ fail "`master.deploymentLabels` does no longer exist. It has been renamed to `master.statefulSetLabels`" }}
+    {{- end }}
+
+    {{- if .Values.master.deploymentAnnotations }}
+      {{ fail "`master.deploymentAnnotations` does no longer exist. It has been renamed to `master.statefulSetAnnotations`" }}
+    {{- end }}
+
+    {{- if .Values.master.rollingUpdate }}
+      {{ fail "`master.rollingUpdate` does no longer exist. It is no longer relevant, since a StatefulSet is used for the Jenkins master" }}
     {{- end }}
 {{- end }}

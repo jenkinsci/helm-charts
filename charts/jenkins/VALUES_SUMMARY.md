@@ -84,7 +84,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.slaveListenerServiceType` | Defines how to expose the slaveListener service | `ClusterIP`                    |
 | `master.slaveListenerLoadBalancerIP`  | Static IP for the slaveListener LoadBalancer | Not set                       |
 
-#### Kubernetes Deployment & Service
+#### Kubernetes StatefulSet & Service
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `master.image`                    | Master image name                    | `jenkins/jenkins`                         |
@@ -108,7 +108,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.extraPorts`               | Open extra ports, for other uses     | `[]`                                      |
 | `master.loadBalancerSourceRanges` | Allowed inbound IP addresses         | `0.0.0.0/0`                               |
 | `master.loadBalancerIP`           | Optional fixed external IP           | Not set                                   |
-| `master.deploymentLabels`         | Custom Deployment labels             | Not set                                   |
+| `master.statefulSetLabels`        | Custom StatefulSet labels            | Not set                                   |
 | `master.serviceLabels`            | Custom Service labels                | Not set                                   |
 | `master.podLabels`                | Custom Pod labels                    | Not set                                   |
 | `master.nodeSelector`             | Node labels for pod assignment       | `{}`                                      |
@@ -117,7 +117,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds   | Not set                               |
 | `master.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `master.podAnnotations`           | Annotations for master pod           | `{}`                                      |
-| `master.deploymentAnnotations`           | Annotations for master deployment           | `{}`                                      |
+| `master.statefulSetAnnotations`   | Annotations for master StatefulSet   | `{}`                                      |
 | `master.lifecycle`                | Lifecycle specification for master-container | Not set                           |
 | `master.priorityClassName`        | The name of a `priorityClass` to apply to the master pod | Not set               |
 | `master.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|
