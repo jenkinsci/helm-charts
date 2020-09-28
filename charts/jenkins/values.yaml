@@ -348,6 +348,8 @@ master:
     #     requests:
     #       cpu: 10m
     #       memory: 32Mi
+  # Name of the Kubernetes scheduler to use
+  schedulerName: ""
   # Node labels and tolerations for pod assignment
   # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
