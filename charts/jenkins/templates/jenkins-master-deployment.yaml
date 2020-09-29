@@ -326,7 +326,7 @@ spec:
             - name: NAMESPACE
               value: "{{ .Values.master.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}"
             - name: REQ_URL
-              value: "http://localhost:8080{{- .Values.master.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
+              value: "http://localhost:{{- .Values.master.targetPort -}}{{- .Values.master.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
             - name: REQ_METHOD
               value: "POST"
             - name: REQ_RETRY_CONNECT
