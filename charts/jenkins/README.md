@@ -9,7 +9,7 @@ Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 ## Get Repo Info
 
 ```console
-helm repo add jenkinsci https://charts.jenkins.io
+helm repo add jenkins https://charts.jenkins.io
 helm repo update
 ```
 
@@ -19,10 +19,10 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 
 ```console
 # Helm 3
-$ helm install [RELEASE_NAME] jenkinsci/jenkins [flags]
+$ helm install [RELEASE_NAME] jenkins/jenkins [flags]
 
 # Helm 2
-$ helm install --name [RELEASE_NAME] jenkinsci/jenkins [flags]
+$ helm install --name [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
 _See [configuration](#configuration) below._
@@ -47,7 +47,7 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 
 ```console
 # Helm 3 or 2
-$ helm upgrade [RELEASE_NAME] jenkinsci/jenkins [flags]
+$ helm upgrade [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
 _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
@@ -62,10 +62,10 @@ See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_h
 
 ```console
 # Helm 3
-$ helm show values jenkinsci/jenkins
+$ helm show values jenkins/jenkins
 
 # Helm 2
-$ helm inspect values jenkinsci/jenkins
+$ helm inspect values jenkins/jenkins
 ```
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)

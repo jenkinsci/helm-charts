@@ -12,10 +12,10 @@ Please refer to Helm's [documentation](https://helm.sh/docs/) to get started.
 Once Helm is set up properly, add the repo as follows:
 
 ```console
-helm repo add jenkinsci https://charts.jenkins.io
+helm repo add jenkins https://charts.jenkins.io
 ```
 
-You can then run `helm search repo jenkinsci` to see the charts.
+You can then run `helm search repo jenkins` to see the charts.
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 Chart documentation is available in [jenkins directory](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md).
