@@ -12,7 +12,7 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 ## 2.7.2
 
-Target port of container `jenkins-sc-config` get the value from values.yaml 
+Target port of container `jenkins-sc-config` taken the value from values.yaml.
 
 ## 2.7.0
 
