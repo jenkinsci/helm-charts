@@ -3,6 +3,39 @@ entries:
   jenkins:
   - apiVersion: v1
     appVersion: lts
+    created: "2020-10-01T06:55:03.336851498Z"
+    description: Open source continuous integration server. It supports multiple SCM
+      tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
+      Maven-based projects as well as arbitrary scripts.
+    digest: 971e6fced38e1e4e5c462b4b8ffeb2bc92fb6414d90bb4561c4c4594e3df5208
+    home: https://jenkins.io/
+    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
+    maintainers:
+    - email: lachlan.evenson@microsoft.com
+      name: lachie83
+    - email: viglesias@google.com
+      name: viglesiasce
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-jnlp-slave
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-2.8.0/jenkins-2.8.0.tgz
+    version: 2.8.0
+  - apiVersion: v1
+    appVersion: lts
     created: "2020-10-01T00:00:38.182911676Z"
     description: Open source continuous integration server. It supports multiple SCM
       tools including CVS, Subversion and Git. It can execute Apache Ant and Apache
