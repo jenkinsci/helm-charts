@@ -10,6 +10,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.8.1
+
+Fix indentation of JAVA_OPTS
+
+## 2.8.0
+
+Add support for helm unittest and include first tests
+
 ## 2.7.2
 
 Target port of container `jenkins-sc-config` taken the value from values.yaml.
