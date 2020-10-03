@@ -159,9 +159,7 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: JAVA_OPTS
-              value: >
-                {{ default "" .Values.master.javaOpts }}
-                {{ if .Values.master.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}
+              value: {{- if .Values.master.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{- end }} {{ default "" .Values.master.javaOpts }}
             - name: JENKINS_OPTS
               value: "{{ if .Values.master.jenkinsUriPrefix }}--prefix={{ .Values.master.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.master.jenkinsOpts}}"
             - name: JENKINS_SLAVE_AGENT_PORT
@@ -277,7 +275,7 @@ spec:
             - name: NAMESPACE
               value: "{{ .Values.master.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}"
             - name: REQ_URL
-              value: "http://localhost:8080{{- .Values.master.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
+              value: "http://localhost:{{- .Values.master.targetPort -}}{{- .Values.master.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
             - name: REQ_METHOD
               value: "POST"
             - name: REQ_RETRY_CONNECT

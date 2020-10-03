@@ -9,7 +9,7 @@ Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 ## Get Repo Info
 
 ```console
-helm repo add jenkinsci https://charts.jenkins.io
+helm repo add jenkins https://charts.jenkins.io
 helm repo update
 ```
 
@@ -19,7 +19,7 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 
 ```console
 # Helm 3
-$ helm install [RELEASE_NAME] jenkinsci/jenkins [flags]
+$ helm install [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
 _See [configuration](#configuration) below._
@@ -41,7 +41,7 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 
 ```console
 # Helm 3
-$ helm upgrade [RELEASE_NAME] jenkinsci/jenkins [flags]
+$ helm upgrade [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
 _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
@@ -56,10 +56,10 @@ See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_h
 
 ```console
 # Helm 3
-$ helm show values jenkinsci/jenkins
+$ helm show values jenkins/jenkins
 
 # Helm 2
-$ helm inspect values jenkinsci/jenkins
+$ helm inspect values jenkins/jenkins
 ```
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
@@ -75,21 +75,60 @@ Each key will become the name of a configuration yaml file on the master in /var
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
-The example below creates ldap settings:
+
+The example below sets custom systemMessage:
 
 ```yaml
-configScripts:
-  ldap-settings: |
-    jenkins:
-      securityRealm:
-        ldap:
-          configurations:
-            - server: ldap.acme.com
-              rootDN: dc=acme,dc=uk
-              managerPasswordSecret: ${LDAP_PASSWORD}
-              groupMembershipStrategy:
-                fromUserRecord:
-                  attributeName: "memberOf"
+master:
+  JCasC:
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: Welcome to our CI\CD server.
+```
+
+More complex example that creates ldap settings:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      ldap-settings: |
+        jenkins:
+          securityRealm:
+            ldap:
+              configurations:
+                - server: ldap.acme.com
+                  rootDN: dc=acme,dc=uk
+                  managerPasswordSecret: ${LDAP_PASSWORD}
+                  groupMembershipStrategy:
+                    fromUserRecord:
+                      attributeName: "memberOf"
+```
+
+Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
+
+For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflicting configuration error.
+
+Incorrect:
+
+```yaml
+master:
+  JCasC:
+    configScripts:
+      jenkins-url: |
+        unclassified:
+          location:
+            url: https://example.com/jenkins
+            adminAddress: example@mail.com
+```
+
+Correct:
+
+```yaml
+master:
+  jenkinsUrl: https://example.com/jenkins
+  jenkinsAdminEmail: example@mail.com
 ```
 
 Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
@@ -97,7 +136,7 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 #### Config as Code With or Without Auto-Reload
 
 Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
-If you set `master.sidecars.autoConfigReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
+If you set `master.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
 You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:

@@ -4,6 +4,7 @@ This file documents all notable changes to the Jenkins Helm Chart.
 The release numbering uses [semantic versioning](http://semver.org).
 
 Use the following links to reference issues, PRs, and commits prior to v2.6.0.
+
 * Issue:  `https://github.com/helm/charts/issues/[issue#]`
 * PR:     `https://github.com/helm/charts/pull/[pr#]`
 * Commit: `https://github.com/helm/charts/commit/[commit]/stable/jenkins`
@@ -12,9 +13,27 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 ## 3.0.0
 
-- Remove all XML configuration options
-- This chart now requires Helm 3
+* Remove all XML configuration options
+* This chart now requires Helm 3
 
+## 2.7.2
+
+Target port of container `jenkins-sc-config` taken the value from values.yaml.
+
+## 2.7.0
+
+Add a secondary ingress template for those who want a second ingress with different labels or annotations or whatever else.
+
+Example: You want /github-webhook to be on a public ingress, while the main Jenkins intance to be on a private locked down ingress.
+
+## 2.6.5
+
+Update configScripts example
+
+## 2.6.4
+
+Add timja as a maintainer
+>>>>>>> main
 
 ## 2.6.3
 
