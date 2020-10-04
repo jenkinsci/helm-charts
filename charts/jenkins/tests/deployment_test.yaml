@@ -43,6 +43,14 @@ tests:
       - equal:
           path: spec.template.spec.serviceAccountName
           value: my-release-jenkins
+      - equal:
+          path: spec.template.spec.containers[0].name
+          value: jenkins
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: "-Dcasc.reload.token=$(POD_NAME)"
   - it: test different values
     set:
       master:
@@ -84,10 +92,17 @@ tests:
           value: jenkins/jenkins:2.249.1-slim
   - it: custom image
     set:
-      master.image: registry/image
-      master.tag: my-tag
+      master:
+        image: registry/image
+        tag: my-tag
+        javaOpts: -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
           value: registry/image:my-tag
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: "-Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true"
 
