@@ -1,7 +1,11 @@
 name: Lint and Test Charts
 
-on: pull_request
-
+on:
+  pull_request:
+  push:
+    branches:
+      - '!main'
+      - '**'
 jobs:
   lint-test:
     runs-on: ubuntu-latest
@@ -12,13 +16,23 @@ jobs:
       - name: Fetch history
         run: git fetch --prune --unshallow
 
+      - uses: azure/setup-helm@v1
+        with:
+          version: 'v3.3.4'
+
+      - name: install helm unittests
+        run: |
+          helm env
+          helm plugin install https://github.com/quintush/helm-unittest
+
       - name: Run chart-testing (lint)
         id: lint
-        uses: helm/chart-testing-action@v1.1.0
+        uses: torstenwalter/chart-testing-action@docker-args
         with:
           command: lint
           config: ct.yaml
-          image: twalter/chart-testing:v3.1.1-unittest
+          image: twalter/chart-testing:v3.1.1-additional-commands
+          dockerArgs: --volume=/home/runner/.local/share/helm/plugins:/root/.local/share/helm/plugins
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
