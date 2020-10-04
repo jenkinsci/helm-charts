@@ -14,7 +14,7 @@ jobs:
 
       - name: Run chart-testing (lint)
         id: lint
-        uses: helm/chart-testing-action@v1.1.0
+        uses: torstenwalter/chart-testing-action@init-commands
         with:
           command: lint
           config: ct.yaml
