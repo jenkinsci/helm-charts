@@ -19,7 +19,9 @@ jobs:
           command: lint
           config: ct.yaml
           image: twalter/chart-testing:v3.1.1-unittest
-
+          initcommands:
+            - echo hello
+            - echo world
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
         if: steps.lint.outputs.changed == 'true'
