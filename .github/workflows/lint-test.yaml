@@ -18,8 +18,8 @@ jobs:
         with:
           command: lint
           config: ct.yaml
-          image: twalter/chart-testing:v3.1.1-unittest
-          initcommands: "echo hello"
+          image: quay.io/helmpack/chart-testing:v3.1.1
+          initcommands: "helm plugin install https://github.com/quintush/helm-unittest --version v0.2.4"
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
         if: steps.lint.outputs.changed == 'true'
