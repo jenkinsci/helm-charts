@@ -10,6 +10,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.13.0
+Added Support for websockets in the default Jcasc config
+Added trailing slash to JENKINS_URL env var
+
 ## 2.12.2
 
 Added unit tests for most resources in the Helm chart.

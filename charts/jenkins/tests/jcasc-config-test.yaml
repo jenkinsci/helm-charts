@@ -54,7 +54,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
-                              value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+                              value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
                         image: "jenkins/inbound-agent:4.3-4"
                         privileged: "false"
                         resourceLimitCpu: 512m
@@ -167,7 +167,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
-                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
+                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
                         image: "jenkins/inbound-agent:4.3-4"
                         privileged: "false"
                         resourceLimitCpu: 512m
@@ -195,7 +195,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
-                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
+                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
                         image: "jenkins/jnlp-agent-maven:latest"
                         privileged: "false"
                         resourceLimitCpu: 512m
@@ -224,7 +224,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
-                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
+                              value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
                         image: "python:3"
                         privileged: "false"
                         resourceLimitCpu: 512m
@@ -450,7 +450,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
-                              value: "http://my-release-jenkins.other.svc.cluster.local:8080"
+                              value: "http://my-release-jenkins.other.svc.cluster.local:8080/"
                         image: "my-image/jnlp:v1.2.3"
                         privileged: "true"
                         resourceLimitCpu: 1024m
