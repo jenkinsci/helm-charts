@@ -354,6 +354,59 @@ additionalAgents:
     TTYEnabled: true
 ```
 
+### Ingress Configuration
+
+This chart provides ingress resources configurable via the `controller.ingress` block.
+
+The simplest configuration looks like the following:
+
+```yaml
+controller:
+   ingress:
+       enabled: true
+       paths: []
+       apiVersion: "extensions/v1beta1"
+       hostName: jenkins.example.com
+```
+
+This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
+
+You can define labels and annotations via `controller.ingress.labels` and `controller.ingress.annotations` respectively.
+Additionally, you can configure the ingress tls via `controller.ingress.tls`.
+By default, this ingress rule exposes all paths.
+If needed this can be overwritten by specifying the wanted paths in `controller.ingress.paths`
+
+If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `controller.secondaryingress`.
+The secondaryingress doesn't expose anything by default and has to be configured via `controller.secondaryingress.paths`:
+
+```yaml
+controller:
+   ingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       hostName: "jenkins.internal.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "internal"
+   secondaryingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       hostName: "jenkins-scm.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "public"
+       paths:
+        - /github-webhook
+```
+
+## Prometheus Metrics
+
+If you want to expose Prometheus metrics you need to install the [Jenkins Prometheus Metrics Plugin](https://github.com/jenkinsci/prometheus-plugin).
+It will expose an endpoint (default `/prometheus`) with metrics where a Prometheus Server can scrape.
+
+If you have implemented [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator), you can set `master.prometheus.enabled` to `true` to configure a `ServiceMonitor` and `PrometheusRule`.
+If you want to further adjust alerting rules you can do so by configuring `master.prometheus.alertingrules`
+
+If you have implemented Prometheus without using the operator, you can leave `master.prometheus.enabled` set to `false`.
+
 ### Running Behind a Forward Proxy
 
 The controller pod uses an Init Container to install plugins etc. If you are behind a corporate proxy it may be useful to set `controller.initContainerEnv` to add environment variables such as `http_proxy`, so that these can be downloaded.
@@ -400,49 +453,6 @@ controller:
        fileName: "keystore.jks"
        password: "changeit"
        jenkinsKeyStoreBase64Encoded: ''
-```
-
-### Ingress Configuration
-
-This chart provides ingress resources configurable via the `controller.ingress` block.
-
-The simplest configuration looks like the following:
-
-```yaml
-controller:
-   ingress:
-       enabled: true
-       paths: []
-       apiVersion: "extensions/v1beta1"
-       hostName: jenkins.example.com
-```
-
-This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
-
-You can define labels and annotations via `controller.ingress.labels` and `controller.ingress.annotations` respectively.
-Additionally, you can configure the ingress tls via `controller.ingress.tls`.
-By default, this ingress rule exposes all paths.
-If needed this can be overwritten by specifying the wanted paths in `controller.ingress.paths`
-
-If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `controller.secondaryingress`.
-The secondaryingress doesn't expose anything by default and has to be configured via `controller.secondaryingress.paths`:
-
-```yaml
-controller:
-   ingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins.internal.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "internal"
-   secondaryingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins-scm.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "public"
-       paths:
-        - /github-webhook
 ```
 
 ## Migration Guide
