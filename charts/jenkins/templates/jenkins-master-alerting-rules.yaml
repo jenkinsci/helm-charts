@@ -4,7 +4,11 @@ apiVersion: monitoring.coreos.com/v1
 kind: PrometheusRule
 metadata:
   name: {{ template "jenkins.fullname" . }}
+{{- if .Values.master.prometheus.prometheusRuleNamespace }}
+  namespace: {{ .Values.master.prometheus.prometheusRuleNamespace }}
+{{- else }}
   namespace: {{ template "jenkins.namespace" . }}
+{{- end }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"

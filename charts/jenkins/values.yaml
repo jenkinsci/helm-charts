@@ -476,6 +476,8 @@ master:
     # See here: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
     # The `groups` root object is added by default, simply add the rule entries
     alertingrules: []
+    # Set a custom namespace where to deploy PrometheusRule resource
+    prometheusRuleNamespace: ""
 
   # Can be used to disable rendering master test resources when using helm template
   testEnabled: true
