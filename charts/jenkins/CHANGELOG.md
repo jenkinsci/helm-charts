@@ -10,7 +10,7 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
-## Future version
+## 2.8.2
 
 Bumped configuration-as-code plugin version from 1.41 to 1.43.
 See https://github.com/jenkinsci/configuration-as-code-plugin/issues/1478
