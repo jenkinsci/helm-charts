@@ -14,6 +14,11 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 Make namespace of PrometheusRule configurable
 
+## 2.8.2
+
+Bumped configuration-as-code plugin version from 1.41 to 1.43.
+See [configuration-as-code plugin issue #1478](https://github.com/jenkinsci/configuration-as-code-plugin/issues/1478)
+
 ## 2.8.1
 
 Fix indentation of JAVA_OPTS
