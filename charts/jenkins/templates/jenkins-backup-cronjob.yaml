@@ -16,6 +16,9 @@ spec:
   startingDeadlineSeconds: 120
   jobTemplate:
     spec:
+{{- if .Values.backup.activeDeadlineSeconds }}
+      activeDeadlineSeconds: "{{ .Values.backup.activeDeadlineSeconds }}"
+{{- end }}
       template:
         metadata:
           {{- if .Values.backup.labels }}
