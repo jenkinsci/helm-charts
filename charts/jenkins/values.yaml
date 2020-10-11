@@ -230,7 +230,7 @@ master:
     - workflow-aggregator:2.6
     - credentials-binding:1.23
     - git:4.2.2
-    - configuration-as-code:1.41
+    - configuration-as-code:1.43
 
   # List of plugins to install in addition to those listed in master.installPlugins
   additionalPlugins: []
@@ -279,6 +279,9 @@ master:
     enabled: true
     defaultConfig: true
     configScripts: {}
+    #  welcome-message: |
+    #    jenkins:
+    #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
     # Ignored if securityRealm is defined in master.JCasC.configScripts and
     # ignored if master.enableXmlConfig=true as master.securityRealm takes precedence
     securityRealm: |-
@@ -288,9 +291,6 @@ master:
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: false
-    # welcome-message: |
-    #   jenkins:
-    #     systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
   # Optionally specify additional init-containers
   customInitContainers: []
   # - name: custom-init
@@ -348,6 +348,8 @@ master:
     #     requests:
     #       cpu: 10m
     #       memory: 32Mi
+  # Name of the Kubernetes scheduler to use
+  schedulerName: ""
   # Node labels and tolerations for pod assignment
   # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
   # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
@@ -404,6 +406,28 @@ master:
     #   hosts:
     #     - jenkins.cluster.local
 
+  # often you want to have your controller all locked down and private
+  # but you still want to get webhooks from your SCM
+  # A secondary ingress will let you expose different urls
+  # with a differnt configuration
+  secondaryingress:
+    enabled: false
+    # paths you want forwarded to the backend
+    # ex /github-webhook
+    paths: []
+    # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
+    apiVersion: "extensions/v1beta1"
+    labels: {}
+    annotations: {}
+    # kubernetes.io/ingress.class: nginx
+    # kubernetes.io/tls-acme: "true"
+    # configures the hostname e.g. jenkins-external.example.com
+    hostName:
+    tls:
+    # - secretName: jenkins-external.example.com
+    #   hosts:
+    #     - jenkins-external.example.com
+
   # If you're running on GKE and need to configure a backendconfig
   # to finish ingress setup, use the following values.
   # Docs: https://cloud.google.com/kubernetes-engine/docs/concepts/backendconfig
@@ -452,6 +476,8 @@ master:
     # See here: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
     # The `groups` root object is added by default, simply add the rule entries
     alertingrules: []
+    # Set a custom namespace where to deploy PrometheusRule resource
+    prometheusRuleNamespace: ""
 
   # Can be used to disable rendering master test resources when using helm template
   testEnabled: true
@@ -669,6 +695,8 @@ backup:
     # Can also be done using environment variables
     # iam.amazonaws.com/role: "jenkins"
     # "eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/jenkins-backup"
+  # Set this to terminate the job that is running/failing continously and set the job status to "Failed"
+  activeDeadlineSeconds: ""
   image:
     repository: "maorfr/kube-tasks"
     tag: "0.2.0"
