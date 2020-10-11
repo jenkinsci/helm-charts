@@ -12,7 +12,7 @@ metadata:
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
   {{- if .Values.backup.annotations }}
   annotations:
-{{ toYaml .Values.backup.annotations | indent 4 }}
+    {{- toYaml .Values.backup.annotations | nindent 4 }}
   {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
