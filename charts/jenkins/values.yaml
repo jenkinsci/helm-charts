@@ -142,6 +142,10 @@ master:
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
   runAsUser: 1000
   fsGroup: 1000
+  # If you have PodSecurityPolicies that require dropping of capabilities as suggested by CIS K8s benchmark, put them here
+  securityContextCapabilities: {}
+  #  drop:
+  #    - NET_RAW
   servicePort: 8080
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
@@ -736,4 +740,7 @@ backup:
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
   runAsUser: 1000
   fsGroup: 1000
+  securityContextCapabilities: {}
+  #  drop:
+  #    - NET_RAW
 checkDeprecation: true

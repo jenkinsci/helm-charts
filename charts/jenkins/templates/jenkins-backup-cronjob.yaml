@@ -36,9 +36,13 @@ spec:
           securityContext:
             runAsUser: {{ default 0 .Values.backup.runAsUser }}
             {{- if and (.Values.backup.runAsUser) (.Values.backup.fsGroup) }}
-            {{- if not (eq (int .Values.backup.runAsUser) 0) }}
+              {{- if not (eq (int .Values.backup.runAsUser) 0) }}
             fsGroup: {{ .Values.backup.fsGroup }}
+              {{- end }}
             {{- end }}
+            {{- if .Values.backup.securityContextCapabilities }}
+          capabilities:
+            {{- toYaml .Values.backup.securityContextCapabilities | nindent 12 }}
             {{- end }}
           {{- end }}
           containers:
