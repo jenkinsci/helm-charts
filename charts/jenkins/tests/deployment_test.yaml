@@ -42,13 +42,12 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: f1847d14bae46986b51e673bee631b284e1c1a4e0a34accfa688bc63e5c88eb5
+                  checksum/config: bdcc3fb4d00af747c2d42cb1a88a7ba770d3d78f811bfe3aa8fa850bf941e264
                 labels:
                   app.kubernetes.io/component: jenkins-master
                   app.kubernetes.io/instance: my-release
                   app.kubernetes.io/managed-by: Tiller
                   app.kubernetes.io/name: jenkins
-                  helm.sh/chart: jenkins-2.9.0
               spec:
                 containers:
                 - args:
