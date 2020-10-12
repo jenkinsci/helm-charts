@@ -216,6 +216,28 @@ tests:
           operator: "Equal"
           value: "value"
           effect: "NoSchedule"
+        affinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: security
+                  operator: In
+                  values:
+                  - S1
+              topologyKey: failure-domain.beta.kubernetes.io/zone
+        terminationGracePeriodSeconds: 120
+        priorityClassName: important
+        runAsUser: 2000
+        fsGroup: 4000
+        securityContextCapabilities:
+          drop:
+            - NET_RAW
+        hostNetworking: true
+        hostAliases:
+          - ip: 192.168.50.50
+            hostnames:
+              - something.local
+      serviceAccount.name: my-serviceaccount
     asserts:
     - equal:
         path: metadata.annotations
@@ -235,13 +257,57 @@ tests:
             operator: "Equal"
             value: "value"
             effect: "NoSchedule"
+    - equal:
+        path: spec.template.spec.affinity
+        value:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: security
+                operator: In
+                values:
+                - S1
+            topologyKey: failure-domain.beta.kubernetes.io/zone
+    - equal:
+        path: spec.template.spec.terminationGracePeriodSeconds
+        value: 120
+    - equal:
+        path: spec.template.spec.priorityClassName
+        value: important
+    - equal:
+        path: spec.template.spec.securityContext
+        value:
+          runAsUser: 2000
+          fsGroup: 4000
+          capabilities:
+            drop:
+              - NET_RAW
+    - equal:
+        path: spec.template.spec.serviceAccountName
+        value: my-serviceaccount
+    - equal:
+        path: spec.template.spec.hostNetwork
+        value: true
+    - equal:
+        path: spec.template.spec.dnsPolicy
+        value: ClusterFirstWithHostNet
+    - equal:
+        path: spec.template.spec.hostAliases
+        value:
+          - ip: 192.168.50.50
+            hostnames:
+              - something.local
   - it: configure image tag
     set:
       master.tag: 2.249.1-slim
+      master.imagePullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
           value: jenkins/jenkins:2.249.1-slim
+      - equal:
+          path: spec.template.spec.containers[0].imagePullPolicy
+          value: IfNotPresent
   - it: custom image
     set:
       master:

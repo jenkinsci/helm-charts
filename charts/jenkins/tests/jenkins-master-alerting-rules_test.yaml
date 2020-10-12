@@ -1,0 +1,50 @@
+suite: Controller Prometheus PrometheusRule
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-master-alerting-rules.yaml
+tests:
+  - it: defaults
+    asserts:
+    - hasDocuments:
+        count: 0
+  - it: enabled
+    set:
+      master.prometheus:
+        enabled: true
+        alertingrules:
+          - name: ./jenkins.rules
+            rules:
+              - alert: JenkinsFailedPlugins
+                expr: jenkins_plugins_failed > 0
+                for: 10m
+                labels:
+                  severity: warning
+                annotations:
+                  message: Some Jenkins plugins failed to load
+    asserts:
+      - isKind:
+          of: PrometheusRule
+      - equal:
+          path: apiVersion
+          value: monitoring.coreos.com/v1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - equal:
+          path: spec
+          value:
+            groups:
+            - name: ./jenkins.rules
+              rules:
+                - alert: JenkinsFailedPlugins
+                  expr: jenkins_plugins_failed > 0
+                  for: 10m
+                  labels:
+                    severity: warning
+                  annotations:
+                    message: Some Jenkins plugins failed to load
