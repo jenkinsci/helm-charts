@@ -72,15 +72,15 @@ spec:
 {{- if .Values.master.usePodSecurityContext }}
       securityContext:
         runAsUser: {{ default 0 .Values.master.runAsUser }}
-{{- if and (.Values.master.runAsUser) (.Values.master.fsGroup) }}
-{{- if not (eq (int .Values.master.runAsUser) 0) }}
+  {{- if and (.Values.master.runAsUser) (.Values.master.fsGroup) }}
+    {{- if not (eq (int .Values.master.runAsUser) 0) }}
         fsGroup: {{ .Values.master.fsGroup }}
-{{- end }}
-{{- if .Values.master.securityContextCapabilities }}
+    {{- end }}
+    {{- if .Values.master.securityContextCapabilities }}
         capabilities:
-{{ toYaml .Values.master.securityContextCapabilities | indent 10 }}
-{{- end }}
-{{- end }}
+          {{- toYaml .Values.master.securityContextCapabilities | nindent 10 }}
+    {{- end }}
+  {{- end }}
 {{- end }}
       serviceAccountName: "{{ template "jenkins.serviceAccountName" . }}"
 {{- if .Values.master.hostNetworking }}
