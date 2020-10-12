@@ -10,9 +10,21 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
-## 2.8.3
+## 2.12.0
 
 Add option to configure securityContext capabilities
+
+## 2.11.0
+
+Added configurable security context for jenkins backup CronJob and annotations to its serviceaccount.
+
+## 2.10.0
+
+Make activeDeadlineSeconds for backup job configurable
+
+## 2.9.0
+
+Make namespace of PrometheusRule configurable
 
 ## 2.8.2
 
