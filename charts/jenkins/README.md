@@ -55,7 +55,6 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 Visit the chart's [CHANGELOG](./CHANGELOG.md) to view the chart's release history.
 For migration between major version check [migration guide](#migration-guide).
 
-
 ## Configuration
 
 See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
@@ -114,7 +113,7 @@ master:
 
 Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
 
-For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflictig configuration error.
+For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflicting configuration error.
 
 Incorrect:
 
@@ -159,6 +158,7 @@ rbac:
 ```
 
 ### Allow Limited HTML Markup in User-Submitted Text
+
 Some third-party systems (e.g. GitHub) use HTML-formatted data in their payload sent to a Jenkins webhook (e.g. URL of a pull-request being built).
 To display such data as processed HTML instead of raw text set `master.enableRawHtmlMarkupFormatter` to true.
 This option requires installation of the [OWASP Markup Formatter Plugin (antisamy-markup-formatter)](https://plugins.jenkins.io/antisamy-markup-formatter/).
@@ -249,7 +249,6 @@ It is possible to define which storage class to use, by setting `persistence.sto
 If set to a dash (`-`), dynamic provisioning is disabled.
 If the storage class is set to null or left undefined (`""`), the default provisioner is used (gp2 on AWS, standard on GKE, AWS & OpenStack).
 
-
 ### RBAC
 
 RBAC is enabled by default. If you want to disable it you will need to set `rbac.create` to `false`.
@@ -263,7 +262,6 @@ Adds a backup CronJob for jenkins, along with required RBAC resources. See addit
 To restore a backup, you can use the `kube-tasks` underlying tool called [skbn](https://github.com/maorfr/skbn), which copies files from cloud storage to Kubernetes.
 The best way to do it would be using a `Job` to copy files from the desired backup tag to the Jenkins pod.
 See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/examples/in-cluster) for more details.
-
 
 ### Providing Jobs XML
 
@@ -448,7 +446,7 @@ Finally, you'll need to wrap the contents of `templates/config.tpl` like so:
 
 [This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve https.
 Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777#RunningJenkinswithnativeSSL/HTTPS-ConfigureJenkinstouseHTTPSandtheJKSkeystore) related to keystore configuration.
-Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achive that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
+Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
 After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve https.
 Do not set `master.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
 If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` and `https-jks-password`. Example:
