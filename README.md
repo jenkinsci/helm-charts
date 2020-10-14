@@ -33,7 +33,7 @@ Chart documentation is available in [jenkins directory](https://github.com/jenki
 tilt up
 # Open a service tunnel into the cluster with minikube
 minikube service chart-jenkins
-# Login with username admin and password jenkins
+# Login with username admin and password 1234
 ```
 
 ## Contributing
