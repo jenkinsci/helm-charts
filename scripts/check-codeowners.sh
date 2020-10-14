@@ -1,3 +1,6 @@
+#!/usr/bin/env bash
+
+cat <<EOF
 # https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners
 # https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax
 
@@ -5,4 +8,12 @@
 # Unless a later match takes precedence, they will be requested for review when someone opens a pull request.
 * @jenkinsci/helm-charts-admins
 
-/charts/jenkins/ @maorfr @mogaal @timja @torstenwalter @wmcdona89
+EOF
+
+for DIR in ./charts/*
+do
+  FILE="$DIR/Chart.yaml"
+  DIR="${DIR//./}"
+  MAINTAINERS=$(yq r "$FILE" 'maintainers.[*].name'| sed 's/^/@/' | sort|xargs echo)
+  echo "$DIR"/ "$MAINTAINERS"
+done
