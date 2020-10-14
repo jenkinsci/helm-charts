@@ -31,8 +31,9 @@ Chart documentation is available in [jenkins directory](https://github.com/jenki
 
 ```console
 tilt up
-# minikube
+# Open a service tunnel into the cluster with minikube
 minikube service chart-jenkins
+# Login with username admin and password jenkins
 ```
 
 ## Contributing
