@@ -16,19 +16,35 @@ spec:
   startingDeadlineSeconds: 120
   jobTemplate:
     spec:
+{{- if .Values.backup.activeDeadlineSeconds }}
+      activeDeadlineSeconds: "{{ .Values.backup.activeDeadlineSeconds }}"
+{{- end }}
       template:
         metadata:
           {{- if .Values.backup.labels }}
           labels:
-{{ toYaml .Values.backup.labels | trim | indent 12 }}
+            {{- toYaml .Values.backup.labels | trim | nindent 12 }}
           {{- end }}
           {{- if .Values.backup.annotations }}
           annotations:
-{{ toYaml .Values.backup.annotations | trim | indent 12 }}
+            {{- toYaml .Values.backup.annotations | trim | nindent 12 }}
           {{- end }}
         spec:
           restartPolicy: OnFailure
           serviceAccountName: {{ template "jenkins.fullname" . }}-backup
+          {{- if .Values.backup.usePodSecurityContext }}
+          securityContext:
+            runAsUser: {{ default 0 .Values.backup.runAsUser }}
+            {{- if and (.Values.backup.runAsUser) (.Values.backup.fsGroup) }}
+              {{- if not (eq (int .Values.backup.runAsUser) 0) }}
+            fsGroup: {{ .Values.backup.fsGroup }}
+              {{- end }}
+            {{- end }}
+            {{- if .Values.backup.securityContextCapabilities }}
+          capabilities:
+            {{- toYaml .Values.backup.securityContextCapabilities | nindent 12 }}
+            {{- end }}
+          {{- end }}
           containers:
           - name: jenkins-backup
             image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
@@ -46,11 +62,11 @@ spec:
             - --dst
             - {{ .Values.backup.destination }}
             {{- with .Values.backup.extraArgs }}
-{{ toYaml . | indent 12 }}
+              {{- toYaml . | nindent 12 }}
             {{- end }}
             env:
             {{- with .Values.backup.env }}
-{{ toYaml . | trim | indent 12 }}
+              {{- toYaml . | trim | nindent 12 }}
             {{- end }}
             {{- if .Values.backup.existingSecret }}
             {{- range $key,$value := .Values.backup.existingSecret }}
@@ -76,7 +92,7 @@ spec:
             {{- end }}
           {{- with .Values.backup.resources }}
             resources:
-{{ toYaml . | trim | indent 14 }}
+              {{- toYaml . | trim | nindent 14 }}
           {{- end }}
             volumeMounts:
           {{- if .Values.backup.existingSecret }}
@@ -115,6 +131,6 @@ spec:
                       - {{ .Release.Name }}
       {{- with .Values.tolerations }}
           tolerations:
-{{ toYaml . | indent 10 }}
+          {{- toYaml . | nindent 10 }}
       {{- end }}
 {{- end }}

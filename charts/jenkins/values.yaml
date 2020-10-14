@@ -128,6 +128,10 @@ master:
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
   runAsUser: 1000
   fsGroup: 1000
+  # If you have PodSecurityPolicies that require dropping of capabilities as suggested by CIS K8s benchmark, put them here
+  securityContextCapabilities: {}
+  #  drop:
+  #    - NET_RAW
   servicePort: 8080
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
@@ -215,7 +219,7 @@ master:
     - workflow-aggregator:2.6
     - credentials-binding:1.23
     - git:4.2.2
-    - configuration-as-code:1.41
+    - configuration-as-code:1.43
 
   # List of plugins to install in addition to those listed in master.installPlugins
   additionalPlugins: []
@@ -433,6 +437,8 @@ master:
     # See here: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
     # The `groups` root object is added by default, simply add the rule entries
     alertingrules: []
+    # Set a custom namespace where to deploy PrometheusRule resource
+    prometheusRuleNamespace: ""
 
   # Can be used to disable rendering master test resources when using helm template
   testEnabled: true
@@ -645,9 +651,12 @@ backup:
   schedule: "0 2 * * *"
   labels: {}
   annotations: {}
-    # Example for authorization to AWS S3 using kube2iam
+    # Example for authorization to AWS S3 using kube2iam or IRSA
     # Can also be done using environment variables
     # iam.amazonaws.com/role: "jenkins"
+    # "eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/jenkins-backup"
+  # Set this to terminate the job that is running/failing continously and set the job status to "Failed"
+  activeDeadlineSeconds: ""
   image:
     repository: "maorfr/kube-tasks"
     tag: "0.2.0"
@@ -682,4 +691,12 @@ backup:
   # Additional support can added. Visit this repository for details
   # Ref: https://github.com/maorfr/skbn
   destination: "s3://jenkins-data/backup"
+  # Enable backup pod security context (must be `true` if runAsUser or fsGroup are set)
+  usePodSecurityContext: true
+  # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
+  runAsUser: 1000
+  fsGroup: 1000
+  securityContextCapabilities: {}
+  #  drop:
+  #    - NET_RAW
 checkDeprecation: true

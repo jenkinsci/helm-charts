@@ -180,6 +180,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.prometheus.scrapeEndpoint` | The endpoint prometheus should get metrics from | `/prometheus`                 |
 | `master.prometheus.alertingrules` | Array of prometheus alerting rules | `[]`                                        |
 | `master.prometheus.alertingRulesAdditionalLabels` | Additional labels to add to the prometheus rule object     | `{}`                                   |
+| `master.prometheus.prometheusRuleNamespace` | Custom namespace for PrometheusRule | `""` (same ns where Jenkins being deployed) |
 
 #### HTTPS Keystore
 | Parameter                         | Description                          | Default                                   |

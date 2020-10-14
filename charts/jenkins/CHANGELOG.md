@@ -16,6 +16,40 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 * Remove all XML configuration options
 * This chart now requires Helm 3
 
+## 2.12.1
+
+Helm chart README update
+
+## 2.12.0
+
+Add option to configure securityContext capabilities
+
+## 2.11.0
+
+Added configurable security context for jenkins backup CronJob and annotations to its serviceaccount.
+
+## 2.10.0
+
+Make activeDeadlineSeconds for backup job configurable
+
+## 2.9.0
+
+Make namespace of PrometheusRule configurable
+
+## 2.8.2
+
+Bumped configuration-as-code plugin version from 1.41 to 1.43.
+See [configuration-as-code plugin issue #1478](https://github.com/jenkinsci/configuration-as-code-plugin/issues/1478)
+
+## 2.8.1
+
+Fix indentation of JAVA_OPTS
+
+## 2.8.0
+
+Add support for helm unittest and include first tests
+>>>>>>> main
+
 ## 2.7.2
 
 Target port of container `jenkins-sc-config` taken the value from values.yaml.
