@@ -1,0 +1,82 @@
+suite: ConfigMap
+templates:
+  - config.yaml
+tests:
+  - it: default config
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - equal:
+          path: data.apply_config\.sh
+          value: |-
+            echo "disable Setup Wizard"
+            # Prevent Setup Wizard when JCasC is enabled
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
+            echo "download plugins"
+            # Install missing plugins
+            cp /var/jenkins_config/plugins.txt /var/jenkins_home;
+            rm -rf /usr/share/jenkins/ref/plugins/*.lock
+            /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
+            echo "copy plugins to shared volume"
+            # Copy plugins to shared volume
+            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            echo "finished initialization"
+      - equal:
+          path: data.plugins\.txt
+          value: |-
+            kubernetes:1.25.7
+            workflow-job:2.39
+            workflow-aggregator:2.6
+            credentials-binding:1.23
+            git:4.2.2
+            configuration-as-code:1.43
+  - it: no plugins
+    set:
+      master.installPlugins: []
+    asserts:
+      - equal:
+          path: data.apply_config\.sh
+          value: |-
+            echo "disable Setup Wizard"
+            # Prevent Setup Wizard when JCasC is enabled
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
+            echo "finished initialization"
+      - equal:
+          path: data.plugins\.txt
+          value: ""
+  - it: additional plugins config
+    set:
+      master:
+        additionalPlugins:
+              - kubernetes-credentials-provider
+    asserts:
+      - equal:
+          path: data.apply_config\.sh
+          value: |-
+            echo "disable Setup Wizard"
+            # Prevent Setup Wizard when JCasC is enabled
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
+            echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
+            echo "download plugins"
+            # Install missing plugins
+            cp /var/jenkins_config/plugins.txt /var/jenkins_home;
+            rm -rf /usr/share/jenkins/ref/plugins/*.lock
+            /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
+            echo "copy plugins to shared volume"
+            # Copy plugins to shared volume
+            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            echo "finished initialization"
+      - equal:
+          path: data.plugins\.txt
+          value: |-
+            kubernetes:1.25.7
+            workflow-job:2.39
+            workflow-aggregator:2.6
+            credentials-binding:1.23
+            git:4.2.2
+            configuration-as-code:1.43
+            kubernetes-credentials-provider

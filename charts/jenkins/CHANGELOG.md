@@ -16,6 +16,11 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 * Remove all XML configuration options
 * This chart now requires Helm 3
 
+## 2.12.2
+
+Added unit tests for most resources in the Helm chart.
+>>>>>>> main
+
 ## 2.12.1
 
 Helm chart README update

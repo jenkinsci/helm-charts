@@ -1,0 +1,60 @@
+suite: Network Policy
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-master-networkpolicy.yaml
+tests:
+  - it: tests defaults
+    asserts:
+    - hasDocuments:
+        count: 0
+  - it: enabled
+    set:
+      networkPolicy.enabled: true
+    asserts:
+      - hasDocuments:
+          count: 2    
+      - isKind:
+          of: NetworkPolicy
+      - equal:
+          path: apiVersion
+          value: networking.k8s.io/v1
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - isNull:
+          path: metadata.annotations
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-master
+        documentIndex: 0
+      - equal:
+          path: spec
+          value:
+            ingress:
+            - ports:
+              - port: 8080
+            - from:
+              - podSelector:
+                  matchLabels:
+                    jenkins/my-release-jenkins-slave: "true"
+              ports:
+              - port: 50000
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/component: jenkins-master
+                app.kubernetes.io/instance: my-release
+        documentIndex: 0
+      - equal:
+          path: spec
+          value:
+            podSelector:
+              matchLabels:
+                jenkins/my-release-jenkins-slave: "true"
+        documentIndex: 1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-slave
+        documentIndex: 1
+
