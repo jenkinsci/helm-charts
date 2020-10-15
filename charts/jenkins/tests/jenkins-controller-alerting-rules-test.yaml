@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-alerting-rules.yaml
+  - jenkins-controller-alerting-rules.yaml
 tests:
   - it: defaults
     asserts:
@@ -11,7 +11,7 @@ tests:
         count: 0
   - it: enabled
     set:
-      master.prometheus:
+      controller.prometheus:
         enabled: true
         alertingrules:
           - name: ./jenkins.rules

@@ -28,12 +28,12 @@ tests:
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: other values
     set:
-      master:
+      controller:
         slaveListenerServiceAnnotations:
           key: value
         slaveListenerPort: 55555
@@ -50,12 +50,12 @@ tests:
               port: 55555
               targetPort: 55555
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: node port
     set:
-      master:
+      controller:
         slaveListenerServiceType: NodePort
     asserts:
       - equal:
@@ -67,12 +67,12 @@ tests:
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: NodePort
   - it: load balancer
     set:
-      master:
+      controller:
         slaveListenerServiceType: LoadBalancer
         slaveListenerLoadBalancerIP: 10.10.10.10
     asserts:
@@ -84,7 +84,7 @@ tests:
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: LoadBalancer
             loadBalancerIP: 10.10.10.10

@@ -70,7 +70,7 @@ Add a key under configScripts for each configuration area, where each correspond
 The keys (prior to `|` character) are just labels, and can be any value.
 They are only used to give the section a meaningful name.
 The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
-Each key will become the name of a configuration yaml file on the master in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+Each key will become the name of a configuration yaml file on the controller in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
@@ -78,7 +78,7 @@ Best reference is the Documentation link here: `https://<jenkins_url>/configurat
 The example below sets custom systemMessage:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       welcome-message: |
@@ -89,7 +89,7 @@ master:
 More complex example that creates ldap settings:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       ldap-settings: |
@@ -112,7 +112,7 @@ For example, you can not configure Jenkins URL and System Admin e-mail address l
 Incorrect:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       jenkins-url: |
@@ -125,7 +125,7 @@ master:
 Correct:
 
 ```yaml
-master:
+controller:
   jenkinsUrl: https://example.com/jenkins
   jenkinsAdminEmail: example@mail.com
 ```
@@ -134,14 +134,14 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 
 #### Config as Code With or Without Auto-Reload
 
-Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
-If you set `master.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
+Config as Code changes (to `controller.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
+If you set `controller.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins controller pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
-You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
+You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c jenkins-sc-config -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
 
 ```yaml
-master:
+controller:
   sidecars:
     configAutoReload:
       enabled: true
@@ -152,9 +152,9 @@ rbac:
 ### Allow Limited HTML Markup in User-Submitted Text
 
 Some third-party systems (e.g. GitHub) use HTML-formatted data in their payload sent to a Jenkins webhook (e.g. URL of a pull-request being built).
-To display such data as processed HTML instead of raw text set `master.enableRawHtmlMarkupFormatter` to true.
+To display such data as processed HTML instead of raw text set `controller.enableRawHtmlMarkupFormatter` to true.
 This option requires installation of the [OWASP Markup Formatter Plugin (antisamy-markup-formatter)](https://plugins.jenkins.io/antisamy-markup-formatter/).
-This plugin is **not** installed by default but may be added to `master.additionalPlugins`.
+This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
 ### Mounting Volumes into Agent Pods
 
@@ -177,13 +177,13 @@ To make use of the NetworkPolicy resources created by default, install [a networ
 
 [Install](#install-chart) helm chart with network policy enabled by setting `networkPolicy.enabled` to `true`.
 
-You can use `master.networkPolicy.internalAgents` and `master.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
+You can use `controller.networkPolicy.internalAgents` and `controller.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
 
 
 ### Custom Labels
 
-`master.serviceLabels` can be used to add custom labels in `jenkins-master-svc.yaml`.
+`controller.serviceLabels` can be used to add custom labels in `jenkins-controller-svc.yaml`.
 For example:
 
 ```yaml
@@ -235,7 +235,7 @@ There's no need to add the *jnlp* container since the kubernetes plugin will aut
 For this pod templates configuration to be loaded the following values must be set:
 
 ```yaml
-master.JCasC.defaultConfig: true
+controller.JCasC.defaultConfig: true
 ```
 
 The example below creates a python pod template in the kubernetes cloud:
@@ -299,12 +299,12 @@ additionalAgents:
 
 ### Running Behind a Forward Proxy
 
-The master pod uses an Init Container to install plugins etc. If you are behind a corporate proxy it may be useful to set `master.initContainerEnv` to add environment variables such as `http_proxy`, so that these can be downloaded.
+The controller pod uses an Init Container to install plugins etc. If you are behind a corporate proxy it may be useful to set `controller.initContainerEnv` to add environment variables such as `http_proxy`, so that these can be downloaded.
 
-Additionally, you may want to add env vars for the init container, the Jenkins container, and the JVM (`master.javaOpts`):
+Additionally, you may want to add env vars for the init container, the Jenkins container, and the JVM (`controller.javaOpts`):
 
 ```yaml
-master:
+controller:
   initContainerEnv:
     - name: http_proxy
       value: "http://192.168.64.1:3128"
@@ -330,11 +330,11 @@ master:
 Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777#RunningJenkinswithnativeSSL/HTTPS-ConfigureJenkinstouseHTTPSandtheJKSkeystore) related to keystore configuration.
 Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
 After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve https.
-Do not set `master.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
+Do not set `controller.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
 If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` and `https-jks-password`. Example:
 
 ```yaml
-master:
+controller:
    httpsKeyStore:
        enable: true
        jenkinsHttpsJksSecretName: ''
@@ -393,7 +393,7 @@ All you have to do is ensure the old values are set in your installation.
 Here we show which values have changed and the previous default values:
 
 ```yaml
-master:
+controller:
   enableXmlConfig: false  # was true
   runAsUser: 1000         # was unset before
   fsGroup: 1000           # was unset before
@@ -442,7 +442,7 @@ As a result of the label changes also the selectors of the deployment have been 
 Those are immutable so trying an updated will cause an error like:
 
 ```console
-Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-master", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
+Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-controller", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
 ```
 
 In order to upgrade, [uninstall](#uninstall-chart) the Jenkins Deployment before upgrading:

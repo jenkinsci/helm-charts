@@ -1,10 +1,10 @@
-{{- if .Values.master.secondaryingress.enabled }}
+{{- if .Values.controller.secondaryingress.enabled }}
 {{- $serviceName := include "jenkins.fullname" . -}}
-{{- $servicePort := .Values.master.servicePort -}}
+{{- $servicePort := .Values.controller.servicePort -}}
 {{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1beta1
 {{- else -}}
-apiVersion: {{ .Values.master.secondaryingress.apiVersion }}
+apiVersion: {{ .Values.controller.secondaryingress.apiVersion }}
 {{- end }}
 kind: Ingress
 metadata:
@@ -14,27 +14,27 @@ metadata:
     "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
-    {{- if .Values.master.secondaryingress.labels -}}
-    {{ toYaml .Values.master.secondaryingress.labels | nindent 4 }}
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- if .Values.controller.secondaryingress.labels -}}
+    {{ toYaml .Values.controller.secondaryingress.labels | nindent 4 }}
     {{- end }}
-  {{- if .Values.master.secondaryingress.annotations }}
-  annotations: {{ toYaml .Values.master.secondaryingress.annotations | nindent 4 }}
+  {{- if .Values.controller.secondaryingress.annotations }}
+  annotations: {{ toYaml .Values.controller.secondaryingress.annotations | nindent 4 }}
   {{- end }}
   name: {{ template "jenkins.fullname" . }}-secondary
 spec:
   rules:
-    - host: {{ .Values.master.secondaryingress.hostName }}
+    - host: {{ .Values.controller.secondaryingress.hostName }}
       http:
         paths:
-        {{- range .Values.master.secondaryingress.paths }}
+        {{- range .Values.controller.secondaryingress.paths }}
           - path: {{ . | quote }}
             backend:
               serviceName: {{ $serviceName }}
               servicePort: {{ $servicePort }}
         {{- end}}
-{{- if .Values.master.secondaryingress.tls }}
+{{- if .Values.controller.secondaryingress.tls }}
   tls:
-{{ toYaml .Values.master.secondaryingress.tls | indent 4 }}
+{{ toYaml .Values.controller.secondaryingress.tls | indent 4 }}
 {{- end -}}
 {{- end }}
