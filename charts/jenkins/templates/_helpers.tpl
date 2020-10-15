@@ -102,7 +102,9 @@ jenkins:
       defaultsProviderTemplate: "{{ .Values.master.slaveDefaultsProviderTemplate }}"
       connectTimeout: "{{ .Values.master.slaveConnectTimeout }}"
       readTimeout: "{{ .Values.master.slaveReadTimeout }}"
-      {{- if .Values.master.slaveJenkinsUrl }}
+      {{- if .Values.agent.websocket }}
+      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
+      {{- else if .Values.master.slaveJenkinsUrl }}
       jenkinsUrl: "{{ tpl .Values.master.slaveJenkinsUrl . }}"
       {{- else if .Values.master.slaveKubernetesNamespace }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
@@ -110,12 +112,16 @@ jenkins:
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
       {{- end }}
 
+      {{- if not .Values.agent.websocket }}
       {{- if .Values.master.slaveJenkinsTunnel }}
       jenkinsTunnel: "{{ tpl .Values.master.slaveJenkinsTunnel . }}"
       {{- else if .Values.master.slaveKubernetesNamespace }}
       jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.master.slaveListenerPort }}"
       {{- else }}
       jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.master.slaveListenerPort }}"
+      {{- end }}
+      {{- else }}
+      webSocket: true
       {{- end }}
       maxRequestsPerHostStr: "32"
       name: "kubernetes"
@@ -180,7 +186,7 @@ Returns kubernetes pod template configuration as code
           {{- if .Values.master.slaveJenkinsUrl }}
           value: {{ tpl .Values.master.slaveJenkinsUrl . }}
           {{- else }}
-          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
+          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.master.servicePort}}{{ default "/" .Values.master.jenkinsUriPrefix }}"
           {{- end }}
     {{- if .Values.agent.imageTag }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.imageTag }}"

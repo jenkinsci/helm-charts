@@ -255,6 +255,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 #### Pod Configuration
 | Parameter                  | Description                                     | Default                |
 | -------------------------- | ----------------------------------------------- | ---------------------- |
+| `agent.websocket`          | Enables agent communication via websockets      | false                  |
 | `agent.podName`            | Agent Pod base name                             | Not set                |
 | `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `{}`                   |
 | `agent.envVars`            | Environment variables for the agent Pod         | `[]`                   |
