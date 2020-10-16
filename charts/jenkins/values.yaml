@@ -379,6 +379,9 @@ master:
   # the jenkins config with the contents of the configMap every time the pod starts.
   # This will also overwrite all init scripts
   overwriteConfig: false
+  
+  # In some case it's necessary to overwrite only jenkins init scripts from configMap 
+  overwriteInitScripts: false
 
   # By default, the Jobs Map is only used to set the initial jobs the first time
   # that the chart is installed.  Setting `overwriteJobs` to `true` will overwrite
