@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-statefulset.yaml
+  - jenkins-controller-statefulset.yaml
 tests:
   - it: default values
     asserts:
@@ -27,7 +27,7 @@ tests:
           path: spec.selector
           value:
             matchLabels:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
       - equal:
           path: spec
@@ -36,14 +36,14 @@ tests:
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/component: jenkins-master
+                app.kubernetes.io/component: jenkins-controller
                 app.kubernetes.io/instance: my-release
             template:
               metadata:
                 annotations:
-                  checksum/config: c0343a2b3f810c50d440157ccff0461a3aee45dbc491346dc5e80f9891250396
+                  checksum/config: 9922c3cc3c185b70bacf98d485ddd3b49f9f85c6a67f12f137c83a6ea6cd943f
                 labels:
-                  app.kubernetes.io/component: jenkins-master
+                  app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
                   app.kubernetes.io/managed-by: Helm
                   app.kubernetes.io/name: jenkins
@@ -207,7 +207,7 @@ tests:
       apiVersions:
         - scheduling.k8s.io/v1beta1
     set:
-      master:
+      controller:
         statefulSetAnnotations:
           my-annotation: value
         schedulerName: my-scheduler
@@ -301,8 +301,8 @@ tests:
               - something.local
   - it: configure image tag
     set:
-      master.tag: 2.249.1-slim
-      master.imagePullPolicy: IfNotPresent
+      controller.tag: 2.249.1-slim
+      controller.imagePullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
@@ -312,7 +312,7 @@ tests:
           value: IfNotPresent
   - it: custom image
     set:
-      master:
+      controller:
         image: registry/image
         tag: my-tag
         javaOpts: -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true

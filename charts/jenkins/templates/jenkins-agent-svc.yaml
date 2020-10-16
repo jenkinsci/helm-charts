@@ -8,25 +8,25 @@ metadata:
     "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
-{{- if .Values.master.slaveListenerServiceAnnotations }}
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+{{- if .Values.controller.slaveListenerServiceAnnotations }}
   annotations:
-{{ toYaml .Values.master.slaveListenerServiceAnnotations | indent 4 }}
+{{ toYaml .Values.controller.slaveListenerServiceAnnotations | indent 4 }}
 {{- end }}
 spec:
   ports:
-    - port: {{ .Values.master.slaveListenerPort }}
-      targetPort: {{ .Values.master.slaveListenerPort }}
-      {{ if (and (eq .Values.master.slaveListenerServiceType "NodePort") (not (empty .Values.master.slaveListenerPort))) }}
-      nodePort: {{.Values.master.slaveListenerPort}}
+    - port: {{ .Values.controller.slaveListenerPort }}
+      targetPort: {{ .Values.controller.slaveListenerPort }}
+      {{ if (and (eq .Values.controller.slaveListenerServiceType "NodePort") (not (empty .Values.controller.slaveListenerPort))) }}
+      nodePort: {{.Values.controller.slaveListenerPort}}
       {{end}}
       name: slavelistener
   selector:
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-  type: {{ .Values.master.slaveListenerServiceType }}
-  {{  if eq .Values.master.slaveListenerServiceType "LoadBalancer"  }}
-  {{  if .Values.master.slaveListenerLoadBalancerIP  }}
-  loadBalancerIP: {{  .Values.master.slaveListenerLoadBalancerIP  }}
+  type: {{ .Values.controller.slaveListenerServiceType }}
+  {{  if eq .Values.controller.slaveListenerServiceType "LoadBalancer"  }}
+  {{  if .Values.controller.slaveListenerLoadBalancerIP  }}
+  loadBalancerIP: {{  .Values.controller.slaveListenerLoadBalancerIP  }}
   {{end}}
   {{end}}

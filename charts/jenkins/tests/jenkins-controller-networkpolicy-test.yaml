@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-networkpolicy.yaml
+  - jenkins-controller-networkpolicy.yaml
 tests:
   - it: tests defaults
     asserts:
@@ -14,7 +14,7 @@ tests:
       networkPolicy.enabled: true
     asserts:
       - hasDocuments:
-          count: 2    
+          count: 2
       - isKind:
           of: NetworkPolicy
       - equal:
@@ -27,7 +27,7 @@ tests:
           path: metadata.annotations
       - equal:
           path: metadata.name
-          value: my-release-jenkins-master
+          value: my-release-jenkins-controller
         documentIndex: 0
       - equal:
           path: spec
@@ -43,7 +43,7 @@ tests:
               - port: 50000
             podSelector:
               matchLabels:
-                app.kubernetes.io/component: jenkins-master
+                app.kubernetes.io/component: jenkins-controller
                 app.kubernetes.io/instance: my-release
         documentIndex: 0
       - equal:

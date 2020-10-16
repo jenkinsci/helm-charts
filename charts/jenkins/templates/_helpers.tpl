@@ -17,9 +17,9 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
   {{- end -}}
 {{- end -}}
 
-{{- define "jenkins.master.slaveKubernetesNamespace" -}}
-  {{- if .Values.master.slaveKubernetesNamespace -}}
-    {{- tpl .Values.master.slaveKubernetesNamespace . -}}
+{{- define "jenkins.controller.slaveKubernetesNamespace" -}}
+  {{- if .Values.controller.slaveKubernetesNamespace -}}
+    {{- tpl .Values.controller.slaveKubernetesNamespace . -}}
   {{- else -}}
     {{- if .Values.namespaceOverride -}}
       {{- .Values.namespaceOverride -}}
@@ -52,17 +52,17 @@ If release name contains chart name it will be used as a full name.
 Returns the Jenkins URL
 */}}
 {{- define "jenkins.url" -}}
-{{- if .Values.master.jenkinsUrl }}
-  {{- .Values.master.jenkinsUrl }}
+{{- if .Values.controller.jenkinsUrl }}
+  {{- .Values.controller.jenkinsUrl }}
 {{- else }}
-  {{- if .Values.master.ingress.hostName }}
-    {{- if .Values.master.ingress.tls }}
-      {{- default "https" .Values.master.jenkinsUrlProtocol }}://{{ .Values.master.ingress.hostName }}{{ default "" .Values.master.jenkinsUriPrefix }}
+  {{- if .Values.controller.ingress.hostName }}
+    {{- if .Values.controller.ingress.tls }}
+      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.ingress.hostName }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- else }}
-      {{- default "http" .Values.master.jenkinsUrlProtocol }}://{{ .Values.master.ingress.hostName }}{{ default "" .Values.master.jenkinsUriPrefix }}
+      {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.ingress.hostName }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- end }}
   {{- else }}
-      {{- default "http" .Values.master.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}
+      {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- end}}
 {{- end}}
 {{- end -}}
@@ -72,52 +72,52 @@ Returns configuration as code default config
 */}}
 {{- define "jenkins.casc.defaults" -}}
 jenkins:
-  {{- $configScripts := toYaml .Values.master.JCasC.configScripts }}
-  {{- if and (.Values.master.JCasC.authorizationStrategy) (not (contains "authorizationStrategy:" $configScripts)) }}
+  {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
+  {{- if and (.Values.controller.JCasC.authorizationStrategy) (not (contains "authorizationStrategy:" $configScripts)) }}
   authorizationStrategy:
-    {{- tpl .Values.master.JCasC.authorizationStrategy . | nindent 4 }}
+    {{- tpl .Values.controller.JCasC.authorizationStrategy . | nindent 4 }}
   {{- end }}
-  {{- if and (.Values.master.JCasC.securityRealm) (not (contains "securityRealm:" $configScripts)) }}
+  {{- if and (.Values.controller.JCasC.securityRealm) (not (contains "securityRealm:" $configScripts)) }}
   securityRealm:
-    {{- tpl .Values.master.JCasC.securityRealm . | nindent 4 }}
+    {{- tpl .Values.controller.JCasC.securityRealm . | nindent 4 }}
   {{- end }}
-  disableRememberMe: {{ .Values.master.disableRememberMe }}
+  disableRememberMe: {{ .Values.controller.disableRememberMe }}
   remotingSecurity:
     enabled: true
-  mode: {{ .Values.master.executorMode }}
-  numExecutors: {{ .Values.master.numExecutors }}
+  mode: {{ .Values.controller.executorMode }}
+  numExecutors: {{ .Values.controller.numExecutors }}
   projectNamingStrategy: "standard"
   markupFormatter:
-    {{- if .Values.master.enableRawHtmlMarkupFormatter }}
+    {{- if .Values.controller.enableRawHtmlMarkupFormatter }}
     rawHtml:
       disableSyntaxHighlighting: true
     {{- else }}
-    {{- toYaml .Values.master.markupFormatter | nindent 4 }}
+    {{- toYaml .Values.controller.markupFormatter | nindent 4 }}
     {{- end }}
   clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.agent.containerCap }}"
-      defaultsProviderTemplate: "{{ .Values.master.slaveDefaultsProviderTemplate }}"
-      connectTimeout: "{{ .Values.master.slaveConnectTimeout }}"
-      readTimeout: "{{ .Values.master.slaveReadTimeout }}"
-      {{- if .Values.master.slaveJenkinsUrl }}
-      jenkinsUrl: "{{ tpl .Values.master.slaveJenkinsUrl . }}"
-      {{- else if .Values.master.slaveKubernetesNamespace }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
+      defaultsProviderTemplate: "{{ .Values.controller.slaveDefaultsProviderTemplate }}"
+      connectTimeout: "{{ .Values.controller.slaveConnectTimeout }}"
+      readTimeout: "{{ .Values.controller.slaveReadTimeout }}"
+      {{- if .Values.controller.slaveJenkinsUrl }}
+      jenkinsUrl: "{{ tpl .Values.controller.slaveJenkinsUrl . }}"
+      {{- else if .Values.controller.slaveKubernetesNamespace }}
+      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- else }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
+      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- end }}
 
-      {{- if .Values.master.slaveJenkinsTunnel }}
-      jenkinsTunnel: "{{ tpl .Values.master.slaveJenkinsTunnel . }}"
-      {{- else if .Values.master.slaveKubernetesNamespace }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.master.slaveListenerPort }}"
+      {{- if .Values.controller.slaveJenkinsTunnel }}
+      jenkinsTunnel: "{{ tpl .Values.controller.slaveJenkinsTunnel . }}"
+      {{- else if .Values.controller.slaveKubernetesNamespace }}
+      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.slaveListenerPort }}"
       {{- else }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.master.slaveListenerPort }}"
+      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.controller.slaveListenerPort }}"
       {{- end }}
       maxRequestsPerHostStr: "32"
       name: "kubernetes"
-      namespace: "{{ template "jenkins.master.slaveKubernetesNamespace" . }}"
+      namespace: "{{ template "jenkins.controller.slaveKubernetesNamespace" . }}"
       serverUrl: "https://kubernetes.default"
       {{- if .Values.agent.enabled }}
       podLabels:
@@ -144,10 +144,10 @@ jenkins:
         {{- end }}
       {{- end }}
       {{- end }}
-  {{- if .Values.master.csrf.defaultCrumbIssuer.enabled }}
+  {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
   crumbIssuer:
     standard:
-      excludeClientIPFromCrumb: {{ if .Values.master.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
+      excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
   {{- end }}
 security:
   apiToken:
@@ -156,7 +156,7 @@ security:
     usageStatisticsEnabled: true
 unclassified:
   location:
-    adminAddress: {{ default "" .Values.master.jenkinsAdminEmail }}
+    adminAddress: {{ default "" .Values.controller.jenkinsAdminEmail }}
     url: {{ template "jenkins.url" . }}
 {{- end -}}
 
@@ -175,10 +175,10 @@ Returns kubernetes pod template configuration as code
     envVars:
       - envVar:
           key: "JENKINS_URL"
-          {{- if .Values.master.slaveJenkinsUrl }}
-          value: {{ tpl .Values.master.slaveJenkinsUrl . }}
+          {{- if .Values.controller.slaveJenkinsUrl }}
+          value: {{ tpl .Values.controller.slaveJenkinsUrl . }}
           {{- else }}
-          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.master.servicePort}}{{ default "" .Values.master.jenkinsUriPrefix }}"
+          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
     {{- if .Values.agent.imageTag }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.imageTag }}"
@@ -249,8 +249,8 @@ Returns kubernetes pod template configuration as code
 {{- end -}}
 
 {{- define "jenkins.kubernetes-version" -}}
-  {{- if .Values.master.installPlugins -}}
-    {{- range .Values.master.installPlugins -}}
+  {{- if .Values.controller.installPlugins -}}
+    {{- range .Values.controller.installPlugins -}}
       {{ if hasPrefix "kubernetes:" . }}
         {{- $split := splitList ":" . }}
         {{- printf "%s" (index $split 1 ) -}}

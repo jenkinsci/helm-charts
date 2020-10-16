@@ -89,7 +89,7 @@ tests:
     release:
       namespace: controller-namespace
     set:
-      master:
+      controller:
         slaveKubernetesNamespace: jenkins-agents
       additionalAgents:
         maven:
@@ -271,7 +271,7 @@ tests:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: customized config
     set:
-      master:
+      controller:
         disableRememberMe: true
         executorMode: EXCLUSIVE
         numExecutors: 1
@@ -567,7 +567,7 @@ tests:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: disable default config
     set:
-      master.JCasC.defaultConfig: false
+      controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
          count: 0

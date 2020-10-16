@@ -15,6 +15,8 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 * Remove all XML configuration options
 * This chart now requires Helm 3
+* componentName for the controller is now `jenkins-controller`
+* `master` key in values.yaml is now named `controller`
 
 ## 2.12.2
 

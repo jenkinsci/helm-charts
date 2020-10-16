@@ -35,7 +35,7 @@ tests:
             configuration-as-code:1.43
   - it: no plugins
     set:
-      master.installPlugins: []
+      controller.installPlugins: []
     asserts:
       - equal:
           path: data.apply_config\.sh
@@ -50,7 +50,7 @@ tests:
           value: ""
   - it: additional plugins config
     set:
-      master:
+      controller:
         additionalPlugins:
               - kubernetes-credentials-provider
     asserts:
