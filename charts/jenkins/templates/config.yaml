@@ -225,7 +225,7 @@ data:
 {{- if .Values.master.initScripts }}
     echo "copy init scripts"
     mkdir -p {{ .Values.master.jenkinsHome }}/init.groovy.d/;
-    {{- if .Values.master.overwriteConfig or .Values.master.overwriteInitScripts }}
+    {{- if or .Values.master.overwriteConfig .Values.master.overwriteInitScripts }}
     rm -f {{ .Values.master.jenkinsHome }}/init.groovy.d/*.groovy
     {{- end }}
     yes n | cp -i /var/jenkins_config/*.groovy {{ .Values.master.jenkinsHome }}/init.groovy.d/;
