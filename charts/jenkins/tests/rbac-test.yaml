@@ -77,7 +77,7 @@ tests:
 
   - it: Separate Agent Namespace
     set:
-      controller.slaveKubernetesNamespace: agent-namespace
+      agent.namespace: agent-namespace
     asserts:
       - equal:
           path: metadata.namespace

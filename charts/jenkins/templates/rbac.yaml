@@ -6,7 +6,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ $serviceName }}-schedule-agents
-  namespace: {{ template "jenkins.controller.slaveKubernetesNamespace" . }}
+  namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
@@ -29,7 +29,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ $serviceName }}-schedule-agents
-  namespace: {{ template "jenkins.controller.slaveKubernetesNamespace" . }}
+  namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"

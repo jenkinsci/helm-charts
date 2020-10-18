@@ -16,12 +16,27 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 * Remove all XML configuration options
 * This chart now requires Helm 3
 * componentName for the controller is now `jenkins-controller`
-* `master` key in values.yaml is now named `controller`
+* componentName for the agent is now `jenkins-agent`
+
+The following values from `values.yaml` have been renamed:
+
+* `master` => `controller`
+* `master.slaveListenerPort` => `controller.agentListenerPort`
+* `master.slaveHostPort` => `controller.agentHostPort`
+* `master.slaveKubernetesNamespace` => `agent.namespace`
+* `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
+* `master.slaveJenkinsUrl` => `controller.agentJenkinsUrl`
+* `master.slaveJenkinsTunnel` => `controller.agentJenkinsTunnel`
+* `master.slaveConnectTimeout` => `controller.agentConnectTimeout`
+* `master.slaveReadTimeout` => `controller.agentReadTimeout`
+* `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
+* `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
+* `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
+* `agent.slaveConnectTimeout` => `agent.connectTimeout`
 
 ## 2.12.2
 
 Added unit tests for most resources in the Helm chart.
->>>>>>> main
 
 ## 2.12.1
 
@@ -499,7 +514,7 @@ Update kubernetes-plugin to version 1.18.2 which fixes frequently encountered [J
 
 ## 1.7.1
 
-Update the default requirements for jenkins-slave to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
+Update the default requirements for jenkins-agent to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
 
 ## 1.7.0
 

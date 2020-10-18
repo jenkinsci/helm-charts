@@ -38,7 +38,7 @@ tests:
             - from:
               - podSelector:
                   matchLabels:
-                    jenkins/my-release-jenkins-slave: "true"
+                    jenkins/my-release-jenkins-agent: "true"
               ports:
               - port: 50000
             podSelector:
@@ -51,10 +51,10 @@ tests:
           value:
             podSelector:
               matchLabels:
-                jenkins/my-release-jenkins-slave: "true"
+                jenkins/my-release-jenkins-agent: "true"
         documentIndex: 1
       - equal:
           path: metadata.name
-          value: my-release-jenkins-slave
+          value: my-release-jenkins-agent
         documentIndex: 1
 

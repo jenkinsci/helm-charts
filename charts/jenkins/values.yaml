@@ -161,8 +161,8 @@ controller:
   healthProbeReadinessFailureThreshold: 3
   healthProbeLivenessInitialDelay: 90
   healthProbeReadinessInitialDelay: 60
-  slaveListenerPort: 50000
-  slaveHostPort:
+  agentListenerPort: 50000
+  agentHostPort:
   disabledAgentProtocols:
     - JNLP-connect
     - JNLP2-connect
@@ -171,26 +171,24 @@ controller:
       enabled: true
       proxyCompatability: true
   # Kubernetes service type for the JNLP agent service
-  # slaveListenerServiceType is the Kubernetes Service type for the JNLP agent service,
+  # agentListenerServiceType is the Kubernetes Service type for the JNLP agent service,
   # either 'LoadBalancer', 'NodePort', or 'ClusterIP'
   # Note if you set this to 'LoadBalancer', you *must* define annotations to secure it. By default
   # this will be an external load balancer and allowing inbound 0.0.0.0/0, a HUGE
   # security risk:  https://github.com/kubernetes/charts/issues/1341
-  slaveListenerServiceType: "ClusterIP"
-  # Optionally assign an IP to the LoadBalancer slaveListenerService LoadBalancer
+  agentListenerServiceType: "ClusterIP"
+  # Optionally assign an IP to the LoadBalancer agentListenerService LoadBalancer
   # GKE users: only regional static IPs will work for Service Load balancer.
-  # slaveListenerLoadBalancerIP: 1.2.3.4
-  slaveListenerServiceAnnotations: {}
-  slaveDefaultsProviderTemplate: ""
-  slaveConnectTimeout: 5
-  slaveReadTimeout: 15
-  slaveKubernetesNamespace:
-  slaveJenkinsUrl:
-  slaveJenkinsTunnel:
+  agentListenerLoadBalancerIP:
+  agentListenerServiceAnnotations: {}
+  agentConnectTimeout: 5
+  agentReadTimeout: 15
+  agentJenkinsUrl:
+  agentJenkinsTunnel:
 
   # Example of 'LoadBalancer' type of agent listener with annotations securing it
-  # slaveListenerServiceType: LoadBalancer
-  # slaveListenerServiceAnnotations:
+  # agentListenerServiceType: LoadBalancer
+  # agentListenerServiceAnnotations:
   #   service.beta.kubernetes.io/aws-load-balancer-internal: "True"
   #   service.beta.kubernetes.io/load-balancer-source-ranges: "172.0.0.0/8, 10.0.0.0/8"
 
@@ -447,13 +445,15 @@ controller:
 
 agent:
   enabled: true
+  namespace:
   image: "jenkins/inbound-agent"
   tag: "4.3-4"
+  defaultsProviderTemplate: ""
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
   imagePullSecretName:
-  componentName: "jenkins-slave"
+  componentName: "jenkins-agent"
   privileged: false
   runAsUser:
   runAsGroup:
@@ -533,7 +533,7 @@ agent:
   # Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates: merge or override
   yamlMergeStrategy: "override"
   # Timeout in seconds for an agent to be online
-  slaveConnectTimeout: 100
+  connectTimeout: 100
 
   # Below is the implementation of custom pod templates for the default configured kubernetes cloud.
   # Add a key under podTemplates for each pod template. Each key (prior to | character) is just a label, and can be any value.
