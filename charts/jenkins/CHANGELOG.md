@@ -21,7 +21,6 @@ Added trailing slash to JENKINS_URL env var
 ## 2.12.2
 
 Added unit tests for most resources in the Helm chart.
->>>>>>> main
 
 ## 2.12.1
 
