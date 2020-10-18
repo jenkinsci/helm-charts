@@ -200,7 +200,7 @@ spec:
             {{- end }}
               name: http
             - containerPort: {{ .Values.controller.agentListenerPort }}
-              name: agentListener
+              name: agent-listener
               {{- if .Values.controller.agentHostPort }}
               hostPort: {{ .Values.controller.agentHostPort }}
               {{- end }}

@@ -24,7 +24,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: agentListener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:
@@ -46,7 +46,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: agentListener
+            - name: agent-listener
               port: 55555
               targetPort: 55555
             selector:
@@ -62,7 +62,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: agentListener
+            - name: agent-listener
               nodePort: 50000
               port: 50000
               targetPort: 50000
@@ -80,7 +80,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: agentListener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:

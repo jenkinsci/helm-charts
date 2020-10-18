@@ -20,7 +20,7 @@ spec:
       {{- if (and (eq .Values.controller.agentListenerServiceType "NodePort") (not (empty .Values.controller.agentListenerPort))) }}
       nodePort: {{ .Values.controller.agentListenerPort }}
       {{- end }}
-      name: agentListener
+      name: agent-listener
   selector:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
