@@ -1,0 +1,90 @@
+suite: Jenkins Agent Service
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-agent-svc.yaml
+tests:
+  - it: default tests
+    asserts:
+      - isKind:
+          of: Service
+      - equal:
+          path: apiVersion
+          value: v1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-agent
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - isNull:
+          path: metadata.annotations
+      - equal:
+          path: spec
+          value:
+            ports:
+            - name: slavelistener
+              port: 50000
+              targetPort: 50000
+            selector:
+              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/instance: my-release
+            type: ClusterIP
+  - it: other values
+    set:
+      master:
+        slaveListenerServiceAnnotations:
+          key: value
+        slaveListenerPort: 55555
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            key: value
+      - equal:
+          path: spec
+          value:
+            ports:
+            - name: slavelistener
+              port: 55555
+              targetPort: 55555
+            selector:
+              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/instance: my-release
+            type: ClusterIP
+  - it: node port
+    set:
+      master:
+        slaveListenerServiceType: NodePort
+    asserts:
+      - equal:
+          path: spec
+          value:
+            ports:
+            - name: slavelistener
+              nodePort: 50000
+              port: 50000
+              targetPort: 50000
+            selector:
+              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/instance: my-release
+            type: NodePort
+  - it: load balancer
+    set:
+      master:
+        slaveListenerServiceType: LoadBalancer
+        slaveListenerLoadBalancerIP: 10.10.10.10
+    asserts:
+      - equal:
+          path: spec
+          value:
+            ports:
+            - name: slavelistener
+              port: 50000
+              targetPort: 50000
+            selector:
+              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/instance: my-release
+            type: LoadBalancer
+            loadBalancerIP: 10.10.10.10

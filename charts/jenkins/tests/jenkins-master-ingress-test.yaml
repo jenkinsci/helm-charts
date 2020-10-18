@@ -1,0 +1,91 @@
+suite: Controller Secondary Ingress
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-master-ingress.yaml
+tests:
+  - it: test defaults
+    asserts:
+    - hasDocuments:
+        count: 0
+  - it: enabled
+    set:
+      master.ingress:
+        enabled: true
+        hostName: jenkins.example.com
+        tls:
+          - secretName: tlsSecret
+            hosts:
+              - jenkins.example.com
+    asserts:
+      - isKind:
+          of: Ingress
+      - equal:
+          path: apiVersion
+          value: networking.k8s.io/v1beta1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - isNull:
+          path: metadata.annotations
+      - equal:
+          path: spec
+          value:
+            rules:
+              - host: jenkins.example.com
+                http:
+                  paths:
+                    - backend:
+                        serviceName: my-release-jenkins
+                        servicePort: 8080
+            tls:
+            - hosts:
+              - jenkins.example.com
+              secretName: tlsSecret
+  - it: other values
+    set:
+      master.ingress:
+        enabled: true
+        hostName: jenkins.example.com
+        annotations:
+          kubernetes.io/ingress.class: nginx
+          kubernetes.io/tls-acme: "true"
+        paths:
+          - backend:
+              serviceName: ssl-redirect
+              servicePort: use-annotation
+          - backend:
+              serviceName: >-
+                {{ template "jenkins.fullname" . }}
+              servicePort: 8080
+        tls:
+          - secretName: tlsSecret
+            hosts:
+              - jenkins.example.com
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            kubernetes.io/ingress.class: nginx
+            kubernetes.io/tls-acme: "true"
+      - equal:
+          path: spec
+          value:
+            rules:
+              - host: jenkins.example.com
+                http:
+                  paths:
+                    - backend:
+                        serviceName: ssl-redirect
+                        servicePort: use-annotation
+                    - backend:
+                        serviceName: my-release-jenkins
+                        servicePort: 8080
+            tls:
+            - hosts:
+              - jenkins.example.com
+              secretName: tlsSecret

@@ -362,6 +362,8 @@ master:
   terminationGracePeriodSeconds:
 
   tolerations: []
+
+  affinity: {}
   # Leverage a priorityClass to ensure your pods survive resource shortages
   # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
   # priorityClass: system-cluster-critical
@@ -495,6 +497,7 @@ agent:
   # name of the secret to be used for image pulling
   imagePullSecretName:
   componentName: "jenkins-slave"
+  websocket: false
   privileged: false
   runAsUser:
   runAsGroup:
