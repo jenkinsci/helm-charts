@@ -91,7 +91,7 @@ tests:
                   - containerPort: 8080
                     name: http
                   - containerPort: 50000
-                    name: agentListener
+                    name: agent-listener
                   readinessProbe:
                     failureThreshold: 3
                     httpGet:
