@@ -129,8 +129,12 @@ spec:
                       operator: In
                       values:
                       - {{ .Release.Name }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.master.tolerations }}
           tolerations:
           {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .Values.master.nodeSelector }}
+          nodeSelector:
+          {{- toYaml . | nindent 12 }}
       {{- end }}
 {{- end }}
