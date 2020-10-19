@@ -10,6 +10,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.13.2
+
+Add nodeSelector in the backup pod
+Fix tolerations in the backup pod
+
 ## 2.13.1
 
 Update list of maintainers
