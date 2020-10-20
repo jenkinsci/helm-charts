@@ -54,6 +54,10 @@ tests:
                   - --argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)
                   - --argumentsRealm.roles.$(ADMIN_USER)=admin
                   - --httpPort=8080
+                  envFrom:
+                  - secretRef:
+                      name: my-release-jenkins
+                      optional: false
                   env:
                   - name: POD_NAME
                     valueFrom:
@@ -65,16 +69,6 @@ tests:
                     value: ""
                   - name: JENKINS_SLAVE_AGENT_PORT
                     value: "50000"
-                  - name: ADMIN_PASSWORD
-                    valueFrom:
-                      secretKeyRef:
-                        key: jenkins-admin-password
-                        name: my-release-jenkins
-                  - name: ADMIN_USER
-                    valueFrom:
-                      secretKeyRef:
-                        key: jenkins-admin-user
-                        name: my-release-jenkins
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
                   image: jenkins/jenkins:lts
@@ -152,17 +146,10 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  env:
-                  - name: ADMIN_PASSWORD
-                    valueFrom:
-                      secretKeyRef:
-                        key: jenkins-admin-password
-                        name: my-release-jenkins
-                  - name: ADMIN_USER
-                    valueFrom:
-                      secretKeyRef:
-                        key: jenkins-admin-user
-                        name: my-release-jenkins
+                  envFrom:
+                  - secretRef:
+                      name: my-release-jenkins
+                      optional: false
                   image: jenkins/jenkins:lts
                   imagePullPolicy: Always
                   name: copy-default-config

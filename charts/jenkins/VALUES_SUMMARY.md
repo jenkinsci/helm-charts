@@ -130,9 +130,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.deploymentAnnotations`           | Annotations for master deployment           | `{}`                                      |
 | `master.lifecycle`                | Lifecycle specification for master-container | Not set                           |
 | `master.priorityClassName`        | The name of a `priorityClass` to apply to the master pod | Not set               |
-| `master.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|
-| `master.admin.userKey`            | The key in the existing admin secret containing the username. | `jenkins-admin-user` |
-| `master.admin.passwordKey`        | The key in the existing admin secret containing the password. | `jenkins-admin-password` |
+| `master.admin.existingSecret`     | The name of an existing secret containing the admin credentials. It should have keys ADMIN_PASSWORD & ADMIN_USER | `""`|
 | `master.customInitContainers`     | Custom init-container specification in raw-yaml format | Not set                 |
 | `master.sidecars.other`           | Configures additional sidecar container(s) for Jenkins master | `[]`             |
 
