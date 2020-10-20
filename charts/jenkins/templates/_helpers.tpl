@@ -173,6 +173,13 @@ Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
 - name: "{{ .Values.agent.podName }}"
+{{- if .Values.agent.annotations }}
+  annotations:
+  {{- range $key, $value := .Values.agent.annotations }}
+  - key: {{ $key }}
+    value: {{ $value | quote }}
+  {{- end }}
+{{- end }}
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}

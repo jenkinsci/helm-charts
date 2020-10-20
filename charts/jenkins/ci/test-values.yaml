@@ -1,0 +1,3 @@
+agent:
+  annotations:
+    ci.jenkins-agent/test: "123"
