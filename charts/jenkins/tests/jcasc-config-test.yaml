@@ -446,7 +446,7 @@ tests:
                     - name: "my-agent"
                       annotations:
                       - key: ci.jenkins-agent/test
-                        value: custom
+                        value: "custom"
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
