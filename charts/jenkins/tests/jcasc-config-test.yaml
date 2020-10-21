@@ -351,6 +351,8 @@ tests:
           defaultMode: "600"
           mountPath: /var/myapp/mysecret
           secretName: mysecret
+        annotations:
+          ci.jenkins-agent/test: "custom"
         yamlTemplate: |-
           apiVersion: v1
           kind: Pod
@@ -442,6 +444,9 @@ tests:
                     value: "true"
                   templates:
                     - name: "my-agent"
+                      annotations:
+                      - key: ci.jenkins-agent/test
+                        value: "custom"
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
