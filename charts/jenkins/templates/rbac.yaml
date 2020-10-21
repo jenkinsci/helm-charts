@@ -9,7 +9,7 @@ metadata:
   namespace: {{ template "jenkins.master.slaveKubernetesNamespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
@@ -32,7 +32,7 @@ metadata:
   namespace: {{ template "jenkins.master.slaveKubernetesNamespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
@@ -57,7 +57,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
@@ -75,7 +75,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
@@ -101,7 +101,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
@@ -119,7 +119,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
