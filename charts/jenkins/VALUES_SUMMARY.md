@@ -88,6 +88,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.agentConnectTimeout`      | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
 | `controller.agentReadTimeout`         | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
 | `controller.agentListenerServiceType` | Defines how to expose the agentListener service | `ClusterIP`                    |
+| `controller.agentListenerServiceAnnotations`  | Annotations for the agentListener service | `{}`                         |
 | `controller.agentListenerLoadBalancerIP`  | Static IP for the agentListener LoadBalancer | Not set                       |
 
 #### Kubernetes StatefulSet & Service
@@ -255,6 +256,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.enabled`            | Enable Kubernetes plugin jnlp-agent podTemplate | `true`                 |
 | `agent.namespace`          | Namespace in which the Kubernetes agents should be launched  | Not set   |
 | `agent.containerCap`       | Maximum number of agent                         | 10                     |
+| `agent.defaultsProviderTemplate` | The name of the pod template to use for providing default values | Not set  |
 
 #### Pod Configuration
 
@@ -278,7 +280,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.sideContainerName`  | Side container name in agent                    | jnlp                   |
 | `agent.image`              | Agent image name                                | `jenkins/inbound-agent`|
 | `agent.tag`                | Agent image tag                                 | `4.3-4`               |
-| `agent.defaultsProviderTemplate` | The name of the pod template to use for providing default values | Not set  |
 | `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                |
 | `agent.privileged`         | Agent privileged container                      | `false`                |
 | `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}` |

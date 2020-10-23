@@ -11,7 +11,7 @@ metadata:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
   {{- if .Values.controller.agentListenerServiceAnnotations }}
   annotations:
-    {{ toYaml .Values.controller.agentListenerServiceAnnotations | nindent 4 }}
+    {{- toYaml .Values.controller.agentListenerServiceAnnotations | nindent 4 }}
   {{- end }}
 spec:
   ports:

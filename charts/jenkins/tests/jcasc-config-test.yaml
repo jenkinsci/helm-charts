@@ -296,13 +296,13 @@ tests:
               secretName: tlsSecret
       agent:
         containerCap: 22
+        defaultsProviderTemplate: my-defaults
         podName: my-agent
         sideContainerName: sideContainer
         alwaysPullImage: true
         command: /bin/command
         image: my-image/jnlp
         tag: v1.2.3
-        defaultsProviderTemplate: my-defaults
         privileged: true
         resources:
           limits:
