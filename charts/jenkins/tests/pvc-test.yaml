@@ -18,6 +18,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
       - contains:
@@ -53,7 +56,17 @@ tests:
       - equal:
           path: spec.storageClassName
           value: gp2
-
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins
   - it: existing claim
     set:
       persistence:

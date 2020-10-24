@@ -15,6 +15,9 @@ tests:
       - equal:
           path: metadata.name
           value: my-release-jenkins
+      - matchRegex:
+            path: metadata.labels.helm\.sh/chart
+            pattern: ^jenkins-
       - equal:
           path: metadata.namespace
           value: my-namespace
@@ -61,3 +64,14 @@ tests:
     asserts:
     - hasDocuments:
         count: 0
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins

@@ -24,6 +24,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - equal:
           path: spec
           value:
@@ -63,3 +66,16 @@ tests:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
                 "app.kubernetes.io/component": "jenkins-master"
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+      master.prometheus:
+        enabled: true
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins

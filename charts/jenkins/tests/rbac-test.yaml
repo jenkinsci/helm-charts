@@ -9,7 +9,6 @@ tests:
     asserts:
       - hasDocuments:
           count: 4
-
   - it: disable auto reload
     set:
       master.sidecars.configAutoReload.enabled: false
@@ -145,6 +144,23 @@ tests:
     asserts:
       - hasDocuments:
           count: 6
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+      rbac.readSecrets: true
+    asserts:
+      - hasDocuments:
+          count: 6
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins
 
   - it: Role read-secrets
     set:
