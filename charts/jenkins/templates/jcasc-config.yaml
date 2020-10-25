@@ -10,7 +10,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    "helm.sh/chart": {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    {{ include "helm-chart-label" $root}}
     "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
     "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
@@ -29,7 +29,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    "helm.sh/chart": {{ $.Chart.Name }}-{{ $.Chart.Version }}
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
     "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"

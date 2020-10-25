@@ -398,3 +398,9 @@ Create the name of the service account for Jenkins agents to use
     {{ default "default" .Values.serviceAccountAgent.name }}
 {{- end -}}
 {{- end -}}
+
+{{- define "helm-chart-label" -}}
+  {{- if .Values.renderHelmLabels -}}
+"helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  {{- end -}}
+{{- end -}}

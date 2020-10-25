@@ -12,6 +12,9 @@ tests:
          count: 1
       - isNotEmpty:
           path: data.jcasc-default-config\.yaml
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - equal:
           path: data.jcasc-default-config\.yaml
           value: |-
@@ -381,6 +384,9 @@ tests:
         equal:
           path: metadata.namespace
           value: other
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - documentIndex: 1
         isKind:
           of: ConfigMap
@@ -525,6 +531,18 @@ tests:
               location:
                 adminAddress: admin@example.org
                 url: https://jenkins.example.com
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            RELEASE-NAME-jenkins-jenkins-config: "true"
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins
   - it: disable agents
     release:
       namespace: controller-namespace

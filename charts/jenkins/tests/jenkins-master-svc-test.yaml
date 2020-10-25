@@ -18,6 +18,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
       - equal:
@@ -105,3 +108,15 @@ tests:
               app.kubernetes.io/component: jenkins-master
               app.kubernetes.io/instance: my-release
             type: LoadBalancer
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+      networkPolicy.enabled: true
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins

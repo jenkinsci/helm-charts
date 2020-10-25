@@ -13,6 +13,8 @@
 # ref: https://github.com/kubernetes/dns/blob/master/docs/specification.md
 clusterZone: "cluster.local"
 
+renderHelmLabels: true
+
 master:
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
