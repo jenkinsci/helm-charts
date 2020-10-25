@@ -32,6 +32,9 @@ tests:
       - equal:
           path: metadata.name
           value: my-release-jenkins
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - equal:
           path: metadata.namespace
           value: my-namespace
@@ -48,3 +51,26 @@ tests:
                     severity: warning
                   annotations:
                     message: Some Jenkins plugins failed to load
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+      master.prometheus:
+        enabled: true
+        alertingrules:
+          - name: ./jenkins.rules
+            rules:
+              - alert: JenkinsFailedPlugins
+                expr: jenkins_plugins_failed > 0
+                for: 10m
+                labels:
+                  severity: warning
+                annotations:
+                  message: Some Jenkins plugins failed to load
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/name: jenkins
