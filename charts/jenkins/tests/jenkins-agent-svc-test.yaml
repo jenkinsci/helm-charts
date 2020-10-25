@@ -24,7 +24,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:
@@ -34,9 +34,9 @@ tests:
   - it: other values
     set:
       controller:
-        slaveListenerServiceAnnotations:
+        agentListenerServiceAnnotations:
           key: value
-        slaveListenerPort: 55555
+        agentListenerPort: 55555
     asserts:
       - equal:
           path: metadata.annotations
@@ -46,7 +46,7 @@ tests:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 55555
               targetPort: 55555
             selector:
@@ -56,13 +56,13 @@ tests:
   - it: node port
     set:
       controller:
-        slaveListenerServiceType: NodePort
+        agentListenerServiceType: NodePort
     asserts:
       - equal:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               nodePort: 50000
               port: 50000
               targetPort: 50000
@@ -73,14 +73,14 @@ tests:
   - it: load balancer
     set:
       controller:
-        slaveListenerServiceType: LoadBalancer
-        slaveListenerLoadBalancerIP: 10.10.10.10
+        agentListenerServiceType: LoadBalancer
+        agentListenerLoadBalancerIP: 10.10.10.10
     asserts:
       - equal:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:

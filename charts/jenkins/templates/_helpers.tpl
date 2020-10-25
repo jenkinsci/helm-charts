@@ -17,9 +17,9 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
   {{- end -}}
 {{- end -}}
 
-{{- define "jenkins.controller.slaveKubernetesNamespace" -}}
-  {{- if .Values.controller.slaveKubernetesNamespace -}}
-    {{- tpl .Values.controller.slaveKubernetesNamespace . -}}
+{{- define "jenkins.agent.namespace" -}}
+  {{- if .Values.agent.namespace -}}
+    {{- tpl .Values.agent.namespace . -}}
   {{- else -}}
     {{- if .Values.namespaceOverride -}}
       {{- .Values.namespaceOverride -}}
@@ -97,27 +97,27 @@ jenkins:
   clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.agent.containerCap }}"
-      defaultsProviderTemplate: "{{ .Values.controller.slaveDefaultsProviderTemplate }}"
-      connectTimeout: "{{ .Values.controller.slaveConnectTimeout }}"
-      readTimeout: "{{ .Values.controller.slaveReadTimeout }}"
-      {{- if .Values.controller.slaveJenkinsUrl }}
-      jenkinsUrl: "{{ tpl .Values.controller.slaveJenkinsUrl . }}"
-      {{- else if .Values.controller.slaveKubernetesNamespace }}
+      defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
+      connectTimeout: "{{ .Values.controller.agentConnectTimeout }}"
+      readTimeout: "{{ .Values.controller.agentReadTimeout }}"
+      {{- if .Values.controller.agentJenkinsUrl }}
+      jenkinsUrl: "{{ tpl .Values.controller.agentJenkinsUrl . }}"
+      {{- else if .Values.agent.namespace }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- else }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- end }}
 
-      {{- if .Values.controller.slaveJenkinsTunnel }}
-      jenkinsTunnel: "{{ tpl .Values.controller.slaveJenkinsTunnel . }}"
-      {{- else if .Values.controller.slaveKubernetesNamespace }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.slaveListenerPort }}"
+      {{- if .Values.controller.agentJenkinsTunnel }}
+      jenkinsTunnel: "{{ tpl .Values.controller.agentJenkinsTunnel . }}"
+      {{- else if .Values.agent.namespace }}
+      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.agentListenerPort }}"
       {{- else }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.controller.slaveListenerPort }}"
+      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.controller.agentListenerPort }}"
       {{- end }}
       maxRequestsPerHostStr: "32"
       name: "kubernetes"
-      namespace: "{{ template "jenkins.controller.slaveKubernetesNamespace" . }}"
+      namespace: "{{ template "jenkins.agent.namespace" . }}"
       serverUrl: "https://kubernetes.default"
       {{- if .Values.agent.enabled }}
       podLabels:
@@ -175,8 +175,8 @@ Returns kubernetes pod template configuration as code
     envVars:
       - envVar:
           key: "JENKINS_URL"
-          {{- if .Values.controller.slaveJenkinsUrl }}
-          value: {{ tpl .Values.controller.slaveJenkinsUrl . }}
+          {{- if .Values.controller.agentJenkinsUrl }}
+          value: {{ tpl .Values.controller.agentJenkinsUrl . }}
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
@@ -222,7 +222,7 @@ Returns kubernetes pod template configuration as code
   podRetention: {{ .Values.agent.podRetention }}
   showRawYaml: true
   serviceAccount: "{{ include "jenkins.serviceAccountAgentName" . }}"
-  slaveConnectTimeoutStr: "{{ .Values.agent.slaveConnectTimeout }}"
+  slaveConnectTimeoutStr: "{{ .Values.agent.connectTimeout }}"
 {{- if .Values.agent.volumes }}
   volumes:
   {{- range $index, $volume := .Values.agent.volumes }}

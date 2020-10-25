@@ -166,7 +166,7 @@ spec:
             - name: JENKINS_OPTS
               value: "{{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.controller.jenkinsOpts}}"
             - name: JENKINS_SLAVE_AGENT_PORT
-              value: "{{ .Values.controller.slaveListenerPort }}"
+              value: "{{ .Values.controller.agentListenerPort }}"
             {{- if .Values.controller.useSecurity }}
             - name: ADMIN_PASSWORD
               valueFrom:
@@ -199,10 +199,10 @@ spec:
             - containerPort: {{.Values.controller.targetPort}}
             {{- end }}
               name: http
-            - containerPort: {{ .Values.controller.slaveListenerPort }}
-              name: slavelistener
-              {{- if .Values.controller.slaveHostPort }}
-              hostPort: {{ .Values.controller.slaveHostPort }}
+            - containerPort: {{ .Values.controller.agentListenerPort }}
+              name: agent-listener
+              {{- if .Values.controller.agentHostPort }}
+              hostPort: {{ .Values.controller.agentHostPort }}
               {{- end }}
             {{- if .Values.controller.jmxPort }}
             - containerPort: {{ .Values.controller.jmxPort }}

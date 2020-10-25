@@ -81,16 +81,15 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.slaveListenerPort`        | Listening port for agents            | `50000`                                   |
-| `controller.slaveHostPort`            | Host port to listen for agents            | Not set                              |
-| `controller.slaveKubernetesNamespace` | Namespace in which the Kubernetes agents should be launched  | Not set           |
-| `controller.slaveDefaultsProviderTemplate` | The name of the pod template to use for providing default values | Not set  |
-| `controller.slaveJenkinsUrl`          | Overrides the Kubernetes Jenkins URL    | Not set                                |
-| `controller.slaveJenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
-| `controller.slaveConnectTimeout`      | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
-| `controller.slaveReadTimeout`         | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
-| `controller.slaveListenerServiceType` | Defines how to expose the slaveListener service | `ClusterIP`                    |
-| `controller.slaveListenerLoadBalancerIP`  | Static IP for the slaveListener LoadBalancer | Not set                       |
+| `controller.agentListenerPort`        | Listening port for agents            | `50000`                                   |
+| `controller.agentHostPort`            | Host port to listen for agents            | Not set                              |
+| `controller.agentJenkinsUrl`          | Overrides the Kubernetes Jenkins URL    | Not set                                |
+| `controller.agentJenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
+| `controller.agentConnectTimeout`      | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
+| `controller.agentReadTimeout`         | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
+| `controller.agentListenerServiceType` | Defines how to expose the agentListener service | `ClusterIP`                    |
+| `controller.agentListenerServiceAnnotations`  | Annotations for the agentListener service | `{}`                         |
+| `controller.agentListenerLoadBalancerIP`  | Static IP for the agentListener LoadBalancer | Not set                       |
 
 #### Kubernetes StatefulSet & Service
 
@@ -255,7 +254,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                  | Description                                     | Default                |
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.enabled`            | Enable Kubernetes plugin jnlp-agent podTemplate | `true`                 |
+| `agent.namespace`          | Namespace in which the Kubernetes agents should be launched  | Not set   |
 | `agent.containerCap`       | Maximum number of agent                         | 10                     |
+| `agent.defaultsProviderTemplate` | The name of the pod template to use for providing default values | Not set  |
 
 #### Pod Configuration
 
@@ -267,7 +268,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.idleMinutes`        | Allows the Pod to remain active for reuse       | 0                      |
 | `agent.imagePullSecretName` | Agent image pull secret                        | Not set                |
 | `agent.nodeSelector`       | Node labels for pod assignment                  | `{}`                   |
-| `agent.slaveConnectTimeout`| Timeout in seconds for an agent to be online    | 100                    |
+| `agent.connectTimeout`     | Timeout in seconds for an agent to be online    | 100                    |
 | `agent.volumes`            | Additional volumes                              | `[]`                   |
 | `agent.yamlTemplate`       | The raw yaml of a Pod API Object to merge into the agent spec | Not set  |
 | `agent.yamlMergeStrategy`   | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates | `override` |

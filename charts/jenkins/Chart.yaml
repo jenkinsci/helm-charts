@@ -8,7 +8,7 @@ description: Open source continuous integration server. It supports multiple SCM
   projects as well as arbitrary scripts.
 sources:
 - https://github.com/jenkinsci/jenkins
-- https://github.com/jenkinsci/docker-jnlp-slave
+- https://github.com/jenkinsci/docker-inbound-agent
 - https://github.com/maorfr/kube-tasks
 - https://github.com/jenkinsci/configuration-as-code-plugin
 maintainers:

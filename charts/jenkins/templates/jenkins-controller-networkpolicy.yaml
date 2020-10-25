@@ -19,7 +19,7 @@ spec:
     # Allow web access to the UI
     - ports:
       - port: {{ .Values.controller.targetPort }}
-    # Allow inbound connections from slave
+    # Allow inbound connections from agents
     - from:
       {{- if .Values.networkPolicy.internalAgents.allowed }}
       - podSelector:
@@ -34,20 +34,20 @@ spec:
             {{- range $k,$v:= .Values.networkPolicy.internalAgents.namespaceLabels }}
             {{ $k }}: {{ $v }}
             {{- end }}
-        {{- end }}    
+        {{- end }}
       {{- end }}
-      {{- if .Values.networkPolicy.externalAgents }}      
+      {{- if .Values.networkPolicy.externalAgents }}
       - ipBlock:
-          cidr: {{ required "ipCIDR is required if you wish to allow external agents to connect to Master." .Values.networkPolicy.externalAgents.ipCIDR }}
+          cidr: {{ required "ipCIDR is required if you wish to allow external agents to connect to Jenkins Controller." .Values.networkPolicy.externalAgents.ipCIDR }}
           {{- if .Values.networkPolicy.externalAgents.except }}
           except:
           {{- range .Values.networkPolicy.externalAgents.except }}
-          - {{ . }} 
+          - {{ . }}
           {{- end }}
           {{- end }}
-      {{- end }}              
+      {{- end }}
       ports:
-      - port: {{ .Values.controller.slaveListenerPort }}
+      - port: {{ .Values.controller.agentListenerPort }}
 {{- if .Values.agent.enabled }}
 ---
 kind: NetworkPolicy
