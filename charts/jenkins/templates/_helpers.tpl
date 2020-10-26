@@ -98,20 +98,20 @@ jenkins:
   - kubernetes:
       containerCapStr: "{{ .Values.agent.containerCap }}"
       defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
-      connectTimeout: "{{ .Values.controller.agentConnectTimeout }}"
-      readTimeout: "{{ .Values.controller.agentReadTimeout }}"
+      connectTimeout: "{{ .Values.agent.kubernetesConnectTimeout }}"
+      readTimeout: "{{ .Values.agent.kubernetesReadTimeout }}"
       {{- if .Values.agent.websocket }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
-      {{- else if .Values.controller.agentJenkinsUrl }}
-      jenkinsUrl: "{{ tpl .Values.controller.agentJenkinsUrl . }}"
+      {{- else if .Values.agent.jenkinsUrl }}
+      jenkinsUrl: "{{ tpl .Values.agent.jenkinsUrl . }}"
       {{- else if .Values.agent.namespace }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- else }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- end }}
       {{- if not .Values.agent.websocket }}
-      {{- if .Values.controller.agentJenkinsTunnel }}
-      jenkinsTunnel: "{{ tpl .Values.controller.agentJenkinsTunnel . }}"
+      {{- if .Values.agent.jenkinsTunnel }}
+      jenkinsTunnel: "{{ tpl .Values.agent.jenkinsTunnel . }}"
       {{- else if .Values.agent.namespace }}
       jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.agentListenerPort }}"
       {{- else }}
@@ -187,8 +187,8 @@ Returns kubernetes pod template configuration as code
     envVars:
       - envVar:
           key: "JENKINS_URL"
-          {{- if .Values.controller.agentJenkinsUrl }}
-          value: {{ tpl .Values.controller.agentJenkinsUrl . }}
+          {{- if .Values.agent.jenkinsUrl }}
+          value: {{ tpl .Values.agent.jenkinsUrl . }}
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}

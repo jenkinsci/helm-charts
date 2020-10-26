@@ -164,7 +164,7 @@ controller:
   healthProbeLivenessInitialDelay: 90
   healthProbeReadinessInitialDelay: 60
   agentListenerPort: 50000
-  agentHostPort:
+  agentListenerHostPort:
   disabledAgentProtocols:
     - JNLP-connect
     - JNLP2-connect
@@ -183,10 +183,6 @@ controller:
   # GKE users: only regional static IPs will work for Service Load balancer.
   agentListenerLoadBalancerIP:
   agentListenerServiceAnnotations: {}
-  agentConnectTimeout: 5
-  agentReadTimeout: 15
-  agentJenkinsUrl:
-  agentJenkinsTunnel:
 
   # Example of 'LoadBalancer' type of agent listener with annotations securing it
   # agentListenerServiceType: LoadBalancer
@@ -448,10 +444,16 @@ controller:
 
 agent:
   enabled: true
+  defaultsProviderTemplate: ""
+  # URL for connecting to the Jenkins contoller
+  jenkinsUrl:
+  # connect to the specified host and port, instead of connecting directly to the Jenkins controller
+  jenkinsTunnel:
+  kubernetesConnectTimeout: 5
+  kubernetesReadTimeout: 15
   namespace:
   image: "jenkins/inbound-agent"
   tag: "4.3-4"
-  defaultsProviderTemplate: ""
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling

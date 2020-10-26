@@ -288,8 +288,6 @@ tests:
               jenkins:
                 systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
           securityRealm: local
-        agentConnectTimeout: 11
-        agentReadTimeout: 12
         jenkinsAdminEmail: admin@example.org
         ingress:
           hostName: jenkins.example.com
@@ -300,6 +298,8 @@ tests:
       agent:
         containerCap: 22
         defaultsProviderTemplate: my-defaults
+        kubernetesConnectTimeout: 11
+        kubernetesReadTimeout: 12
         podName: my-agent
         sideContainerName: sideContainer
         alwaysPullImage: true

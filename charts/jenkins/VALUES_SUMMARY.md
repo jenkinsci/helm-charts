@@ -78,19 +78,15 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.overwritePlugins`         | Overwrite installed plugins on start.| `false`                                   |
 | `controller.overwritePluginsFromImage` | Keep plugins that are already installed in the controller image.| `true`            |
 
-#### Jenkins Kubernetes Plugin
+#### Jenkins Agent Listener
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.agentListenerPort`        | Listening port for agents            | `50000`                                   |
-| `controller.agentHostPort`            | Host port to listen for agents            | Not set                              |
-| `controller.agentJenkinsUrl`          | Overrides the Kubernetes Jenkins URL    | Not set                                |
-| `controller.agentJenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
-| `controller.agentConnectTimeout`      | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
-| `controller.agentReadTimeout`         | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
+| `controller.agentListenerHostPort`            | Host port to listen for agents            | Not set                              |
 | `controller.agentListenerServiceType` | Defines how to expose the agentListener service | `ClusterIP`                    |
-| `controller.agentListenerServiceAnnotations`  | Annotations for the agentListener service | `{}`                         |
-| `controller.agentListenerLoadBalancerIP`  | Static IP for the agentListener LoadBalancer | Not set                       |
+| `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service | `{}`                         |
+| `controller.agentListenerLoadBalancerIP` | Static IP for the agentListener LoadBalancer | Not set                       |
 
 #### Kubernetes StatefulSet & Service
 
@@ -258,6 +254,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.namespace`          | Namespace in which the Kubernetes agents should be launched  | Not set   |
 | `agent.containerCap`       | Maximum number of agent                         | 10                     |
 | `agent.defaultsProviderTemplate` | The name of the pod template to use for providing default values | Not set  |
+| `agent.jenkinsUrl`          | Overrides the Kubernetes Jenkins URL    | Not set                                |
+| `agent.jenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
+| `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
+| `agent.kubernetesReadTimeout` | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
 
 #### Pod Configuration
 

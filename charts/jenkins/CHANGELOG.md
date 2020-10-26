@@ -22,13 +22,13 @@ The following values from `values.yaml` have been renamed:
 
 * `master` => `controller`
 * `master.slaveListenerPort` => `controller.agentListenerPort`
-* `master.slaveHostPort` => `controller.agentHostPort`
+* `master.slaveHostPort` => `controller.agentListenerHostPort`
 * `master.slaveKubernetesNamespace` => `agent.namespace`
 * `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
-* `master.slaveJenkinsUrl` => `controller.agentJenkinsUrl`
-* `master.slaveJenkinsTunnel` => `controller.agentJenkinsTunnel`
-* `master.slaveConnectTimeout` => `controller.agentConnectTimeout`
-* `master.slaveReadTimeout` => `controller.agentReadTimeout`
+* `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
+* `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
+* `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
+* `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
 * `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
 * `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
 * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`

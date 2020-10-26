@@ -8,7 +8,7 @@
    {{- end }}
 
    {{- if .Values.controller.slaveHostPort }}
-      {{ fail "`controller.slaveHostPort` does no longer exist. It has been renamed to `controller.agentHostPort`" }}
+      {{ fail "`controller.slaveHostPort` does no longer exist. It has been renamed to `controller.agentListenerHostPort`" }}
    {{- end }}
 
    {{- if .Values.controller.slaveKubernetesNamespace }}
@@ -20,19 +20,19 @@
    {{- end }}
 
    {{- if .Values.controller.slaveJenkinsUrl }}
-      {{ fail "`controller.slaveJenkinsUrl` does no longer exist. It has been renamed to `controller.agentJenkinsUrl`" }}
+      {{ fail "`controller.slaveJenkinsUrl` does no longer exist. It has been renamed to `agent.jenkinsUrl`" }}
    {{- end }}
 
    {{- if .Values.controller.slaveJenkinsTunnel }}
-      {{ fail "`controller.slaveJenkinsTunnel` does no longer exist. It has been renamed to `controller.agentJenkinsTunnel`" }}
+      {{ fail "`controller.slaveJenkinsTunnel` does no longer exist. It has been renamed to `agent.jenkinsTunnel`" }}
    {{- end }}
 
    {{- if .Values.controller.slaveConnectTimeout }}
-      {{ fail "`controller.slaveConnectTimeout` does no longer exist. It has been renamed to `controller.agentConnectTimeout`" }}
+      {{ fail "`controller.slaveConnectTimeout` does no longer exist. It has been renamed to `agent.kubernetesConnectTimeout`" }}
    {{- end }}
 
    {{- if .Values.controller.slaveReadTimeout }}
-      {{ fail "`controller.slaveReadTimeout` does no longer exist. It has been renamed to `controller.agentReadTimeout`" }}
+      {{ fail "`controller.slaveReadTimeout` does no longer exist. It has been renamed to `agent.kubernetesReadTimeout`" }}
    {{- end }}
 
    {{- if .Values.controller.slaveListenerServiceType }}
