@@ -369,7 +369,7 @@ master:
   # Leverage a priorityClass to ensure your pods survive resource shortages
   # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
   priorityClassName:
-  
+
   podAnnotations: {}
   # Add deployment annotation
   deploymentAnnotations: {}
