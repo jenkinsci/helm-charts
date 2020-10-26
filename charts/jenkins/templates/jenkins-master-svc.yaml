@@ -17,6 +17,9 @@ metadata:
 {{ toYaml .Values.master.serviceAnnotations | indent 4 }}
 {{- end }}
 spec:
+  {{- if or (eq .Values.master.serviceType "LoadBalancer") (eq .Values.master.serviceType "NodePort") }}
+  externalTrafficPolicy: {{ .Values.master.externalTrafficPolicy | quote }}
+  {{- end }}
   {{- if (and (eq .Values.master.serviceType "ClusterIP") (not (empty .Values.master.clusterIP))) }}
   clusterIP: {{.Values.master.clusterIP}}
   {{- end }}

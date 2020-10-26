@@ -1,7 +1,7 @@
 apiVersion: v1
 name: jenkins
 home: https://jenkins.io/
-version: 2.15.0
+version: 2.16.0
 appVersion: lts
 description: Open source continuous integration server. It supports multiple SCM tools
   including CVS, Subversion and Git. It can execute Apache Ant and Apache Maven-based
@@ -12,6 +12,8 @@ sources:
 - https://github.com/maorfr/kube-tasks
 - https://github.com/jenkinsci/configuration-as-code-plugin
 maintainers:
+- name: johny
+  email: shun.johny@gmail.com
 - name: maorfr
   email: maor.friedman@redhat.com
 - name: torstenwalter

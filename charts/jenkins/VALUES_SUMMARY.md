@@ -16,6 +16,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.componentName`            | Jenkins master name                  | `jenkins-master`                          |
 | `master.enableXmlConfig`          | enables configuration done via XML files | `false`                               |
 | `master.testEnabled`              | Can be used to disable rendering test resources when using helm template | `true`                         |
+| `master.externalTrafficPolicy`    | an annotation on the Kubernetes service resource that can be set to preserve the client source IP | `Cluster`    
 
 #### Jenkins Configuration as Code (JCasC)
 | Parameter                         | Description                          | Default                                   |

@@ -153,6 +153,8 @@ master:
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   serviceType: ClusterIP
+  # externalTrafficPolicy: Cluster Local
+  externalTrafficPolicy: Cluster
   # Jenkins master service annotations
   serviceAnnotations: {}
   # Jenkins master custom labels
