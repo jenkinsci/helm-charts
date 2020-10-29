@@ -32,7 +32,7 @@ jobs:
           command: lint
           config: ct.yaml
           image: twalter/chart-testing:v3.1.1-additional-commands
-          dockerArgs: --volume=/home/runner/.local/share/helm/plugins:/root/.local/share/helm/plugins
+          docker-args: --volume=/home/runner/.local/share/helm/plugins:/root/.local/share/helm/plugins
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
