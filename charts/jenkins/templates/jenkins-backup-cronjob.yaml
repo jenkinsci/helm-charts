@@ -6,7 +6,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.backup.componentName }}"
@@ -129,8 +129,12 @@ spec:
                       operator: In
                       values:
                       - {{ .Release.Name }}
-      {{- with .Values.tolerations }}
+      {{- with .Values.master.tolerations }}
           tolerations:
           {{- toYaml . | nindent 10 }}
+      {{- end }}
+      {{- with .Values.master.nodeSelector }}
+          nodeSelector:
+          {{- toYaml . | nindent 12 }}
       {{- end }}
 {{- end }}

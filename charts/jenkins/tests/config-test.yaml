@@ -9,6 +9,13 @@ tests:
       - hasDocuments:
          count: 1
       - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-controller
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: jenkins
+      - equal:
           path: data.apply_config\.sh
           value: |-
             echo "disable Setup Wizard"

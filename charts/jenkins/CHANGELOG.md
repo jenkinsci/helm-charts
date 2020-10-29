@@ -34,6 +34,27 @@ The following values from `values.yaml` have been renamed:
 * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
 * `agent.slaveConnectTimeout` => `agent.connectTimeout`
 
+## 2.15.0
+
+Added support for disabling the helm.sh/chart annotation
+
+## 2.14.0
+
+Added support for annotations in podTemplates
+
+## 2.13.2
+
+Add nodeSelector in the backup pod
+Fix tolerations in the backup pod
+
+## 2.13.1
+
+Update list of maintainers
+
+## 2.13.0
+Added Support for websockets in the default Jcasc config
+Added trailing slash to JENKINS_URL env var
+
 ## 2.12.2
 
 Added unit tests for most resources in the Helm chart.
@@ -70,7 +91,6 @@ Fix indentation of JAVA_OPTS
 ## 2.8.0
 
 Add support for helm unittest and include first tests
->>>>>>> main
 
 ## 2.7.2
 
@@ -89,7 +109,6 @@ Update configScripts example
 ## 2.6.4
 
 Add timja as a maintainer
->>>>>>> main
 
 ## 2.6.3
 

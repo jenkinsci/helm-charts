@@ -18,6 +18,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
       - equal:
@@ -325,4 +328,14 @@ tests:
           content:
             name: JAVA_OPTS
             value: "-Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true"
-
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-controller
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: jenkins

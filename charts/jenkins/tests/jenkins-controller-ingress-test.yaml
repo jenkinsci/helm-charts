@@ -30,6 +30,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
       - equal:
@@ -89,3 +92,17 @@ tests:
             - hosts:
               - jenkins.example.com
               secretName: tlsSecret
+  - it: disable helm.sh label
+    set:
+      renderHelmLabels: false
+      controller.ingress:
+        enabled: true
+        hostName: jenkins.example.com
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-controller
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: jenkins

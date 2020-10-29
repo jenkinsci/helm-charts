@@ -11,6 +11,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `checkDeprecation`                | Checks for deprecated values used    | `true`                                 |
 | `clusterZone`                     | Override the cluster name for FQDN resolving    | `cluster.local`                |
 | `nameOverride`                    | Override the resource name prefix    | `jenkins`                                 |
+| `renderHelmLabels`                | Enables rendering of the helm.sh/chart label to the annotations    | `true`                                 |
 | `fullnameOverride`                | Override the full resource names     | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
 | `namespaceOverride`               | Override the deployment namespace    | Not set (`Release.Namespace`)             |
 | `controller.componentName`            | Jenkins controller name                  | `jenkins-controller`                          |
@@ -262,6 +263,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                  | Description                                     | Default                |
 | -------------------------- | ----------------------------------------------- | ---------------------- |
+| `agent.websocket`          | Enables agent communication via websockets      | false                  |
 | `agent.podName`            | Agent Pod base name                             | Not set                |
 | `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `{}`                   |
 | `agent.envVars`            | Environment variables for the agent Pod         | `[]`                   |
@@ -272,6 +274,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.volumes`            | Additional volumes                              | `[]`                   |
 | `agent.yamlTemplate`       | The raw yaml of a Pod API Object to merge into the agent spec | Not set  |
 | `agent.yamlMergeStrategy`   | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates | `override` |
+| `agent.annotations`       | Annotations to apply to the pod                  | `{}`                   |
 
 #### Side Container Configuration
 

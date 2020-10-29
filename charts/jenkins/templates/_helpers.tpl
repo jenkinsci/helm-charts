@@ -100,20 +100,25 @@ jenkins:
       defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
       connectTimeout: "{{ .Values.controller.agentConnectTimeout }}"
       readTimeout: "{{ .Values.controller.agentReadTimeout }}"
-      {{- if .Values.controller.agentJenkinsUrl }}
+      {{- if .Values.agent.websocket }}
+      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
+      {{- else if .Values.controller.agentJenkinsUrl }}
       jenkinsUrl: "{{ tpl .Values.controller.agentJenkinsUrl . }}"
       {{- else if .Values.agent.namespace }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- else }}
       jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- end }}
-
+      {{- if not .Values.agent.websocket }}
       {{- if .Values.controller.agentJenkinsTunnel }}
       jenkinsTunnel: "{{ tpl .Values.controller.agentJenkinsTunnel . }}"
       {{- else if .Values.agent.namespace }}
       jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.agentListenerPort }}"
       {{- else }}
       jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.controller.agentListenerPort }}"
+      {{- end }}
+      {{- else }}
+      webSocket: true
       {{- end }}
       maxRequestsPerHostStr: "32"
       name: "kubernetes"
@@ -165,6 +170,13 @@ Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
 - name: "{{ .Values.agent.podName }}"
+{{- if .Values.agent.annotations }}
+  annotations:
+  {{- range $key, $value := .Values.agent.annotations }}
+  - key: {{ $key }}
+    value: {{ $value | quote }}
+  {{- end }}
+{{- end }}
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
@@ -178,7 +190,7 @@ Returns kubernetes pod template configuration as code
           {{- if .Values.controller.agentJenkinsUrl }}
           value: {{ tpl .Values.controller.agentJenkinsUrl . }}
           {{- else }}
-          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
+          value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
     {{- if .Values.agent.imageTag }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.imageTag }}"
@@ -279,4 +291,10 @@ Create the name of the service account for Jenkins agents to use
 {{- else -}}
     {{ default "default" .Values.serviceAccountAgent.name }}
 {{- end -}}
+{{- end -}}
+
+{{- define "helm-chart-label" -}}
+  {{- if .Values.renderHelmLabels -}}
+"helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+  {{- end -}}
 {{- end -}}
