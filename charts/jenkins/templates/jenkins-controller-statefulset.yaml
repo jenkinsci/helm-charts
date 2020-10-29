@@ -91,11 +91,7 @@ spec:
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
         - name: "copy-default-config"
-{{- if .Values.controller.imageTag }}
-          image: "{{ .Values.controller.image }}:{{ .Values.controller.imageTag }}"
-{{- else }}
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
-{{- end }}
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
           env:
@@ -136,11 +132,7 @@ spec:
             {{- end }}
       containers:
         - name: jenkins
-{{- if .Values.controller.imageTag }}
-          image: "{{ .Values.controller.image }}:{{ .Values.controller.imageTag }}"
-{{- else }}
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
-{{- end }}
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           {{- if .Values.controller.httpsKeyStore.enable }}
           {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName -}}
