@@ -9,7 +9,6 @@ tests:
     asserts:
       - hasDocuments:
           count: 4
-
   - it: disable auto reload
     set:
       controller.sidecars.configAutoReload.enabled: false
@@ -154,6 +153,8 @@ tests:
       renderHelmLabels: false
       rbac.readSecrets: true
     asserts:
+      - hasDocuments:
+          count: 6
       - equal:
           path: metadata.labels
           value:

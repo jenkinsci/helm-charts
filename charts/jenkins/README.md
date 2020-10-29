@@ -345,6 +345,54 @@ controller:
        jenkinsKeyStoreBase64Encoded: ''
 ```
 
+
+### Ingress Configuration
+This chart provides ingress resources configurable via the `master.ingress` block.
+
+The simplest configuration looks like the following:
+```yaml
+master:
+   ingress:
+       enabled: true
+       paths: []
+       apiVersion: "extensions/v1beta1"
+       hostName: jenkins.example.com
+```
+This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
+
+You can define labels and annotations via `master.ingress.labels` and `master.ingress.annotations` respectively.
+Additionally, you can configure the ingress tls via `master.ingress.tls`.
+By default, this ingress rule exposes all paths.
+If needed this can be overwritten by specifying the wanted paths in `master.ingress.paths`
+
+If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `master.secondaryingress`.
+The secondaryingress doesn't expose anything by default and has to be configured via `master.secondaryingress.paths`:
+
+```yaml
+master:
+   ingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       paths: []
+       hostName: "jenkins.internal.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "internal"
+   secondaryingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       hostName: "jenkins-scm.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "public"
+       paths:
+        - /github-webhook
+```
+
+### External URL Configuration
+If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
+
+If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
+
 ## Migration Guide
 
 ### From stable repo

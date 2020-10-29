@@ -339,7 +339,8 @@ controller:
   affinity: {}
   # Leverage a priorityClass to ensure your pods survive resource shortages
   # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
-  # priorityClass: system-cluster-critical
+  priorityClassName:
+
   podAnnotations: {}
   # Add StatefulSet annotations
   statefulSetAnnotations: {}

@@ -384,6 +384,9 @@ tests:
         equal:
           path: metadata.namespace
           value: other
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - documentIndex: 1
         isKind:
           of: ConfigMap

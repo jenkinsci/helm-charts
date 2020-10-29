@@ -32,6 +32,9 @@ tests:
       - equal:
           path: metadata.name
           value: my-release-jenkins
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - equal:
           path: metadata.namespace
           value: my-namespace
