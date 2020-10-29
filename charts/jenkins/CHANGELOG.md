@@ -34,6 +34,11 @@ The following values from `values.yaml` have been renamed:
 * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
 * `agent.slaveConnectTimeout` => `agent.connectTimeout`
 
+The following entries have been removed:
+
+* `master.imageTag`: use `controller.image` and `controller.tag` instead
+* `slave.imageTag`: use `agent.image` and `agent.tag` instead
+
 ## 2.15.2
 
 Added documentation for ingress and jenkins url

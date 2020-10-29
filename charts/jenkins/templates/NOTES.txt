@@ -45,17 +45,3 @@ https://jenkins.io/projects/jcasc/
 ######            the Jenkins pod is terminated.                            #####
 #################################################################################
 {{- end }}
-
-{{- if .Values.controller.imageTag }}
-#################################################################################
-######   WARNING: `controller.imageTag` will be obsoleted soon!!!           #####
-######            It has been renamed to `controller.tag`.                  #####
-#################################################################################
-{{- end }}
-
-{{- if .Values.agent.imageTag }}
-#################################################################################
-######   WARNING: `controller.imageTag` will be obsoleted soon!!!           #####
-######            It has been renamed to `controller.tag`.                  #####
-#################################################################################
-{{- end }}

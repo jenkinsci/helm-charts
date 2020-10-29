@@ -30,11 +30,7 @@ spec:
         name: tools
   containers:
     - name: {{ .Release.Name }}-ui-test
-{{- if .Values.controller.imageTag }}
-      image: {{ .Values.controller.image }}:{{ .Values.controller.imageTag }}
-{{- else }}
       image: {{ .Values.controller.image }}:{{ .Values.controller.tag }}
-{{- end }}
       command: ["/tools/bats/bats", "-t", "/tests/run.sh"]
       volumeMounts:
       - mountPath: /tests
