@@ -491,7 +491,6 @@ master:
    ingress:
        enabled: true
        apiVersion: "extensions/v1beta1"
-       paths: []
        hostName: "jenkins.internal.example.com"
        annotations:
            kubernetes.io/ingress.class: "internal"
