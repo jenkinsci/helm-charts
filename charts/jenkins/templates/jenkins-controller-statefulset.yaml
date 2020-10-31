@@ -193,8 +193,8 @@ spec:
               name: http
             - containerPort: {{ .Values.controller.agentListenerPort }}
               name: agent-listener
-              {{- if .Values.controller.agentHostPort }}
-              hostPort: {{ .Values.controller.agentHostPort }}
+              {{- if .Values.controller.agentListenerHostPort }}
+              hostPort: {{ .Values.controller.agentListenerHostPort }}
               {{- end }}
             {{- if .Values.controller.jmxPort }}
             - containerPort: {{ .Values.controller.jmxPort }}
