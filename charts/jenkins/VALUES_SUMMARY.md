@@ -64,6 +64,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.jenkinsHome`              | Custom Jenkins home path             | `/var/jenkins_home`                       |
 | `master.jenkinsRef`               | Custom Jenkins reference path        | `/usr/share/jenkins/ref`                  |
 | `master.jenkinsAdminEmail`        | Email address for the administrator of the Jenkins instance | Not set            |
+| `master.jenkinsUrl`               | Jenkins URL | Not Set |
 | `master.jenkinsUrlProtocol`       | Set protocol for JenkinsLocationConfiguration.xml | Set to `https` if `Master.ingress.tls`, `http` otherwise |
 | `master.jenkinsUriPrefix`         | Root Uri Jenkins will be served on   | Not set                                   |
 
