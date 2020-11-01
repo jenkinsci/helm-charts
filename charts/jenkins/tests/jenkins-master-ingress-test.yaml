@@ -1,4 +1,4 @@
-suite: Controller Secondary Ingress
+suite: Controller Primary Ingress
 release:
   name: my-release
   namespace: my-namespace
@@ -105,3 +105,17 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Tiller
             app.kubernetes.io/name: jenkins
+  - it: empty paths
+    set:
+      master.ingress:
+        enabled: true
+        paths:
+    asserts:
+    - equal:
+        path: spec.rules
+        value:
+          - http:
+              paths:
+                - backend:
+                    serviceName: my-release-jenkins
+                    servicePort: 8080
