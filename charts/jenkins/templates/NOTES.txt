@@ -15,7 +15,7 @@
   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
         You can watch the status of by running 'kubectl get svc --namespace {{ template "jenkins.namespace" . }} -w {{ template "jenkins.fullname" . }}'
   export SERVICE_IP=$(kubectl get svc --namespace {{ template "jenkins.namespace" . }} {{ template "jenkins.fullname" . }} --template "{{ "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}" }}")
-{{- if .Values.controller.httpsKeyStore.enable }}
+{{- if .Values.controller.https.enabled }}
   echo https://$SERVICE_IP:{{ .Values.controller.servicePort }}/login
 {{- else }}
   echo http://$SERVICE_IP:{{ .Values.controller.servicePort }}/login

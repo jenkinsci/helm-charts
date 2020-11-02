@@ -16,17 +16,20 @@ clusterZone: "cluster.local"
 renderHelmLabels: true
 
 controller:
-  httpsKeyStore:
+  https:
     enabled: false
-    # Name of a kubernetes secret containing a keystore and its password.
-    # The secret should have data keys named `jenkins-jks-file` and `https-jks-password`.
-    jenkinsHttpsJksSecretName: ''
+    # The HTTP port used by readiness and liveness probes. The HTTPS port is set via `controller.targetPort`.
+    # Do not set to `-1` as this will cause readiness and liveness probes to fail.
     httpPort: 8081
-    path: "/var/jenkins_keystore"
-    fileName: "keystore.jks"
-    password: "password"
+    # Name of a kubernetes secret containing a JKS keystore and its password.
+    # The secret should have data keys named `jenkins-jks-file` and `https-jks-password`.
+    jksSecretName: ''
+
+    jksPath: "/var/jenkins_keystore"
+    jksFileName: "keystore.jks"
+    jksPassword: "password"
     # Convert keystore.jks files content to base64 ( cat keystore.jks | base64 ) and put the output here
-    jenkinsKeyStoreBase64Encoded: |
+    jksBase64Encoded: |
         /u3+7QAAAAIAAAABAAAAAQANamVua2luc2NpLmNvbQAAAW2r/b1ZAAAFATCCBP0wDgYKKwYBBAEq
         AhEBAQUABIIE6QbCqasvoHS0pSwYqSvdydMCB9t+VNfwhFIiiuAelJfO5sSe2SebJbtwHgLcRz1Z
         gMtWgOSFdl3bWSzA7vrW2LED52h+jXLYSWvZzuDuh8hYO85m10ikF6QR+dTi4jra0whIFDvq3pxe

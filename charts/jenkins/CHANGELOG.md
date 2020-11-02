@@ -21,7 +21,13 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 The following values from `values.yaml` have been renamed:
 
 * `master` => `controller`
-* `master.httpsKeyStore.enable` => `controller.httpsKeyStore.enabled`
+* `master.httpsKeyStore.enable` => `controller.https.enabled`
+* `master.httpsKeyStore.httpPort` => `controller.https.httpPort`
+* `master.httpsKeyStore.jenkinsHttpsJksSecretName` => `controller.https.jksSecretName`
+* `master.httpsKeyStore.path` => `controller.https.jksPath`
+* `master.httpsKeyStore.fileName` => `controller.https.jksFileName`
+* `master.httpsKeyStore.password` => `controller.https.jksPassword`
+* `master.httpsKeyStore.jenkinsKeyStoreBase64Encoded` => `controller.https.jksBase64Encoded`
 * `master.slaveListenerPort` => `controller.agentListenerPort`
 * `master.slaveHostPort` => `controller.agentListenerHostPort`
 * `master.slaveKubernetesNamespace` => `agent.namespace`

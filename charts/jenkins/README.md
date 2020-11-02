@@ -324,15 +324,15 @@ controller:
     -Dhttps.proxyPort=3128
 ```
 
-### HTTPS Keystore Configuration
+### HTTPS Configuration
 
-Set `controller.httpsKeyStore.enable` to `true` to enable HTTPS.
-The HTTPS port is set via `controller.targetPort` and the HTTP port used by readiness and liveness probes is set via `controller.httpsKeyStore.httpPort`.
-Do not set `controller.httpsKeyStore.httpPort` to `-1` as this will cause readiness and liveness probes to fail.
+Set `controller.https.enabled` to `true` to enable HTTPS.
+The HTTPS port is set via `controller.targetPort` and the HTTP port used by readiness and liveness probes is set via `controller.https.httpPort`.
+Do not set `controller.https.httpPort` to `-1` as this will cause readiness and liveness probes to fail.
 
-To override the default keystore, set `controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded` with the base64 encoded keystore and set `controller.httpsKeyStore.password` with the keystore password.
+To override the default keystore, set `controller.https.jksBase64Encoded` with the base64 encoded keystore and set `controller.https.jksPassword` with the keystore password.
 
-Alternatively, create a kubernetes secret with a keystore and its password and set `controller.httpsKeyStore.jenkinsHttpsJksSecretName` to the secret name.
+Alternatively, create a kubernetes secret with a keystore and its password and set `controller.https.jksSecretName` to the secret name.
 The secret should have data keys named `jenkins-jks-file` and `https-jks-password`.
 
 A keystore named `keystore.jks` can be base64 encoded by running `cat keystore.jks | base64`.

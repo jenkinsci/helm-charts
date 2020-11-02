@@ -192,17 +192,17 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.prometheus.alertingRulesAdditionalLabels` | Additional labels to add to the prometheus rule object     | `{}`                                   |
 | `controller.prometheus.prometheusRuleNamespace` | Custom namespace for PrometheusRule | `""` (same ns where Jenkins being deployed) |
 
-#### HTTPS Keystore
+#### HTTPS
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.httpsKeyStore.enable`     | Enables https keystore on jenkins controller      | `false`      |
-| `controller.httpsKeyStore.jenkinsHttpsJksSecretName`     | Name of the secret that already has ssl keystore      | ``      |
-| `controller.httpsKeyStore.httpPort`   | Http Port that Jenkins should listen on along with https, it also serves liveness and readiness probs port. When https keystore is enabled servicePort and targetPort will be used as https port  | `8081`   |
-| `controller.httpsKeyStore.path`       | Path of https keystore file                  |     `/var/jenkins_keystore`     |
-| `controller.httpsKeyStore.fileName`  | Jenkins keystore filename which will appear under controller.httpsKeyStore.path      | `keystore.jks` |
-| `controller.httpsKeyStore.password`   | Jenkins keystore password                                           | `password` |
-| `controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded`  | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here  | a self signed cert |
+| Parameter                           | Description                                         | Default                 |
+| ----------------------------------- | --------------------------------------------------- | ----------------------- |
+| `controller.https.enabled`          | Enables HTTPS on Jenkins controller                 | `false`                 |
+| `controller.https.httpPort`         | HTTP port for liveness and readiness probes. When HTTPS is enabled, servicePort and targetPort will be used as HTTPS port.                                      | `8081`                  |
+| `controller.https.jksSecretName`    | Name of a secret containing a JKS keystore and password | ``                      |
+| `controller.https.jksBase64Encoded` | Base64 encoded JKS keystore                         | a self signed cert      |
+| `controller.https.jksPassword`      | JKS keystore password                               | `password`              |
+| `controller.https.jksPath`          | Path of JKS keystore file on Jenkins controller     | `/var/jenkins_keystore` |
+| `controller.https.jksFileName`      | JKS keystore filename on Jenkins controller         | `keystore.jks`          |
 
 #### Kubernetes Secret
 

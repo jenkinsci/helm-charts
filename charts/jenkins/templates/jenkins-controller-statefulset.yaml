@@ -134,12 +134,12 @@ spec:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
-          {{- if .Values.controller.httpsKeyStore.enable }}
-          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName -}}
+          {{- if .Values.controller.https.enabled }}
+          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.https.jksPath .Values.controller.https.jksFileName -}}
               {{- if .Values.controller.useSecurity }}
-          args: [ "--argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)",  "--argumentsRealm.roles.$(ADMIN_USER)=admin", "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
+          args: [ "--argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)",  "--argumentsRealm.roles.$(ADMIN_USER)=admin", "--httpPort={{.Values.controller.https.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
               {{- else }}
-          args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath | quote }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
+          args: [ "--httpPort={{.Values.controller.https.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath | quote }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
               {{- end }}
           {{- else if .Values.controller.useSecurity }}
           args: [ "--argumentsRealm.passwd.$(ADMIN_USER)=$(ADMIN_PASSWORD)",  "--argumentsRealm.roles.$(ADMIN_USER)=admin", "--httpPort={{.Values.controller.targetPort}}"]
@@ -171,11 +171,11 @@ spec:
                   name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
                   key: {{ .Values.controller.admin.user | default "jenkins-admin-user" }}
             {{- end }}
-            {{- if .Values.controller.httpsKeyStore.enable }}
+            {{- if .Values.controller.https.enabled }}
             - name: JENKINS_HTTPS_KEYSTORE_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
+                  name: {{ if .Values.controller.https.jksSecretName }} {{ .Values.controller.https.jksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
                   key: {{ "https-jks-password" | quote }}
             {{- end }}
 
@@ -185,8 +185,8 @@ spec:
             - name: CASC_JENKINS_CONFIG
               value: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
           ports:
-            {{- if .Values.controller.httpsKeyStore.enable }}
-            - containerPort: {{.Values.controller.httpsKeyStore.httpPort}}
+            {{- if .Values.controller.https.enabled }}
+            - containerPort: {{.Values.controller.https.httpPort}}
             {{- else }}
             - containerPort: {{.Values.controller.targetPort}}
             {{- end }}
@@ -229,8 +229,8 @@ spec:
 {{- if .Values.persistence.mounts }}
 {{ toYaml .Values.persistence.mounts | indent 12 }}
 {{- end }}
-            {{- if .Values.controller.httpsKeyStore.enable }}
-            - mountPath: {{ .Values.controller.httpsKeyStore.path }}
+            {{- if .Values.controller.https.enabled }}
+            - mountPath: {{ .Values.controller.https.jksPath }}
               name: jenkins-https-keystore
             {{- end }}
             - mountPath: /tmp
@@ -322,13 +322,13 @@ spec:
       - name: sc-config-volume
         emptyDir: {}
 
-      {{- if .Values.controller.httpsKeyStore.enable }}
+      {{- if .Values.controller.https.enabled }}
       - name: jenkins-https-keystore
         secret:
-          secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
+          secretName: {{ if .Values.controller.https.jksSecretName }} {{ .Values.controller.https.jksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
           items:
           - key: jenkins-jks-file
-            path: {{ .Values.controller.httpsKeyStore.fileName }}
+            path: {{ .Values.controller.https.jksFileName }}
       {{- end }}
 
 {{- if .Values.controller.imagePullSecretName }}
