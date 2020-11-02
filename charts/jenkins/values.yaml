@@ -17,8 +17,10 @@ renderHelmLabels: true
 
 controller:
   httpsKeyStore:
+    enabled: false
+    # Name of a kubernetes secret containing a keystore and its password.
+    # The secret should have data keys named `jenkins-jks-file` and `https-jks-password`.
     jenkinsHttpsJksSecretName: ''
-    enable: false
     httpPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"

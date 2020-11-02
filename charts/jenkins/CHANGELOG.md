@@ -21,6 +21,7 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 The following values from `values.yaml` have been renamed:
 
 * `master` => `controller`
+* `master.httpsKeyStore.enable` => `controller.httpsKeyStore.enabled`
 * `master.slaveListenerPort` => `controller.agentListenerPort`
 * `master.slaveHostPort` => `controller.agentListenerHostPort`
 * `master.slaveKubernetesNamespace` => `agent.namespace`

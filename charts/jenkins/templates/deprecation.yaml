@@ -3,6 +3,10 @@
       {{ fail "`master` does no longer exist. It has been renamed to `controller`" }}
    {{- end }}
 
+   {{- if .Values.controller.httpsKeyStore.enable }}
+      {{ fail "`controller.httpsKeyStore.enable` does no longer exist. It has been renamed to `controller.httpsKeyStore.enabled`" }}
+   {{- end }}
+
    {{- if .Values.controller.slaveListenerPort }}
       {{ fail "`controller.slaveListenerPort` does no longer exist. It has been renamed to `controller.agentListenerPort`" }}
    {{- end }}

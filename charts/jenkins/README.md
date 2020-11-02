@@ -326,25 +326,18 @@ controller:
 
 ### HTTPS Keystore Configuration
 
-[This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve https.
-Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777#RunningJenkinswithnativeSSL/HTTPS-ConfigureJenkinstouseHTTPSandtheJKSkeystore) related to keystore configuration.
-Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
-After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve https.
-Do not set `controller.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
-If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` and `https-jks-password`. Example:
+Set `controller.httpsKeyStore.enable` to `true` to enable HTTPS.
+The HTTPS port is set via `controller.targetPort` and the HTTP port used by readiness and liveness probes is set via `controller.httpsKeyStore.httpPort`.
+Do not set `controller.httpsKeyStore.httpPort` to `-1` as this will cause readiness and liveness probes to fail.
 
-```yaml
-controller:
-   httpsKeyStore:
-       enable: true
-       jenkinsHttpsJksSecretName: ''
-       httpPort: 8081
-       path: "/var/jenkins_keystore"
-       fileName: "keystore.jks"
-       password: "changeit"
-       jenkinsKeyStoreBase64Encoded: ''
-```
+To override the default keystore, set `controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded` with the base64 encoded keystore and set `controller.httpsKeyStore.password` with the keystore password.
 
+Alternatively, create a kubernetes secret with a keystore and its password and set `controller.httpsKeyStore.jenkinsHttpsJksSecretName` to the secret name.
+The secret should have data keys named `jenkins-jks-file` and `https-jks-password`.
+
+A keystore named `keystore.jks` can be base64 encoded by running `cat keystore.jks | base64`.
+
+[Jenkins HTTPS reference](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777). 
 
 ### Ingress Configuration
 This chart provides ingress resources configurable via the `master.ingress` block.
