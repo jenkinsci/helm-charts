@@ -12,34 +12,44 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Fetch history
-        run: git fetch --prune --unshallow
-
-      - uses: azure/setup-helm@v1
         with:
-          version: 'v3.3.4'
+          fetch-depth: 0
+
+      - name: Set up Helm
+        uses: azure/setup-helm@v1
+        with:
+          version: v3.4.0
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7
+
+      - name: Set up chart-testing
+        uses: helm/chart-testing-action@v2.0.0
+        with:
+          version: v3.3.0
+
+      - name: Run chart-testing (list-changed)
+        id: list-changed
+        run: |
+          changed=$(ct list-changed --config ct.yaml)
+          if [[ -n "$changed" ]]; then
+            echo "::set-output name=changed::true"
+          fi
 
       - name: install helm unittests
+        if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm env
           helm plugin install https://github.com/quintush/helm-unittest
 
       - name: Run chart-testing (lint)
-        id: lint
-        uses: torstenwalter/chart-testing-action@docker-args
-        with:
-          command: lint
-          config: ct.yaml
-          image: twalter/chart-testing:v3.1.1-additional-commands
-          docker_args: --volume=/home/runner/.local/share/helm/plugins:/root/.local/share/helm/plugins
+        run: ct lint --config ct.yaml
 
       - name: Create kind cluster
         uses: helm/kind-action@v1.0.0
-        if: steps.lint.outputs.changed == 'true'
+        if: steps.list-changed.outputs.changed == 'true'
 
       - name: Run chart-testing (install)
-        uses: helm/chart-testing-action@v1.0.0
-        with:
-          command: install
-          config: ct.yaml
+        run: ct install --config ct.yaml
