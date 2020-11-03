@@ -3,32 +3,34 @@
       {{ fail "`master` does no longer exist. It has been renamed to `controller`" }}
    {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.enable }}
-      {{ fail "`controller.httpsKeyStore.enable` does no longer exist. It has been renamed to `controller.https.enabled`" }}
+   {{- if .Values.controller.httpsKeyStore }}
+      {{ fail "`controller.httpsKeyStore` does no longer exist. It has been renamed to `controller.https`" }}
    {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.httpPort }}
-      {{ fail "`controller.httpsKeyStore.httpPort` does no longer exist. It has been renamed to `controller.https.httpPort`" }}
-   {{- end }}
+   {{- if .Values.controller.https }}
+      {{- if .Values.controller.https.enable }}
+         {{ fail "`controller.https.enable` does no longer exist. It has been renamed to `controller.https.enabled`" }}
+      {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }}
-      {{ fail "`controller.httpsKeyStore.jenkinsHttpsJksSecretName` does no longer exist. It has been renamed to `controller.https.jksSecretName`" }}
-   {{- end }}
+      {{- if .Values.controller.https.jenkinsHttpsJksSecretName }}
+         {{ fail "`controller.https.jenkinsHttpsJksSecretName` does no longer exist. It has been renamed to `controller.https.jksSecretName`" }}
+      {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded }}
-      {{ fail "`controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded` does no longer exist. It has been renamed to `controller.https.jksBase64Encoded`" }}
-   {{- end }}
+      {{- if .Values.controller.https.jenkinsKeyStoreBase64Encoded }}
+         {{ fail "`controller.https.jenkinsKeyStoreBase64Encoded` does no longer exist. It has been renamed to `controller.https.jksBase64Encoded`" }}
+      {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.password }}
-      {{ fail "`controller.httpsKeyStore.password` does no longer exist. It has been renamed to `controller.https.jksPassword`" }}
-   {{- end }}
+      {{- if .Values.controller.https.password }}
+         {{ fail "`controller.https.password` does no longer exist. It has been renamed to `controller.https.jksPassword`" }}
+      {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.path }}
-      {{ fail "`controller.httpsKeyStore.path` does no longer exist. It has been renamed to `controller.https.jksPath`" }}
-   {{- end }}
+      {{- if .Values.controller.https.path }}
+         {{ fail "`controller.https.path` does no longer exist. It has been renamed to `controller.https.jksPath`" }}
+      {{- end }}
 
-   {{- if .Values.controller.httpsKeyStore.fileName }}
-      {{ fail "`controller.httpsKeyStore.fileName` does no longer exist. It has been renamed to `controller.https.jksFileName`" }}
+      {{- if .Values.controller.https.fileName }}
+         {{ fail "`controller.https.fileName` does no longer exist. It has been renamed to `controller.https.jksFileName`" }}
+      {{- end }}
    {{- end }}
 
    {{- if .Values.controller.slaveListenerPort }}
