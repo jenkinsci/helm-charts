@@ -240,15 +240,11 @@ spec:
               name: {{ $port.name }}
 {{- end }}
 {{- if .Values.master.healthProbes }}
-{{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
-          startupProbe:
-            httpGet:
-              path: "{{ default "" .Values.master.jenkinsUriPrefix }}/login"
-              port: http
-            periodSeconds: {{ .Values.master.healthProbeStartupPeriodSeconds }}
-            timeoutSeconds: {{ .Values.master.healthProbesStartupTimeout }}
-            failureThreshold: {{ .Values.master.healthProbeStartupFailureThreshold }}
-{{- end }}
+          {{- if and .Values.master.probes }}
+          {{- if and (.Values.master.probes.startupProbe) (semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion) }}
+          {{ tpl (toYaml .Values.master.probes | indent 10) .}}
+          {{- end }}
+          {{- end }}
           livenessProbe:
             httpGet:
               path: "{{ default "" .Values.master.jenkinsUriPrefix }}/login"
