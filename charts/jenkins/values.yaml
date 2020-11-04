@@ -297,6 +297,14 @@ master:
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: false
+  # Extra config that will be added to the "unclassified" section in the JCasC config
+  # This is usually useful to add plugin configuration.
+  # For instance, the timestamper config can be managed by JCasC using this config:
+  # timestamper:
+  #   allPipelines: true
+  #   elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+  #   systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+  unclassified: {}
   # Optionally specify additional init-containers
   customInitContainers: []
   # - name: custom-init

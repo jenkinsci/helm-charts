@@ -217,6 +217,20 @@ scriptApproval:
   - "staticMethod java.util.Base64 getDecoder"
 ```
 
+### unclassified extra config
+
+`master.unclassified` allows extra JCasC config, mainly for plugins configuration.
+
+Example for adding config for timestamper plugin:
+
+```yaml
+unclassified:
+  timestamper:
+    allPipelines: true
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+```
+
 ### Additional Configs
 
 `master.additionalConfig` can be used to add additional config files in `config.yaml`.

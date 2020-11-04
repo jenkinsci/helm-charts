@@ -30,6 +30,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `master.sidecars.configAutoReload.image` | Image which triggers the reload | `kiwigrid/k8s-sidecar:0.1.144`           |
 | `master.sidecars.configAutoReload.reqRetryConnect` | How many connection-related errors to retry on  | `10`          |
 | `master.sidecars.configAutoReload.env` | Environment variables for the Jenkins Config as Code auto-reload container  | Not set |
+| `master.unclassified` | allow extra JCasC config, mainly for plugins configuration  | `{}`                           |
 
 #### Jenkins Configuration Files & Scripts
 | Parameter                         | Description                          | Default                                   |

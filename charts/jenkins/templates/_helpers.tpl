@@ -173,6 +173,9 @@ unclassified:
   location:
     adminAddress: {{ default "" .Values.master.jenkinsAdminEmail }}
     url: {{ template "jenkins.url" . }}
+{{- if .Values.master.unclassified }}
+{{- toYaml .Values.master.unclassified | nindent 2 }}
+{{- end }}
 {{- end -}}
 
 {{/*
