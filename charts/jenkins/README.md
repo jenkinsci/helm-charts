@@ -205,6 +205,18 @@ securityRealm: |-
   </securityRealm>
 ```
 
+### Script approval list
+
+`master.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
+Example:
+
+```yaml
+scriptApproval:
+  - "method java.util.Base64$Decoder decode java.lang.String"
+  - "new java.lang.String byte[]"
+  - "staticMethod java.util.Base64 getDecoder"
+```
+
 ### Additional Configs
 
 `master.additionalConfig` can be used to add additional config files in `config.yaml`.

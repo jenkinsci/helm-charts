@@ -14,6 +14,14 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 Added Startup probe for Jenkins pod when Kubernetes cluster is 1.16 or newer
 
+## 2.15.5
+
+scriptApproval is taken into account when enableXmlConfig is false.
+
+## 2.15.4
+
+Add Tilt support for easier helm chart development.
+
 ## 2.15.3
 
 Fix error on missing `ingress.paths` value

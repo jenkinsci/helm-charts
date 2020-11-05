@@ -162,6 +162,13 @@ security:
     creationOfLegacyTokenEnabled: false
     tokenGenerationOnCreationEnabled: false
     usageStatisticsEnabled: true
+{{- if and (eq .Values.master.enableXmlConfig false) .Values.master.scriptApproval }}                                                                          
+  scriptApproval:
+    approvedSignatures:
+{{- range $key, $val := .Values.master.scriptApproval }}
+    - "{{ $val }}"
+{{- end }}
+{{- end }}
 unclassified:
   location:
     adminAddress: {{ default "" .Values.master.jenkinsAdminEmail }}
