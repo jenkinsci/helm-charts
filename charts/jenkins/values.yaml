@@ -172,15 +172,20 @@ master:
   healthProbes: true
   healthProbesLivenessTimeout: 5
   healthProbesReadinessTimeout: 5
-  healthProbesStartupTimeout: 5
   healthProbeLivenessPeriodSeconds: 10
   healthProbeReadinessPeriodSeconds: 10
-  healthProbeStartupPeriodSeconds: 10
   healthProbeLivenessFailureThreshold: 5
   healthProbeReadinessFailureThreshold: 3
-  healthProbeStartupFailureThreshold: 12
   healthProbeLivenessInitialDelay: 90
   healthProbeReadinessInitialDelay: 60
+  probes:
+    startupProbe:
+      httpGet:
+        path: '{{ default "" .Values.master.jenkinsUriPrefix }}/login'
+        port: http
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 12
   slaveListenerPort: 50000
   slaveHostPort:
   disabledAgentProtocols:
