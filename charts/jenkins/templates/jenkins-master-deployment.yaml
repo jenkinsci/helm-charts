@@ -240,6 +240,11 @@ spec:
               name: {{ $port.name }}
 {{- end }}
 {{- if .Values.master.healthProbes }}
+{{- if and .Values.master.probes }}
+{{- if and (.Values.master.probes.startupProbe) (semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion) }}
+{{ tpl (toYaml .Values.master.probes | indent 10) .}}
+{{- end }}
+{{- end }}
           livenessProbe:
             httpGet:
               path: "{{ default "" .Values.master.jenkinsUriPrefix }}/login"

@@ -10,6 +10,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
 
+## 2.16.0
+
+Added Startup probe for Jenkins pod when Kubernetes cluster is 1.16 or newer
+
 ## 2.15.5
 
 scriptApproval is taken into account when enableXmlConfig is false.
@@ -19,6 +23,7 @@ scriptApproval is taken into account when enableXmlConfig is false.
 Add Tilt support for easier helm chart development.
 
 ## 2.15.3
+
 Fix error on missing `ingress.paths` value
 
 ## 2.15.2
@@ -114,7 +119,7 @@ Update k8s-sidecar image to 0.1.193
 Only mount empty dir secrets-dir if either `master.enableXmlConfig` or `master.secretsFilesSecret` is set
 Fixes #19
 
-## 2.6.1 Do not render emty JCasC templates
+## 2.6.1 Do not render empty JCasC templates
 
 ## 2.6.0 First release in jenkinsci GitHub org
 
