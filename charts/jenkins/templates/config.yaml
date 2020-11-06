@@ -209,7 +209,14 @@ data:
     # Install missing plugins
     cp /var/jenkins_config/plugins.txt {{ .Values.master.jenkinsHome }};
     rm -rf {{ .Values.master.jenkinsRef }}/plugins/*.lock
-    /usr/local/bin/install-plugins.sh `echo $(cat {{ .Values.master.jenkinsHome }}/plugins.txt)`;
+    version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
+    if [ -f "{{ .Values.master.jenkinsRef }}/jenkins.war" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
+      jenkins-plugin-cli --war {{ .Values.master.jenkinsRef }}/jenkins.war --plugin-file {{ .Values.master.jenkinsHome }}/plugins.txt;
+    elif [ -f "{{ .Values.master.jenkinsHome }}/jenkins.war" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
+      jenkins-plugin-cli --war {{ .Values.master.jenkinsHome }}/jenkins.war --plugin-file {{ .Values.master.jenkinsHome }}/plugins.txt;
+    else
+      /usr/local/bin/install-plugins.sh `echo $(cat {{ .Values.master.jenkinsHome }}/plugins.txt)`;
+    fi
     echo "copy plugins to shared volume"
     # Copy plugins to shared volume
     yes n | cp -i {{ .Values.master.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
