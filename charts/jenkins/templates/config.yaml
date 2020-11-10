@@ -210,10 +210,8 @@ data:
     cp /var/jenkins_config/plugins.txt {{ .Values.master.jenkinsHome }};
     rm -rf {{ .Values.master.jenkinsRef }}/plugins/*.lock
     version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
-    if [ -f "{{ .Values.master.jenkinsRef }}/jenkins.war" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
-      jenkins-plugin-cli --war {{ .Values.master.jenkinsRef }}/jenkins.war --plugin-file {{ .Values.master.jenkinsHome }}/plugins.txt;
-    elif [ -f "{{ .Values.master.jenkinsHome }}/jenkins.war" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
-      jenkins-plugin-cli --war {{ .Values.master.jenkinsHome }}/jenkins.war --plugin-file {{ .Values.master.jenkinsHome }}/plugins.txt;
+    if [ -f "{{ .Values.master.jenkinsWar }}" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
+      jenkins-plugin-cli --war "{{ .Values.master.jenkinsWar }}" --plugin-file "{{ .Values.master.jenkinsHome }}/plugins.txt";
     else
       /usr/local/bin/install-plugins.sh `echo $(cat {{ .Values.master.jenkinsHome }}/plugins.txt)`;
     fi
