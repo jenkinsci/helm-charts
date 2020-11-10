@@ -67,6 +67,9 @@ master:
         hYAzODo1Jt59pcqqKJEas0C/lFJEB3frw4ImNx5fNlJYOpx+ijfQs9m39CevDq0=
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-master"
+  # Set by skaffold if used.
+  registry:
+  repository:
   image: "jenkins/jenkins"
   tag: "lts"
   imagePullPolicy: "Always"
@@ -504,6 +507,8 @@ master:
 
 agent:
   enabled: true
+  registry:
+  repository:
   image: "jenkins/inbound-agent"
   tag: "4.3-4"
   workingDir: "/home/jenkins"

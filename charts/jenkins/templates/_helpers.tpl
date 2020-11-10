@@ -204,6 +204,10 @@ Returns kubernetes pod template configuration as code
           {{- end }}
     {{- if .Values.agent.imageTag }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.imageTag }}"
+    {{- else if and (.Values.agent.registry) (.Values.agent.repository) }}
+    image: "{{ .Values.agent.registry }}/{{ .Values.agent.repository }}:{{ .Values.agent.tag }}"
+    {{- else if .Values.agent.repository }}
+    image: "{{ .Values.agent.repository }}:{{ .Values.agent.tag }}"
     {{- else }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
     {{- end }}
@@ -313,6 +317,10 @@ Returns kubernetes pod template xml configuration
       <name>{{ .Values.agent.sideContainerName }}</name>
 {{- if .Values.agent.imageTag }}
       <image>{{ .Values.agent.image }}:{{ .Values.agent.imageTag }}</image>
+{{- else if and (.Values.agent.registry) (.Values.agent.repository) }}
+      <image>{{ .Values.agent.registry }}/{{ .Values.agent.repository }}:{{ .Values.agent.tag }}</image>
+{{- else if .Values.agent.repository }}
+      <image>{{ .Values.agent.repository }}:{{ .Values.agent.tag }}</image>
 {{- else }}
       <image>{{ .Values.agent.image }}:{{ .Values.agent.tag }}</image>
 {{- end }}

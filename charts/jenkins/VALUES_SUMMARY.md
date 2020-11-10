@@ -98,7 +98,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 #### Kubernetes Deployment & Service
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `master.image`                    | Master image name                    | `jenkins/jenkins`                         |
+| `master.registry`                 | Master image registry                |                                           |
+| `master.repository`               | Master image repository from registry |                                           |
+| `master.image`                    | Master image name (unless master.repository is set) | `jenkins/jenkins`          |
 | `master.tag`                      | Master image tag                     | `lts`                                     |
 | `master.imagePullPolicy`          | Master image pull policy             | `Always`                                  |
 | `master.imagePullSecretName`      | Master image pull secret             | Not set                                   |
@@ -273,8 +275,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                  | Description                                     | Default                |
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.sideContainerName`  | Side container name in agent                    | jnlp                   |
-| `agent.image`              | Agent image name                                | `jenkins/inbound-agent`|
-| `agent.tag`                | Agent image tag                                 | `4.3-4`               |
+| `agent.registry`           | Agent image registry                            |                        |
+| `agent.repository`         | Agent image repository from registry            |                        |
+| `agent.image`              | Agent image name (if agent.repository not set)  | `jenkins/inbound-agent`|
+| `agent.tag`                | Agent image tag                                 | `4.3-4`                |
 | `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                |
 | `agent.privileged`         | Agent privileged container                      | `false`                |
 | `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}` |

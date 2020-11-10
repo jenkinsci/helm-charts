@@ -32,6 +32,10 @@ spec:
     - name: {{ .Release.Name }}-ui-test
 {{- if .Values.master.imageTag }}
       image: {{ .Values.master.image }}:{{ .Values.master.imageTag }}
+{{- else if and (.Values.master.registry) (.Values.master.repository) }}
+      image: {{ .Values.master.registry }}/{{ .Values.master.repository }}:{{ .Values.master.tag }}
+{{- else if .Values.master.repository }}
+      image: {{ .Values.master.repository }}:{{ .Values.master.tag }}
 {{- else }}
       image: {{ .Values.master.image }}:{{ .Values.master.tag }}
 {{- end }}
