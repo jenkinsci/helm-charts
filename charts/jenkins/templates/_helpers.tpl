@@ -159,6 +159,13 @@ security:
     creationOfLegacyTokenEnabled: false
     tokenGenerationOnCreationEnabled: false
     usageStatisticsEnabled: true
+{{- if .Values.controller.scriptApproval }}
+  scriptApproval:
+    approvedSignatures:
+{{- range $key, $val := .Values.controller.scriptApproval }}
+    - "{{ $val }}"
+{{- end }}
+{{- end }}
 unclassified:
   location:
     adminAddress: {{ default "" .Values.controller.jenkinsAdminEmail }}

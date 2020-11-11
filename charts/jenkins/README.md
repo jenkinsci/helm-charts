@@ -180,7 +180,6 @@ To make use of the NetworkPolicy resources created by default, install [a networ
 You can use `controller.networkPolicy.internalAgents` and `controller.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
 
-
 ### Custom Labels
 
 `controller.serviceLabels` can be used to add custom labels in `jenkins-controller-svc.yaml`.
@@ -373,7 +372,6 @@ master:
    ingress:
        enabled: true
        apiVersion: "extensions/v1beta1"
-       paths: []
        hostName: "jenkins.internal.example.com"
        annotations:
            kubernetes.io/ingress.class: "internal"

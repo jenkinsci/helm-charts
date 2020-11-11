@@ -44,7 +44,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: 9922c3cc3c185b70bacf98d485ddd3b49f9f85c6a67f12f137c83a6ea6cd943f
+                  checksum/config: db3260ba5b303d73058fba0a4598831f94f4092d32bb2dfaf5f948539a8d7c19
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -110,6 +110,13 @@ tests:
                     requests:
                       cpu: 50m
                       memory: 256Mi
+                  startupProbe:
+                    httpGet:
+                      path: '/login'
+                      port: http
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    failureThreshold: 12
                   volumeMounts:
                   - mountPath: /tmp
                     name: tmp
