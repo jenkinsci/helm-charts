@@ -31,6 +31,24 @@ See `git help commit`:
 
 ***NOTE***: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
 
+## Local Development
+
+### Prerequisites
+
+- [minikube](https://minikube.sigs.k8s.io/docs/start/), [k3d](https://k3d.io/), [kind](https://kind.sigs.k8s.io/), [microk8s](https://microk8s.io/) or some other local k8s cluster
+- [Tilt](https://tilt.dev/)
+
+### Setup
+
+```console
+CHART=jenkins
+cd charts/$CHART
+tilt up
+# Open a service tunnel into the cluster with minikube
+minikube service chart-$CHART
+# Login with username admin and password asdf
+```
+
 ### Technical Requirements
 
 * Must pass [DCO check](#sign-off-your-work)

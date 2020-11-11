@@ -104,6 +104,8 @@ controller:
   # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use
   # Cloudbees Jenkins Distribution docker, you should set jenkinsRef: "/usr/share/cloudbees-jenkins-distribution/ref"
   jenkinsRef: "/usr/share/jenkins/ref"
+  # Path to the jenkins war file which is used by jenkins-plugin-cli.
+  jenkinsWar: "/usr/share/jenkins/jenkins.war"
   resources:
     requests:
       cpu: "50m"
@@ -153,6 +155,7 @@ controller:
   # Used to create Ingress record (should used with ServiceType: ClusterIP)
   # nodePort: <to set explicitly, choose port between 30000-32767
   # Enable Kubernetes Liveness and Readiness Probes
+  # if Startup Probe is supported, enable it too
   # ~ 2 minutes to allow Jenkins to restart when upgrading plugins. Set ReadinessTimeout to be shorter than LivenessTimeout.
   healthProbes: true
   healthProbesLivenessTimeout: 5
@@ -163,6 +166,14 @@ controller:
   healthProbeReadinessFailureThreshold: 3
   healthProbeLivenessInitialDelay: 90
   healthProbeReadinessInitialDelay: 60
+  probes:
+    startupProbe:
+      httpGet:
+        path: '{{ default "" .Values.controller.jenkinsUriPrefix }}/login'
+        port: http
+      periodSeconds: 10
+      timeoutSeconds: 5
+      failureThreshold: 12
   agentListenerPort: 50000
   agentListenerHostPort:
   disabledAgentProtocols:

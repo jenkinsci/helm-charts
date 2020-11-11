@@ -25,12 +25,12 @@ spec:
   rules:
   - http:
       paths:
-{{- if len (.Values.controller.ingress.paths) }}
-{{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
-{{- else }}
+{{- if empty (.Values.controller.ingress.paths) }}
       - backend:
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
+{{- else }}
+{{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
 {{- if .Values.controller.ingress.path }}
         path: {{ .Values.controller.ingress.path }}
 {{- end -}}

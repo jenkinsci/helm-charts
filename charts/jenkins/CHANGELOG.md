@@ -39,6 +39,31 @@ The following entries have been removed:
 * `master.imageTag`: use `controller.image` and `controller.tag` instead
 * `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
+## 2.17.1
+
+Fix location of jenkins.war file.
+It is located in `/usr/share/jenkins/jenkins.war` and can be fonfigured via `master.jenkinsWar`.
+
+## 2.17.0
+
+Add support for plugin-installation-manager-tool
+
+## 2.16.0
+
+Added Startup probe for Jenkins pod when Kubernetes cluster is 1.16 or newer
+
+## 2.15.5
+
+scriptApproval is taken into account when enableXmlConfig is false.
+
+## 2.15.4
+
+Add Tilt support for easier helm chart development.
+
+## 2.15.3
+
+Fix error on missing `ingress.paths` value
+
 ## 2.15.2
 
 Added documentation for ingress and jenkins url
@@ -65,6 +90,7 @@ Fix tolerations in the backup pod
 Update list of maintainers
 
 ## 2.13.0
+
 Added Support for websockets in the default Jcasc config
 Added trailing slash to JENKINS_URL env var
 
@@ -132,7 +158,7 @@ Update k8s-sidecar image to 0.1.193
 Only mount empty dir secrets-dir if either `master.enableXmlConfig` or `master.secretsFilesSecret` is set
 Fixes #19
 
-## 2.6.1 Do not render emty JCasC templates
+## 2.6.1 Do not render empty JCasC templates
 
 ## 2.6.0 First release in jenkinsci GitHub org
 
