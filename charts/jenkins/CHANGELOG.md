@@ -12,7 +12,7 @@ The change log until v1.5.7 was auto-generated based on git commits. Those entri
 
 ## 2.17.2
 
-Added support for backing up to Azure Blob Storage. 
+Added support for backing up to Azure Blob Storage.
 
 ## 2.17.1
 
