@@ -84,6 +84,20 @@ spec:
                   name: {{ $key }}
                   key: {{ $value.awssecretkey | quote}}
             {{- end }}
+            {{- if $value.azstorageaccount }}
+            - name: AZURE_STORAGE_ACCOUNT
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $key }}
+                  key: {{ $value.azstorageaccount | quote}}
+            {{- end }}
+            {{- if $value.azstoragekey }}
+            - name: AZURE_STORAGE_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ $key }}
+                  key: {{ $value.azstoragekey | quote}}
+            {{- end }}
             {{- if $value.gcpcredentials }}
             - name: GOOGLE_APPLICATION_CREDENTIALS
               value: "/var/run/secrets/{{ $key }}/{{ $value.gcpcredentials }}"

@@ -318,6 +318,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.existingSecret.*`                | Specify the secret name containing the AWS or GCP credentials     | `jenkinsaws`                      |
 | `backup.existingSecret.*.awsaccesskey`   | `secretKeyRef.key` used for `AWS_ACCESS_KEY_ID`                   | `jenkins_aws_access_key`          |
 | `backup.existingSecret.*.awssecretkey`   | `secretKeyRef.key` used for `AWS_SECRET_ACCESS_KEY`               | `jenkins_aws_secret_key`          |
+| `backup.existingSecret.*.azstorageaccount`| `secretKeyRef.key` used for `AZURE_STORAGE_ACCOUNT`               | `""`                              |
+| `backup.existingSecret.*.azstoragekey`    | `secretKeyRef.key` used for `AZURE_STORAGE_ACCESS_KEY`            | `""`                          |
 | `backup.existingSecret.*.gcpcredentials` | Mounts secret as volume and sets `GOOGLE_APPLICATION_CREDENTIALS` | `credentials.json`                |
 | `backup.env`                             | Backup environment variables                                      | `[]`                              |
 | `backup.resources`                       | Backup CPU/Memory resource requests/limits                        | Memory: `1Gi`, CPU: `1`           |
