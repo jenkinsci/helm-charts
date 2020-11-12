@@ -121,8 +121,6 @@ spec:
           resources:
 {{ toYaml .Values.master.resources | indent 12 }}
           volumeMounts:
-            - mountPath: /tmp
-              name: tmp
             - mountPath: {{ .Values.master.jenkinsHome }}
               name: jenkins-home
               {{- if .Values.persistence.subPath }}
@@ -273,8 +271,6 @@ spec:
             - mountPath: {{ .Values.master.httpsKeyStore.path }}
               name: jenkins-https-keystore
             {{- end }}
-            - mountPath: /tmp
-              name: tmp
             - mountPath: {{ .Values.master.jenkinsHome }}
               name: jenkins-home
               readOnly: false
@@ -362,8 +358,6 @@ spec:
 {{ tpl (toYaml .Values.persistence.volumes | indent 6) . }}
 {{- end }}
       - name: plugins
-        emptyDir: {}
-      - name: tmp
         emptyDir: {}
       - name: jenkins-config
         configMap:

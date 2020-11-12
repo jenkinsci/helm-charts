@@ -112,8 +112,6 @@ tests:
                       cpu: 50m
                       memory: 256Mi
                   volumeMounts:
-                  - mountPath: /tmp
-                    name: tmp
                   - mountPath: /var/jenkins_home
                     name: jenkins-home
                     readOnly: false
@@ -177,8 +175,6 @@ tests:
                       cpu: 50m
                       memory: 256Mi
                   volumeMounts:
-                  - mountPath: /tmp
-                    name: tmp
                   - mountPath: /var/jenkins_home
                     name: jenkins-home
                   - mountPath: /var/jenkins_config
@@ -194,8 +190,6 @@ tests:
                 volumes:
                 - emptyDir: {}
                   name: plugins
-                - emptyDir: {}
-                  name: tmp
                 - configMap:
                     name: my-release-jenkins
                   name: jenkins-config
