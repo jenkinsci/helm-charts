@@ -63,7 +63,7 @@ tests:
                       fieldRef:
                         fieldPath: metadata.name
                   - name: JAVA_OPTS
-                    value: -Dcasc.reload.token=$(POD_NAME)
+                    value: "-Dcasc.reload.token=$(POD_NAME) "
                   - name: JENKINS_OPTS
                     value: ""
                   - name: JENKINS_SLAVE_AGENT_PORT
@@ -319,7 +319,8 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: JAVA_OPTS
-            value: "-Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true"
+            value: >-
+              -Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
@@ -331,3 +332,23 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Tiller
             app.kubernetes.io/name: jenkins
+  - it: java & jenkins opts with quotes
+    set:
+      master:
+        javaOpts: >-
+          -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
+        jenkinsOpts: >-
+          -Dtest="custom: 'true'"
+    asserts:
+      - contains:
+         path: spec.template.spec.containers[0].env
+         content:
+           name: JAVA_OPTS
+           value: >-
+             -Dcasc.reload.token=$(POD_NAME) -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
+      - contains:
+         path: spec.template.spec.containers[0].env
+         content:
+           name: JENKINS_OPTS
+           value: >-
+             -Dtest="custom: 'true'"
