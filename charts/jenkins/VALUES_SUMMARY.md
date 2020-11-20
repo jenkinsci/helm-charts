@@ -265,6 +265,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.nodeSelector`       | Node labels for pod assignment                  | `{}`                   |
 | `agent.slaveConnectTimeout`| Timeout in seconds for an agent to be online    | 100                    |
 | `agent.volumes`            | Additional volumes                              | `[]`                   |
+| `agent.workspaceVolume`    | Workspace volume (defaults to EmptyDir)         | `{}`                   |
 | `agent.yamlTemplate`       | The raw yaml of a Pod API Object to merge into the agent spec | Not set  |
 | `agent.yamlMergeStrategy`   | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates | `override` |
 | `agent.annotations`       | Annotations to apply to the pod                  | `{}`                   |
