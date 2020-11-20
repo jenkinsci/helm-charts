@@ -41,6 +41,12 @@ For more information about Jenkins Configuration as Code, visit:
 https://jenkins.io/projects/jcasc/
 {{- end }}
 
+{{ if (eq .Values.master.image "jenkins/jenkins") }}
+NOTE: Consider using a custom image with pre-installed plugins
+{{- else if .Values.master.installPlugins }}
+NOTE: Consider disabling `installPlugins` if your image already contains plugins.
+{{- end }}
+
 {{- if .Values.persistence.enabled }}
 {{- else }}
 #################################################################################
