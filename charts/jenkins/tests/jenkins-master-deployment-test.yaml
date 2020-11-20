@@ -45,7 +45,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: dca52edd4e45bf3ea5de7a168d17c5bd2b7010dd376344760cee9d683b0c3d66
+                  checksum/config: b658db5fded177557794338be19575f0d99995b5156fddbaae6cd78b7dfcedb2
                 labels:
                   app.kubernetes.io/component: jenkins-master
                   app.kubernetes.io/instance: my-release
@@ -140,7 +140,7 @@ tests:
                     value: POST
                   - name: REQ_RETRY_CONNECT
                     value: "10"
-                  image: kiwigrid/k8s-sidecar:0.1.193
+                  image: kiwigrid/k8s-sidecar:0.1.275
                   imagePullPolicy: IfNotPresent
                   name: jenkins-sc-config
                   resources: {}
