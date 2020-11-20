@@ -9,6 +9,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 * Commit: `https://github.com/helm/charts/commit/[commit]/stable/jenkins`
 
 The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
+
+## 2.19.0
+
+Allow to store JCASC Config in Secrets instead of ConfigMap since they may contains some sensitive data.
+
 ## 2.18.0
 
 Removed /tmp volume. Making /tmp a volume causes permission issues with jmap/jstack on certain Kubernetes clusters

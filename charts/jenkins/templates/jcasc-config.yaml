@@ -4,7 +4,7 @@
 {{- if $val }}
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: {{ if $root.Values.master.JCasC.useSecrets }}"Secret"{{ else }}"ConfigMap"{{ end }}
 metadata:
   name: {{ template "jenkins.fullname" $root }}-jenkins-config-{{ $key }}
   namespace: {{ template "jenkins.namespace" $root }}
@@ -16,8 +16,12 @@ metadata:
     "app.kubernetes.io/component": "{{ $.Values.master.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
+  {{- if $root.Values.master.JCasC.useSecrets }}
+  {{ $key }}.yaml: {{ tpl $val $ | b64enc | quote }}
+  {{- else }}
   {{ $key }}.yaml: |-
-{{ tpl $val $| indent 4 }}
+    {{- tpl $val $ | nindent 4 }}
+  {{- end }}
 {{- end }}
 {{- end }}
 {{- if .Values.master.JCasC.defaultConfig }}
@@ -36,6 +40,6 @@ metadata:
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   jcasc-default-config.yaml: |-
-    {{- include "jenkins.casc.defaults" . |nindent 4 }}
-{{- end}}
+    {{- include "jenkins.casc.defaults" . | nindent 4 }}
+{{- end }}
 {{- end }}

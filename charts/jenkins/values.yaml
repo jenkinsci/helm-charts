@@ -295,6 +295,8 @@ master:
   JCasC:
     enabled: true
     defaultConfig: true
+    # When true use Secret resources to store JCasC configurations
+    useSecrets: false
     configScripts: {}
     #  welcome-message: |
     #    jenkins:

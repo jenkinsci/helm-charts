@@ -325,6 +325,8 @@ spec:
               value: "{{ template "jenkins.fullname" . }}-jenkins-config"
             - name: FOLDER
               value: "{{ .Values.master.sidecars.configAutoReload.folder }}"
+            - name: RESOURCE
+              value: "both"
             - name: NAMESPACE
               value: "{{ .Values.master.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}"
             - name: REQ_URL

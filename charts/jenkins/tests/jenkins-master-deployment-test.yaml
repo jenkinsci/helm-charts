@@ -132,6 +132,8 @@ tests:
                     value: my-release-jenkins-jenkins-config
                   - name: FOLDER
                     value: /var/jenkins_home/casc_configs
+                  - name: RESOURCE
+                    value: both
                   - name: NAMESPACE
                     value: my-namespace
                   - name: REQ_URL

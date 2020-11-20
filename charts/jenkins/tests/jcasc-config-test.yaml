@@ -597,3 +597,28 @@ tests:
     asserts:
       - hasDocuments:
          count: 0
+  - it: use secrets to store config
+    set:
+      master:
+        JCasC:
+          useSecrets: true
+          configScripts:
+            welcome-message: |
+              jenkins:
+                systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        isKind:
+          of: Secret
+      - documentIndex: 0
+        isNotEmpty:
+          path: data.welcome-message\.yaml
+      - documentIndex: 0
+        equal:
+          path: data.welcome-message\.yaml
+          value: "amVua2luczoKICBzeXN0ZW1NZXNzYWdlOiBXZWxjb21lIHRvIG91ciBDSVxDRCBzZXJ2ZXIuICBUaGlzIEplbmtpbnMgaXMgY29uZmlndXJlZCBhbmQgbWFuYWdlZCAnYXMgY29kZScuCg=="
+      - documentIndex: 1
+        isKind:
+          of: ConfigMap
