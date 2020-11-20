@@ -57,7 +57,8 @@ For migration between major version check [migration guide](#migration-guide).
 
 ## Configuration
 
-See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
+See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
+To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
 
 ```console
 # Helm 3
@@ -69,6 +70,50 @@ $ helm inspect values jenkins/jenkins
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
 
+### Consider using a custom image
+
+This chart allows the user to specify plugins, which should be installed however for production use cases one should consider to build a custom Jenkins image which has all required plugins pre-installed.
+This way you can be sure which plugins Jenkins is using when starting up and you avoid trouble in case of connectivity issues to the Jenkins update site.
+
+The [docker repository](https://github.com/jenkinsci/docker) for the Jenkins image contains [documentation](https://github.com/jenkinsci/docker#preinstalling-plugins) how to do it.
+
+Here is an example how that can be done:
+
+```Dockerfile
+FROM jenkins/jenkins:lts
+RUN jenkins-plugin-cli --plugins kubernetes workflow-job workflow-aggregator credentials-binding git configuration-as-code
+```
+
+NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
+
+Once you built the image and pushed it tou your registry you can specify it in your values file like this:
+
+```yaml
+master:
+  image: "registry/my-jenkins"
+  tag: "v1.2.3"
+  installPlugins: []
+```
+
+Notice: `installPlugins` is set to an empty list to disable plugin download.
+
+In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
+
+```yaml
+master:
+  image: "registry/my-jenkins"
+  tag: "v1.2.3"
+  imagePullSecretName: registry-secret
+  installPlugins: []
+```
+
+### External URL Configuration
+
+If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
+
+If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
+
 ### Configuration as Code
 
 Jenkins Configuration as Code is now a standard component in the Jenkins project.
@@ -76,7 +121,7 @@ Add a key under configScripts for each configuration area, where each correspond
 The keys (prior to `|` character) are just labels, and can be any value.
 They are only used to give the section a meaningful name.
 The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
-Each key will become the name of a configuration yaml file on the master in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+Each key will become the name of a configuration yaml file on the master in `/var/jenkins_home/casc_configs` (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
@@ -516,17 +561,11 @@ master:
         - /github-webhook
 ```
 
-### External URL Configuration
-If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
-The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
-
-If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
-
 ## Migration Guide
 
 ### From stable repo
 
-Upgrade an existing release from `stable/jenkins` to `jenkinsci/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkinsci/jenkins` chart.
+Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
 
 ### Major Version Upgrades
 
