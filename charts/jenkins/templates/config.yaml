@@ -158,6 +158,7 @@ data:
     </jenkins.CLI>
 {{- end }}
   apply_config.sh: |-
+    set -e
 {{- if .Values.master.initializeOnce }}
     if [ -f {{ .Values.master.jenkinsHome }}/initialization-completed ]; then
       echo "master was previously initialized, refusing to re-initialize"
@@ -219,7 +220,7 @@ data:
     # Copy plugins to shared volume
     yes n | cp -i {{ .Values.master.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
 {{- end }}
-{{- if .Values.master.scriptApproval }}
+{{- if and .Values.master.enableXmlConfig .Values.master.scriptApproval }}
     echo "configure script approval"
   {{- if .Values.master.overwriteConfig }}
     cp /var/jenkins_config/scriptapproval.xml {{ .Values.master.jenkinsHome }}/scriptApproval.xml;

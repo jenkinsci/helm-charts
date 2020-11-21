@@ -12,6 +12,12 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 2.19.0
+
+* Use lts version 2.249.3
+* Update kubernetes, workflow-aggregator, git and configuration-as-code plugins.
+* Fail apply_config.sh script if an error occurs.
+
 ## 2.18.2
 
 Fix: `master.javaOpts` issue with quoted values

@@ -1,14 +1,12 @@
 apiVersion: v1
 name: jenkins
 home: https://jenkins.io/
-version: 2.18.2
-appVersion: lts
-description: Open source continuous integration server. It supports multiple SCM tools
-  including CVS, Subversion and Git. It can execute Apache Ant and Apache Maven-based
-  projects as well as arbitrary scripts.
+version: 2.19.0
+appVersion: 2.249.3
+description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 sources:
 - https://github.com/jenkinsci/jenkins
-- https://github.com/jenkinsci/docker-jnlp-slave
+- https://github.com/jenkinsci/docker-inbound-agent
 - https://github.com/maorfr/kube-tasks
 - https://github.com/jenkinsci/configuration-as-code-plugin
 maintainers:
