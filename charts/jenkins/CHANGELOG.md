@@ -40,6 +40,12 @@ The following entries have been removed:
 * `master.imageTag`: use `controller.image` and `controller.tag` instead
 * `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
+## 2.19.0
+
+* Use lts version 2.249.3
+* Update kubernetes, workflow-aggregator, git and configuration-as-code plugins.
+* Fail apply_config.sh script if an error occurs.
+
 ## 2.18.2
 
 Fix: `master.javaOpts` issue with quoted values

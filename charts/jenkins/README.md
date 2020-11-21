@@ -75,7 +75,7 @@ Here is an example how that can be done:
 
 ```Dockerfile
 FROM jenkins/jenkins:lts
-RUN jenkins-plugin-cli --plugins kubernetes workflow-job workflow-aggregator credentials-binding git configuration-as-code
+RUN jenkins-plugin-cli --plugins kubernetes workflow-aggregator git configuration-as-code
 ```
 
 NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
