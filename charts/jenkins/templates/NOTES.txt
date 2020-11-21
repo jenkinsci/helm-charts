@@ -38,6 +38,12 @@ https://cloud.google.com/solutions/jenkins-on-container-engine
 For more information about Jenkins Configuration as Code, visit:
 https://jenkins.io/projects/jcasc/
 
+{{ if (eq .Values.controller.image "jenkins/jenkins") }}
+NOTE: Consider using a custom image with pre-installed plugins
+{{- else if .Values.controller.installPlugins }}
+NOTE: Consider disabling `installPlugins` if your image already contains plugins.
+{{- end }}
+
 {{- if .Values.persistence.enabled }}
 {{- else }}
 #################################################################################

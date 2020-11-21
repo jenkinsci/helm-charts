@@ -9,7 +9,8 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 * PR:     `https://github.com/helm/charts/pull/[pr#]`
 * Commit: `https://github.com/helm/charts/commit/[commit]/stable/jenkins`
 
-The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
+The change log until v1.5.7 was auto-generated based on git commits.
+Those entries include a reference to the git commit to be able to get more details.
 
 ## 3.0.0
 
@@ -38,6 +39,18 @@ The following entries have been removed:
 
 * `master.imageTag`: use `controller.image` and `controller.tag` instead
 * `slave.imageTag`: use `agent.image` and `agent.tag` instead
+
+## 2.18.2
+
+Fix: `master.javaOpts` issue with quoted values
+
+## 2.18.1
+
+Recommend installing plugins in custom image
+
+## 2.18.0
+
+Removed /tmp volume. Making /tmp a volume causes permission issues with jmap/jstack on certain Kubernetes clusters
 
 ## 2.17.1
 

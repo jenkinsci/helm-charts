@@ -51,7 +51,8 @@ For migration between major version check [migration guide](#migration-guide).
 
 ## Configuration
 
-See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing). To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
+See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
+To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
 
 ```console
 # Helm 3
@@ -63,6 +64,50 @@ $ helm inspect values jenkins/jenkins
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
 
+### Consider using a custom image
+
+This chart allows the user to specify plugins, which should be installed however for production use cases one should consider to build a custom Jenkins image which has all required plugins pre-installed.
+This way you can be sure which plugins Jenkins is using when starting up and you avoid trouble in case of connectivity issues to the Jenkins update site.
+
+The [docker repository](https://github.com/jenkinsci/docker) for the Jenkins image contains [documentation](https://github.com/jenkinsci/docker#preinstalling-plugins) how to do it.
+
+Here is an example how that can be done:
+
+```Dockerfile
+FROM jenkins/jenkins:lts
+RUN jenkins-plugin-cli --plugins kubernetes workflow-job workflow-aggregator credentials-binding git configuration-as-code
+```
+
+NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
+
+Once you built the image and pushed it tou your registry you can specify it in your values file like this:
+
+```yaml
+controller:
+  image: "registry/my-jenkins"
+  tag: "v1.2.3"
+  installPlugins: []
+```
+
+Notice: `installPlugins` is set to an empty list to disable plugin download.
+
+In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
+
+```yaml
+controller:
+  image: "registry/my-jenkins"
+  tag: "v1.2.3"
+  imagePullSecretName: registry-secret
+  installPlugins: []
+```
+
+### External URL Configuration
+
+If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
+
+If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
+
 ### Configuration as Code
 
 Jenkins Configuration as Code is now a standard component in the Jenkins project.
@@ -70,7 +115,7 @@ Add a key under configScripts for each configuration area, where each correspond
 The keys (prior to `|` character) are just labels, and can be any value.
 They are only used to give the section a meaningful name.
 The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
-Each key will become the name of a configuration yaml file on the controller in /var/jenkins_home/casc_configs (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+Each key will become the name of a configuration yaml file on the controller in `/var/jenkins_home/casc_configs` (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
@@ -179,6 +224,19 @@ To make use of the NetworkPolicy resources created by default, install [a networ
 
 You can use `controller.networkPolicy.internalAgents` and `controller.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
+
+### Script approval list
+
+`controller.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
+Example:
+
+```yaml
+controller:
+  scriptApproval:
+    - "method java.util.Base64$Decoder decode java.lang.String"
+    - "new java.lang.String byte[]"
+    - "staticMethod java.util.Base64 getDecoder"
+```
 
 ### Custom Labels
 
@@ -344,31 +402,33 @@ controller:
        jenkinsKeyStoreBase64Encoded: ''
 ```
 
-
 ### Ingress Configuration
-This chart provides ingress resources configurable via the `master.ingress` block.
+
+This chart provides ingress resources configurable via the `controller.ingress` block.
 
 The simplest configuration looks like the following:
+
 ```yaml
-master:
+controller:
    ingress:
        enabled: true
        paths: []
        apiVersion: "extensions/v1beta1"
        hostName: jenkins.example.com
 ```
+
 This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
 
-You can define labels and annotations via `master.ingress.labels` and `master.ingress.annotations` respectively.
-Additionally, you can configure the ingress tls via `master.ingress.tls`.
+You can define labels and annotations via `controller.ingress.labels` and `controller.ingress.annotations` respectively.
+Additionally, you can configure the ingress tls via `controller.ingress.tls`.
 By default, this ingress rule exposes all paths.
-If needed this can be overwritten by specifying the wanted paths in `master.ingress.paths`
+If needed this can be overwritten by specifying the wanted paths in `controller.ingress.paths`
 
-If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `master.secondaryingress`.
-The secondaryingress doesn't expose anything by default and has to be configured via `master.secondaryingress.paths`:
+If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `controller.secondaryingress`.
+The secondaryingress doesn't expose anything by default and has to be configured via `controller.secondaryingress.paths`:
 
 ```yaml
-master:
+controller:
    ingress:
        enabled: true
        apiVersion: "extensions/v1beta1"
@@ -385,17 +445,11 @@ master:
         - /github-webhook
 ```
 
-### External URL Configuration
-If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
-The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
-
-If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
-
 ## Migration Guide
 
 ### From stable repo
 
-Upgrade an existing release from `stable/jenkins` to `jenkinsci/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkinsci/jenkins` chart.
+Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
 
 ### Major Version Upgrades
 
