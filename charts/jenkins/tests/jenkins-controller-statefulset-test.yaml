@@ -3,15 +3,15 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-deployment.yaml
+  - jenkins-controller-statefulset.yaml
 tests:
   - it: default values
     asserts:
       - isKind:
-          of: Deployment
+          of: StatefulSet
       - equal:
           path: apiVersion
-          value: apps/v1
+          value: apps/v1beta1
       - equal:
           path: metadata.name
           value: my-release-jenkins
@@ -30,26 +30,25 @@ tests:
           path: spec.selector
           value:
             matchLabels:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
       - equal:
           path: spec
           value:
+            serviceName: my-release-jenkins
             replicas: 1
             selector:
               matchLabels:
-                app.kubernetes.io/component: jenkins-master
+                app.kubernetes.io/component: jenkins-controller
                 app.kubernetes.io/instance: my-release
-            strategy:
-              type: Recreate
             template:
               metadata:
                 annotations:
-                  checksum/config: b658db5fded177557794338be19575f0d99995b5156fddbaae6cd78b7dfcedb2
+                  checksum/config: c1970219d6ed4463c3aeb25c5a1acd68574d1ec9a847361e630893f69cc49dc0
                 labels:
-                  app.kubernetes.io/component: jenkins-master
+                  app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
-                  app.kubernetes.io/managed-by: Tiller
+                  app.kubernetes.io/managed-by: Helm
                   app.kubernetes.io/name: jenkins
               spec:
                 containers:
@@ -87,7 +86,6 @@ tests:
                     httpGet:
                       path: /login
                       port: http
-                    initialDelaySeconds: 90
                     periodSeconds: 10
                     timeoutSeconds: 5
                   name: jenkins
@@ -95,13 +93,12 @@ tests:
                   - containerPort: 8080
                     name: http
                   - containerPort: 50000
-                    name: slavelistener
+                    name: agent-listener
                   readinessProbe:
                     failureThreshold: 3
                     httpGet:
                       path: /login
                       port: http
-                    initialDelaySeconds: 60
                     periodSeconds: 10
                     timeoutSeconds: 5
                   resources:
@@ -111,6 +108,13 @@ tests:
                     requests:
                       cpu: 50m
                       memory: 256Mi
+                  startupProbe:
+                    httpGet:
+                      path: '/login'
+                      port: http
+                    periodSeconds: 10
+                    timeoutSeconds: 5
+                    failureThreshold: 12
                   volumeMounts:
                   - mountPath: /var/jenkins_home
                     name: jenkins-home
@@ -201,9 +205,12 @@ tests:
                 - emptyDir: {}
                   name: sc-config-volume
   - it: test different values
+    capabilities:
+      apiVersions:
+        - scheduling.k8s.io/v1beta1
     set:
-      master:
-        deploymentAnnotations:
+      controller:
+        statefulSetAnnotations:
           my-annotation: value
         schedulerName: my-scheduler
         nodeSelector:
@@ -296,8 +303,8 @@ tests:
               - something.local
   - it: configure image tag
     set:
-      master.tag: 2.249.1-slim
-      master.imagePullPolicy: IfNotPresent
+      controller.tag: 2.249.1-slim
+      controller.imagePullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
@@ -307,7 +314,7 @@ tests:
           value: IfNotPresent
   - it: custom image
     set:
-      master:
+      controller:
         image: registry/image
         tag: my-tag
         javaOpts: -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
@@ -328,13 +335,13 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
   - it: java & jenkins opts with quotes
     set:
-      master:
+      controller:
         javaOpts: >-
           -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
         jenkinsOpts: >-

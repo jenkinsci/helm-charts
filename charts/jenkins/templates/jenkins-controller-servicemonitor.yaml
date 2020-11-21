@@ -1,11 +1,11 @@
-{{- if and .Values.master.prometheus.enabled }}
+{{- if and .Values.controller.prometheus.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 
 metadata:
   name: {{ template "jenkins.fullname" . }}
-{{- if .Values.master.prometheus.serviceMonitorNamespace }}
-  namespace: {{ .Values.master.prometheus.serviceMonitorNamespace }}
+{{- if .Values.controller.prometheus.serviceMonitorNamespace }}
+  namespace: {{ .Values.controller.prometheus.serviceMonitorNamespace }}
 {{- else }}
   namespace: {{ template "jenkins.namespace" . }}
 {{- end }}
@@ -14,16 +14,16 @@ metadata:
     {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
-    {{- range $key, $val := .Values.master.prometheus.serviceMonitorAdditionalLabels }}
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- range $key, $val := .Values.controller.prometheus.serviceMonitorAdditionalLabels }}
     {{ $key }}: {{ $val | quote }}
     {{- end}}
 
 spec:
   endpoints:
-  - interval: {{ .Values.master.prometheus.scrapeInterval }}
+  - interval: {{ .Values.controller.prometheus.scrapeInterval }}
     port: http
-    path: {{ .Values.master.jenkinsUriPrefix }}{{ .Values.master.prometheus.scrapeEndpoint }}
+    path: {{ .Values.controller.jenkinsUriPrefix }}{{ .Values.controller.prometheus.scrapeEndpoint }}
   jobLabel: {{ template "jenkins.fullname" . }}
   namespaceSelector:
     matchNames:
@@ -31,5 +31,5 @@ spec:
   selector:
     matchLabels:
       "app.kubernetes.io/instance": "{{ .Release.Name }}"
-      "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+      "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 {{- end }}

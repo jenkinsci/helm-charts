@@ -20,9 +20,6 @@ _See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation
 ```console
 # Helm 3
 $ helm install [RELEASE_NAME] jenkins/jenkins [flags]
-
-# Helm 2
-$ helm install --name [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
 _See [configuration](#configuration) below._
@@ -34,9 +31,6 @@ _See [helm install](https://helm.sh/docs/helm/helm_install/) for command documen
 ```console
 # Helm 3
 $ helm uninstall [RELEASE_NAME]
-
-# Helm 2
-# helm delete --purge [RELEASE_NAME]
 ```
 
 This removes all the Kubernetes components associated with the chart and deletes the release.
@@ -46,7 +40,7 @@ _See [helm uninstall](https://helm.sh/docs/helm/helm_uninstall/) for command doc
 ## Upgrade Chart
 
 ```console
-# Helm 3 or 2
+# Helm 3
 $ helm upgrade [RELEASE_NAME] jenkins/jenkins [flags]
 ```
 
@@ -89,7 +83,7 @@ NOTE: If you want a reproducible build then you should specify a non floating ta
 Once you built the image and pushed it tou your registry you can specify it in your values file like this:
 
 ```yaml
-master:
+controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
   installPlugins: []
@@ -100,7 +94,7 @@ Notice: `installPlugins` is set to an empty list to disable plugin download.
 In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
 
 ```yaml
-master:
+controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
   imagePullSecretName: registry-secret
@@ -109,10 +103,10 @@ master:
 
 ### External URL Configuration
 
-If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
-The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
+If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
 
-If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
+If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
 
 ### Configuration as Code
 
@@ -121,7 +115,7 @@ Add a key under configScripts for each configuration area, where each correspond
 The keys (prior to `|` character) are just labels, and can be any value.
 They are only used to give the section a meaningful name.
 The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
-Each key will become the name of a configuration yaml file on the master in `/var/jenkins_home/casc_configs` (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+Each key will become the name of a configuration yaml file on the controller in `/var/jenkins_home/casc_configs` (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
 The lines after each `|` become the content of the configuration yaml file.
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
@@ -129,7 +123,7 @@ Best reference is the Documentation link here: `https://<jenkins_url>/configurat
 The example below sets custom systemMessage:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       welcome-message: |
@@ -140,7 +134,7 @@ master:
 More complex example that creates ldap settings:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       ldap-settings: |
@@ -163,7 +157,7 @@ For example, you can not configure Jenkins URL and System Admin e-mail address l
 Incorrect:
 
 ```yaml
-master:
+controller:
   JCasC:
     configScripts:
       jenkins-url: |
@@ -176,7 +170,7 @@ master:
 Correct:
 
 ```yaml
-master:
+controller:
   jenkinsUrl: https://example.com/jenkins
   jenkinsAdminEmail: example@mail.com
 ```
@@ -185,16 +179,14 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 
 #### Config as Code With or Without Auto-Reload
 
-Config as Code changes (to `master.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
-If you set `master.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins master pod, known as a "sidecar".
+Config as Code changes (to `controller.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
+If you set `controller.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins controller pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
-You can monitor this sidecar's logs using command `kubectl logs <master_pod> -c jenkins-sc-config -f`.
+You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c jenkins-sc-config -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
 
 ```yaml
-master:
-  JCasC:
-    enabled: true
+controller:
   sidecars:
     configAutoReload:
       enabled: true
@@ -205,9 +197,9 @@ rbac:
 ### Allow Limited HTML Markup in User-Submitted Text
 
 Some third-party systems (e.g. GitHub) use HTML-formatted data in their payload sent to a Jenkins webhook (e.g. URL of a pull-request being built).
-To display such data as processed HTML instead of raw text set `master.enableRawHtmlMarkupFormatter` to true.
+To display such data as processed HTML instead of raw text set `controller.enableRawHtmlMarkupFormatter` to true.
 This option requires installation of the [OWASP Markup Formatter Plugin (antisamy-markup-formatter)](https://plugins.jenkins.io/antisamy-markup-formatter/).
-This plugin is **not** installed by default but may be added to `master.additionalPlugins`.
+This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
 ### Mounting Volumes into Agent Pods
 
@@ -230,54 +222,25 @@ To make use of the NetworkPolicy resources created by default, install [a networ
 
 [Install](#install-chart) helm chart with network policy enabled by setting `networkPolicy.enabled` to `true`.
 
-You can use `master.networkPolicy.internalAgents` and `master.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
+You can use `controller.networkPolicy.internalAgents` and `controller.networkPolicy.externalAgents` stanzas for fine-grained controls over where internal/external agents can connect from.
 Internal ones are allowed based on pod labels and (optionally) namespaces, and external ones are allowed based on IP ranges.
-
-### Custom Security Realm
-
-`master.securityRealm` in values can be used to support custom security realm instead of default `LegacySecurityRealm`.
-For example, you can add a security realm to authenticate via keycloak:
-
-```yaml
-securityRealm: |-
-  <securityRealm class="org.jenkinsci.plugins.oic.OicSecurityRealm" plugin="oic-auth@1.0">
-    <clientId>testId</clientId>
-    <clientSecret>testsecret</clientSecret>
-    <tokenServerUrl>https:testurl</tokenServerUrl>
-    <authorizationServerUrl>https:testAuthUrl</authorizationServerUrl>
-    <userNameField>email</userNameField>
-    <scopes>openid email</scopes>
-  </securityRealm>
-```
 
 ### Script approval list
 
-`master.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
+`controller.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
 Example:
 
 ```yaml
-scriptApproval:
-  - "method java.util.Base64$Decoder decode java.lang.String"
-  - "new java.lang.String byte[]"
-  - "staticMethod java.util.Base64 getDecoder"
-```
-
-### Additional Configs
-
-`master.additionalConfig` can be used to add additional config files in `config.yaml`.
-For example, it can be used to add additional config files for keycloak authentication:
-
-```yaml
-additionalConfig:
-  testConfig.txt: |-
-    - name: testName
-      clientKey: testKey
-      clientURL: testUrl
+controller:
+  scriptApproval:
+    - "method java.util.Base64$Decoder decode java.lang.String"
+    - "new java.lang.String byte[]"
+    - "staticMethod java.util.Base64 getDecoder"
 ```
 
 ### Custom Labels
 
-`master.serviceLabels` can be used to add custom labels in `jenkins-master-svc.yaml`.
+`controller.serviceLabels` can be used to add custom labels in `jenkins-controller-svc.yaml`.
 For example:
 
 ```yaml
@@ -320,63 +283,6 @@ To restore a backup, you can use the `kube-tasks` underlying tool called [skbn](
 The best way to do it would be using a `Job` to copy files from the desired backup tag to the Jenkins pod.
 See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/examples/in-cluster) for more details.
 
-### Providing Jobs XML
-
-Jobs can be created (and overwritten) by providing jenkins config xml within the `values.yaml` file.
-The keys of the map will become a directory within the jobs directory.
-The values of the map will become the `config.xml` file in the respective directory.
-
-Below is an example of a `values.yaml` file and the directory structure created:
-
-```yaml
-master:
-  jobs:
-    test-job: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
-        <keepDependencies>false</keepDependencies>
-        <properties/>
-        <scm class="hudson.scm.NullSCM"/>
-        <canRoam>false</canRoam>
-        <disabled>false</disabled>
-        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-        <triggers/>
-        <concurrentBuild>false</concurrentBuild>
-        <builders/>
-        <publishers/>
-        <buildWrappers/>
-      </project>
-    test-job-2: |-
-      <?xml version='1.0' encoding='UTF-8'?>
-      <project>
-        <keepDependencies>false</keepDependencies>
-        <properties/>
-        <scm class="hudson.scm.NullSCM"/>
-        <canRoam>false</canRoam>
-        <disabled>false</disabled>
-        <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
-        <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
-        <triggers/>
-        <concurrentBuild>false</concurrentBuild>
-        <builders/>
-        <publishers/>
-        <buildWrappers/>
-```
-
-#### Jobs Directory Structure
-
-```console
-.
-├── _test-job-1
-|   └── config.xml
-├── _test-job-2
-|   └── config.xml
-```
-
-Docs taken from <https://github.com/jenkinsci/docker/blob/master/Dockerfile>:
-_Jenkins is run with user `jenkins`, uid = 1000. If you bind mount a volume from the host or a data container,ensure you use the same uid_
-
 ### Adding Custom Pod Templates
 
 It is possible to add custom pod templates for the default configured kubernetes cloud.
@@ -386,8 +292,7 @@ There's no need to add the *jnlp* container since the kubernetes plugin will aut
 For this pod templates configuration to be loaded the following values must be set:
 
 ```yaml
-master.JCasC.enabled: true
-master.JCasC.defaultConfig: true
+controller.JCasC.defaultConfig: true
 ```
 
 The example below creates a python pod template in the kubernetes cloud:
@@ -449,14 +354,67 @@ additionalAgents:
     TTYEnabled: true
 ```
 
-### Running Behind a Forward Proxy
+### Ingress Configuration
 
-The master pod uses an Init Container to install plugins etc. If you are behind a corporate proxy it may be useful to set `master.initContainerEnv` to add environment variables such as `http_proxy`, so that these can be downloaded.
+This chart provides ingress resources configurable via the `controller.ingress` block.
 
-Additionally, you may want to add env vars for the init container, the Jenkins container, and the JVM (`master.javaOpts`):
+The simplest configuration looks like the following:
 
 ```yaml
-master:
+controller:
+   ingress:
+       enabled: true
+       paths: []
+       apiVersion: "extensions/v1beta1"
+       hostName: jenkins.example.com
+```
+
+This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
+
+You can define labels and annotations via `controller.ingress.labels` and `controller.ingress.annotations` respectively.
+Additionally, you can configure the ingress tls via `controller.ingress.tls`.
+By default, this ingress rule exposes all paths.
+If needed this can be overwritten by specifying the wanted paths in `controller.ingress.paths`
+
+If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `controller.secondaryingress`.
+The secondaryingress doesn't expose anything by default and has to be configured via `controller.secondaryingress.paths`:
+
+```yaml
+controller:
+   ingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       hostName: "jenkins.internal.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "internal"
+   secondaryingress:
+       enabled: true
+       apiVersion: "extensions/v1beta1"
+       hostName: "jenkins-scm.example.com"
+       annotations:
+           kubernetes.io/ingress.class: "public"
+       paths:
+        - /github-webhook
+```
+
+## Prometheus Metrics
+
+If you want to expose Prometheus metrics you need to install the [Jenkins Prometheus Metrics Plugin](https://github.com/jenkinsci/prometheus-plugin).
+It will expose an endpoint (default `/prometheus`) with metrics where a Prometheus Server can scrape.
+
+If you have implemented [Prometheus Operator](https://github.com/prometheus-operator/prometheus-operator), you can set `master.prometheus.enabled` to `true` to configure a `ServiceMonitor` and `PrometheusRule`.
+If you want to further adjust alerting rules you can do so by configuring `master.prometheus.alertingrules`
+
+If you have implemented Prometheus without using the operator, you can leave `master.prometheus.enabled` set to `false`.
+
+### Running Behind a Forward Proxy
+
+The controller pod uses an Init Container to install plugins etc. If you are behind a corporate proxy it may be useful to set `controller.initContainerEnv` to add environment variables such as `http_proxy`, so that these can be downloaded.
+
+Additionally, you may want to add env vars for the init container, the Jenkins container, and the JVM (`controller.javaOpts`):
+
+```yaml
+controller:
   initContainerEnv:
     - name: http_proxy
       value: "http://192.168.64.1:3128"
@@ -476,40 +434,17 @@ master:
     -Dhttps.proxyPort=3128
 ```
 
-### Custom ConfigMap
-
-The following configuration method is deprecated and will be removed in an upcoming version of this chart.
-We recommend you use Jenkins Configuration as Code to configure instead.
-When creating a new parent chart with this chart as a dependency, the `customConfigMap` parameter can be used to override the default `config.xml` provided.
-It also allows for providing additional xml configuration files that will be copied into `/var/jenkins_home`. In the parent chart's values.yaml, set the `jenkins.master.customConfigMap` value to `true` like so:
-
-```yaml
-jenkins:
-  master:
-    customConfigMap: true
-```
-
-and provide the file `templates/config.tpl` in your parent chart for your use case.
-You can start by copying the contents of `config.yaml` from this chart into your parent charts `templates/config.tpl` as a basis for customization.
-Finally, you'll need to wrap the contents of `templates/config.tpl` like so:
-
-```yaml
-{{- define "override_config_map" }}
-    <CONTENTS_HERE>
-{{ end }}
-```
-
 ### HTTPS Keystore Configuration
 
 [This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve https.
 Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777#RunningJenkinswithnativeSSL/HTTPS-ConfigureJenkinstouseHTTPSandtheJKSkeystore) related to keystore configuration.
 Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
 After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve https.
-Do not set `master.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
+Do not set `controller.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
 If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` and `https-jks-password`. Example:
 
 ```yaml
-master:
+controller:
    httpsKeyStore:
        enable: true
        jenkinsHttpsJksSecretName: ''
@@ -518,47 +453,6 @@ master:
        fileName: "keystore.jks"
        password: "changeit"
        jenkinsKeyStoreBase64Encoded: ''
-```
-
-
-### Ingress Configuration
-This chart provides ingress resources configurable via the `master.ingress` block.
-
-The simplest configuration looks like the following:
-```yaml
-master:
-   ingress:
-       enabled: true
-       paths: []
-       apiVersion: "extensions/v1beta1"
-       hostName: jenkins.example.com
-```
-This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
-
-You can define labels and annotations via `master.ingress.labels` and `master.ingress.annotations` respectively.
-Additionally, you can configure the ingress tls via `master.ingress.tls`.
-By default, this ingress rule exposes all paths.
-If needed this can be overwritten by specifying the wanted paths in `master.ingress.paths`
-
-If you want to configure a secondary ingress e.g. you don't want the jenkins instance exposed but still want to receive webhooks you can configure `master.secondaryingress`.
-The secondaryingress doesn't expose anything by default and has to be configured via `master.secondaryingress.paths`:
-
-```yaml
-master:
-   ingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins.internal.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "internal"
-   secondaryingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins-scm.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "public"
-       paths:
-        - /github-webhook
 ```
 
 ## Migration Guide
@@ -570,6 +464,34 @@ Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessl
 ### Major Version Upgrades
 
 Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
+
+### To 3.0.0
+
+* You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
+* All XML configuration options have been removed.
+  In case those are still in use you need to migrate to configuration as code.
+  Upgrade guide to 2.0.0 contains pointers how to do that.
+* Jenkins is now using a `StatefulSet` instead of a `Deployment`
+* terminology has been adjusted that's also reflected in values.yaml
+  The following values from `values.yaml` have been renamed:
+
+  * `master` => `controller`
+  * `master.slaveListenerPort` => `controller.agentListenerPort`
+  * `master.slaveHostPort` => `controller.agentListenerHostPort`
+  * `master.slaveKubernetesNamespace` => `agent.namespace`
+  * `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
+  * `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
+  * `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
+  * `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
+  * `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
+  * `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
+  * `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
+  * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
+  * `agent.slaveConnectTimeout` => `agent.connectTimeout`
+* Removed values:
+
+  * `master.imageTag`: use `controller.image` and `controller.tag` instead
+  * `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
 ### To 2.0.0
 
@@ -601,7 +523,7 @@ All you have to do is ensure the old values are set in your installation.
 Here we show which values have changed and the previous default values:
 
 ```yaml
-master:
+controller:
   enableXmlConfig: false  # was true
   runAsUser: 1000         # was unset before
   fsGroup: 1000           # was unset before
@@ -650,7 +572,7 @@ As a result of the label changes also the selectors of the deployment have been 
 Those are immutable so trying an updated will cause an error like:
 
 ```console
-Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-master", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
+Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-controller", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
 ```
 
 In order to upgrade, [uninstall](#uninstall-chart) the Jenkins Deployment before upgrading:

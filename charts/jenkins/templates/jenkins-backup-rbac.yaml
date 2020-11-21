@@ -9,7 +9,7 @@ metadata:
     {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
   {{- if .Values.backup.annotations }}
   annotations:
     {{- toYaml .Values.backup.annotations | nindent 4 }}
@@ -25,7 +25,7 @@ metadata:
     {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 rules:
 - apiGroups: [""]
   resources: ["pods", "pods/log"]
@@ -44,7 +44,7 @@ metadata:
     {{ include "helm-chart-label" .}}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

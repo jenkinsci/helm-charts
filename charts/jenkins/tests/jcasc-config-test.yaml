@@ -32,7 +32,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -46,7 +45,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -70,7 +69,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -93,8 +92,6 @@ tests:
     release:
       namespace: controller-namespace
     set:
-      master:
-        slaveKubernetesNamespace: jenkins-agents
       additionalAgents:
         maven:
           podName: maven
@@ -111,6 +108,7 @@ tests:
           args: "cat"
           TTYEnabled: true
       agent:
+        namespace: jenkins-agents
         podTemplates:
           python3: |
             - name: python3
@@ -145,7 +143,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -159,7 +156,7 @@ tests:
                   namespace: "jenkins-agents"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -183,7 +180,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -211,7 +208,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave maven"
+                      label: "RELEASE-NAME-jenkins-agent maven"
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -240,7 +237,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave python"
+                      label: "RELEASE-NAME-jenkins-agent python"
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -276,7 +273,7 @@ tests:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: customized config
     set:
-      master:
+      controller:
         disableRememberMe: true
         executorMode: EXCLUSIVE
         numExecutors: 1
@@ -291,9 +288,6 @@ tests:
               jenkins:
                 systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
           securityRealm: local
-        slaveDefaultsProviderTemplate: my-defaults
-        slaveConnectTimeout: 11
-        slaveReadTimeout: 12
         jenkinsAdminEmail: admin@example.org
         ingress:
           hostName: jenkins.example.com
@@ -303,6 +297,9 @@ tests:
               secretName: tlsSecret
       agent:
         containerCap: 22
+        defaultsProviderTemplate: my-defaults
+        kubernetesConnectTimeout: 11
+        kubernetesReadTimeout: 12
         podName: my-agent
         sideContainerName: sideContainer
         alwaysPullImage: true
@@ -330,7 +327,7 @@ tests:
           jenkins-agent: v1
           selector: abc
         podRetention: onFailure
-        slaveConnectTimeout: 111
+        connectTimeout: 111
         volumes:
         - type: ConfigMap
           configMapName: myconfigmap
@@ -376,6 +373,9 @@ tests:
       - documentIndex: 0
         isKind:
           of: ConfigMap
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - documentIndex: 0
         equal:
           path: metadata.name
@@ -446,7 +446,7 @@ tests:
                   namespace: "other"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/my-release-jenkins-slave"
+                  - key: "jenkins/my-release-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "my-agent"
@@ -480,7 +480,7 @@ tests:
                       instanceCap: 2147483647
                       imagePullSecrets:
                       - name: pullSecret
-                      label: "my-release-jenkins-slave "
+                      label: "my-release-jenkins-agent "
                       nodeSelector: jenkins-agent=v1,selector=abc
                       nodeUsageMode: "NORMAL"
                       podRetention: onFailure
@@ -539,9 +539,9 @@ tests:
           path: metadata.labels
           value:
             RELEASE-NAME-jenkins-jenkins-config: "true"
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: RELEASE-NAME
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
   - it: disable agents
     release:
@@ -566,7 +566,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -593,7 +592,7 @@ tests:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: disable default config
     set:
-      master.JCasC.defaultConfig: false
+      controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
          count: 0

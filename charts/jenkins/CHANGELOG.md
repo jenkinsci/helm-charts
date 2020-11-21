@@ -12,6 +12,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.0.0
+
+* Remove all XML configuration options
+* This chart now requires Helm 3
+* componentName for the controller is now `jenkins-controller`
+* componentName for the agent is now `jenkins-agent`
+
 ## 2.19.0
 
 * Use lts version 2.249.3
@@ -81,6 +88,7 @@ Fix tolerations in the backup pod
 Update list of maintainers
 
 ## 2.13.0
+
 Added Support for websockets in the default Jcasc config
 Added trailing slash to JENKINS_URL env var
 
@@ -562,7 +570,7 @@ Update kubernetes-plugin to version 1.18.2 which fixes frequently encountered [J
 
 ## 1.7.1
 
-Update the default requirements for jenkins-slave to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
+Update the default requirements for jenkins-agent to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
 
 ## 1.7.0
 
