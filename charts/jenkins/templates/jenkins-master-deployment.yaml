@@ -185,9 +185,11 @@ spec:
                 fieldRef:
                   fieldPath: metadata.name
             - name: JAVA_OPTS
-              value: {{- if .Values.master.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{- end }} {{ default "" .Values.master.javaOpts }}
+              value: >-
+                {{ if .Values.master.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}{{ default "" .Values.master.javaOpts }}
             - name: JENKINS_OPTS
-              value: "{{ if .Values.master.jenkinsUriPrefix }}--prefix={{ .Values.master.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.master.jenkinsOpts}}"
+              value: >-
+                {{ if .Values.master.jenkinsUriPrefix }}--prefix={{ .Values.master.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.master.jenkinsOpts }}
             - name: JENKINS_SLAVE_AGENT_PORT
               value: "{{ .Values.master.slaveListenerPort }}"
             {{- if .Values.master.useSecurity }}
