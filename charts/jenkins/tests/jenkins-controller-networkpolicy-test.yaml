@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-networkpolicy.yaml
+  - jenkins-controller-networkpolicy.yaml
 tests:
   - it: tests defaults
     asserts:
@@ -14,7 +14,7 @@ tests:
       networkPolicy.enabled: true
     asserts:
       - hasDocuments:
-          count: 2    
+          count: 2
       - isKind:
           of: NetworkPolicy
       - equal:
@@ -30,7 +30,7 @@ tests:
           path: metadata.annotations
       - equal:
           path: metadata.name
-          value: my-release-jenkins-master
+          value: my-release-jenkins-controller
         documentIndex: 0
       - equal:
           path: spec
@@ -41,12 +41,12 @@ tests:
             - from:
               - podSelector:
                   matchLabels:
-                    jenkins/my-release-jenkins-slave: "true"
+                    jenkins/my-release-jenkins-agent: "true"
               ports:
               - port: 50000
             podSelector:
               matchLabels:
-                app.kubernetes.io/component: jenkins-master
+                app.kubernetes.io/component: jenkins-controller
                 app.kubernetes.io/instance: my-release
         documentIndex: 0
       - equal:
@@ -54,11 +54,11 @@ tests:
           value:
             podSelector:
               matchLabels:
-                jenkins/my-release-jenkins-slave: "true"
+                jenkins/my-release-jenkins-agent: "true"
         documentIndex: 1
       - equal:
           path: metadata.name
-          value: my-release-jenkins-slave
+          value: my-release-jenkins-agent
         documentIndex: 1
   - it: disable helm.sh label
     set:
@@ -68,7 +68,7 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins

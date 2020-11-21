@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-ingress.yaml
+  - jenkins-controller-ingress.yaml
 tests:
   - it: test defaults
     asserts:
@@ -11,7 +11,7 @@ tests:
         count: 0
   - it: enabled
     set:
-      master.ingress:
+      controller.ingress:
         enabled: true
         hostName: jenkins.example.com
         tls:
@@ -51,7 +51,7 @@ tests:
               secretName: tlsSecret
   - it: other values
     set:
-      master.ingress:
+      controller.ingress:
         enabled: true
         hostName: jenkins.example.com
         annotations:
@@ -95,19 +95,20 @@ tests:
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
-      master.ingress:
+      controller.ingress:
         enabled: true
+        hostName: jenkins.example.com
     asserts:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
   - it: empty paths
     set:
-      master.ingress:
+      controller.ingress:
         enabled: true
         paths:
     asserts:
