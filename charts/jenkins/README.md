@@ -83,7 +83,7 @@ NOTE: If you want a reproducible build then you should specify a non floating ta
 Once you built the image and pushed it tou your registry you can specify it in your values file like this:
 
 ```yaml
-master:
+controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
   installPlugins: []
@@ -94,7 +94,7 @@ Notice: `installPlugins` is set to an empty list to disable plugin download.
 In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
 
 ```yaml
-master:
+controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
   imagePullSecretName: registry-secret
@@ -103,10 +103,10 @@ master:
 
 ### External URL Configuration
 
-If you are using the ingress definitions provided by this chart via the `master.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
-The Protocol can be overwritten by specifying `master.jenkinsUrlProtocol`.
+If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
 
-If you are not using the provided ingress you can specify `master.jenkinsUrl` to change the url definition.
+If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
 
 ### Configuration as Code
 
@@ -227,14 +227,15 @@ Internal ones are allowed based on pod labels and (optionally) namespaces, and e
 
 ### Script approval list
 
-`master.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
+`controller.scriptApproval` allows to pass function signatures that will be allowed in pipelines.
 Example:
 
 ```yaml
-scriptApproval:
-  - "method java.util.Base64$Decoder decode java.lang.String"
-  - "new java.lang.String byte[]"
-  - "staticMethod java.util.Base64 getDecoder"
+controller:
+  scriptApproval:
+    - "method java.util.Base64$Decoder decode java.lang.String"
+    - "new java.lang.String byte[]"
+    - "staticMethod java.util.Base64 getDecoder"
 ```
 
 ### Custom Labels
