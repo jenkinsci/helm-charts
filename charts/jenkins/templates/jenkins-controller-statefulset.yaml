@@ -204,30 +204,9 @@ spec:
             - containerPort: {{ $port.port }}
               name: {{ $port.name }}
 {{- end }}
-{{- if .Values.controller.healthProbes }}
-{{- if and .Values.controller.probes }}
-{{- if and (.Values.controller.probes.startupProbe) (semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion) }}
+{{- if and .Values.controller.healthProbes .Values.controller.probes}}
 {{ tpl (toYaml .Values.controller.probes | indent 10) .}}
 {{- end }}
-{{- end }}
-          livenessProbe:
-            httpGet:
-              path: "{{ default "" .Values.controller.jenkinsUriPrefix }}/login"
-              port: http
-            initialDelaySeconds: {{ .Values.controller.healthProbeLivenessInitialDelay }}
-            periodSeconds: {{ .Values.controller.healthProbeLivenessPeriodSeconds }}
-            timeoutSeconds: {{ .Values.controller.healthProbesLivenessTimeout }}
-            failureThreshold: {{ .Values.controller.healthProbeLivenessFailureThreshold }}
-          readinessProbe:
-            httpGet:
-              path: "{{ default "" .Values.controller.jenkinsUriPrefix }}/login"
-              port: http
-            initialDelaySeconds: {{ .Values.controller.healthProbeReadinessInitialDelay }}
-            periodSeconds: {{ .Values.controller.healthProbeReadinessPeriodSeconds }}
-            timeoutSeconds: {{ .Values.controller.healthProbesReadinessTimeout }}
-            failureThreshold: {{ .Values.controller.healthProbeReadinessFailureThreshold }}
-{{- end }}
-
           resources:
 {{ toYaml .Values.controller.resources | indent 12 }}
           volumeMounts:
