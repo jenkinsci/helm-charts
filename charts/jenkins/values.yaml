@@ -178,12 +178,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.25.7
-    - workflow-job:2.39
+    - kubernetes:1.27.6
     - workflow-aggregator:2.6
-    - credentials-binding:1.23
-    - git:4.2.2
-    - configuration-as-code:1.43
+    - git:4.4.5
+    - configuration-as-code:1.46
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
@@ -245,7 +243,7 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:0.1.193
+      image: kiwigrid/k8s-sidecar:0.1.275
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -471,7 +469,7 @@ agent:
   kubernetesReadTimeout: 15
   namespace:
   image: "jenkins/inbound-agent"
-  tag: "4.3-4"
+  tag: "4.6-1"
   workingDir: "/home/jenkins"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling

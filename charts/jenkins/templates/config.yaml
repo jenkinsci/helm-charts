@@ -12,6 +12,7 @@ metadata:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 data:
   apply_config.sh: |-
+    set -e
 {{- if .Values.controller.initializeOnce }}
     if [ -f {{ .Values.controller.jenkinsHome }}/initialization-completed ]; then
       echo "controller was previously initialized, refusing to re-initialize"
