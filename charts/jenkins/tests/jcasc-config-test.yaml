@@ -594,7 +594,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
@@ -691,7 +691,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
@@ -786,7 +786,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
@@ -883,7 +883,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
@@ -981,7 +981,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
@@ -1052,7 +1052,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
+
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -1078,7 +1078,7 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                        image: "jenkins/inbound-agent:4.3-4"
+                        image: "jenkins/inbound-agent:4.6-1"
                         privileged: "false"
                         resourceLimitCpu: 512m
                         resourceLimitMemory: 512Mi
