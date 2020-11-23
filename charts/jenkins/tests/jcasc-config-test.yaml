@@ -568,6 +568,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -664,6 +665,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -758,6 +760,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -854,6 +857,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -951,6 +955,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -1047,6 +1052,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
+                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
