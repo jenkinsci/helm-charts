@@ -275,7 +275,8 @@ Returns kubernetes pod template configuration as code
     nfsWorkspaceVolume:
     {{- else if (eq .Values.agent.workspaceVolume.type "PVC") }}
     persistentVolumeClaimWorkspaceVolume:
-    {{- else }}{{ .Values.agent.workspaceVolume.type }}:
+    {{- else }}
+    {{ .Values.agent.workspaceVolume.type }}:
     {{- end }}
   {{- range $key, $value := .Values.agent.workspaceVolume }}
     {{- if not (eq $key "type") }}
