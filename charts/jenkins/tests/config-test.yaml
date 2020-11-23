@@ -18,6 +18,7 @@ tests:
       - equal:
           path: data.apply_config\.sh
           value: |-
+            set -e
             echo "applying Jenkins configuration"
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
@@ -40,12 +41,10 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.25.7
-            workflow-job:2.39
+            kubernetes:1.27.6
             workflow-aggregator:2.6
-            credentials-binding:1.23
-            git:4.2.2
-            configuration-as-code:1.43
+            git:4.4.5
+            configuration-as-code:1.46
   - it: no plugins
     set:
       master.installPlugins: []
@@ -53,6 +52,7 @@ tests:
       - equal:
           path: data.apply_config\.sh
           value: |-
+            set -e
             echo "applying Jenkins configuration"
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
@@ -71,6 +71,7 @@ tests:
       - equal:
           path: data.apply_config\.sh
           value: |-
+            set -e
             echo "applying Jenkins configuration"
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
@@ -93,10 +94,8 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.25.7
-            workflow-job:2.39
+            kubernetes:1.27.6
             workflow-aggregator:2.6
-            credentials-binding:1.23
-            git:4.2.2
-            configuration-as-code:1.43
+            git:4.4.5
+            configuration-as-code:1.46
             kubernetes-credentials-provider

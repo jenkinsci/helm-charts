@@ -45,7 +45,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: dca52edd4e45bf3ea5de7a168d17c5bd2b7010dd376344760cee9d683b0c3d66
+                  checksum/config: b658db5fded177557794338be19575f0d99995b5156fddbaae6cd78b7dfcedb2
                 labels:
                   app.kubernetes.io/component: jenkins-master
                   app.kubernetes.io/instance: my-release
@@ -63,7 +63,7 @@ tests:
                       fieldRef:
                         fieldPath: metadata.name
                   - name: JAVA_OPTS
-                    value: -Dcasc.reload.token=$(POD_NAME)
+                    value: "-Dcasc.reload.token=$(POD_NAME) "
                   - name: JENKINS_OPTS
                     value: ""
                   - name: JENKINS_SLAVE_AGENT_PORT
@@ -140,7 +140,7 @@ tests:
                     value: POST
                   - name: REQ_RETRY_CONNECT
                     value: "10"
-                  image: kiwigrid/k8s-sidecar:0.1.193
+                  image: kiwigrid/k8s-sidecar:0.1.275
                   imagePullPolicy: IfNotPresent
                   name: jenkins-sc-config
                   resources: {}
@@ -319,7 +319,8 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: JAVA_OPTS
-            value: "-Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true"
+            value: >-
+              -Dcasc.reload.token=$(POD_NAME) -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
@@ -331,3 +332,23 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Tiller
             app.kubernetes.io/name: jenkins
+  - it: java & jenkins opts with quotes
+    set:
+      master:
+        javaOpts: >-
+          -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
+        jenkinsOpts: >-
+          -Dtest="custom: 'true'"
+    asserts:
+      - contains:
+         path: spec.template.spec.containers[0].env
+         content:
+           name: JAVA_OPTS
+           value: >-
+             -Dcasc.reload.token=$(POD_NAME) -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
+      - contains:
+         path: spec.template.spec.containers[0].env
+         content:
+           name: JENKINS_OPTS
+           value: >-
+             -Dtest="custom: 'true'"
