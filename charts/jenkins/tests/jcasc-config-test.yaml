@@ -955,7 +955,7 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-
+                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -1020,9 +1020,9 @@ tests:
     set:
       agent:
         workspaceVolume:
-          persistentVolumeClaimWorkspaceVolume:
-            claimName: "my-claim"
-            readOnly: false
+          type: "persistentVolumeClaimWorkspaceVolume"
+          claimName: "my-claim"
+          readOnly: false
     release:
       namespace: default
     asserts:
