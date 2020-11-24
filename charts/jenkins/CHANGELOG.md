@@ -18,6 +18,13 @@ Those entries include a reference to the git commit to be able to get more detai
 * This chart now requires Helm 3
 * componentName for the controller is now `jenkins-controller`
 * componentName for the agent is now `jenkins-agent`
+* container names are now
+  * `init` for the init container which downloads Jenkins plugins
+  * `jenkins` for the Jenkins controller
+  * `config-reload` for the sidecar container which automatically reloads JCasC
+* Updated UI tests to use official `bats/bats` image instead of `dduportal/bats`
+
+For migration instructions from previous versions and additional information check README.md.
 
 ## 2.19.0
 

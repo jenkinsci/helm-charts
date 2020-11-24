@@ -17,21 +17,22 @@ spec:
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: "dduportal/bats:0.4.0"
+      image: "bats/bats:1.2.1"
       command:
-      - "bash"
-      - "-c"
-      - |
-        set -ex
-        # copy bats to tools dir
-        cp -R /usr/local/libexec/ /tools/bats/
+        - "bash"
+        - "-c"
+      args:
+        - |
+          # copy bats to tools dir
+          set -ex
+          cp -R /opt/bats /tools/bats/
       volumeMounts:
       - mountPath: /tools
         name: tools
   containers:
     - name: {{ .Release.Name }}-ui-test
       image: {{ .Values.controller.image }}:{{ .Values.controller.tag }}
-      command: ["/tools/bats/bats", "-t", "/tests/run.sh"]
+      command: ["/tools/bats/bin/bats", "-t", "/tests/run.sh"]
       volumeMounts:
       - mountPath: /tests
         name: tests
