@@ -49,6 +49,29 @@ If release name contains chart name it will be used as a full name.
 {{- end -}}
 
 {{/*
+Returns the admin password
+https://github.com/helm/charts/issues/5167#issuecomment-619137759
+*/}}
+{{- define "jenkins.password" -}}
+  {{ if .Values.controller.adminPassword -}}
+    {{- .Values.controller.adminPassword | b64enc | quote }}
+  {{- else -}}
+    {{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "jenkins.fullname" .)).data -}}
+    {{- if $secret -}}
+      {{/*
+        Reusing current password since secret exists
+      */}}
+      {{- index $secret ( .Values.controller.admin.passwordKey | default "jenkins-admin-password" ) -}}
+    {{- else -}}
+      {{/*
+          Generate new password
+      */}}
+      {{- randAlphaNum 22 | b64enc | quote }}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+
+{{/*
 Returns the Jenkins URL
 */}}
 {{- define "jenkins.url" -}}

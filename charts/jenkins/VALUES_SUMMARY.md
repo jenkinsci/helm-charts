@@ -35,13 +35,13 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.initScripts`              | List of Jenkins init scripts         | `[]`                                      |
+| `controller.initScripts`          | List of Jenkins init scripts         | `[]`                                      |
 
 #### Jenkins Global Security
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.useSecurity`              | Use basic security                   | `true`                                    |
+| Parameter                         | Description                              | Default                                   |
+| --------------------------------- | ---------------------------------------- | ----------------------------------------- |
+| `controller.adminSecret`              | Create secret for admin user         | `true`                                    |
 | `controller.disableRememberMe`        | Disable use of remember me           | `false`                                   |
 | `controller.enableRawHtmlMarkupFormatter` | Enable HTML parsing using        | false                                     |
 | `controller.markupFormatter`          | Yaml of the markup formatter to use  | `plainText`                               |
@@ -53,49 +53,49 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.numExecutors`             | Set Number of executors              | 0                                         |
-| `controller.executorMode`             | Set executor mode of the Jenkins node. Possible values are: NORMAL or EXCLUSIVE | NORMAL |
-| `controller.customJenkinsLabels`      | Append Jenkins labels to the controller  | `{}`                                      |
-| `controller.jenkinsHome`              | Custom Jenkins home path             | `/var/jenkins_home`                       |
-| `controller.jenkinsRef`               | Custom Jenkins reference path        | `/usr/share/jenkins/ref`                  |
-| `controller.jenkinsAdminEmail`        | Email address for the administrator of the Jenkins instance | Not set            |
-| `controller.jenkinsUrlProtocol`       | Set protocol for Jenkins URL | Set to `https` if `controller.ingress.tls`, `http` otherwise |
-| `controller.jenkinsUriPrefix`         | Root Uri Jenkins will be served on   | Not set                                   |
+| `controller.numExecutors`         | Set Number of executors              | 0                                         |
+| `controller.executorMode`         | Set executor mode of the Jenkins node. Possible values are: NORMAL or EXCLUSIVE | NORMAL |
+| `controller.customJenkinsLabels`  | Append Jenkins labels to the controller  | `{}`                                      |
+| `controller.jenkinsHome`          | Custom Jenkins home path             | `/var/jenkins_home`                       |
+| `controller.jenkinsRef`           | Custom Jenkins reference path        | `/usr/share/jenkins/ref`                  |
+| `controller.jenkinsAdminEmail`    | Email address for the administrator of the Jenkins instance | Not set            |
+| `controller.jenkinsUrlProtocol`   | Set protocol for Jenkins URL | Set to `https` if `controller.ingress.tls`, `http` otherwise |
+| `controller.jenkinsUriPrefix`     | Root Uri Jenkins will be served on   | Not set                                   |
 
 #### Jenkins In-Process Script Approval
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.scriptApproval`           | List of groovy functions to approve  | `[]`                                      |
+| `controller.scriptApproval`       | List of groovy functions to approve  | `[]`                                      |
 
 #### Jenkins Plugins
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.installPlugins`           | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.18.2 workflow-aggregator:2.6 credentials-binding:1.19 git:3.11.0 workflow-job:2.33` |
-| `controller.additionalPlugins`        | List of Jenkins plugins to install in addition to those listed in controller.installPlugins | `[]` |
-| `controller.initializeOnce`           | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
-| `controller.overwritePlugins`         | Overwrite installed plugins on start.| `false`                                   |
+| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.18.2 workflow-aggregator:2.6 credentials-binding:1.19 git:3.11.0 workflow-job:2.33` |
+| `controller.additionalPlugins`    | List of Jenkins plugins to install in addition to those listed in controller.installPlugins | `[]` |
+| `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
+| `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
 | `controller.overwritePluginsFromImage` | Keep plugins that are already installed in the controller image.| `true`            |
 
 #### Jenkins Agent Listener
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.agentListenerPort`        | Listening port for agents            | `50000`                                   |
-| `controller.agentListenerHostPort`            | Host port to listen for agents            | Not set                              |
-| `controller.agentListenerServiceType` | Defines how to expose the agentListener service | `ClusterIP`                    |
-| `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service | `{}`                         |
-| `controller.agentListenerLoadBalancerIP` | Static IP for the agentListener LoadBalancer | Not set                       |
+| Parameter                                    | Description                                     | Default      |
+| -------------------------------------------- | ----------------------------------------------- | ------------ |
+| `controller.agentListenerPort`               | Listening port for agents                       | `50000`      |
+| `controller.agentListenerHostPort`           | Host port to listen for agents                  | Not set      |
+| `controller.agentListenerServiceType`        | Defines how to expose the agentListener service | `ClusterIP`  |
+| `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service       | `{}`         |
+| `controller.agentListenerLoadBalancerIP`     | Static IP for the agentListener LoadBalancer    | Not set      |
 
 #### Kubernetes StatefulSet & Service
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.image`                    | Controller image name                    | `jenkins/jenkins`                         |
-| `controller.tag`                      | Controller image tag                     | `lts`                                     |
-| `controller.imagePullPolicy`          | Controller image pull policy             | `Always`                                  |
-| `controller.imagePullSecretName`      | Controller image pull secret             | Not set                                   |
+| `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
+| `controller.tag`                      | Controller image tag                      | `lts`                                     |
+| `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
+| `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
 | `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
 | `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
@@ -208,8 +208,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.adminUser`                | Admin username (and password) created as a secret if useSecurity is true | `admin` |
-| `controller.adminPassword`            | Admin password (and user) created as a secret if useSecurity is true | Random value |
+| `controller.adminUser`                | Admin username (and password) created as a secret if adminSecret is true | `admin` |
+| `controller.adminPassword`            | Admin password (and user) created as a secret if adminSecret is true | Random value |
 
 #### Kubernetes NetworkPolicy
 
