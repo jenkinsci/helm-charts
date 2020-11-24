@@ -23,7 +23,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -134,7 +140,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -557,7 +569,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true

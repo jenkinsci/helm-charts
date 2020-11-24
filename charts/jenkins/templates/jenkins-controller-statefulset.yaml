@@ -94,8 +94,8 @@ spec:
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
-          env:
             {{- if .Values.controller.initContainerEnv }}
+          env:
 {{ toYaml .Values.controller.initContainerEnv | indent 12 }}
             {{- end }}
           resources:
