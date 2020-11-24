@@ -57,12 +57,35 @@ To see all configurable options with detailed comments, visit the chart's [value
 ```console
 # Helm 3
 $ helm show values jenkins/jenkins
-
-# Helm 2
-$ helm inspect values jenkins/jenkins
 ```
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
+
+### Configure Security Realm and Authorization Strategy
+
+This chart configured a `securityRealm` and `authorizationStrategy` as shown below:
+
+```yaml
+controller:
+  JCasC:
+    securityRealm: |-
+      local:
+        allowsSignup: false
+        enableCaptcha: false
+        users:
+        - id: "${chart-admin-username}"
+          name: "Jenkins Admin"
+          password: "${chart-admin-password}"
+    authorizationStrategy: |-
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
+```
+
+With the configuration above there is only a single user.
+This is ok for getting started quickly, but it needs to be adjusted for any serious environment.
+
+So you should adjust this to suite your needs.
+That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine grained permissions.
 
 ### Consider using a custom image
 
@@ -467,6 +490,8 @@ Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where 
 
 ### To 3.0.0
 
+* Check `securityRealm` and `authorizationStrategy` and adjust it.
+  Otherwise your configured users and permissions will be overridden.
 * You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
 * All XML configuration options have been removed.
   In case those are still in use you need to migrate to configuration as code.
