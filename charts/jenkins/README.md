@@ -501,6 +501,7 @@ Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where 
   The following values from `values.yaml` have been renamed:
 
   * `master` => `controller`
+  * `master.useSecurity` => `controller.adminSecret`
   * `master.slaveListenerPort` => `controller.agentListenerPort`
   * `master.slaveHostPort` => `controller.agentListenerHostPort`
   * `master.slaveKubernetesNamespace` => `agent.namespace`

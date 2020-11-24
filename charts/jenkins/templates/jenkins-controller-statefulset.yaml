@@ -207,7 +207,7 @@ spec:
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
             {{- end }}
-            {{- if .Values.controller.useSecurity }}
+            {{- if .Values.controller.adminSecret }}
             - name: admin-secret
               mountPath: /run/secrets/chart-admin-username
               subPath: {{ .Values.controller.admin.userKey | default "jenkins-admin-user" }}
@@ -292,7 +292,7 @@ spec:
           - key: jenkins-jks-file
             path: {{ .Values.controller.httpsKeyStore.fileName }}
       {{- end }}
-      {{- if .Values.controller.useSecurity }}
+      {{- if .Values.controller.adminSecret }}
       - name: admin-secret
         secret:
           secretName: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}

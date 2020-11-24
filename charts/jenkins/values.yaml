@@ -36,8 +36,9 @@ controller:
   # This is ignored if enableRawHtmlMarkupFormatter is true
   markupFormatter: plainText
   customJenkinsLabels: []
-  # configAutoReload requires UseSecurity is set to true:
-  useSecurity: true
+  # The default configuration uses this secret to configure an admin user
+  # If you don't need that user or use a different security realm then you can disable it
+  adminSecret: true
 
   hostNetworking: false
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.

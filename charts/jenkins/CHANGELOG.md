@@ -23,6 +23,8 @@ Those entries include a reference to the git commit to be able to get more detai
   * `jenkins` for the Jenkins controller
   * `config-reload` for the sidecar container which automatically reloads JCasC
 
+For migration instructions from previous versions and additional information check README.md.
+
 ## 2.19.0
 
 * Use lts version 2.249.3
