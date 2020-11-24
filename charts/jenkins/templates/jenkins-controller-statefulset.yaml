@@ -90,7 +90,7 @@ spec:
 {{- if .Values.controller.customInitContainers }}
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
-        - name: "copy-default-config"
+        - name: "init"
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
@@ -237,7 +237,7 @@ spec:
             {{- end }}
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
-        - name: jenkins-sc-config
+        - name: config-reload
           image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
           imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
           env:
