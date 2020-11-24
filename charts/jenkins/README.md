@@ -182,7 +182,7 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 Config as Code changes (to `controller.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
 If you set `controller.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins controller pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
-You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c jenkins-sc-config -f`.
+You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c config-reload -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
 
 ```yaml
