@@ -126,7 +126,7 @@ jenkins:
       maxRequestsPerHostStr: "32"
       name: "kubernetes"
       namespace: "{{ template "jenkins.master.slaveKubernetesNamespace" . }}"
-      serverUrl: "https://kubernetes.default"
+      serverUrl: "{{- default "https://kubernetes.default" .Values.master.slaveKubernetesServerUrl }}"
       {{- if .Values.agent.enabled }}
       podLabels:
       - key: "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}"
