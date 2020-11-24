@@ -163,7 +163,7 @@ master:
   slaveDefaultsProviderTemplate: ""
   slaveConnectTimeout: 5
   slaveReadTimeout: 15
-  slaveKubernetesServerUrl: 
+  slaveKubernetesServerUrl:
   slaveKubernetesNamespace:
   slaveJenkinsUrl:
   slaveJenkinsTunnel:
