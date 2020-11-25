@@ -5,7 +5,9 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     app: {{ template "jenkins.fullname" . }}
-    chart: "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
     component: "{{ .Release.Name }}-{{ .Values.controller.componentName }}"
