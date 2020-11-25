@@ -3,6 +3,10 @@
       {{ fail "`master` does no longer exist. It has been renamed to `controller`" }}
    {{- end }}
 
+   {{- if .Values.controller.imageTag }}
+      {{ fail "`controller.imageTag` does no longer exist. Please use `controller.tag` instead" }}
+   {{- end }}
+
    {{- if .Values.controller.slaveListenerPort }}
       {{ fail "`controller.slaveListenerPort` does no longer exist. It has been renamed to `controller.agentListenerPort`" }}
    {{- end }}
