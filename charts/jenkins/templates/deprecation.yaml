@@ -19,6 +19,10 @@
       {{ fail "`controller.slaveDefaultsProviderTemplate` does no longer exist. It has been renamed to `agent.defaultsProviderTemplate`" }}
    {{- end }}
 
+   {{- if .Values.controller.useSecurity }}
+      {{ fail "`controller.useSecurity` does no longer exist. It has been renamed to `controller.adminSecret`" }}
+   {{- end }}
+
    {{- if .Values.controller.slaveJenkinsUrl }}
       {{ fail "`controller.slaveJenkinsUrl` does no longer exist. It has been renamed to `agent.jenkinsUrl`" }}
    {{- end }}

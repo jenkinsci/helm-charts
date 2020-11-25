@@ -57,12 +57,35 @@ To see all configurable options with detailed comments, visit the chart's [value
 ```console
 # Helm 3
 $ helm show values jenkins/jenkins
-
-# Helm 2
-$ helm inspect values jenkins/jenkins
 ```
 
 For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
+
+### Configure Security Realm and Authorization Strategy
+
+This chart configured a `securityRealm` and `authorizationStrategy` as shown below:
+
+```yaml
+controller:
+  JCasC:
+    securityRealm: |-
+      local:
+        allowsSignup: false
+        enableCaptcha: false
+        users:
+        - id: "${chart-admin-username}"
+          name: "Jenkins Admin"
+          password: "${chart-admin-password}"
+    authorizationStrategy: |-
+      loggedInUsersCanDoAnything:
+        allowAnonymousRead: false
+```
+
+With the configuration above there is only a single user.
+This is ok for getting started quickly, but it needs to be adjusted for any serious environment.
+
+So you should adjust this to suite your needs.
+That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine grained permissions.
 
 ### Consider using a custom image
 
@@ -182,7 +205,7 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 Config as Code changes (to `controller.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
 If you set `controller.sidecars.configAutoReload.enabled` to `true`, a second, auxiliary container will be installed into the Jenkins controller pod, known as a "sidecar".
 This watches for changes to configScripts, copies the content onto the Jenkins file-system and issues a POST to `http://<jenkins_url>/reload-configuration-as-code` with a pre-shared key.
-You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c jenkins-sc-config -f`.
+You can monitor this sidecar's logs using command `kubectl logs <controller_pod> -c config-reload -f`.
 If you want to enable auto-reload then you also need to configure rbac as the container which triggers the reload needs to watch the config maps:
 
 ```yaml
@@ -467,6 +490,8 @@ Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where 
 
 ### To 3.0.0
 
+* Check `securityRealm` and `authorizationStrategy` and adjust it.
+  Otherwise your configured users and permissions will be overridden.
 * You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
 * All XML configuration options have been removed.
   In case those are still in use you need to migrate to configuration as code.
@@ -476,6 +501,7 @@ Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where 
   The following values from `values.yaml` have been renamed:
 
   * `master` => `controller`
+  * `master.useSecurity` => `controller.adminSecret`
   * `master.slaveListenerPort` => `controller.agentListenerPort`
   * `master.slaveHostPort` => `controller.agentListenerHostPort`
   * `master.slaveKubernetesNamespace` => `agent.namespace`
