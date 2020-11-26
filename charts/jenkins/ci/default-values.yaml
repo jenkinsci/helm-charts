@@ -1,5 +1,5 @@
 # this file is empty to check if defaults within values.yaml work as expected
-master:
+controller:
   JCasC:
     configScripts:
       empty: ""

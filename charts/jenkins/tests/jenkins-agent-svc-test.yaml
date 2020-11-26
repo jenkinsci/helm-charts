@@ -27,19 +27,19 @@ tests:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: other values
     set:
-      master:
-        slaveListenerServiceAnnotations:
+      controller:
+        agentListenerServiceAnnotations:
           key: value
-        slaveListenerPort: 55555
+        agentListenerPort: 55555
     asserts:
       - equal:
           path: metadata.annotations
@@ -49,45 +49,45 @@ tests:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 55555
               targetPort: 55555
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: node port
     set:
-      master:
-        slaveListenerServiceType: NodePort
+      controller:
+        agentListenerServiceType: NodePort
     asserts:
       - equal:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               nodePort: 50000
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: NodePort
   - it: load balancer
     set:
-      master:
-        slaveListenerServiceType: LoadBalancer
-        slaveListenerLoadBalancerIP: 10.10.10.10
+      controller:
+        agentListenerServiceType: LoadBalancer
+        agentListenerLoadBalancerIP: 10.10.10.10
     asserts:
       - equal:
           path: spec
           value:
             ports:
-            - name: slavelistener
+            - name: agent-listener
               port: 50000
               targetPort: 50000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: LoadBalancer
             loadBalancerIP: 10.10.10.10
@@ -98,7 +98,7 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins

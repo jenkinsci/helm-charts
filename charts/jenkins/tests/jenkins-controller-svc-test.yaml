@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-svc.yaml
+  - jenkins-controller-svc.yaml
 tests:
   - it: default tests
     asserts:
@@ -31,12 +31,12 @@ tests:
               port: 8080
               targetPort: 8080
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: other values
     set:
-      master:
+      controller:
         serviceLabels:
           label: label-value
         serviceAnnotations:
@@ -67,12 +67,12 @@ tests:
               port: 9000
               targetPort: 9000
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
   - it: node port
     set:
-      master:
+      controller:
         serviceType: NodePort
         nodePort: 11111
     asserts:
@@ -85,12 +85,12 @@ tests:
               targetPort: 8080
               nodePort: 11111
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: NodePort
   - it: load balancer
     set:
-      master:
+      controller:
         serviceType: LoadBalancer
         loadBalancerIP: 10.10.10.10
     asserts:
@@ -105,18 +105,17 @@ tests:
               port: 8080
               targetPort: 8080
             selector:
-              app.kubernetes.io/component: jenkins-master
+              app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: LoadBalancer
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
-      networkPolicy.enabled: true
     asserts:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
