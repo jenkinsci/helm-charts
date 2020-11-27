@@ -72,6 +72,7 @@ spec:
   {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
     {{- if not (eq (int .Values.controller.runAsUser) 0) }}
         fsGroup: {{ .Values.controller.fsGroup }}
+        runAsNonRoot: true
     {{- end }}
     {{- if .Values.controller.securityContextCapabilities }}
         capabilities:

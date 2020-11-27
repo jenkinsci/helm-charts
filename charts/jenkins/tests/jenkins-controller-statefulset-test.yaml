@@ -175,6 +175,7 @@ tests:
                 securityContext:
                   fsGroup: 1000
                   runAsUser: 1000
+                  runAsNonRoot: true
                 serviceAccountName: my-release-jenkins
                 volumes:
                 - emptyDir: {}
@@ -271,6 +272,7 @@ tests:
         value:
           runAsUser: 2000
           fsGroup: 4000
+          runAsNonRoot: true
           capabilities:
             drop:
               - NET_RAW
