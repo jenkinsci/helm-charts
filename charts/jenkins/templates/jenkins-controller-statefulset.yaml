@@ -266,12 +266,12 @@ spec:
 {{- if .Values.persistence.volumes }}
 {{ tpl (toYaml .Values.persistence.volumes | indent 6) . }}
 {{- end }}
-      - name: plugins
-        emptyDir: {}
       - name: jenkins-config
         configMap:
           name: {{ template "jenkins.fullname" . }}
       {{- if .Values.controller.installPlugins }}
+      - name: plugins
+        emptyDir: {}
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
