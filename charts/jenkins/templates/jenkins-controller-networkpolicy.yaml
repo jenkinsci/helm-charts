@@ -2,24 +2,26 @@
 kind: NetworkPolicy
 apiVersion: {{ .Values.networkPolicy.apiVersion }}
 metadata:
-  name: "{{ .Release.Name }}-{{ .Values.master.componentName }}"
+  name: "{{ .Release.Name }}-{{ .Values.controller.componentName }}"
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 spec:
   podSelector:
     matchLabels:
-      "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+      "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
       "app.kubernetes.io/instance": "{{ .Release.Name }}"
   ingress:
     # Allow web access to the UI
     - ports:
-      - port: {{ .Values.master.targetPort }}
-    # Allow inbound connections from slave
+      - port: {{ .Values.controller.targetPort }}
+    # Allow inbound connections from agents
     - from:
       {{- if .Values.networkPolicy.internalAgents.allowed }}
       - podSelector:
@@ -34,20 +36,20 @@ spec:
             {{- range $k,$v:= .Values.networkPolicy.internalAgents.namespaceLabels }}
             {{ $k }}: {{ $v }}
             {{- end }}
-        {{- end }}    
+        {{- end }}
       {{- end }}
-      {{- if .Values.networkPolicy.externalAgents }}      
+      {{- if .Values.networkPolicy.externalAgents }}
       - ipBlock:
-          cidr: {{ required "ipCIDR is required if you wish to allow external agents to connect to Master." .Values.networkPolicy.externalAgents.ipCIDR }}
+          cidr: {{ required "ipCIDR is required if you wish to allow external agents to connect to Jenkins Controller." .Values.networkPolicy.externalAgents.ipCIDR }}
           {{- if .Values.networkPolicy.externalAgents.except }}
           except:
           {{- range .Values.networkPolicy.externalAgents.except }}
-          - {{ . }} 
+          - {{ . }}
           {{- end }}
           {{- end }}
-      {{- end }}              
+      {{- end }}
       ports:
-      - port: {{ .Values.master.slaveListenerPort }}
+      - port: {{ .Values.controller.agentListenerPort }}
 {{- if .Values.agent.enabled }}
 ---
 kind: NetworkPolicy
@@ -57,10 +59,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 spec:
   podSelector:
     matchLabels:

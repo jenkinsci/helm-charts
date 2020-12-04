@@ -6,10 +6,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
   {{- if .Values.backup.annotations }}
   annotations:
     {{- toYaml .Values.backup.annotations | nindent 4 }}
@@ -22,10 +24,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 rules:
 - apiGroups: [""]
   resources: ["pods", "pods/log"]
@@ -41,10 +45,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
