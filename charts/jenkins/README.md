@@ -292,6 +292,48 @@ It is possible to define which storage class to use, by setting `persistence.sto
 If set to a dash (`-`), dynamic provisioning is disabled.
 If the storage class is set to null or left undefined (`""`), the default provisioner is used (gp2 on AWS, standard on GKE, AWS & OpenStack).
 
+#### Additional Secrets
+
+Additional secrets can be mounted into the Jenkins controller through the chart. A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider. The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
+
+Example secret (deployed separately from Helm chart):
+```yaml
+apiVersion: v1
+kind: Secret
+metadata:
+  name: idp-config
+stringData:
+  client_id: abc123
+  client_secret: xyz999
+```
+
+`values.yaml` persistence section, mounting the secrets:
+```yaml
+persistence:
+  enabled: true
+  volumes:
+    - name: idp-config
+      secret:
+        secretName: idp-config
+  mounts:
+    - name: idp-config
+      secret:
+        secretName: idp-config
+```
+
+`values.yaml` controller section, referencing mounted secrets:
+```yaml
+controller:
+  JCasC:
+    securityRealm: |
+      oic:
+        clientId: ${client_id}
+        clientSecret: ${client_secret}
+        ...
+```
+
+For more information, see [JCasC documentation](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets).
+
 ### RBAC
 
 RBAC is enabled by default. If you want to disable it you will need to set `rbac.create` to `false`.
