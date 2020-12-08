@@ -11,7 +11,7 @@ tests:
           count: 4
   - it: disable auto reload
     set:
-      master.sidecars.configAutoReload.enabled: false
+      controller.sidecars.configAutoReload.enabled: false
     asserts:
       - hasDocuments:
           count: 2
@@ -76,7 +76,7 @@ tests:
 
   - it: Separate Agent Namespace
     set:
-      master.slaveKubernetesNamespace: agent-namespace
+      agent.namespace: agent-namespace
     asserts:
       - equal:
           path: metadata.namespace
@@ -147,6 +147,7 @@ tests:
       - matchRegex:
           path: metadata.labels.helm\.sh/chart
           pattern: ^jenkins-
+
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
@@ -157,9 +158,9 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
 
   - it: Role read-secrets

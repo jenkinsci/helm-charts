@@ -1,4 +1,4 @@
-{{- if .Values.master.testEnabled }}
+{{- if .Values.controller.testEnabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -7,35 +7,32 @@ metadata:
   annotations:
     "helm.sh/hook": test-success
 spec:
-  {{- if .Values.master.nodeSelector }}
+  {{- if .Values.controller.nodeSelector }}
   nodeSelector:
-{{ toYaml .Values.master.nodeSelector | indent 4 }}
+{{ toYaml .Values.controller.nodeSelector | indent 4 }}
   {{- end }}
-  {{- if .Values.master.tolerations }}
+  {{- if .Values.controller.tolerations }}
   tolerations:
-{{ toYaml .Values.master.tolerations | indent 4 }}
+{{ toYaml .Values.controller.tolerations | indent 4 }}
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: "dduportal/bats:0.4.0"
+      image: "bats/bats:1.2.1"
       command:
-      - "bash"
-      - "-c"
-      - |
-        set -ex
-        # copy bats to tools dir
-        cp -R /usr/local/libexec/ /tools/bats/
+        - "bash"
+        - "-c"
+      args:
+        - |
+          # copy bats to tools dir
+          set -ex
+          cp -R /opt/bats /tools/bats/
       volumeMounts:
       - mountPath: /tools
         name: tools
   containers:
     - name: {{ .Release.Name }}-ui-test
-{{- if .Values.master.imageTag }}
-      image: {{ .Values.master.image }}:{{ .Values.master.imageTag }}
-{{- else }}
-      image: {{ .Values.master.image }}:{{ .Values.master.tag }}
-{{- end }}
-      command: ["/tools/bats/bats", "-t", "/tests/run.sh"]
+      image: {{ .Values.controller.image }}:{{ .Values.controller.tag }}
+      command: ["/tools/bats/bin/bats", "-t", "/tests/run.sh"]
       volumeMounts:
       - mountPath: /tests
         name: tests

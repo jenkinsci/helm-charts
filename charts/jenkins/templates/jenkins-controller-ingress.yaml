@@ -1,0 +1,55 @@
+{{- if .Values.controller.ingress.enabled }}
+{{- if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
+apiVersion: networking.k8s.io/v1beta1
+{{- else -}}
+apiVersion: {{ .Values.controller.ingress.apiVersion }}
+{{- end }}
+kind: Ingress
+metadata:
+  namespace: {{ template "jenkins.namespace" . }}
+  labels:
+    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
+    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
+    "app.kubernetes.io/instance": "{{ .Release.Name }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+{{- if .Values.controller.ingress.labels }}
+{{ toYaml .Values.controller.ingress.labels | indent 4 }}
+{{- end }}
+{{- if .Values.controller.ingress.annotations }}
+  annotations:
+{{ toYaml .Values.controller.ingress.annotations | indent 4 }}
+{{- end }}
+  name: {{ template "jenkins.fullname" . }}
+spec:
+  rules:
+  - http:
+      paths:
+{{- if empty (.Values.controller.ingress.paths) }}
+      - backend:
+          serviceName: {{ template "jenkins.fullname" . }}
+          servicePort: {{ .Values.controller.servicePort }}
+{{- else }}
+{{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
+{{- if .Values.controller.ingress.path }}
+        path: {{ .Values.controller.ingress.path }}
+{{- end -}}
+{{- end -}}
+{{- if .Values.controller.ingress.hostName }}
+    host: {{ .Values.controller.ingress.hostName | quote }}
+{{- end }}
+{{- if .Values.controller.ingress.resourceRootUrl }}
+  - http:
+      paths:
+      - backend:
+          serviceName: {{ template "jenkins.fullname" . }}
+          servicePort: {{ .Values.controller.servicePort }}
+    host: {{ .Values.controller.ingress.resourceRootUrl | quote }}
+{{- end }}
+{{- if .Values.controller.ingress.tls }}
+  tls:
+{{ toYaml .Values.controller.ingress.tls | indent 4 }}
+{{- end -}}
+{{- end }}

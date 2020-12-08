@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-alerting-rules.yaml
+  - jenkins-controller-alerting-rules.yaml
 tests:
   - it: defaults
     asserts:
@@ -11,7 +11,7 @@ tests:
         count: 0
   - it: enabled
     set:
-      master.prometheus:
+      controller.prometheus:
         enabled: true
         alertingrules:
           - name: ./jenkins.rules
@@ -38,6 +38,9 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
       - equal:
           path: spec
           value:
@@ -54,7 +57,7 @@ tests:
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
-      master.prometheus:
+      controller.prometheus:
         enabled: true
         alertingrules:
           - name: ./jenkins.rules
@@ -70,7 +73,7 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
