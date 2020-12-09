@@ -12,6 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.0.4
+* Fix documentation for additional secret mounts
+
 ## 3.0.3
 * Update `README.md` with explanation on how to mount additional secrets
 

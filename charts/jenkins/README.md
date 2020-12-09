@@ -317,8 +317,13 @@ persistence:
         secretName: idp-config
   mounts:
     - name: idp-config
-      secret:
-        secretName: idp-config
+      mountPath: /run/secrets/client_id
+      subpath: client_id
+      readOnly: true
+    - name: idp-config
+      mountPath: /run/secrets/client_secret
+      subPath: client_secret
+      readOnly: true
 ```
 
 `values.yaml` controller section, referencing mounted secrets:
