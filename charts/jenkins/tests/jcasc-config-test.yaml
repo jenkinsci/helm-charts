@@ -571,7 +571,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -580,7 +586,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -594,7 +599,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -618,7 +623,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -668,7 +673,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -677,7 +688,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -691,7 +701,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -715,7 +725,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -763,7 +773,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -772,7 +788,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -786,7 +801,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -810,7 +825,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -860,7 +875,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -869,7 +890,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -883,7 +903,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -907,7 +927,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -958,7 +978,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -967,7 +993,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -981,7 +1006,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -1005,7 +1030,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
@@ -1055,7 +1080,13 @@ tests:
                 loggedInUsersCanDoAnything:
                   allowAnonymousRead: false
               securityRealm:
-                legacy
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
               disableRememberMe: false
               remotingSecurity:
                 enabled: true
@@ -1064,7 +1095,6 @@ tests:
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
-                
               clouds:
               - kubernetes:
                   containerCapStr: "10"
@@ -1078,7 +1108,7 @@ tests:
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
-                  - key: "jenkins/RELEASE-NAME-jenkins-slave"
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "default"
@@ -1102,7 +1132,7 @@ tests:
                         workingDir: /home/jenkins
                       idleMinutes: 0
                       instanceCap: 2147483647
-                      label: "RELEASE-NAME-jenkins-slave "
+                      label: "RELEASE-NAME-jenkins-agent "
                       nodeUsageMode: "NORMAL"
                       podRetention: Never
                       showRawYaml: true
