@@ -525,7 +525,27 @@ agent:
   #   defaultMode: "600"
   #   mountPath: /var/myapp/mysecret
   #   secretName: mysecret
-  # Pod-wide ennvironment, these vars are visible to any container in the agent pod
+  # Pod-wide environment, these vars are visible to any container in the agent pod
+
+  # You can define the workspaceVolume that you want to mount for this container
+  # Allowed types are: DynamicPVC, EmptyDir, HostPath, Nfs, PVC
+  # Configure the attributes as they appear in the corresponding Java class for that type
+  # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
+  workspaceVolume: {}
+  # - type: DynamicPVC
+  #   configMapName: myconfigmap
+  # - type: EmptyDir
+  #   memory: false
+  # - type: HostPath
+  #   hostPath: /var/lib/containers
+  # - type: Nfs
+  #   readOnly: false
+  #   serverAddress: "192.0.2.0"
+  #   serverPath: /var/lib/containers
+  # - type: PVC
+  #   claimName: mypvc
+  #   readOnly: false
+  # Pod-wide environment, these vars are visible to any container in the agent pod
   envVars: []
   # - name: PATH
   #   value: /usr/local/bin

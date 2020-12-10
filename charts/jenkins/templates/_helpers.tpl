@@ -279,6 +279,27 @@ Returns kubernetes pod template configuration as code
     {{- end }}
   {{- end }}
 {{- end }}
+{{- if .Values.agent.workspaceVolume }}
+  workspaceVolume:
+    {{- if (eq .Values.agent.workspaceVolume.type "DynamicPVC") }}
+    dynamicPVC:
+    {{- else if (eq .Values.agent.workspaceVolume.type "EmptyDir") }}
+    emptyDirWorkspaceVolume:
+    {{- else if (eq .Values.agent.workspaceVolume.type "HostPath") }}
+    hostPathWorkspaceVolume:
+    {{- else if (eq .Values.agent.workspaceVolume.type "Nfs") }}
+    nfsWorkspaceVolume:
+    {{- else if (eq .Values.agent.workspaceVolume.type "PVC") }}
+    persistentVolumeClaimWorkspaceVolume:
+    {{- else }}
+    {{ .Values.agent.workspaceVolume.type }}:
+    {{- end }}
+  {{- range $key, $value := .Values.agent.workspaceVolume }}
+    {{- if not (eq $key "type") }}
+      {{ $key }}: {{ if kindIs "string" $value }}{{ tpl $value $ | quote }}{{ else }}{{ $value }}{{ end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
 {{- if .Values.agent.yamlTemplate }}
   yaml: |-
     {{- tpl (trim .Values.agent.yamlTemplate) . | nindent 4 }}
