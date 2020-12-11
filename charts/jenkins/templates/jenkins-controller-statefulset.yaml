@@ -1,0 +1,307 @@
+{{- if .Capabilities.APIVersions.Has "apps/v1" }}
+apiVersion: apps/v1
+{{- else }}
+apiVersion: apps/v1beta1
+{{- end }}
+kind: StatefulSet
+metadata:
+  name: {{ template "jenkins.fullname" . }}
+  namespace: {{ template "jenkins.namespace" . }}
+  labels:
+    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
+    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
+    "app.kubernetes.io/instance": "{{ .Release.Name }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- range $key, $val := .Values.controller.statefulSetLabels }}
+    {{ $key }}: {{ $val | quote }}
+    {{- end}}
+  {{- if .Values.controller.statefulSetAnnotations }}
+  annotations:
+{{ toYaml .Values.controller.statefulSetAnnotations | indent 4 }}
+  {{- end }}
+spec:
+  serviceName: {{ template "jenkins.fullname" . }}
+  replicas: 1
+  selector:
+    matchLabels:
+      "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+      "app.kubernetes.io/instance": "{{ .Release.Name }}"
+  template:
+    metadata:
+      labels:
+        "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
+        "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
+        "app.kubernetes.io/instance": "{{ .Release.Name }}"
+        "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+        {{- range $key, $val := .Values.controller.podLabels }}
+        {{ $key }}: {{ $val | quote }}
+        {{- end}}
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- if .Values.controller.podAnnotations }}
+{{ toYaml .Values.controller.podAnnotations | indent 8 }}
+        {{- end }}
+    spec:
+      {{- if .Values.controller.schedulerName }}
+      schedulerName: {{ .Values.controller.schedulerName }}
+      {{- end }}
+      {{- if .Values.controller.nodeSelector }}
+      nodeSelector:
+{{ toYaml .Values.controller.nodeSelector | indent 8 }}
+      {{- end }}
+      {{- if .Values.controller.tolerations }}
+      tolerations:
+{{ toYaml .Values.controller.tolerations | indent 8 }}
+      {{- end }}
+      {{- if .Values.controller.affinity }}
+      affinity:
+{{ toYaml .Values.controller.affinity | indent 8 }}
+      {{- end }}
+      {{- if quote .Values.controller.terminationGracePeriodSeconds }}
+      terminationGracePeriodSeconds: {{ .Values.controller.terminationGracePeriodSeconds }}
+      {{- end }}
+      {{- if and (.Capabilities.APIVersions.Has "scheduling.k8s.io/v1beta1") (.Values.controller.priorityClassName) }}
+      priorityClassName: {{ .Values.controller.priorityClassName }}
+      {{- end }}
+{{- if .Values.controller.usePodSecurityContext }}
+      securityContext:
+        runAsUser: {{ default 0 .Values.controller.runAsUser }}
+  {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
+    {{- if not (eq (int .Values.controller.runAsUser) 0) }}
+        fsGroup: {{ .Values.controller.fsGroup }}
+        runAsNonRoot: true
+    {{- end }}
+    {{- if .Values.controller.securityContextCapabilities }}
+        capabilities:
+          {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+      serviceAccountName: "{{ template "jenkins.serviceAccountName" . }}"
+{{- if .Values.controller.hostNetworking }}
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+{{- end }}
+      {{- if .Values.controller.hostAliases }}
+      hostAliases:
+        {{- toYaml .Values.controller.hostAliases | nindent 8 }}
+      {{- end }}
+      initContainers:
+{{- if .Values.controller.customInitContainers }}
+{{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
+{{- end }}
+        - name: "init"
+          image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
+          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
+            {{- if .Values.controller.initContainerEnv }}
+          env:
+{{ toYaml .Values.controller.initContainerEnv | indent 12 }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.controller.resources | indent 12 }}
+          volumeMounts:
+            - mountPath: {{ .Values.controller.jenkinsHome }}
+              name: jenkins-home
+              {{- if .Values.persistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
+              {{- end }}
+            - mountPath: /var/jenkins_config
+              name: jenkins-config
+            {{- if .Values.controller.installPlugins }}
+            {{- if .Values.controller.overwritePluginsFromImage }}
+            - mountPath: {{ .Values.controller.jenkinsRef }}/plugins
+              name: plugins
+            {{- end }}
+            - mountPath: /var/jenkins_plugins
+              name: plugin-dir
+            {{- end }}
+      containers:
+        - name: jenkins
+          image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
+          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          {{- if .Values.controller.httpsKeyStore.enable }}
+          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName -}}
+          args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath | quote }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
+          {{- else }}
+          args: [ "--httpPort={{.Values.controller.targetPort}}"]
+          {{- end }}
+          {{- if .Values.controller.lifecycle }}
+          lifecycle:
+{{ toYaml .Values.controller.lifecycle | indent 12 }}
+          {{- end }}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: JAVA_OPTS
+              value: >-
+                {{ if .Values.controller.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}{{ default "" .Values.controller.javaOpts }}
+            - name: JENKINS_OPTS
+              value: >-
+                {{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.controller.jenkinsOpts}}
+            - name: JENKINS_SLAVE_AGENT_PORT
+              value: "{{ .Values.controller.agentListenerPort }}"
+            {{- if .Values.controller.httpsKeyStore.enable }}
+            - name: JENKINS_HTTPS_KEYSTORE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
+                  key: {{ "https-jks-password" | quote }}
+            {{- end }}
+
+            {{- if .Values.controller.containerEnv }}
+{{ toYaml .Values.controller.containerEnv | indent 12 }}
+            {{- end }}
+            - name: CASC_JENKINS_CONFIG
+              value: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
+          ports:
+            {{- if .Values.controller.httpsKeyStore.enable }}
+            - containerPort: {{.Values.controller.httpsKeyStore.httpPort}}
+            {{- else }}
+            - containerPort: {{.Values.controller.targetPort}}
+            {{- end }}
+              name: http
+            - containerPort: {{ .Values.controller.agentListenerPort }}
+              name: agent-listener
+              {{- if .Values.controller.agentListenerHostPort }}
+              hostPort: {{ .Values.controller.agentListenerHostPort }}
+              {{- end }}
+            {{- if .Values.controller.jmxPort }}
+            - containerPort: {{ .Values.controller.jmxPort }}
+              name: jmx
+            {{- end }}
+{{- range $index, $port := .Values.controller.extraPorts }}
+            - containerPort: {{ $port.port }}
+              name: {{ $port.name }}
+{{- end }}
+{{- if and .Values.controller.healthProbes .Values.controller.probes}}
+{{ tpl (toYaml .Values.controller.probes | indent 10) .}}
+{{- end }}
+          resources:
+{{ toYaml .Values.controller.resources | indent 12 }}
+          volumeMounts:
+{{- if .Values.persistence.mounts }}
+{{ toYaml .Values.persistence.mounts | indent 12 }}
+{{- end }}
+            {{- if .Values.controller.httpsKeyStore.enable }}
+            - mountPath: {{ .Values.controller.httpsKeyStore.path }}
+              name: jenkins-https-keystore
+            {{- end }}
+            - mountPath: {{ .Values.controller.jenkinsHome }}
+              name: jenkins-home
+              readOnly: false
+              {{- if .Values.persistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
+              {{- end }}
+            - mountPath: /var/jenkins_config
+              name: jenkins-config
+              readOnly: true
+            {{- if .Values.controller.installPlugins }}
+            - mountPath: {{ .Values.controller.jenkinsRef }}/plugins/
+              name: plugin-dir
+              readOnly: false
+            {{- end }}
+            {{- if .Values.controller.sidecars.configAutoReload.enabled }}
+            - name: sc-config-volume
+              mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
+            {{- end }}
+            {{- if .Values.controller.adminSecret }}
+            - name: admin-secret
+              mountPath: /run/secrets/chart-admin-username
+              subPath: {{ .Values.controller.admin.userKey | default "jenkins-admin-user" }}
+              readOnly: true
+            - name: admin-secret
+              mountPath: /run/secrets/chart-admin-password
+              subPath: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
+              readOnly: true
+            {{- end }}
+
+{{- if .Values.controller.sidecars.configAutoReload.enabled }}
+        - name: config-reload
+          image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
+          imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
+          env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: LABEL
+              value: "{{ template "jenkins.fullname" . }}-jenkins-config"
+            - name: FOLDER
+              value: "{{ .Values.controller.sidecars.configAutoReload.folder }}"
+            - name: NAMESPACE
+              value: "{{ .Values.controller.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}"
+            - name: REQ_URL
+              value: "http://localhost:{{- .Values.controller.targetPort -}}{{- .Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
+            - name: REQ_METHOD
+              value: "POST"
+            - name: REQ_RETRY_CONNECT
+              value: "{{ .Values.controller.sidecars.configAutoReload.reqRetryConnect }}"
+            {{- if .Values.controller.sidecars.configAutoReload.env }}
+{{ toYaml .Values.controller.sidecars.configAutoReload.env | indent 12 }}
+            {{- end }}
+          resources:
+{{ toYaml .Values.controller.sidecars.configAutoReload.resources | indent 12 }}
+          volumeMounts:
+            - name: sc-config-volume
+              mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | quote }}
+            - name: jenkins-home
+              mountPath: {{ .Values.controller.jenkinsHome }}
+              {{- if .Values.persistence.subPath }}
+              subPath: {{ .Values.persistence.subPath }}
+              {{- end }}
+{{- end}}
+
+
+{{- if .Values.controller.sidecars.other}}
+{{ tpl (toYaml .Values.controller.sidecars.other | indent 8) .}}
+{{- end }}
+
+      volumes:
+{{- if .Values.persistence.volumes }}
+{{ tpl (toYaml .Values.persistence.volumes | indent 6) . }}
+{{- end }}
+      - name: plugins
+        emptyDir: {}
+      - name: jenkins-config
+        configMap:
+          name: {{ template "jenkins.fullname" . }}
+      {{- if .Values.controller.installPlugins }}
+      - name: plugin-dir
+        emptyDir: {}
+      {{- end }}
+      {{- if not (contains "jenkins-home" (quote .Values.persistence.volumes)) }}
+      - name: jenkins-home
+      {{- if .Values.persistence.enabled }}
+        persistentVolumeClaim:
+          claimName: {{ .Values.persistence.existingClaim | default (include "jenkins.fullname" .) }}
+      {{- else }}
+        emptyDir: {}
+      {{- end -}}
+      {{- end }}
+      - name: sc-config-volume
+        emptyDir: {}
+
+      {{- if .Values.controller.httpsKeyStore.enable }}
+      - name: jenkins-https-keystore
+        secret:
+          secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
+          items:
+          - key: jenkins-jks-file
+            path: {{ .Values.controller.httpsKeyStore.fileName }}
+      {{- end }}
+      {{- if .Values.controller.adminSecret }}
+      - name: admin-secret
+        secret:
+          secretName: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
+      {{- end }}
+
+{{- if .Values.controller.imagePullSecretName }}
+      imagePullSecrets:
+      - name: {{ .Values.controller.imagePullSecretName }}
+{{- end -}}

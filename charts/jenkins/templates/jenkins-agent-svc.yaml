@@ -5,28 +5,28 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
-{{- if .Values.master.slaveListenerServiceAnnotations }}
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+  {{- if .Values.controller.agentListenerServiceAnnotations }}
   annotations:
-{{ toYaml .Values.master.slaveListenerServiceAnnotations | indent 4 }}
-{{- end }}
+    {{- toYaml .Values.controller.agentListenerServiceAnnotations | nindent 4 }}
+  {{- end }}
 spec:
   ports:
-    - port: {{ .Values.master.slaveListenerPort }}
-      targetPort: {{ .Values.master.slaveListenerPort }}
-      {{ if (and (eq .Values.master.slaveListenerServiceType "NodePort") (not (empty .Values.master.slaveListenerPort))) }}
-      nodePort: {{.Values.master.slaveListenerPort}}
-      {{end}}
-      name: slavelistener
+    - port: {{ .Values.controller.agentListenerPort }}
+      targetPort: {{ .Values.controller.agentListenerPort }}
+      {{- if (and (eq .Values.controller.agentListenerServiceType "NodePort") (not (empty .Values.controller.agentListenerPort))) }}
+      nodePort: {{ .Values.controller.agentListenerPort }}
+      {{- end }}
+      name: agent-listener
   selector:
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-  type: {{ .Values.master.slaveListenerServiceType }}
-  {{  if eq .Values.master.slaveListenerServiceType "LoadBalancer"  }}
-  {{  if .Values.master.slaveListenerLoadBalancerIP  }}
-  loadBalancerIP: {{  .Values.master.slaveListenerLoadBalancerIP  }}
-  {{end}}
-  {{end}}
+  type: {{ .Values.controller.agentListenerServiceType }}
+  {{- if and (eq .Values.controller.agentListenerServiceType "LoadBalancer") (.Values.controller.agentListenerLoadBalancerIP) }}
+  loadBalancerIP: {{  .Values.controller.agentListenerLoadBalancerIP }}
+  {{- end }}

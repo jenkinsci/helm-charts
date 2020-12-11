@@ -3,7 +3,7 @@ release:
   name: my-release
   namespace: my-namespace
 templates:
-  - jenkins-master-servicemonitor.yaml
+  - jenkins-controller-servicemonitor.yaml
 tests:
   - it: defaults
     asserts:
@@ -11,7 +11,7 @@ tests:
         count: 0
   - it: enabled
     set:
-      master.prometheus.enabled: true
+      controller.prometheus.enabled: true
     asserts:
       - isKind:
           of: ServiceMonitor
@@ -41,10 +41,10 @@ tests:
             selector:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
-                "app.kubernetes.io/component": "jenkins-master"
+                "app.kubernetes.io/component": "jenkins-controller"
   - it: custom values
     set:
-      master:
+      controller:
         jenkinsUriPrefix: /prefix
         prometheus:
           enabled: true
@@ -65,17 +65,18 @@ tests:
             selector:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
-                "app.kubernetes.io/component": "jenkins-master"
+                "app.kubernetes.io/component": "jenkins-controller"
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
-      master.prometheus:
-        enabled: true
+      controller:
+        prometheus:
+          enabled: true
     asserts:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins

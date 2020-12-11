@@ -4,11 +4,77 @@ This file documents all notable changes to the Jenkins Helm Chart.
 The release numbering uses [semantic versioning](http://semver.org).
 
 Use the following links to reference issues, PRs, and commits prior to v2.6.0.
+
 * Issue:  `https://github.com/helm/charts/issues/[issue#]`
 * PR:     `https://github.com/helm/charts/pull/[pr#]`
 * Commit: `https://github.com/helm/charts/commit/[commit]/stable/jenkins`
 
-The change log until v1.5.7 was auto-generated based on git commits. Those entries include a reference to the git commit to be able to get more details.
+The change log until v1.5.7 was auto-generated based on git commits.
+Those entries include a reference to the git commit to be able to get more details.
+
+## 3.0.7
+
+* Add support for setting default agent workspaceVolume
+
+## 3.0.6
+
+Use 2.263.1 image
+
+## 3.0.5
+
+* Update appVersion to reflect new jenkins lts release version 2.263.1
+
+## 3.0.4
+
+* Fix documentation for additional secret mounts
+
+## 3.0.3
+
+* Update `README.md` with explanation on how to mount additional secrets
+
+## 3.0.2
+
+* Fix `.Values.controller.tolerations` and `.Values.controller.nodeSelector` variable names in templates\jenkins-backup-cronjob.yaml
+
+## 3.0.1
+
+* added 'runAsNonroot' to security context
+
+## 3.0.0
+
+* Chart uses StatefulSet instead of Deployment
+* XML configuration was removed in favor of JCasC
+* chart migrated to helm 3.0.0 (apiVersion v2)
+* offending terms have been removed
+* values have been renamed and re-ordered to make it easier to use
+* already deprecated items have been removed
+* componentName for the controller is now `jenkins-controller`
+* componentName for the agent is now `jenkins-agent`
+* container names are now
+  * `init` for the init container which downloads Jenkins plugins
+  * `jenkins` for the Jenkins controller
+  * `config-reload` for the sidecar container which automatically reloads JCasC
+* Updated UI tests to use official `bats/bats` image instead of `dduportal/bats`
+
+For migration instructions from previous versions and additional information check README.md.
+
+## 2.19.0
+
+* Use lts version 2.249.3
+* Update kubernetes, workflow-aggregator, git and configuration-as-code plugins.
+* Fail apply_config.sh script if an error occurs.
+
+## 2.18.2
+
+Fix: `master.javaOpts` issue with quoted values
+
+## 2.18.1
+
+Recommend installing plugins in custom image
+
+## 2.18.0
+
+Removed /tmp volume. Making /tmp a volume causes permission issues with jmap/jstack on certain Kubernetes clusters
 
 ## 2.17.2
 
@@ -65,6 +131,7 @@ Fix tolerations in the backup pod
 Update list of maintainers
 
 ## 2.13.0
+
 Added Support for websockets in the default Jcasc config
 Added trailing slash to JENKINS_URL env var
 
@@ -546,7 +613,7 @@ Update kubernetes-plugin to version 1.18.2 which fixes frequently encountered [J
 
 ## 1.7.1
 
-Update the default requirements for jenkins-slave to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
+Update the default requirements for jenkins-agent to 512Mi which fixes frequently encountered [issue #3723](https://github.com/helm/charts/issues/3723)
 
 ## 1.7.0
 

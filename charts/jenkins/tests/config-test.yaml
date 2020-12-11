@@ -11,14 +11,14 @@ tests:
       - equal:
           path: metadata.labels
           value:
-            app.kubernetes.io/component: jenkins-master
+            app.kubernetes.io/component: jenkins-controller
             app.kubernetes.io/instance: RELEASE-NAME
-            app.kubernetes.io/managed-by: Tiller
+            app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
       - equal:
           path: data.apply_config\.sh
           value: |-
-            echo "applying Jenkins configuration"
+            set -e
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
             echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
@@ -40,20 +40,18 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.25.7
-            workflow-job:2.39
+            kubernetes:1.27.6
             workflow-aggregator:2.6
-            credentials-binding:1.23
-            git:4.2.2
-            configuration-as-code:1.43
+            git:4.4.5
+            configuration-as-code:1.46
   - it: no plugins
     set:
-      master.installPlugins: []
+      controller.installPlugins: []
     asserts:
       - equal:
           path: data.apply_config\.sh
           value: |-
-            echo "applying Jenkins configuration"
+            set -e
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
             echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
@@ -64,14 +62,14 @@ tests:
           value: ""
   - it: additional plugins config
     set:
-      master:
+      controller:
         additionalPlugins:
               - kubernetes-credentials-provider
     asserts:
       - equal:
           path: data.apply_config\.sh
           value: |-
-            echo "applying Jenkins configuration"
+            set -e
             echo "disable Setup Wizard"
             # Prevent Setup Wizard when JCasC is enabled
             echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.UpgradeWizard.state
@@ -93,10 +91,8 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.25.7
-            workflow-job:2.39
+            kubernetes:1.27.6
             workflow-aggregator:2.6
-            credentials-binding:1.23
-            git:4.2.2
-            configuration-as-code:1.43
+            git:4.4.5
+            configuration-as-code:1.46
             kubernetes-credentials-provider

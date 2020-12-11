@@ -1,4 +1,4 @@
-master:
+controller:
   overwritePluginsFromImage: false
   runAsUser: 0
   fsGroup: 1000

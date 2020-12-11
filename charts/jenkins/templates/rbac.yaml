@@ -6,13 +6,15 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: {{ $serviceName }}-schedule-agents
-  namespace: {{ template "jenkins.master.slaveKubernetesNamespace" . }}
+  namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 rules:
 - apiGroups: [""]
   resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims", "events"]
@@ -29,13 +31,15 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: {{ $serviceName }}-schedule-agents
-  namespace: {{ template "jenkins.master.slaveKubernetesNamespace" . }}
+  namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -57,10 +61,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
@@ -75,10 +81,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -91,7 +99,7 @@ subjects:
 ---
 {{- end}}
 
-{{- if .Values.master.sidecars.configAutoReload.enabled }}
+{{- if .Values.controller.sidecars.configAutoReload.enabled }}
 # The sidecar container which is responsible for reloading configuration changes
 # needs permissions to watch ConfigMaps
 apiVersion: rbac.authorization.k8s.io/v1
@@ -101,10 +109,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 rules:
 - apiGroups: [""]
   resources: ["configmaps"]
@@ -119,10 +129,12 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{ include "helm-chart-label" .}}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.master.componentName }}"
+    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
