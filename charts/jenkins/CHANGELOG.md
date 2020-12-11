@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.0.8
+
+Added support for backing up to Azure Blob Storage.
+
 ## 3.0.7
 
 * Add support for setting default agent workspaceVolume
@@ -75,10 +79,6 @@ Recommend installing plugins in custom image
 ## 2.18.0
 
 Removed /tmp volume. Making /tmp a volume causes permission issues with jmap/jstack on certain Kubernetes clusters
-
-## 2.17.2
-
-Added support for backing up to Azure Blob Storage.
 
 ## 2.17.1
 
