@@ -318,7 +318,7 @@ persistence:
   mounts:
     - name: idp-config
       mountPath: /run/secrets/client_id
-      subpath: client_id
+      subPath: client_id
       readOnly: true
     - name: idp-config
       mountPath: /run/secrets/client_secret

@@ -12,9 +12,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 3.0.8
+## 3.0.9
 
 Added support for backing up to Azure Blob Storage.
+
+## 3.0.8
+
+* Typo in documentation
 
 ## 3.0.7
 
