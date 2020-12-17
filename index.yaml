@@ -9,6 +9,39 @@ entries:
           url: https://www.jenkins.io/
     apiVersion: v2
     appVersion: 2.263.1
+    created: "2020-12-17T16:15:21.055861537Z"
+    description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
+    digest: cdbf838cc4a1ace8014b976a1dbbc56f3af087d8a0421b88a6514c083f214b1d
+    home: https://jenkins.io/
+    icon: https://wiki.jenkins-ci.org/download/attachments/2916393/logo.png
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-3.0.9/jenkins-3.0.9.tgz
+    version: 3.0.9
+  - annotations:
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+    apiVersion: v2
+    appVersion: 2.263.1
     created: "2020-12-14T06:52:42.449184757Z"
     description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
     digest: c38652bb4e18d497e20df8d6b5f78e6c0b793039dc931ba0e27bbd49a4520145
