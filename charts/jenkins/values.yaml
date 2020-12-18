@@ -327,6 +327,7 @@ controller:
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
+    # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
     apiVersion: "extensions/v1beta1"
     labels: {}
     annotations: {}
@@ -351,6 +352,7 @@ controller:
     # ex /github-webhook
     paths: []
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
+    # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
     apiVersion: "extensions/v1beta1"
     labels: {}
     annotations: {}
