@@ -50,6 +50,7 @@ tests:
                           name: my-release-jenkins
                           port:
                             number: 8080
+                      pathType: ImplementationSpecific
             tls:
             - hosts:
               - jenkins.example.com
@@ -64,14 +65,18 @@ tests:
           kubernetes.io/tls-acme: "true"
         paths:
           - backend:
-              serviceName: ssl-redirect
-              servicePort: use-annotation
+              service:
+                name: ssl-redirect
+                port:
+                  number: use-annotation
+            pathType: ImplementationSpecific
           - backend:
               service:
                 name: >-
-                {{ template "jenkins.fullname" . }}
+                  {{ template "jenkins.fullname" . }}
                 port:
                   number: 8080
+            pathType: ImplementationSpecific
         tls:
           - secretName: tlsSecret
             hosts:
@@ -94,11 +99,13 @@ tests:
                           name: ssl-redirect
                           port:
                             number: use-annotation
+                      pathType: ImplementationSpecific
                     - backend:
                         service:
                           name: my-release-jenkins
                           port: 
                             number: 8080
+                      pathType: ImplementationSpecific
             tls:
             - hosts:
               - jenkins.example.com
@@ -133,3 +140,4 @@ tests:
                       name: my-release-jenkins
                       port:
                         number: 8080
+                  pathType: ImplementationSpecific
