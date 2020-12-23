@@ -1,3 +1,4 @@
+---
 controller:
   overwritePluginsFromImage: false
   runAsUser: 0
@@ -20,6 +21,9 @@ controller:
   scriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
     - "new groovy.json.JsonSlurperClassic"
+
+  ingress:
+    enabled: true
 
 persistence:
   enabled: false
