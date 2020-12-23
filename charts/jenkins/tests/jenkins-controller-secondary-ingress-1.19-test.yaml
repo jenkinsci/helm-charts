@@ -10,8 +10,8 @@ capabilities:
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.secondaryingress:
@@ -53,10 +53,11 @@ tests:
                           port:
                             number: 8080
                       path: /github-webhook
+                      pathType: ImplementationSpecific
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
