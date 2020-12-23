@@ -1,0 +1,44 @@
+suite: Jenkins Backup Cronjob
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-backup-cronjob.yaml
+tests:
+  - it: test default values
+    set:
+      backup:
+        enabled: true
+    asserts:
+      - isKind:
+          of: CronJob
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext
+          value:
+            fsGroup: 1000
+            runAsUser: 1000
+  - it: test empty backup.podSecurityContextOverride
+    set:
+      backup:
+        enabled: true
+        podSecurityContextOverride: {}
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext
+          value: {}
+  - it: test backup.podSecurityContextOverride
+    set:
+      backup:
+        enabled: true
+        podSecurityContextOverride:
+          runAsNonRoot: true
+          runAsUser: 4444
+          supplementalGroups: [5555]
+    asserts:
+      - equal:
+          path: spec.jobTemplate.spec.template.spec.securityContext
+          value:
+            runAsNonRoot: true
+            runAsUser: 4444
+            supplementalGroups:
+              - 5555

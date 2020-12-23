@@ -68,15 +68,19 @@ spec:
       {{- end }}
 {{- if .Values.controller.usePodSecurityContext }}
       securityContext:
+  {{- if hasKey .Values.controller "podSecurityContextOverride" }}
+    {{- tpl (toYaml .Values.controller.podSecurityContextOverride | nindent 8) . -}}
+  {{- else }}
         runAsUser: {{ default 0 .Values.controller.runAsUser }}
-  {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
-    {{- if not (eq (int .Values.controller.runAsUser) 0) }}
+    {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
+      {{- if not (eq (int .Values.controller.runAsUser) 0) }}
         fsGroup: {{ .Values.controller.fsGroup }}
         runAsNonRoot: true
-    {{- end }}
-    {{- if .Values.controller.securityContextCapabilities }}
+      {{- end }}
+      {{- if .Values.controller.securityContextCapabilities }}
         capabilities:
           {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
+      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}

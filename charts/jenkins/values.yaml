@@ -78,7 +78,7 @@ controller:
   # jenkinsUrl: ""
   # If you set this prefix and use ingress controller then you might want to set the ingress path below
   # jenkinsUriPrefix: "/jenkins"
-  # Enable pod security context (must be `true` if runAsUser or fsGroup are set)
+  # Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
   usePodSecurityContext: true
   # Set runAsUser to 1000 to let Jenkins run as non-root user 'jenkins' which exists in 'jenkins/jenkins' docker image.
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
@@ -88,6 +88,12 @@ controller:
   securityContextCapabilities: {}
   #  drop:
   #    - NET_RAW
+  # Completely overwrites the contents of the `securityContext`, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities`.
+  # podSecurityContextOverride:
+  #   runAsUser: 1000
+  #   runAsNonRoot: true
+  #   supplementalGroups: [1000]
+  #   # capabilities: {}
   servicePort: 8080
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
