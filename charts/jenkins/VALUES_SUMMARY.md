@@ -100,8 +100,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
 | `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
 | `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
-| `controller.runAsUser`                | uid that jenkins runs with           | `1000`                                    |
-| `controller.fsGroup`                  | uid that will be used for persistent volume | `1000`                             |
+| `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
+| `controller.fsGroup`                  | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `controller.podSecurityContextOverride` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
 | `controller.hostAliases`              | Aliases for IPs in `/etc/hosts`      | `[]`                                      |
 | `controller.serviceAnnotations`       | Service annotations                  | `{}`                                      |
@@ -339,6 +339,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.destination`                     | Destination to store backup artifacts                             | `s3://jenkins-data/backup`        |
 | `backup.onlyJobs`                        | Only backup the job folder                                        | `false`                           |
 | `backup.usePodSecurityContext`           | Enable backup pod's security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
-| `backup.runAsUser`                       | uid that jenkins runs with           | `1000`                                    |
-| `backup.fsGroup`                         | uid that will be used for persistent volume | `1000`                             |
+| `backup.runAsUser`                       | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
+| `backup.fsGroup`                         | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `backup.podSecurityContextOverride`      | Completely overwrites the contents of the backup pod's security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
