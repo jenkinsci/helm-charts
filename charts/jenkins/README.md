@@ -302,7 +302,7 @@ attach/mount times, [10 or more minutes][K8S_VOLUME_TIMEOUT], when using
 `fsGroup`.  This issue may result in the following entries in the pod's event
 history:
 
-```
+```console
 Warning  FailedMount  38m                kubelet, aks-default-41587790-2 Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[plugins plugin-dir jenkins-token-rmq2g sc-config-volume tmp jenkins-home jenkins-config secrets-dir]: timed out waiting for the condition
 ```
 
