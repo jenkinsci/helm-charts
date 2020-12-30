@@ -112,7 +112,7 @@ controller:
   installPlugins: []
 ```
 
-Notice: `installPlugins` is set to an empty list to disable plugin download.
+Notice: `installPlugins` is set to an empty list to disable plugin download. In this case, the image `registry/my-jenkins:v1.2.3` must have the plugins specified as default value for [the `controller.installPlugins` directive](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md#jenkins-plugins) to ensure that the configuration side-car system works as expected.
 
 In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
 
@@ -133,14 +133,23 @@ If you are not using the provided ingress you can specify `controller.jenkinsUrl
 
 ### Configuration as Code
 
-Jenkins Configuration as Code is now a standard component in the Jenkins project.
-Add a key under configScripts for each configuration area, where each corresponds to a plugin or section of the UI.
-The keys (prior to `|` character) are just labels, and can be any value.
-They are only used to give the section a meaningful name.
+Jenkins Configuration as Code (JCasC) is now a standard component in the Jenkins project.
+To allow JCasC's configuration from the helm values, the plugin [`configuration-as-code`](https://plugins.jenkins.io/configuration-as-code/) must be installed in the Jenkins Controller's Docker image (which is the case by default as specified by the [default value of the directive `controller.installPlugins`](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md#jenkins-plugins)).
+
+JCasc configuration is passed through Helm values under the key `controller.JCasC`.
+The section ["Jenkins Configuration as Code (JCasC)" of the page "VALUES_SUMMARY.md"](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md#jenkins-configuration-as-code-jcasc) lists all the possible directives.
+
+In particular, you may specify custom JCasC scripts by adding sub-key under the `controller.JCasC.configScripts` for each configuration area where each corresponds to a plugin or section of the UI.
+
+The sub-keys (prior to `|` character) are only labels used to give the section a meaningful name.
 The only restriction is they must conform to RFC 1123 definition of a DNS label, so they may only contain lowercase letters, numbers, and hyphens.
+
 Each key will become the name of a configuration yaml file on the controller in `/var/jenkins_home/casc_configs` (by default) and will be processed by the Configuration as Code Plugin during Jenkins startup.
+
 The lines after each `|` become the content of the configuration yaml file.
+
 The first line after this is a JCasC root element, e.g. jenkins, credentials, etc.
+
 Best reference is the Documentation link here: `https://<jenkins_url>/configuration-as-code`.
 
 The example below sets custom systemMessage:
