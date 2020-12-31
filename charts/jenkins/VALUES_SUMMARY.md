@@ -336,3 +336,4 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.env`                             | Backup environment variables                                      | `[]`                              |
 | `backup.resources`                       | Backup CPU/Memory resource requests/limits                        | Memory: `1Gi`, CPU: `1`           |
 | `backup.destination`                     | Destination to store backup artifacts                             | `s3://jenkins-data/backup`        |
+| `backup.onlyJobs`                     | Only backup the job folder                                           | `false`        |

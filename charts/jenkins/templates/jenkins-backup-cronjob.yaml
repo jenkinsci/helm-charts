@@ -60,7 +60,11 @@ spec:
             - --container
             - jenkins
             - --path
+            {{- if .Values.backup.onlyJobs }}
+            - {{ .Values.controller.jenkinsHome }}/jobs
+            {{- else}}
             - {{ .Values.controller.jenkinsHome }}
+            {{- end}}
             - --dst
             - {{ .Values.backup.destination }}
             {{- with .Values.backup.extraArgs }}
