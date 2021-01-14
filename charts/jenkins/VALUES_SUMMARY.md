@@ -259,6 +259,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.jenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
 | `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
 | `agent.kubernetesReadTimeout` | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
+| `agent.maxRequestsPerHostStr` | The maximum concurrent connections to Kubernetes API | 32 |
 
 #### Pod Configuration
 
