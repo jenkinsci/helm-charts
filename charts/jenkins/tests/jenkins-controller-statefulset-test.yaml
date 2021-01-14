@@ -349,3 +349,26 @@ tests:
            name: JENKINS_OPTS
            value: >-
              -Dtest="custom: 'true'"
+  - it: test empty controller.podSecurityContextOverride
+    set:
+      controller:
+        podSecurityContextOverride: {}
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value: {}
+  - it: test controller.podSecurityContextOverride
+    set:
+      controller:
+        podSecurityContextOverride:
+          runAsNonRoot: true
+          runAsUser: 4444
+          supplementalGroups: [5555]
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsNonRoot: true
+            runAsUser: 4444
+            supplementalGroups:
+              - 5555

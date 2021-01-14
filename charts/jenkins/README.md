@@ -292,8 +292,38 @@ See additional `persistence` values using [configuration commands](#configuratio
 #### Existing PersistentVolumeClaim
 
 1. Create the PersistentVolume
-1. Create the PersistentVolumeClaim
-1. [Install](#install-chart) the chart, setting `persistence.existingClaim` to `PVC_NAME`
+2. Create the PersistentVolumeClaim
+3. [Install](#install-chart) the chart, setting `persistence.existingClaim` to `PVC_NAME`
+
+#### Long Volume Attach/Mount Times
+
+Certain volume type and filesystem format combinations may experience long
+attach/mount times, [10 or more minutes][K8S_VOLUME_TIMEOUT], when using
+`fsGroup`.  This issue may result in the following entries in the pod's event
+history:
+
+```console
+Warning  FailedMount  38m                kubelet, aks-default-41587790-2 Unable to attach or mount volumes: unmounted volumes=[jenkins-home], unattached volumes=[plugins plugin-dir jenkins-token-rmq2g sc-config-volume tmp jenkins-home jenkins-config secrets-dir]: timed out waiting for the condition
+```
+
+In these cases, experiment with replacing `fsGroup` with
+`supplementalGroups` in the pod's `securityContext`.  This can be achieved by
+setting the `controller.podSecurityContextOverride` Helm chart value to
+something like:
+
+```yaml
+controller:
+  podSecurityContextOverride:
+    runAsNonRoot: true
+    runAsUser: 1000
+    supplementalGroups: [1000]
+```
+
+This issue has been reported on [azureDisk with ext4][K8S_VOLUME_TIMEOUT] and
+on [Alibaba cloud][K8S_VOLUME_TIMEOUT_ALIBABA].
+
+[K8S_VOLUME_TIMEOUT]: https://github.com/kubernetes/kubernetes/issues/67014
+[K8S_VOLUME_TIMEOUT_ALIBABA]: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-698770511
 
 #### Storage Class
 
