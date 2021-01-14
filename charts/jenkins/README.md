@@ -233,6 +233,14 @@ To display such data as processed HTML instead of raw text set `controller.enabl
 This option requires installation of the [OWASP Markup Formatter Plugin (antisamy-markup-formatter)](https://plugins.jenkins.io/antisamy-markup-formatter/).
 This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
+### Change max connections to Kubernetes API
+When using agents with containers other then JNLP, The kubernetes plugin will commuincate with those containers using the Kubernetes API. this changes the maximum concurrent connections
+```yaml
+agent:
+  maxRequestsPerHostStr: "32"
+```
+This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
+
 ### Mounting Volumes into Agent Pods
 
 Your Jenkins Agents will run as pods, and it's possible to inject volumes where needed:

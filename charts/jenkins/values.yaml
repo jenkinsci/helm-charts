@@ -488,6 +488,7 @@ agent:
   jenkinsTunnel:
   kubernetesConnectTimeout: 5
   kubernetesReadTimeout: 15
+  maxRequestsPerHostStr: "32"
   namespace:
   image: "jenkins/inbound-agent"
   tag: "4.6-1"
