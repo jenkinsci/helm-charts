@@ -12,14 +12,17 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.1.3
+
+Update Jenkins image and appVersion to jenkins lts release version 2.263.3
+
 ## 3.1.2
 
 Enable setting maxRequestsPerHostStr to change the max concurrent connections to Kubernetes API
 
 ## 3.1.1
 
-* Update Jenkins image and appVersion to jenkins lts release version 2.263.2
-
+Update Jenkins image and appVersion to jenkins lts release version 2.263.2
 
 ## 3.1.0
 
