@@ -42,7 +42,7 @@ tests:
           value: |-
             kubernetes:1.27.6
             workflow-aggregator:2.6
-            git:4.4.5
+            git:4.5.2
             configuration-as-code:1.46
   - it: no plugins
     set:
@@ -93,6 +93,6 @@ tests:
           value: |-
             kubernetes:1.27.6
             workflow-aggregator:2.6
-            git:4.4.5
+            git:4.5.2
             configuration-as-code:1.46
             kubernetes-credentials-provider
