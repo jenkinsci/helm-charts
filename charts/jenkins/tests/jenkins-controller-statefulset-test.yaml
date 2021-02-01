@@ -44,7 +44,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: c1970219d6ed4463c3aeb25c5a1acd68574d1ec9a847361e630893f69cc49dc0
+                  checksum/config: df3de6275280d65eb256e11acbd827e974a683764acc280359fd6bee9d7363d5
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -67,7 +67,7 @@ tests:
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.263.2
+                  image: jenkins/jenkins:2.263.3
                   imagePullPolicy: Always
                   livenessProbe:
                     failureThreshold: 5
@@ -153,7 +153,7 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.263.2
+                  image: jenkins/jenkins:2.263.3
                   imagePullPolicy: Always
                   name: init
                   resources:
