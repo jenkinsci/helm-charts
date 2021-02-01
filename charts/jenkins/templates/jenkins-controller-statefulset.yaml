@@ -128,6 +128,10 @@ spec:
             - mountPath: /var/jenkins_plugins
               name: plugin-dir
             {{- end }}
+            {{- if .Values.controller.initScripts }}
+            - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
+              name: initScripts
+            {{- end }}
       containers:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
@@ -215,6 +219,10 @@ spec:
               name: plugin-dir
               readOnly: false
             {{- end }}
+            {{- if .Values.controller.initScripts }}
+            - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
+              name: initScripts
+            {{- end }}
             {{- if .Values.controller.sidecars.configAutoReload.enabled }}
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
@@ -277,6 +285,11 @@ spec:
 {{- end }}
       - name: plugins
         emptyDir: {}
+      {{- if .Values.controller.initScripts }}
+      - name: initScripts
+        configMap:
+          name: {{ template "jenkins.fullname" . }}-initScripts
+      {{- end }}
       - name: jenkins-config
         configMap:
           name: {{ template "jenkins.fullname" . }}
