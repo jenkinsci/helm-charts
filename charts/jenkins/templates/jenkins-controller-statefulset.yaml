@@ -130,7 +130,7 @@ spec:
             {{- end }}
             {{- if .Values.controller.initScripts }}
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
-              name: initScripts
+              name: init-scripts
             {{- end }}
       containers:
         - name: jenkins
@@ -221,7 +221,7 @@ spec:
             {{- end }}
             {{- if .Values.controller.initScripts }}
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
-              name: initScripts
+              name: init-scripts
             {{- end }}
             {{- if .Values.controller.sidecars.configAutoReload.enabled }}
             - name: sc-config-volume
@@ -286,9 +286,9 @@ spec:
       - name: plugins
         emptyDir: {}
       {{- if .Values.controller.initScripts }}
-      - name: initScripts
+      - name: init-scripts
         configMap:
-          name: {{ template "jenkins.fullname" . }}-initScripts
+          name: {{ template "jenkins.fullname" . }}-init-scripts
       {{- end }}
       - name: jenkins-config
         configMap:
