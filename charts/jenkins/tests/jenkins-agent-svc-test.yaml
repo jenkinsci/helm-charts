@@ -56,7 +56,7 @@ tests:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
-  - it: node port
+  - it: node port random
     set:
       controller:
         agentListenerServiceType: NodePort
@@ -66,9 +66,26 @@ tests:
           value:
             ports:
             - name: agent-listener
-              nodePort: 50000
               port: 50000
               targetPort: 50000
+            selector:
+              app.kubernetes.io/component: jenkins-controller
+              app.kubernetes.io/instance: my-release
+            type: NodePort
+  - it: node port defined
+    set:
+      controller:
+        agentListenerServiceType: NodePort
+        agentListenerNodePort: 32123
+    asserts:
+      - equal:
+          path: spec
+          value:
+            ports:
+            - name: agent-listener
+              port: 50000
+              targetPort: 50000
+              nodePort: 32123
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release

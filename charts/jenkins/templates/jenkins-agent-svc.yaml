@@ -19,8 +19,8 @@ spec:
   ports:
     - port: {{ .Values.controller.agentListenerPort }}
       targetPort: {{ .Values.controller.agentListenerPort }}
-      {{- if (and (eq .Values.controller.agentListenerServiceType "NodePort") (not (empty .Values.controller.agentListenerPort))) }}
-      nodePort: {{ .Values.controller.agentListenerPort }}
+      {{- if (and (eq .Values.controller.agentListenerServiceType "NodePort") (not (empty .Values.controller.agentListenerNodePort))) }}
+      nodePort: {{ .Values.controller.agentListenerNodePort }}
       {{- end }}
       name: agent-listener
   selector:

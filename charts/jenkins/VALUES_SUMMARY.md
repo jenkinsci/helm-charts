@@ -84,6 +84,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------------------------- | ----------------------------------------------- | ------------ |
 | `controller.agentListenerPort`               | Listening port for agents                       | `50000`      |
 | `controller.agentListenerHostPort`           | Host port to listen for agents                  | Not set      |
+| `controller.agentListenerNodePort`           | Node port to listen for agents                  | Not set      |
 | `controller.agentListenerServiceType`        | Defines how to expose the agentListener service | `ClusterIP`  |
 | `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service       | `{}`         |
 | `controller.agentListenerLoadBalancerIP`     | Static IP for the agentListener LoadBalancer    | Not set      |
