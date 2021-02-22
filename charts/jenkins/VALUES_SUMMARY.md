@@ -125,6 +125,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
+| `controller.updateStrategy`           | Update strategy for StatefulSet      | `{}`                                      |
 | `controller.lifecycle`                | Lifecycle specification for controller-container | Not set                           |
 | `controller.priorityClassName`        | The name of a `priorityClass` to apply to the controller pod | Not set               |
 | `controller.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|
