@@ -327,6 +327,10 @@ controller:
   # Add StatefulSet annotations
   statefulSetAnnotations: {}
 
+  # StatefulSet updateStrategy
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+  updateStrategy: {}
+
   ingress:
     enabled: false
     # Override for the default paths that map requests to the backend
