@@ -230,6 +230,8 @@ tests:
           - ip: 192.168.50.50
             hostnames:
               - something.local
+        updateStrategy:
+          type: OnDelete
       serviceAccount.name: my-serviceaccount
     asserts:
     - equal:
@@ -291,6 +293,9 @@ tests:
           - ip: 192.168.50.50
             hostnames:
               - something.local
+    - equal:
+        path: spec.updateStrategy.type
+        value: OnDelete
   - it: configure image tag
     set:
       controller.tag: 2.249.1-slim
