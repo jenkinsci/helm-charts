@@ -23,16 +23,9 @@ jobs:
 
       - name: Jenkins LTS version
         id: lts
-        run: |
-          # download and install jv
-          curl -L -o jenkins-version-linux-amd64.tar.gz https://github.com/garethjevans/jenkins-version/releases/download/0.0.8/jenkins-version-linux-amd64.tar.gz
-          tar xvfz jenkins-version-linux-amd64.tar.gz
-          ./jv get --version-identifier lts --github-action-output
-
-          # this is a hack until we can get jenkins-version packaged as a github action
-          git restore README.md
-          git restore LICENSE
-          rm jv
+        uses: garethjevans/jenkins-version@0.1.0
+        with:
+          version-identifier: lts
 
       - name: Update appVersion in Chart.yaml
         uses: mikefarah/yq@v4.6.0
