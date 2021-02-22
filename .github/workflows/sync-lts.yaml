@@ -1,0 +1,64 @@
+---
+name: Sync LTS Version
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: Fetch Tags
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+
+      - name: next release version
+        id: nextversion
+        uses: jenkins-x-plugins/jx-release-version@v2.2.3
+        with:
+          previous-version: from-file:charts/jenkins/Chart.yaml
+
+      - name: Jenkins LTS version
+        id: lts
+        uses: garethjevans/jenkins-version@0.1.0
+        with:
+          version-identifier: lts
+
+      - name: Update appVersion in Chart.yaml
+        uses: mikefarah/yq@v4.6.0
+        with:
+          cmd: yq eval '.appVersion = "${{ steps.lts.outputs.jenkins_version }}"' -i charts/jenkins/Chart.yaml
+
+      - name: Update version in Chart.yaml
+        uses: mikefarah/yq@v4.6.0
+        with:
+          cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
+
+      # this is the problematic one as yq ends up reformatting the file which is not required.
+      - name: Update controller.tag in values.yaml
+        run: |
+          sed -i -e '1h;2,$H;$!d;g' -re 's|(jenkins/jenkins"\n  tag: ")[0-9]+\.[0-9]+\.[0-9]+(")|\1${{ steps.lts.outputs.jenkins_version }}\2|' charts/jenkins/values.yaml | head -n 25
+
+      - name: Changelog
+        run: |
+          sed -i 's|image: jenkins/jenkins.*|image: jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/tests/jenkins-controller-statefulset-test.yaml
+
+      - name: Changelog
+        run: |
+          sed -i '/git commit to be able to get more details./a \\n## ${{ steps.nextversion.outputs.version }}\n\nUpdate Jenkins image and appVersion to jenkins lts release version ${{ steps.lts.outputs.jenkins_version }}\n' charts/jenkins/CHANGELOG.md
+
+      - name: Git Diff
+        run: |
+          git diff
+          # update the changelog
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        with:
+          commit-message: 'chore(deps): bump lts to {{ steps.lts.outputs.jenkins_version }}'
+          signoff: true
+          title: 'chore(deps): bump lts to {{ steps.lts.outputs.jenkins_version }}'
