@@ -32,6 +32,7 @@ jobs:
           # this is a hack until we can get jenkins-version packaged as a github action
           git restore README.md
           git restore LICENSE
+          rm jv
 
       - name: Update appVersion in Chart.yaml
         uses: mikefarah/yq@v4.6.0
