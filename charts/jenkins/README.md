@@ -89,7 +89,7 @@ That could be using LDAP / OIDC / .. as authorization strategy and use globalMat
 
 ### Consider using a custom image
 
-This chart allows the user to specify plugins, which should be installed however for production use cases one should consider to build a custom Jenkins image which has all required plugins pre-installed.
+This chart allows the user to specify plugins which should be installed. However, for production use cases one should consider to build a custom Jenkins image which has all required plugins pre-installed.
 This way you can be sure which plugins Jenkins is using when starting up and you avoid trouble in case of connectivity issues to the Jenkins update site.
 
 The [docker repository](https://github.com/jenkinsci/docker) for the Jenkins image contains [documentation](https://github.com/jenkinsci/docker#preinstalling-plugins) how to do it.
@@ -103,7 +103,7 @@ RUN jenkins-plugin-cli --plugins kubernetes workflow-aggregator git configuratio
 
 NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
 
-Once you built the image and pushed it tou your registry you can specify it in your values file like this:
+Once you built the image and pushed it to your registry you can specify it in your values file like this:
 
 ```yaml
 controller:
