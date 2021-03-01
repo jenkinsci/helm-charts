@@ -138,15 +138,25 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.healthProbes`             | Enable k8s liveness and readiness probes    | `true`                             |
-| `controller.healthProbesLivenessTimeout`  | Set the timeout for the liveness probe  | `5`                              |
-| `controller.healthProbesReadinessTimeout` | Set the timeout for the readiness probe | `5`                               |
-| `controller.healthProbeLivenessPeriodSeconds` | Set how often (in seconds) to perform the liveness probe | `10`         |
-| `controller.healthProbeReadinessPeriodSeconds` | Set how often (in seconds) to perform the readiness probe | `10`         |
-| `controller.healthProbeLivenessFailureThreshold` | Set the failure threshold for the liveness probe | `5`               |
-| `controller.healthProbeReadinessFailureThreshold` | Set the failure threshold for the readiness probe | `3`               |
-| `controller.healthProbeLivenessInitialDelay` | Set the initial delay for the liveness probe | `90`               |
-| `controller.healthProbeReadinessInitialDelay` | Set the initial delay for the readiness probe | `60`               |
+| `controller.healthProbes`             | Enable [Kubernetes Probes](https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes) configuration from `controller.probes` (see below) | `true` |
+| `controller.probes.livenessProbe.timeoutSeconds` | Set the timeout for the liveness probe in seconds  | `5` |
+| `controller.probes.livenessProbe.periodSeconds` | Set the time interval (in seconds) between two liveness probes executions | `10` |
+| `controller.probes.livenessProbe.failureThreshold` | Set the failure threshold for the liveness probe | `5` |
+| `controller.probes.livenessProbe.initialDelaySeconds` | Set the initial delay for the liveness probe | Not set |
+| `controller.probes.livenessProbe.httpGet.port` | Set the Pod's HTTP port to use for the liveness probe | `http` |
+| `controller.probes.livenessProbe.httpGet.path` | Set the HTTP's path for the liveness probe | `/login'` (or `${controller.jenkinsUriPrefix}/login` if `controller.jenkinsUriPrefix` is defined) |
+| `controller.probes.readinessProbe.timeoutSeconds` | Set the timeout for the readiness probe in seconds  | `5` |
+| `controller.probes.readinessProbe.periodSeconds` | Set the time interval (in seconds) between two readiness probes executions | `10` |
+| `controller.probes.readinessProbe.failureThreshold` | Set the failure threshold for the readiness probe | `3` |
+| `controller.probes.readinessProbe.initialDelaySeconds` | Set the initial delay for the readiness probe | Not set |
+| `controller.probes.readinessProbe.httpGet.port` | Set the Pod's HTTP port to use for the readiness probe | `http` |
+| `controller.probes.readinessProbe.httpGet.path` | Set the HTTP's path for the readiness probe | `/login'` (or `${controller.jenkinsUriPrefix}/login` if `controller.jenkinsUriPrefix` is defined) |
+| `controller.probes.startupProbe.timeoutSeconds` | Set the timeout for the startup probe in seconds  | `5` |
+| `controller.probes.startupProbe.periodSeconds` | Set the time interval (in seconds) between two startup probes executions | `10` |
+| `controller.probes.startupProbe.failureThreshold` | Set the failure threshold for the startup probe | `12` |
+| `controller.probes.startupProbe.initialDelaySeconds` | Set the initial delay for the startup probe | Not set |
+| `controller.probes.startupProbe.httpGet.port` | Set the Pod's HTTP port to use for the startup probe | `http` |
+| `controller.probes.startupProbe.httpGet.path` | Set the HTTP's path for the startup probe | `/login'` (or `${controller.jenkinsUriPrefix}/login` if `controller.jenkinsUriPrefix` is defined) |
 
 #### Kubernetes Ingress
 
