@@ -44,7 +44,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: c1970219d6ed4463c3aeb25c5a1acd68574d1ec9a847361e630893f69cc49dc0
+                  checksum/config: a68b443a413332dd156411ef04a87d7fb328aafa34a5ab70ec426ad54f67f535
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -67,7 +67,7 @@ tests:
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.263.1
+                  image: jenkins/jenkins:2.263.4
                   imagePullPolicy: Always
                   livenessProbe:
                     failureThreshold: 5
@@ -153,7 +153,7 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.263.1
+                  image: jenkins/jenkins:2.263.4
                   imagePullPolicy: Always
                   name: init
                   resources:
@@ -230,6 +230,8 @@ tests:
           - ip: 192.168.50.50
             hostnames:
               - something.local
+        updateStrategy:
+          type: OnDelete
       serviceAccount.name: my-serviceaccount
     asserts:
     - equal:
@@ -291,6 +293,9 @@ tests:
           - ip: 192.168.50.50
             hostnames:
               - something.local
+    - equal:
+        path: spec.updateStrategy.type
+        value: OnDelete
   - it: configure image tag
     set:
       controller.tag: 2.249.1-slim
@@ -349,3 +354,26 @@ tests:
            name: JENKINS_OPTS
            value: >-
              -Dtest="custom: 'true'"
+  - it: test empty controller.podSecurityContextOverride
+    set:
+      controller:
+        podSecurityContextOverride: {}
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value: {}
+  - it: test controller.podSecurityContextOverride
+    set:
+      controller:
+        podSecurityContextOverride:
+          runAsNonRoot: true
+          runAsUser: 4444
+          supplementalGroups: [5555]
+    asserts:
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsNonRoot: true
+            runAsUser: 4444
+            supplementalGroups:
+              - 5555

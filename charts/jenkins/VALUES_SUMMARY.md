@@ -72,7 +72,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.18.2 workflow-aggregator:2.6 credentials-binding:1.19 git:3.11.0 workflow-job:2.33` |
+| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.29.0 workflow-aggregator:2.6 git:4.5.2 configuration-as-code:1.47` |
 | `controller.additionalPlugins`    | List of Jenkins plugins to install in addition to those listed in controller.installPlugins | `[]` |
 | `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
 | `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
@@ -84,6 +84,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------------------------- | ----------------------------------------------- | ------------ |
 | `controller.agentListenerPort`               | Listening port for agents                       | `50000`      |
 | `controller.agentListenerHostPort`           | Host port to listen for agents                  | Not set      |
+| `controller.agentListenerNodePort`           | Node port to listen for agents                  | Not set      |
 | `controller.agentListenerServiceType`        | Defines how to expose the agentListener service | `ClusterIP`  |
 | `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service       | `{}`         |
 | `controller.agentListenerLoadBalancerIP`     | Static IP for the agentListener LoadBalancer    | Not set      |
@@ -99,9 +100,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
 | `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
 | `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
-| `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser` or `fsGroup` are set) | `true` |
-| `controller.runAsUser`                | uid that jenkins runs with           | `1000`                                    |
-| `controller.fsGroup`                  | uid that will be used for persistent volume | `1000`                             |
+| `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
+| `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
+| `controller.fsGroup`                  | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
+| `controller.podSecurityContextOverride` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
 | `controller.hostAliases`              | Aliases for IPs in `/etc/hosts`      | `[]`                                      |
 | `controller.serviceAnnotations`       | Service annotations                  | `{}`                                      |
 | `controller.serviceType`              | k8s service type                     | `ClusterIP`                               |
@@ -123,6 +125,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
+| `controller.updateStrategy`           | Update strategy for StatefulSet      | `{}`                                      |
 | `controller.lifecycle`                | Lifecycle specification for controller-container | Not set                           |
 | `controller.priorityClassName`        | The name of a `priorityClass` to apply to the controller pod | Not set               |
 | `controller.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|
@@ -258,6 +261,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.jenkinsTunnel`       | Overrides the Kubernetes Jenkins tunnel | Not set                                |
 | `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
 | `agent.kubernetesReadTimeout` | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
+| `agent.maxRequestsPerHostStr` | The maximum concurrent connections to Kubernetes API | 32 |
 
 #### Pod Configuration
 
@@ -336,3 +340,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.env`                             | Backup environment variables                                      | `[]`                              |
 | `backup.resources`                       | Backup CPU/Memory resource requests/limits                        | Memory: `1Gi`, CPU: `1`           |
 | `backup.destination`                     | Destination to store backup artifacts                             | `s3://jenkins-data/backup`        |
+| `backup.onlyJobs`                        | Only backup the job folder                                        | `false`                           |
+| `backup.usePodSecurityContext`           | Enable backup pod's security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
+| `backup.runAsUser`                       | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
+| `backup.fsGroup`                         | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
+| `backup.podSecurityContextOverride`      | Completely overwrites the contents of the backup pod's security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |

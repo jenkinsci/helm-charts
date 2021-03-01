@@ -36,15 +36,19 @@ spec:
           serviceAccountName: {{ template "jenkins.fullname" . }}-backup
           {{- if .Values.backup.usePodSecurityContext }}
           securityContext:
+            {{- if hasKey .Values.backup "podSecurityContextOverride" }}
+              {{- tpl (toYaml .Values.backup.podSecurityContextOverride | nindent 12) . }}
+            {{- else }}
             runAsUser: {{ default 0 .Values.backup.runAsUser }}
-            {{- if and (.Values.backup.runAsUser) (.Values.backup.fsGroup) }}
-              {{- if not (eq (int .Values.backup.runAsUser) 0) }}
+              {{- if and (.Values.backup.runAsUser) (.Values.backup.fsGroup) }}
+                {{- if not (eq (int .Values.backup.runAsUser) 0) }}
             fsGroup: {{ .Values.backup.fsGroup }}
+                {{- end }}
               {{- end }}
-            {{- end }}
-            {{- if .Values.backup.securityContextCapabilities }}
+              {{- if .Values.backup.securityContextCapabilities }}
           capabilities:
-            {{- toYaml .Values.backup.securityContextCapabilities | nindent 12 }}
+              {{- toYaml .Values.backup.securityContextCapabilities | nindent 12 }}
+              {{- end }}
             {{- end }}
           {{- end }}
           containers:
@@ -60,7 +64,11 @@ spec:
             - --container
             - jenkins
             - --path
+            {{- if .Values.backup.onlyJobs }}
+            - {{ .Values.controller.jenkinsHome }}/jobs
+            {{- else}}
             - {{ .Values.controller.jenkinsHome }}
+            {{- end}}
             - --dst
             - {{ .Values.backup.destination }}
             {{- with .Values.backup.extraArgs }}

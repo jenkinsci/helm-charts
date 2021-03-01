@@ -43,11 +43,6 @@ data:
     # Copy plugins to shared volume
     yes n | cp -i {{ .Values.controller.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
 {{- end }}
-{{- if .Values.controller.initScripts }}
-    echo "copy init scripts"
-    mkdir -p {{ .Values.controller.jenkinsHome }}/init.groovy.d/;
-    yes n | cp -i /var/jenkins_config/*.groovy {{ .Values.controller.jenkinsHome }}/init.groovy.d/;
-{{- end }}
   {{- if not .Values.controller.sidecars.configAutoReload.enabled }}
     echo "copy configuration as code files"
     mkdir -p {{ .Values.controller.jenkinsHome }}/casc_configs;
@@ -59,10 +54,6 @@ data:
     echo "finished initialization"
 {{- if .Values.controller.initializeOnce }}
     touch {{ .Values.controller.jenkinsHome }}/initialization-completed
-{{- end }}
-{{- range $key, $val := .Values.controller.initScripts }}
-  init{{ $key }}.groovy: |-
-{{ $val | indent 4 }}
 {{- end }}
   {{- if not .Values.controller.sidecars.configAutoReload.enabled }}
 # Only add config to this script if we aren't auto-reloading otherwise the pod will restart upon each config change:

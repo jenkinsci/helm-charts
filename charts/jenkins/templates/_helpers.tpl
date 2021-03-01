@@ -143,7 +143,7 @@ jenkins:
       {{- else }}
       webSocket: true
       {{- end }}
-      maxRequestsPerHostStr: "32"
+      maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       name: "kubernetes"
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       serverUrl: "https://kubernetes.default"

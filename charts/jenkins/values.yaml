@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.263.1"
+  tag: "2.263.4"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -78,8 +78,10 @@ controller:
   # jenkinsUrl: ""
   # If you set this prefix and use ingress controller then you might want to set the ingress path below
   # jenkinsUriPrefix: "/jenkins"
-  # Enable pod security context (must be `true` if runAsUser or fsGroup are set)
+  # Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
   usePodSecurityContext: true
+  # Note that `runAsUser`, `fsGroup`, and `securityContextCapabilities` are
+  # being deprecated and replaced by `podSecurityContextOverride`.
   # Set runAsUser to 1000 to let Jenkins run as non-root user 'jenkins' which exists in 'jenkins/jenkins' docker image.
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
   runAsUser: 1000
@@ -88,6 +90,16 @@ controller:
   securityContextCapabilities: {}
   #  drop:
   #    - NET_RAW
+  # Completely overwrites the contents of the `securityContext`, ignoring the
+  # values provided for the deprecated fields: `runAsUser`, `fsGroup`, and
+  # `securityContextCapabilities`.  In the case of mounting an ext4 filesystem,
+  # it might be desirable to use `supplementalGroups` instead of `fsGroup` in
+  # the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496
+  # podSecurityContextOverride:
+  #   runAsUser: 1000
+  #   runAsNonRoot: true
+  #   supplementalGroups: [1000]
+  #   # capabilities: {}
   servicePort: 8080
   targetPort: 8080
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
@@ -134,6 +146,7 @@ controller:
       timeoutSeconds: 5
   agentListenerPort: 50000
   agentListenerHostPort:
+  agentListenerNodePort:
   disabledAgentProtocols:
     - JNLP-connect
     - JNLP2-connect
@@ -179,10 +192,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.27.6
+    - kubernetes:1.29.0
     - workflow-aggregator:2.6
-    - git:4.4.5
-    - configuration-as-code:1.46
+    - git:4.5.2
+    - configuration-as-code:1.47
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
@@ -313,6 +326,10 @@ controller:
   podAnnotations: {}
   # Add StatefulSet annotations
   statefulSetAnnotations: {}
+
+  # StatefulSet updateStrategy
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+  updateStrategy: {}
 
   ingress:
     enabled: false
@@ -476,6 +493,7 @@ agent:
   jenkinsTunnel:
   kubernetesConnectTimeout: 5
   kubernetesReadTimeout: 15
+  maxRequestsPerHostStr: "32"
   namespace:
   image: "jenkins/inbound-agent"
   tag: "4.6-1"
@@ -746,6 +764,8 @@ backup:
   # Additional support can added. Visit this repository for details
   # Ref: https://github.com/maorfr/skbn
   destination: "s3://jenkins-data/backup"
+  # By enabling only the jenkins_home/jobs folder gets backed up, not the whole jenkins instance
+  onlyJobs: false
   # Enable backup pod security context (must be `true` if runAsUser or fsGroup are set)
   usePodSecurityContext: true
   # When setting runAsUser to a different value than 0 also set fsGroup to the same value:

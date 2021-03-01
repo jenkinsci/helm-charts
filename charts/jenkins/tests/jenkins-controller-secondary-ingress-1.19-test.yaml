@@ -6,12 +6,12 @@ templates:
   - jenkins-controller-secondary-ingress.yaml
 capabilities:
   majorVersion: 1
-  minorVersion: 18 
+  minorVersion: 19 
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.secondaryingress:
@@ -28,7 +28,7 @@ tests:
           of: Ingress
       - equal:
           path: apiVersion
-          value: networking.k8s.io/v1beta1
+          value: networking.k8s.io/v1
       - equal:
           path: metadata.name
           value: my-release-jenkins-secondary
@@ -48,13 +48,16 @@ tests:
                 http:
                   paths:
                     - backend:
-                        serviceName: my-release-jenkins
-                        servicePort: 8080
+                        service:
+                          name: my-release-jenkins
+                          port:
+                            number: 8080
                       path: /github-webhook
+                      pathType: ImplementationSpecific
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: disable helm.sh label
     set:
       renderHelmLabels: false

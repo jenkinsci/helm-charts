@@ -12,9 +12,82 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 3.0.11
+## 3.1.14
 
 * Typo in documentation
+
+## 3.1.13
+
+Update Jenkins image and appVersion to jenkins lts release version 2.263.4
+
+## 3.1.12
+
+Added GitHub action to automate the updating of LTS releases.
+
+## 3.1.11
+
+Enable setting controller.updateStrategy to change the update strategy for StatefulSet
+
+## 3.1.10
+
+Fixed issue for the AgentListener where it was not possible to attribute a NodePort
+
+## 3.1.9
+
+Upgrade kubernetes plugin t0 1.29.0 and CasC plugin to 1.47
+
+## 3.1.8
+
+Fix init scripts config map name
+
+## 3.1.7
+
+Fix missing newline when `httpsKeyStore` is enabled
+
+## 3.1.6
+
+Mount controller init scripts from ConfigMap
+
+## 3.1.5
+
+Fix `namespaceOverride` not applied when loading JCasC
+
+## 3.1.4
+
+Update Git plugin version to v4.5.2
+
+## 3.1.3
+
+Update Jenkins image and appVersion to jenkins lts release version 2.263.3
+
+## 3.1.2
+
+Enable setting maxRequestsPerHostStr to change the max concurrent connections to Kubernetes API
+
+## 3.1.1
+
+Update Jenkins image and appVersion to jenkins lts release version 2.263.2
+
+## 3.1.0
+
+* Added `.Values.controller.podSecurityContextOverride` and `.Values.backup.podSecurityContextOverride`.
+* Added simple default values tests for `jenkins-backup-cronjob.yaml`.
+
+## 3.0.14
+
+Enable to only backup job folder instead of whole jenkins
+
+## 3.0.13
+
+Improve Documentation around JCasc and Custom Image
+
+## 3.0.12
+
+Added GitHub Action testing on Kind 1.16, 1.17, 1.18, 1.19 & 1.20
+
+## 3.0.11
+
+Fixes & unit tests for Ingress resources on Kubernetes 1.19 and above
 
 ## 3.0.10
 
