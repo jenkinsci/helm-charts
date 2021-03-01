@@ -1,0 +1,79 @@
+---
+name: Sync LTS Version
+
+on:
+  schedule:
+    - cron: "*/15 * * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source code
+        uses: actions/checkout@v2
+
+      - name: next release version
+        id: nextversion
+        uses: jenkins-x-plugins/jx-release-version@v2.2.3
+        with:
+          previous-version: from-file:charts/jenkins/Chart.yaml
+
+      - name: Jenkins LTS version
+        id: lts
+        uses: garethjevans/jenkins-version@0.1.0
+        with:
+          version-identifier: lts
+
+      - name: Check if update is available
+        id: update
+        run: |
+          CURRENT_VERSION=$(cat charts/jenkins/Chart.yaml| grep appVersion | sed 's/appVersion: //')
+          if [ "$CURRENT_VERSION" = "${{ steps.lts.outputs.jenkins_version }}" ]; then
+            echo "::set-output name=available::false"
+          else
+            echo "::set-output name=available::true"
+          fi
+
+      - name: Update appVersion in Chart.yaml
+        uses: mikefarah/yq@v4.6.1
+        if: ${{ steps.update.outputs.available == 'true' }}
+        with:
+          cmd: yq eval '.appVersion = "${{ steps.lts.outputs.jenkins_version }}"' -i charts/jenkins/Chart.yaml
+
+      - name: Update version in Chart.yaml
+        uses: mikefarah/yq@v4.6.1
+        if: ${{ steps.update.outputs.available == 'true' }}
+        with:
+          cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
+
+      # this is the problematic one as yq ends up reformatting the file which is not required.
+      - name: Update controller.tag in values.yaml
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          sed -i -e '1h;2,$H;$!d;g' -re 's|(jenkins/jenkins"\n  tag: ")[0-9]+\.[0-9]+\.[0-9]+(")|\1${{ steps.lts.outputs.jenkins_version }}\2|' charts/jenkins/values.yaml
+
+      - name: Changelog
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          sed -i 's|image: jenkins/jenkins.*|image: jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/tests/jenkins-controller-statefulset-test.yaml
+
+      - name: Changelog
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          sed -i '/git commit to be able to get more details./a \\n## ${{ steps.nextversion.outputs.version }}\n\nUpdate Jenkins image and appVersion to jenkins lts release version ${{ steps.lts.outputs.jenkins_version }}\n' charts/jenkins/CHANGELOG.md
+
+      - name: Git Diff
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          git diff
+          # update the changelog
+
+      - name: Create Pull Request
+        id: cpr
+        uses: peter-evans/create-pull-request@v3
+        if: ${{ steps.update.outputs.available == 'true' }}
+        with:
+          commit-message: 'chore(deps): bump lts to ${{ steps.lts.outputs.jenkins_version }}'
+          signoff: true
+          title: 'chore(deps): bump lts to ${{ steps.lts.outputs.jenkins_version }}'

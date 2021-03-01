@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.263.2"
+  tag: "2.263.4"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -152,6 +152,7 @@ controller:
       # initialDelaySeconds: 60
   agentListenerPort: 50000
   agentListenerHostPort:
+  agentListenerNodePort:
   disabledAgentProtocols:
     - JNLP-connect
     - JNLP2-connect
@@ -197,10 +198,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.27.6
+    - kubernetes:1.29.0
     - workflow-aggregator:2.6
-    - git:4.4.5
-    - configuration-as-code:1.46
+    - git:4.5.2
+    - configuration-as-code:1.47
 
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
@@ -331,6 +332,10 @@ controller:
   podAnnotations: {}
   # Add StatefulSet annotations
   statefulSetAnnotations: {}
+
+  # StatefulSet updateStrategy
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+  updateStrategy: {}
 
   ingress:
     enabled: false

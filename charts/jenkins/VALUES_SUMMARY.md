@@ -72,7 +72,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.27.6 workflow-aggregator:2.6 git:4.4.5 configuration-as-code:1.46` |
+| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `[]` | `kubernetes:1.29.0 workflow-aggregator:2.6 git:4.5.2 configuration-as-code:1.47` |
 | `controller.additionalPlugins`    | List of Jenkins plugins to install in addition to those listed in controller.installPlugins | `[]` |
 | `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
 | `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
@@ -84,6 +84,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------------------------- | ----------------------------------------------- | ------------ |
 | `controller.agentListenerPort`               | Listening port for agents                       | `50000`      |
 | `controller.agentListenerHostPort`           | Host port to listen for agents                  | Not set      |
+| `controller.agentListenerNodePort`           | Node port to listen for agents                  | Not set      |
 | `controller.agentListenerServiceType`        | Defines how to expose the agentListener service | `ClusterIP`  |
 | `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service       | `{}`         |
 | `controller.agentListenerLoadBalancerIP`     | Static IP for the agentListener LoadBalancer    | Not set      |
@@ -124,6 +125,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
+| `controller.updateStrategy`           | Update strategy for StatefulSet      | `{}`                                      |
 | `controller.lifecycle`                | Lifecycle specification for controller-container | Not set                           |
 | `controller.priorityClassName`        | The name of a `priorityClass` to apply to the controller pod | Not set               |
 | `controller.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|

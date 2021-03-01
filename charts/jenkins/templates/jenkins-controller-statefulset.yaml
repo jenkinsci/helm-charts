@@ -29,6 +29,10 @@ spec:
     matchLabels:
       "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
       "app.kubernetes.io/instance": "{{ .Release.Name }}"
+  {{- if .Values.controller.updateStrategy }}
+  updateStrategy:
+{{ toYaml .Values.controller.updateStrategy | indent 4 }}
+  {{- end }}
   template:
     metadata:
       labels:
@@ -128,12 +132,16 @@ spec:
             - mountPath: /var/jenkins_plugins
               name: plugin-dir
             {{- end }}
+            {{- if .Values.controller.initScripts }}
+            - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
+              name: init-scripts
+            {{- end }}
       containers:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           {{- if .Values.controller.httpsKeyStore.enable }}
-          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName -}}
+          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
           args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath | quote }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
           {{- else }}
           args: [ "--httpPort={{.Values.controller.targetPort}}"]
@@ -215,6 +223,10 @@ spec:
               name: plugin-dir
               readOnly: false
             {{- end }}
+            {{- if .Values.controller.initScripts }}
+            - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
+              name: init-scripts
+            {{- end }}
             {{- if .Values.controller.sidecars.configAutoReload.enabled }}
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
@@ -244,7 +256,7 @@ spec:
             - name: FOLDER
               value: "{{ .Values.controller.sidecars.configAutoReload.folder }}"
             - name: NAMESPACE
-              value: "{{ .Values.controller.sidecars.configAutoReload.searchNamespace | default .Release.Namespace }}"
+              value: '{{ .Values.controller.sidecars.configAutoReload.searchNamespace | default (include "jenkins.namespace" .) }}'
             - name: REQ_URL
               value: "http://localhost:{{- .Values.controller.targetPort -}}{{- .Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
             - name: REQ_METHOD
@@ -277,6 +289,11 @@ spec:
 {{- end }}
       - name: plugins
         emptyDir: {}
+      {{- if .Values.controller.initScripts }}
+      - name: init-scripts
+        configMap:
+          name: {{ template "jenkins.fullname" . }}-init-scripts
+      {{- end }}
       - name: jenkins-config
         configMap:
           name: {{ template "jenkins.fullname" . }}
