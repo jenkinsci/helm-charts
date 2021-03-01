@@ -55,6 +55,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: d591f91bc14f64a22ae985a40af25e183925bcf2934d14c02f9026358a3a047c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -172,6 +173,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: 113ba7c41c563964c61bde56a8182bcbc271f3e5f0928f8051d7f40804138df8
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -200,6 +202,7 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "maven"
+                      id: f5aa423767bb6cae4577f29e62cb472ddc58d8e41f99586b99d0a033cf65454d
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -228,6 +231,7 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "python"
+                      id: 5de2cc3d24ddf30644b7a1770d7eb386d311cf402c49f67f03a48c4d7457b733
                       containers:
                       - name: "python"
                         alwaysPullImage: false
@@ -465,6 +469,7 @@ tests:
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
+                      id: ac0a9ae491a18fa97b086f0786e642fe85285607e6468d5b5e90b113dff78307
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -603,6 +608,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: 5ca7c77f4140db7dbe0c9ac8efa353d0580d89002678b89aa7c360ae736b1598
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -705,6 +711,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: 4aa67a6472190f3f941e74fa27d3a9aedce990012334eade3bf1ac3a1e860c50
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -805,6 +812,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: ac2705446d8d4618d77709d5bd6c50943631e6ba2d532897758676c0d74a1be7
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -907,6 +915,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: 078862fad89cec657bed7bed7f6871e95fe6c705aed11a3f22221442586c0fce
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1010,6 +1019,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: b567cb600dd8183d11309362c23e59c2413c370a5054e4dd478f22f419acb886
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1112,6 +1122,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      id: 2c854c0c839cc5e4f76c5fcf70ac0dc1e552fb7e4aa5772c8ee1a26def58d58a
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
