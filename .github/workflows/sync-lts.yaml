@@ -21,7 +21,7 @@ jobs:
 
       - name: Jenkins LTS version
         id: lts
-        uses: garethjevans/jenkins-version@0.1.0
+        uses: garethjevans/jenkins-version@0.1.1
         with:
           version-identifier: lts
 
