@@ -123,3 +123,18 @@ tests:
                 - backend:
                     serviceName: my-release-jenkins
                     servicePort: 8080
+  - it: single path
+    set:
+      controller.ingress:
+        enabled: true
+        path: /jenkins/
+    asserts:
+    - equal:
+        path: spec.rules
+        value:
+          - http:
+              paths:
+                - path: /jenkins/
+                  backend:
+                    serviceName: my-release-jenkins
+                    servicePort: 8080
