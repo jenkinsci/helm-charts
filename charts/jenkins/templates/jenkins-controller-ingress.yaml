@@ -42,11 +42,11 @@ spec:
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
 {{ end }}
-{{- else }}
-{{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
 {{- if .Values.controller.ingress.path }}
         path: {{ .Values.controller.ingress.path }}
 {{- end -}}
+{{- else }}
+{{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
 {{- end -}}
 {{- if .Values.controller.ingress.hostName }}
     host: {{ .Values.controller.ingress.hostName | quote }}
