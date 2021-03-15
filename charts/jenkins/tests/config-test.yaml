@@ -40,9 +40,9 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.29.0
+            kubernetes:1.29.2
             workflow-aggregator:2.6
-            git:4.5.2
+            git:4.6.0
             configuration-as-code:1.47
   - it: no plugins
     set:
@@ -91,8 +91,8 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.29.0
+            kubernetes:1.29.2
             workflow-aggregator:2.6
-            git:4.5.2
+            git:4.6.0
             configuration-as-code:1.47
             kubernetes-credentials-provider

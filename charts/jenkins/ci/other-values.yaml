@@ -17,7 +17,7 @@ controller:
               fromUserRecord:
                 attributeName: "memberOf"
   additionalPlugins:
-    - ldap:1.24
+    - ldap:2.4
   scriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
     - "new groovy.json.JsonSlurperClassic"
