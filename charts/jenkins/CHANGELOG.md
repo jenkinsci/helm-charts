@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.2.5
+
+Add additional metadata `artifacthub.io/images` for artifacthub
+
 ## 3.2.4
 Update Jenkins image and appVersion to jenkins lts release version 2.277.1
 Update Git plugin version to v4.6.0

@@ -53,6 +53,11 @@ jobs:
         run: |
           sed -i -e '1h;2,$H;$!d;g' -re 's|(jenkins/jenkins"\n  tag: ")[0-9]+\.[0-9]+\.[0-9]+(")|\1${{ steps.lts.outputs.jenkins_version }}\2|' charts/jenkins/values.yaml
 
+      - name: Update artifacthub.images in Chart.yaml
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          sed -i 's|jenkins/jenkins.*|jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/Chart.yaml
+
       - name: Changelog
         if: ${{ steps.update.outputs.available == 'true' }}
         run: |
