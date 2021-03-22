@@ -36,13 +36,13 @@ jobs:
           fi
 
       - name: Update appVersion in Chart.yaml
-        uses: mikefarah/yq@v4.6.1
+        uses: mikefarah/yq@v4.6.2
         if: ${{ steps.update.outputs.available == 'true' }}
         with:
           cmd: yq eval '.appVersion = "${{ steps.lts.outputs.jenkins_version }}"' -i charts/jenkins/Chart.yaml
 
       - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.6.1
+        uses: mikefarah/yq@v4.6.2
         if: ${{ steps.update.outputs.available == 'true' }}
         with:
           cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
