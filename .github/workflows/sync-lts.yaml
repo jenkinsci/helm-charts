@@ -33,6 +33,7 @@ jobs:
             echo "::set-output name=available::false"
           else
             echo "::set-output name=available::true"
+            echo "::set-output name=current-version::$CURRENT_VERSION"
           fi
 
       - name: Update appVersion in Chart.yaml
@@ -57,6 +58,11 @@ jobs:
         if: ${{ steps.update.outputs.available == 'true' }}
         run: |
           sed -i 's|jenkins/jenkins.*|jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/Chart.yaml
+
+      - name: Update controller.tag in VALUES_SUMMARY.md
+        if: ${{ steps.update.outputs.available == 'true' }}
+        run: |
+          sed -i 's|${{ steps.update.outputs.current-version }}|${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/VALUES_SUMMARY.md
 
       - name: Changelog
         if: ${{ steps.update.outputs.available == 'true' }}
