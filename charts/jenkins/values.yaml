@@ -343,8 +343,14 @@ controller:
 
   ingress:
     enabled: false
+    # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
+    apiVersion: "extensions/v1beta1"
+    # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
+    # apiVersion: "networking.k8s.io/v1"
+
     # Override for the default paths that map requests to the backend
     paths: []
+    # For Kubernetes v1.14+, if apiVersion: "extensions/v1beta1"
     # - backend:
     #     serviceName: ssl-redirect
     #     servicePort: use-annotation
@@ -353,9 +359,20 @@ controller:
     #       {{ template "jenkins.fullname" . }}
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
-    # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
-    # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    apiVersion: "extensions/v1beta1"
+    # For Kubernetes v1.19+, if apiVersion: "networking.k8s.io/v1"
+    #  - backend:
+    #      service:
+    #        name: ssl-redirect
+    #        port:
+    #          name: use-annotation
+    #    pathType: ImplementationSpecific
+    #  - backend:
+    #      service:
+    #        name: >-
+    #          {{ template "jenkins.fullname" . }}
+    #        port:
+    #          number: 8080
+    #    pathType: ImplementationSpecific
     labels: {}
     annotations: {}
     # kubernetes.io/ingress.class: nginx
