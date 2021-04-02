@@ -60,6 +60,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -178,6 +179,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -207,6 +209,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -613,6 +616,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -716,6 +720,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -817,6 +822,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -920,6 +926,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1024,6 +1031,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1127,6 +1135,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
