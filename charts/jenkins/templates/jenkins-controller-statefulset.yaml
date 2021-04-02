@@ -241,6 +241,12 @@ spec:
               subPath: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
               readOnly: true
             {{- end }}
+            {{- range .Values.controller.additionalSecrets }}
+            - name: jenkins-additional-secrets
+              mountPath: /run/secrets/{{ .name }}
+              subPath: {{ .name }}
+              readOnly: true
+            {{- end }}
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
         - name: config-reload
@@ -300,6 +306,11 @@ spec:
       {{- if .Values.controller.installPlugins }}
       - name: plugin-dir
         emptyDir: {}
+      {{- end }}
+      {{- if .Values.controller.additionalSecrets }}
+      - name: jenkins-additional-secrets
+        secret:
+          secretName: {{ template "jenkins.fullname" . }}-additional-secrets
       {{- end }}
       {{- if not (contains "jenkins-home" (quote .Values.persistence.volumes)) }}
       - name: jenkins-home
