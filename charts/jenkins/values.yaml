@@ -233,6 +233,10 @@ controller:
   #  - |
   #    print 'adding global pipeline libraries, register properties, bootstrap jobs...'
 
+  additionalSecrets: []
+  #  - name: nameOfSecret
+  #    value: secretText
+
   # Below is the implementation of Jenkins Configuration as Code.  Add a key under configScripts for each configuration area,
   # where each corresponds to a plugin or section of the UI.  Each key (prior to | character) is just a label, and can be any value.
   # Keys are only used to give the section a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label

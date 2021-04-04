@@ -212,9 +212,7 @@ Returns kubernetes pod template configuration as code
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
     args: "{{ .Values.agent.args | replace "$" "^$" }}"
-    {{- if .Values.agent.command }}
     command: {{ .Values.agent.command }}
-    {{- end }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
