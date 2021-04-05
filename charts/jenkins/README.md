@@ -341,41 +341,17 @@ If the storage class is set to null or left undefined (`""`), the default provis
 
 #### Additional Secrets
 
-Additional secrets can be mounted into the Jenkins controller through the chart. A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider. The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
-
-Example secret (deployed separately from Helm chart):
-```yaml
-apiVersion: v1
-kind: Secret
-metadata:
-  name: idp-config
-stringData:
-  client_id: abc123
-  client_secret: xyz999
-```
-
-`values.yaml` persistence section, mounting the secrets:
-```yaml
-persistence:
-  enabled: true
-  volumes:
-    - name: idp-config
-      secret:
-        secretName: idp-config
-  mounts:
-    - name: idp-config
-      mountPath: /run/secrets/client_id
-      subPath: client_id
-      readOnly: true
-    - name: idp-config
-      mountPath: /run/secrets/client_secret
-      subPath: client_secret
-      readOnly: true
-```
+Additional secrets can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets`. A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider.
+The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
 
 `values.yaml` controller section, referencing mounted secrets:
 ```yaml
 controller:
+  additionalSecrets:
+    - name: client_id
+      value: abc123
+    - name: client_secret
+      value: xyz999
   JCasC:
     securityRealm: |
       oic:
