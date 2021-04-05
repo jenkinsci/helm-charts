@@ -377,3 +377,31 @@ tests:
             runAsUser: 4444
             supplementalGroups:
               - 5555
+  - it: test 2 additional secrets
+    set:
+      controller.additionalSecrets:
+        - name: something
+          value: secret
+        - name: anotherthing
+          value: anothersecret
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[6]
+          value:
+            mountPath: /run/secrets/something
+            name: jenkins-additional-secrets
+            readOnly: true
+            subPath: something
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[7]
+          value:
+            mountPath: /run/secrets/anotherthing
+            name: jenkins-additional-secrets
+            readOnly: true
+            subPath: anotherthing
+      - equal:
+          path: spec.template.spec.volumes[3]
+          value:
+            name: jenkins-additional-secrets
+            secret:
+              secretName: my-release-jenkins-additional-secrets
