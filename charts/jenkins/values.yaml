@@ -207,6 +207,9 @@ controller:
     - git:4.6.0
     - configuration-as-code:1.47
 
+  # Set to false to download the minimum required version of all dependencies.
+  installLatestPlugins: false
+
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
 
