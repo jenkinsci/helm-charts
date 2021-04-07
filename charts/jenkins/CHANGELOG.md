@@ -79,7 +79,7 @@ Fixed issue for the AgentListener where it was not possible to attribute a NodeP
 
 ## 3.1.9
 
-Upgrade kubernetes plugin t0 1.29.0 and CasC plugin to 1.47
+Upgrade kubernetes plugin to 1.29.0 and CasC plugin to 1.47
 
 ## 3.1.8
 
