@@ -44,7 +44,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: 8ce33705643160d06b4062deacb00ee60e290dc4bd9069053b81dcac91279785
+                  checksum/config: 89183888d634af5f963ae86d045f36b06026324e3540e15c8cc8e292045a7ce3
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
