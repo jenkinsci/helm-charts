@@ -36,38 +36,10 @@ jobs:
             echo "::set-output name=current-version::$CURRENT_VERSION"
           fi
 
-      - name: Update appVersion in Chart.yaml
-        uses: mikefarah/yq@v4.6.3
-        if: ${{ steps.update.outputs.available == 'true' }}
-        with:
-          cmd: yq eval '.appVersion = "${{ steps.lts.outputs.jenkins_version }}"' -i charts/jenkins/Chart.yaml
-
-      - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.6.3
-        if: ${{ steps.update.outputs.available == 'true' }}
-        with:
-          cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
-
-      # this is the problematic one as yq ends up reformatting the file which is not required.
-      - name: Update controller.tag in values.yaml
+      - name: Update LTS version in files
         if: ${{ steps.update.outputs.available == 'true' }}
         run: |
-          sed -i -e '1h;2,$H;$!d;g' -re 's|(jenkins/jenkins"\n  tag: ")[0-9]+\.[0-9]+\.[0-9]+(")|\1${{ steps.lts.outputs.jenkins_version }}\2|' charts/jenkins/values.yaml
-
-      - name: Update artifacthub.images in Chart.yaml
-        if: ${{ steps.update.outputs.available == 'true' }}
-        run: |
-          sed -i 's|jenkins/jenkins.*|jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/Chart.yaml
-
-      - name: Update controller.tag in VALUES_SUMMARY.md
-        if: ${{ steps.update.outputs.available == 'true' }}
-        run: |
-          sed -i 's|${{ steps.update.outputs.current-version }}|${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/VALUES_SUMMARY.md
-
-      - name: Changelog
-        if: ${{ steps.update.outputs.available == 'true' }}
-        run: |
-          sed -i 's|image: jenkins/jenkins.*|image: jenkins/jenkins:${{ steps.lts.outputs.jenkins_version }}|' charts/jenkins/tests/jenkins-controller-statefulset-test.yaml
+          grep -ilr ${{ steps.update.outputs.current-version }} charts/jenkins | grep -v CHANGELOG.md | xargs sed -i 's/${{ steps.update.outputs.current-version }}/${{ steps.lts.outputs.jenkins_version }}/g'
 
       - name: Changelog
         if: ${{ steps.update.outputs.available == 'true' }}
