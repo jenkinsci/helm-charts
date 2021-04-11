@@ -93,5 +93,7 @@ jobs:
         with:
           token: ${{ steps.generate-token.outputs.token }}
           commit-message: 'chore(deps): bump lts to ${{ steps.lts.outputs.jenkins_version }}'
+          author: jenkins-dependency-updater <81680575+jenkins-dependency-updater[bot]@users.noreply.github.com>
+          committer: jenkins-dependency-updater <81680575+jenkins-dependency-updater[bot]@users.noreply.github.com>
           signoff: true
           title: 'chore(deps): bump lts to ${{ steps.lts.outputs.jenkins_version }}'
