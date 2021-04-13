@@ -112,7 +112,7 @@ spec:
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
             {{- if .Values.controller.initContainerEnv }}
           env:
-{{ toYaml .Values.controller.initContainerEnv | indent 12 }}
+{{ (tpl (toYaml .Values.controller.initContainerEnv) .) | indent 12 }}
             {{- end }}
           resources:
 {{ toYaml .Values.controller.resources | indent 12 }}
@@ -172,7 +172,7 @@ spec:
             {{- end }}
 
             {{- if .Values.controller.containerEnv }}
-{{ toYaml .Values.controller.containerEnv | indent 12 }}
+{{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
             {{- end }}
             - name: CASC_JENKINS_CONFIG
               value: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
@@ -270,7 +270,7 @@ spec:
             - name: REQ_RETRY_CONNECT
               value: "{{ .Values.controller.sidecars.configAutoReload.reqRetryConnect }}"
             {{- if .Values.controller.sidecars.configAutoReload.env }}
-{{ toYaml .Values.controller.sidecars.configAutoReload.env | indent 12 }}
+{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.env) .) | indent 12 }}
             {{- end }}
           resources:
 {{ toYaml .Values.controller.sidecars.configAutoReload.resources | indent 12 }}
