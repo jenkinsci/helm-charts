@@ -405,3 +405,52 @@ tests:
             name: jenkins-additional-secrets
             secret:
               secretName: my-release-jenkins-additional-secrets
+  - it: test templated environment variables
+    set:
+      testValue: some-value
+      controller.initContainerEnv:
+      - name: "TEST_ENV_VAR_INIT"
+        value: "test-env-var-init"
+      - name: "TEST_ENV_VAR_INIT_TEMPLATED"
+        value: '{{ .Values.testValue }}'
+      controller.sidecars.configAutoReload.env:
+      - name: "TEST_ENV_VAR_CONFIG"
+        value: "test-env-var-config"
+      - name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+        value: '{{ .Values.testValue }}'
+      controller.containerEnv:
+      - name: "TEST_ENV_VAR_CONTAINER"
+        value: "test-env-var-container"
+      - name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
+        value: '{{ .Values.testValue }}'
+    asserts:
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_INIT"
+            value: "test-env-var-init"
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_INIT_TEMPLATED"
+            value: 'some-value'
+      - contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG"
+            value: "test-env-var-config"
+      - contains:
+          path: spec.template.spec.containers[1].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+            value: 'some-value'
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "TEST_ENV_VAR_CONTAINER"
+            value: "test-env-var-container"
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
+            value: 'some-value'
