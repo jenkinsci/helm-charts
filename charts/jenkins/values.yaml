@@ -248,6 +248,8 @@ controller:
   # become the content of the configuration yaml file.  The first line after this is a JCasC root element, eg jenkins, credentials,
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
+    # If set, store JCasC as Secrets instead of ConfigMaps.
+    # Note: if you're setting this to protect credentials, the better way to do this is to set the credentials in .additionalSecrets and use the Kubernetes Credentials Provider (see https://plugins.jenkins.io/kubernetes-credentials-provider/)
     secret: false
     defaultConfig: true
     configScripts: {}
