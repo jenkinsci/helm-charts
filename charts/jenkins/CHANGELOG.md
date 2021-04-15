@@ -12,10 +12,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.4.0
+
+Add option to use Secrets instead of ConfigMaps for storing JCasC
+
 ## 3.3.4
 
 Update Jenkins image and appVersion to jenkins lts release version 2.277.2
-
 
 ## 3.3.3
 
