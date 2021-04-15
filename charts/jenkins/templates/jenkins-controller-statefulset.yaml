@@ -301,7 +301,7 @@ spec:
           name: {{ template "jenkins.fullname" . }}-init-scripts
       {{- end }}
       - name: jenkins-config
-        {{- if $root.Values.controller.JCasC.secret }}
+        {{- if .Values.controller.JCasC.secret }}
         secret:
           secretName: {{ template "jenkins.fullname" . }}
         {{- else }}
