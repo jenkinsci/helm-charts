@@ -257,6 +257,10 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            {{- if $root.Values.controller.JCasC.secret }}
+            - name: RESOURCE
+              value: secret
+            {{- end }}
             - name: LABEL
               value: "{{ template "jenkins.fullname" . }}-jenkins-config"
             - name: FOLDER
@@ -301,13 +305,8 @@ spec:
           name: {{ template "jenkins.fullname" . }}-init-scripts
       {{- end }}
       - name: jenkins-config
-        {{- if .Values.controller.JCasC.secret }}
-        secret:
-          secretName: {{ template "jenkins.fullname" . }}
-        {{- else }}
         configMap:
           name: {{ template "jenkins.fullname" . }}
-        {{- end }}
       {{- if .Values.controller.installPlugins }}
       - name: plugin-dir
         emptyDir: {}
