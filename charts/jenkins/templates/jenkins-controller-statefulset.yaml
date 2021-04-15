@@ -257,7 +257,7 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-            {{- if $root.Values.controller.JCasC.secret }}
+            {{- if .Values.controller.JCasC.secret }}
             - name: RESOURCE
               value: secret
             {{- end }}
