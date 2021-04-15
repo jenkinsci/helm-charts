@@ -4,6 +4,7 @@ controller:
   runAsUser: 0
   fsGroup: 1000
   JCasC:
+    secret: true
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: true

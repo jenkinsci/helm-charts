@@ -4,7 +4,7 @@
 {{- if $val }}
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: {{ if $root.Values.controller.JCasC.secret }}Secret{{ else }}ConfigMap{{ end }}
 metadata:
   name: {{ template "jenkins.fullname" $root }}-jenkins-config-{{ $key }}
   namespace: {{ template "jenkins.namespace" $root }}
@@ -19,13 +19,17 @@ metadata:
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   {{ $key }}.yaml: |-
-{{ tpl $val $| indent 4 }}
+    {{- if $root.Values.controller.JCasC.secret }}
+    {{- tpl $val $ | b64enc | nindent 4 }}
+    {{- else }}
+    {{- tpl $val $ | nindent 4 }}
+    {{- end }}
 {{- end }}
 {{- end }}
 {{- if .Values.controller.JCasC.defaultConfig }}
 ---
 apiVersion: v1
-kind: ConfigMap
+kind: {{ if .Values.controller.JCasC.secret }}Secret{{ else }}ConfigMap{{ end }}
 metadata:
   name: {{ template "jenkins.fullname" $root }}-jenkins-jcasc-config
   namespace: {{ template "jenkins.namespace" $root }}
@@ -40,6 +44,10 @@ metadata:
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   jcasc-default-config.yaml: |-
-    {{- include "jenkins.casc.defaults" . |nindent 4 }}
+    {{- if $root.Values.controller.JCasC.secret }}
+    {{- include "jenkins.casc.defaults" . | b64enc | nindent 4 }}
+    {{- else }}
+    {{- include "jenkins.casc.defaults" . | nindent 4 }}
+    {{- end }}
 {{- end}}
 {{- end }}

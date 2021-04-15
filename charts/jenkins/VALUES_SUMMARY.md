@@ -21,9 +21,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.JCasC.defaultConfig`      | Enables default Jenkins configuration via configuration as code plugin | `true`  |
-| `controller.JCasC.configScripts`      | List of Jenkins Config as Code scripts | `{}`                                    |
-| `controller.JCasC.securityRealm`      | Jenkins Config as Code for Security Realm | `legacy`                             |
+| `controller.JCasC.secret`         | Create JCasC as Secrets rather than ConfigMaps | `false`  |
+| `controller.JCasC.defaultConfig`  | Enables default Jenkins configuration via configuration as code plugin | `true`  |
+| `controller.JCasC.configScripts`  | List of Jenkins Config as Code scripts | `{}`                                    |
+| `controller.JCasC.securityRealm`  | Jenkins Config as Code for Security Realm | `legacy`                             |
 | `controller.JCasC.authorizationStrategy` | Jenkins Config as Code for Authorization Strategy | `loggedInUsersCanDoAnything` |
 | `controller.sidecars.configAutoReload` | Jenkins Config as Code auto-reload settings |                                   |
 | `controller.sidecars.configAutoReload.enabled` | Jenkins Config as Code auto-reload settings (Attention: rbac needs to be enabled otherwise the sidecar can't read the config map) | `true`                                                      |
