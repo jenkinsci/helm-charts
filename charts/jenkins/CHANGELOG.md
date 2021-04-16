@@ -12,6 +12,15 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.3.6
+
+Update Git plugin version to v4.7.1
+Update ldap plugin version to v2.5
+
+## 3.3.5
+
+Use tpl function for environment vars. Fixes [https://github.com/jenkinsci/helm-charts/issues/324]
+
 ## 3.3.4
 
 Update Jenkins image and appVersion to jenkins lts release version 2.277.2
