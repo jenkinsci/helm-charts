@@ -32,16 +32,16 @@ spec:
       paths:
 {{- if empty (.Values.controller.ingress.paths) }}
       - backend:
-{{ if semverCompare ">=1.19-0" $kubeTargetVersion }}
+{{- if semverCompare ">=1.19-0" $kubeTargetVersion }}
           service:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
         pathType: ImplementationSpecific
-{{ else }}
+{{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
-{{ end }}
+{{- end }}
 {{- if .Values.controller.ingress.path }}
         path: {{ .Values.controller.ingress.path }}
 {{- end -}}
@@ -55,15 +55,15 @@ spec:
   - http:
       paths:
       - backend:
-{{ if semverCompare ">=1.19-0" $kubeTargetVersion }}
+{{- if semverCompare ">=1.19-0" $kubeTargetVersion }}
           service:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
-{{ else }}
+{{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
-{{ end }}
+{{- end }}
     host: {{ .Values.controller.ingress.resourceRootUrl | quote }}
 {{- end }}
 {{- if .Values.controller.ingress.tls }}
