@@ -123,14 +123,10 @@ jenkins:
       defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
       connectTimeout: "{{ .Values.agent.kubernetesConnectTimeout }}"
       readTimeout: "{{ .Values.agent.kubernetesReadTimeout }}"
-      {{- if .Values.agent.websocket }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
-      {{- else if .Values.agent.jenkinsUrl }}
+      {{- if .Values.agent.jenkinsUrl }}
       jenkinsUrl: "{{ tpl .Values.agent.jenkinsUrl . }}"
-      {{- else if .Values.agent.namespace }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- else }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
+      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
       {{- end }}
       {{- if not .Values.agent.websocket }}
       {{- if .Values.agent.jenkinsTunnel }}
