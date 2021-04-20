@@ -131,10 +131,8 @@ jenkins:
       {{- if not .Values.agent.websocket }}
       {{- if .Values.agent.jenkinsTunnel }}
       jenkinsTunnel: "{{ tpl .Values.agent.jenkinsTunnel . }}"
-      {{- else if .Values.agent.namespace }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}:{{ .Values.controller.agentListenerPort }}"
       {{- else }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent:{{ .Values.controller.agentListenerPort }}"
+      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{ .Values.controller.agentListenerPort }}"
       {{- end }}
       {{- else }}
       webSocket: true
