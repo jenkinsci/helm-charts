@@ -341,8 +341,8 @@ If the storage class is set to null or left undefined (`""`), the default provis
 
 #### Additional Secrets
 
-Additional secrets and Additional External Secrets, 
-can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExistingSecrets`. 
+Additional secrets and Additional External Secrets,
+can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExistingSecrets`.  
 A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider.
 The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
 
