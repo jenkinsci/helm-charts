@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.3.10
 
-Add `controller.additionalExternalSecrets` property
+Add `controller.additionalExistingSecrets` property
 
 ## 3.3.9
 * Change helper template so user defined `agent.jenkinsUrl` value will always be used, if set

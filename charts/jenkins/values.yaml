@@ -240,7 +240,7 @@ controller:
   # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
   # 'name' is a name of an existing secret in same namespace as jenkins
   # 'keyName' is the name of one of the keys inside current secret
-  additionalExternalSecrets: []
+  additionalExistingSecrets: []
   #  - name: secret-name-1
   #    keyName: username
   #  - name: secret-name-1

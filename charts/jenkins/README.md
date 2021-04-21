@@ -342,7 +342,7 @@ If the storage class is set to null or left undefined (`""`), the default provis
 #### Additional Secrets
 
 Additional secrets and Additional External Secrets, 
-can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExternalSecrets`. 
+can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExistingSecrets`. 
 A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider.
 The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
 
@@ -351,7 +351,7 @@ The secret may then be referenced in JCasC configuration (see [JCasC configurati
 controller:
   # 'name' and 'keyName' must be lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-',
   # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
-  additionalExternalSecrets:
+  additionalExistingSecrets:
     - name: secret-credentials
       keyName: github-username
     - name: secret-credentials

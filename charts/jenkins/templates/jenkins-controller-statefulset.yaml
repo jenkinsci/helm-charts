@@ -247,7 +247,7 @@ spec:
               subPath: {{ .name }}
               readOnly: true
             {{- end }}
-            {{- range $key, $value := .Values.controller.additionalExternalSecrets }}
+            {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
             - name: {{ $value.name }}-{{ $value.keyName }}
               mountPath: /run/secrets/{{ $value.name }}-{{ $value.keyName }}
               subPath: {{ $value.keyName }}
@@ -318,8 +318,8 @@ spec:
         secret:
           secretName: {{ template "jenkins.fullname" . }}-additional-secrets
       {{- end }}
-      {{- if .Values.controller.additionalExternalSecrets }}
-      {{- range $key, $value := .Values.controller.additionalExternalSecrets }}
+      {{- if .Values.controller.additionalExistingSecrets }}
+      {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
       - name: {{ $value.name }}-{{ $value.keyName }}
         secret:
           secretName: {{ $value.name }}
