@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.7.0
+        uses: mikefarah/yq@v4.7.1
         if: ${{ steps.update.outputs.available == 'true' }}
         with:
           cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
