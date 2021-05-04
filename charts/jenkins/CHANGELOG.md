@@ -12,6 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.3.10
+Add support for disabling the Agent listener service via `controller.agentListenerEnabled`.
+
 ## 3.3.9
 * Change helper template so user defined `agent.jenkinsUrl` value will always be used, if set
 * Simplify logic for `jenkinsUrl` and `jenkinsTunnel` generation: always use fully qualified address
