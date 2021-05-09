@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.277.3-jdk11"
+  tag: "2.277.4-jdk11"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -154,6 +154,8 @@ controller:
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial readyness probe while Jenkins is starting
       # initialDelaySeconds: 60
+
+  agentListenerEnabled: true
   agentListenerPort: 50000
   agentListenerHostPort:
   agentListenerNodePort:
