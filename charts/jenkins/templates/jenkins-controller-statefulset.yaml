@@ -247,6 +247,12 @@ spec:
               subPath: {{ .name }}
               readOnly: true
             {{- end }}
+            {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
+            - name: {{ $value.name }}-{{ $value.keyName }}
+              mountPath: /run/secrets/{{ $value.name }}-{{ $value.keyName }}
+              subPath: {{ $value.keyName }}
+              readOnly: true
+            {{- end }}
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
         - name: config-reload
@@ -311,6 +317,13 @@ spec:
       - name: jenkins-additional-secrets
         secret:
           secretName: {{ template "jenkins.fullname" . }}-additional-secrets
+      {{- end }}
+      {{- if .Values.controller.additionalExistingSecrets }}
+      {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
+      - name: {{ $value.name }}-{{ $value.keyName }}
+        secret:
+          secretName: {{ $value.name }}
+      {{- end }}
       {{- end }}
       {{- if not (contains "jenkins-home" (quote .Values.persistence.volumes)) }}
       - name: jenkins-home

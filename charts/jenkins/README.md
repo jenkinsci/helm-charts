@@ -341,12 +341,26 @@ If the storage class is set to null or left undefined (`""`), the default provis
 
 #### Additional Secrets
 
-Additional secrets can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets`. A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider.
+Additional secrets and Additional Existing Secrets,
+can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExistingSecrets`.  
+A common use case might be identity provider credentials if using an external LDAP or OIDC-based identity provider.
 The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
 
 `values.yaml` controller section, referencing mounted secrets:
 ```yaml
 controller:
+  # the 'name' and 'keyName' are concatenated with a '-' in between, so for example:
+  # an existing secret "secret-credentials" and a key inside it named "github-password" should be used in Jcasc as ${secret-credentials-github-password}
+  # 'name' and 'keyName' must be lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-',
+  # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
+  additionalExistingSecrets:
+    - name: secret-credentials
+      keyName: github-username
+    - name: secret-credentials
+      keyName: github-password
+    - name: secret-credentials
+      keyName: token
+  
   additionalSecrets:
     - name: client_id
       value: abc123
@@ -358,6 +372,23 @@ controller:
         clientId: ${client_id}
         clientSecret: ${client_secret}
         ...
+    configScripts:
+      jenkins-casc-configs: |
+        credentials:
+          system:
+            domainCredentials:
+            - credentials:
+              - string:
+                  description: "github access token"
+                  id: "github_app_token"
+                  scope: GLOBAL
+                  secret: ${secret-credentials-token}
+              - usernamePassword:
+                  description: "github access username password"
+                  id: "github_username_pass"
+                  password: ${secret-credentials-github-password}
+                  scope: GLOBAL
+                  username: ${secret-credentials-github-username}
 ```
 
 For more information, see [JCasC documentation](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets).
