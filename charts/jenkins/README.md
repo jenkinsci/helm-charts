@@ -109,10 +109,10 @@ Once you built the image and pushed it to your registry you can specify it in yo
 controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
-  installPlugins: []
+  installPlugins: false
 ```
 
-Notice: `installPlugins` is set to an empty list to disable plugin download. In this case, the image `registry/my-jenkins:v1.2.3` must have the plugins specified as default value for [the `controller.installPlugins` directive](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md#jenkins-plugins) to ensure that the configuration side-car system works as expected.
+Notice: `installPlugins` is set to false to disable plugin download. In this case, the image `registry/my-jenkins:v1.2.3` must have the plugins specified as default value for [the `controller.installPlugins` directive](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md#jenkins-plugins) to ensure that the configuration side-car system works as expected.
 
 In case you are using a private registry you can use 'imagePullSecretName' to specify the name of the secret to use when pulling the image:
 
@@ -121,7 +121,7 @@ controller:
   image: "registry/my-jenkins"
   tag: "v1.2.3"
   imagePullSecretName: registry-secret
-  installPlugins: []
+  installPlugins: false
 ```
 
 ### External URL Configuration
