@@ -228,6 +228,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.adminPassword`            | Admin password (and user) created as a secret if adminSecret is true | Random value |
 | `controller.additionalSecrets`        | List of additional secrets to create and mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]` |
 | `controller.additionalExistingSecrets`| List of additional existing secrets to mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]` |
+| `controller.secretClaims`             | List of `SecretClaim` resources to create | `[]` |
 
 #### Kubernetes NetworkPolicy
 

@@ -254,6 +254,17 @@ controller:
   #  - name: nameOfSecret
   #    value: secretText
 
+  # Generate SecretClaim resources in order to create Kubernetes secrets from HashiCorp Vault using kube-vault-controller.
+  # 'name' is name of the secret that will be created in Kubernetes. The Jenkins fullname is prepended to this value.
+  # 'path' is the fully qualified path to the secret in Vault
+  # 'type' is an optional Kubernetes secret type. Defaults to 'Opaque'
+  # 'renew' is an optional secret renewal time in seconds
+  secretClaims: []
+  # - name: secretName        # required
+  #   path: testPath          # required
+  #   type: kubernetes.io/tls # optional
+  #   renew: 60               # optional
+
   # Below is the implementation of Jenkins Configuration as Code.  Add a key under configScripts for each configuration area,
   # where each corresponds to a plugin or section of the UI.  Each key (prior to | character) is just a label, and can be any value.
   # Keys are only used to give the section a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label

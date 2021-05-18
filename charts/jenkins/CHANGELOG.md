@@ -12,6 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.3.16
+Support generating `SecretClaim` resources in order to read secrets from HashiCorp Vault into Kubernetes using `kube-vault-controller`.
+
 ## 3.3.15
 Prevent `controller.httpsKeyStore` from improperly being quoted, leading to an invalid location on disk
 

@@ -339,7 +339,7 @@ It is possible to define which storage class to use, by setting `persistence.sto
 If set to a dash (`-`), dynamic provisioning is disabled.
 If the storage class is set to null or left undefined (`""`), the default provisioner is used (gp2 on AWS, standard on GKE, AWS & OpenStack).
 
-#### Additional Secrets
+### Additional Secrets
 
 Additional secrets and Additional Existing Secrets,
 can be mounted into the Jenkins controller through the chart or created using `controller.additionalSecrets` or `controller.additionalExistingSecrets`.  
@@ -392,6 +392,23 @@ controller:
 ```
 
 For more information, see [JCasC documentation](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets).
+
+### Secret Claims from HashiCorp Vault
+
+It's possible for this chart to generate `SecretClaim` resources in order to automatically create and maintain Kubernetes `Secrets` from HashiCorp [Vault](https://www.vaultproject.io/) via [`kube-vault-controller`](https://github.com/roboll/kube-vault-controller)
+
+These `Secrets` can then be referenced in the same manner as Additional Secrets above.
+
+This can be achieved by defining required Secret Claims within `controller.secretClaims`, as follows:
+```yaml
+controller:
+  secretClaims:
+    - name: jenkins-secret
+      path: secret/path
+    - name: jenkins-short-ttl
+      path: secret/short-ttl-path
+      renew: 60
+```
 
 ### RBAC
 
