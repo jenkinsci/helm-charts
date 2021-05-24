@@ -454,3 +454,14 @@ tests:
           content:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
             value: 'some-value'
+  - it: overrides container args
+    set:
+      controller.overrideArgs:
+        - --httpPort=8080
+        - --requestHeaderSize=32768
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].args
+          value:
+            - --httpPort=8080
+            - --requestHeaderSize=32768
