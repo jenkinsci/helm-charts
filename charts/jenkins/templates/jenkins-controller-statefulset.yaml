@@ -140,7 +140,13 @@ spec:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
-          {{- if .Values.controller.httpsKeyStore.enable }}
+          {{- if .Values.controller.overrideArgs }}
+          args: [
+            {{- range $overrideArg := .Values.controller.overrideArgs }}
+              "{{- $overrideArg }}",
+            {{- end }}
+          ]
+          {{- else if .Values.controller.httpsKeyStore.enable }}
           {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
           args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
           {{- else }}
