@@ -28,6 +28,9 @@ metadata:
   {{- end }}
   name: {{ template "jenkins.fullname" . }}-secondary
 spec:
+  {{- if .Values.controller.secondaryingress.ingressClassName }}
+  ingressClassName: {{ .Values.controller.secondaryingress.ingressClassName }}
+  {{- end -}}
   rules:
     - host: {{ .Values.controller.secondaryingress.hostName }}
       http:
