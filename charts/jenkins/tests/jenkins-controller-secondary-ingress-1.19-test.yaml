@@ -17,6 +17,7 @@ tests:
       controller.secondaryingress:
         enabled: true
         hostName: jenkins.example.com
+        ingressClassName: nginx
         paths:
           - /github-webhook
         tls:
@@ -43,6 +44,7 @@ tests:
       - equal:
           path: spec
           value:
+            ingressClassName: nginx
             rules:
               - host: jenkins.example.com
                 http:
