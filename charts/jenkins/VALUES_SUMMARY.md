@@ -16,6 +16,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `namespaceOverride`               | Override the deployment namespace    | Not set (`Release.Namespace`)             |
 | `controller.componentName`            | Jenkins controller name                  | `jenkins-controller`                          |
 | `controller.testEnabled`              | Can be used to disable rendering test resources when using helm template | `true`                         |
+| `controller.cloudName`                       | Name of default cloud configuration  | `kubernetes`                              |
 
 #### Jenkins Configuration as Code (JCasC)
 
