@@ -117,6 +117,9 @@ spec:
           resources:
 {{ toYaml .Values.controller.resources | indent 12 }}
           volumeMounts:
+            {{- if .Values.persistence.mounts }}
+{{ toYaml .Values.persistence.mounts | indent 12 }}
+            {{- end }}
             - mountPath: {{ .Values.controller.jenkinsHome }}
               name: jenkins-home
               {{- if .Values.persistence.subPath }}
