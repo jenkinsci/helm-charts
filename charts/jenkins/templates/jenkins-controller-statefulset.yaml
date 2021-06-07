@@ -225,7 +225,8 @@ spec:
 {{ toYaml .Values.persistence.mounts | indent 12 }}
 {{- end }}
             {{- if .Values.controller.httpsKeyStore.enable }}
-            - mountPath: {{ .Values.controller.httpsKeyStore.path }}
+            {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
+            - mountPath: {{ $httpsJKSFilePath }}
               name: jenkins-https-keystore
             {{- end }}
             - mountPath: {{ .Values.controller.jenkinsHome }}
