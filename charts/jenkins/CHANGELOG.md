@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.3.23
+
+Make `controller.ingress.resourceRootUrl` compatible with api version networking.k8s.io/v1 on k8s >= 1.19.x
+
 ## 3.3.22
 
 Update Jenkins image and appVersion to jenkins lts release version 2.289.1
