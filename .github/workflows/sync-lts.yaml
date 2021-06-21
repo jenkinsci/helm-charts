@@ -15,7 +15,7 @@ jobs:
 
       - name: next release version
         id: nextversion
-        uses: jenkins-x-plugins/jx-release-version@v2.4.9
+        uses: jenkins-x-plugins/jx-release-version@v2.4.11
         with:
           previous-version: from-file:charts/jenkins/Chart.yaml
 
