@@ -127,6 +127,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.schedulerName`            | Kubernetes scheduler name            | Not set                                   |
 | `controller.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds   | Not set                               |
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
+| `controller.hostAliases`              | HostAlias entries for pods           | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
 | `controller.updateStrategy`           | Update strategy for StatefulSet      | `{}`                                      |

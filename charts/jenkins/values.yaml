@@ -366,6 +366,12 @@ controller:
 
   tolerations: []
 
+  # Add hostAliases to pod
+  hostAliases: []
+  # - ip: "10.10.1.1"
+  #   hostnames:
+  #   - "example.com"
+
   affinity: {}
   # Leverage a priorityClass to ensure your pods survive resource shortages
   # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/

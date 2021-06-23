@@ -56,6 +56,10 @@ spec:
       nodeSelector:
 {{ toYaml .Values.controller.nodeSelector | indent 8 }}
       {{- end }}
+      {{- if .Values.hostAliases }}
+      hostAliases:
+{{ toYaml .Values.hostAliases | indent 8 }}
+      {{- end }}
       {{- if .Values.controller.tolerations }}
       tolerations:
 {{ toYaml .Values.controller.tolerations | indent 8 }}
