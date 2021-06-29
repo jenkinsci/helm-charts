@@ -572,6 +572,10 @@ agent:
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
+  # Disable if you do not want the Yaml the agent pod template to show up
+  # in the job Console Output. This can be helpful for either security reasons
+  # or simply to clean up the output to make it easier to read.
+  showRawYaml: true
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
