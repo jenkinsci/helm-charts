@@ -465,3 +465,12 @@ tests:
           value:
             - --httpPort=8080
             - --requestHeaderSize=32768
+  - it: render pod annotations
+    set:
+      controller:
+        podAnnotations:
+          templated-annotations: '{{ .Release.Name }}'
+          fixed-annotation: some-fixed-annotation
+    asserts:
+      - matchSnapshot:
+          path: spec.template.metadata.annotations
