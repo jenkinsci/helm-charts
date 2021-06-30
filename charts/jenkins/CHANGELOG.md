@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.5.0
+
+Allow `controller.podAnnotations` to be render as a template
+
 ## 3.4.1
 
 Allow showRawYaml for the default agent's pod template to be customized.
