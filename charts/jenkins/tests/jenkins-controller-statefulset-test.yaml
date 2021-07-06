@@ -67,7 +67,7 @@ tests:
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.277.4-jdk11
+                  image: jenkins/jenkins:2.289.1-jdk11
                   imagePullPolicy: Always
                   livenessProbe:
                     failureThreshold: 5
@@ -140,7 +140,7 @@ tests:
                     value: POST
                   - name: REQ_RETRY_CONNECT
                     value: "10"
-                  image: kiwigrid/k8s-sidecar:0.1.275
+                  image: kiwigrid/k8s-sidecar:1.12.2
                   imagePullPolicy: IfNotPresent
                   name: config-reload
                   resources: {}
@@ -153,7 +153,7 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.277.4-jdk11
+                  image: jenkins/jenkins:2.289.1-jdk11
                   imagePullPolicy: Always
                   name: init
                   resources:
@@ -465,3 +465,12 @@ tests:
           value:
             - --httpPort=8080
             - --requestHeaderSize=32768
+  - it: render pod annotations
+    set:
+      controller:
+        podAnnotations:
+          templated-annotations: '{{ .Release.Name }}'
+          fixed-annotation: some-fixed-annotation
+    asserts:
+      - matchSnapshot:
+          path: spec.template.metadata.annotations
