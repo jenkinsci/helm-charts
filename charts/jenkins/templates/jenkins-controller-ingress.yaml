@@ -63,6 +63,7 @@ spec:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
+        pathType: ImplementationSpecific
 {{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}

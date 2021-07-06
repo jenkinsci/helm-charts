@@ -12,6 +12,22 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.5.0
+
+Allow `controller.podAnnotations` to be render as a template
+
+## 3.4.1
+
+Allow showRawYaml for the default agent's pod template to be customized.
+
+## 3.4.0
+
+configAutoReload container updated from `kiwigrid/k8s-sidecar:0.1.275` to `kiwigrid/k8s-sidecar:1.12.2`
+
+## 3.3.23
+
+Make `controller.ingress.resourceRootUrl` compatible with api version networking.k8s.io/v1 on k8s >= 1.19.x
+
 ## 3.3.22
 
 Update Jenkins image and appVersion to jenkins lts release version 2.289.1

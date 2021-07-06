@@ -46,7 +46,7 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
         {{- if .Values.controller.podAnnotations }}
-{{ toYaml .Values.controller.podAnnotations | indent 8 }}
+{{ tpl (toYaml .Values.controller.podAnnotations | indent 8) . }}
         {{- end }}
     spec:
       {{- if .Values.controller.schedulerName }}
