@@ -215,6 +215,9 @@ controller:
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: false
 
+  # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
+  installLatestSpecifiedPlugins: false
+
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
 
