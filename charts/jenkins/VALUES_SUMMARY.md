@@ -103,6 +103,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
+| `controller.initContainerResources`   | Resources allocation (Requests and Limits) for Init Container            | Not set |
 | `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
 | `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
 | `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
