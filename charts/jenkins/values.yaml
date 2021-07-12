@@ -68,6 +68,14 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+  # Overrides the init container default values
+  # initContainerResources:
+  #   requests:
+  #     cpu: "50m"
+  #     memory: "256Mi"
+  #   limits:
+  #     cpu: "2000m"
+  #     memory: "4096Mi"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   # initContainerEnv:
   #   - name: http_proxy
