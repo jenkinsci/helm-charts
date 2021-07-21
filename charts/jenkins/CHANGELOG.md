@@ -12,8 +12,21 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 3.5.3
+## 3.5.6
+
 Add optional `controller.initContainerResources`, if set, it will change resources allocation for init controller, overwise the `controller.resources` will be used
+
+## 3.5.5
+
+Allow to configure nodeUsageMode via `agent.nodeUsageMode`
+
+## 3.5.4
+
+Update tests to work with unittest 0.2.6
+
+## 3.5.3
+
+Update Jenkins image and appVersion to jenkins lts release version 2.289.2
 
 ## 3.5.2
 
