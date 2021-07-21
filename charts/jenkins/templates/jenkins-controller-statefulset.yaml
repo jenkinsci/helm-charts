@@ -115,7 +115,11 @@ spec:
 {{ (tpl (toYaml .Values.controller.initContainerEnv) .) | indent 12 }}
             {{- end }}
           resources:
+{{- if .Values.controller.initContainerResources }}
+{{ toYaml .Values.controller.initContainerResources | indent 12 }}
+{{- else }}
 {{ toYaml .Values.controller.resources | indent 12 }}
+{{- end }}
           volumeMounts:
             {{- if .Values.persistence.mounts }}
 {{ toYaml .Values.persistence.mounts | indent 12 }}
