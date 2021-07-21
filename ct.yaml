@@ -5,4 +5,4 @@ chart-dirs:
   - charts
 helm-extra-args: --timeout 600s
 additional-commands:
-  - helm unittest --helm3 -f tests/*.yaml {{ .Path }}
+  - helm unittest --helm3 --strict -f 'unittests/*.yaml' {{ .Path }}
