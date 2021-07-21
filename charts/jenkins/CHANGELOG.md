@@ -13,7 +13,7 @@ The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
 ## 3.5.3
-Add optional `controller.initContainerResources`, if set, it which will change resources allocation for init controller, overwise the `controller.resources` will be used
+Add optional `controller.initContainerResources`, if set, it will change resources allocation for init controller, overwise the `controller.resources` will be used
 
 ## 3.5.2
 
