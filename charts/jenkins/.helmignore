@@ -20,3 +20,7 @@
 .idea/
 *.tmproj
 ci/
+# do not package unittests
+unittests/
+Tiltfile
+.helmignore
