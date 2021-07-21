@@ -249,7 +249,7 @@ Returns kubernetes pod template configuration as code
     {{- $_ := set $local "first" false }}
   {{- end }}
 {{- end }}
-  nodeUsageMode: "NORMAL"
+  nodeUsageMode: {{ quote .Values.agent.nodeUsageMode }}
   podRetention: {{ .Values.agent.podRetention }}
   showRawYaml: {{ .Values.agent.showRawYaml }}
   serviceAccount: "{{ include "jenkins.serviceAccountAgentName" . }}"
