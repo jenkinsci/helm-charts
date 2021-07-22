@@ -799,6 +799,8 @@ backup:
   # Ref: https://crontab.guru/
   schedule: "0 2 * * *"
   labels: {}
+  # Specifies whether a ServiceAccount should be created
+  createServiceAccount: true
   annotations: {}
     # Example for authorization to AWS S3 using kube2iam or IRSA
     # Can also be done using environment variables

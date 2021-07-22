@@ -1,4 +1,5 @@
 {{- if .Values.backup.enabled }}
+  {{- if .Values.backup.createServiceAccount }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
@@ -15,6 +16,7 @@ metadata:
   {{- if .Values.backup.annotations }}
   annotations:
     {{- toYaml .Values.backup.annotations | nindent 4 }}
+  {{- end }}
   {{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1

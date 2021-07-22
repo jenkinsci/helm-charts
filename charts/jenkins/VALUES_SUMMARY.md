@@ -347,6 +347,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.enabled`                         | Enable the use of a backup CronJob                                | `false`                           |
 | `backup.schedule`                        | Schedule to run jobs                                              | `0 2 * * *`                       |
 | `backup.labels`                          | Backup pod labels                                                 | `{}`                              |
+| `backup.createServiceAccount`            | Specifies whether a ServiceAccount should be created              | `true`                            |
 | `backup.annotations`                     | Backup pod annotations                                            | `{}`                              |
 | `backup.image.repo`                      | Backup image repository                                           | `maorfr/kube-tasks`               |
 | `backup.image.tag`                       | Backup image tag                                                  | `0.2.0`                           |
