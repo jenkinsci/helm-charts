@@ -19,6 +19,9 @@ metadata:
 {{ toYaml .Values.controller.serviceAnnotations | indent 4 }}
 {{- end }}
 spec:
+  {{- if .Values.controller.serviceExternalTrafficPolicy }}
+  externalTrafficPolicy: {{.Values.controller.serviceExternalTrafficPolicy}}
+  {{- end }}
   {{- if (and (eq .Values.controller.serviceType "ClusterIP") (not (empty .Values.controller.clusterIP))) }}
   clusterIP: {{.Values.controller.clusterIP}}
   {{- end }}

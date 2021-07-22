@@ -120,6 +120,9 @@ controller:
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   serviceType: ClusterIP
+  # Use Local to preserve the client source IP and avoids a second hop for LoadBalancer and Nodeport type services,
+  # but risks potentially imbalanced traffic spreading.
+  serviceExternalTrafficPolicy:
   # Jenkins controller service annotations
   serviceAnnotations: {}
   # Jenkins controller custom labels
