@@ -33,7 +33,7 @@ spec:
           {{- end }}
         spec:
           restartPolicy: OnFailure
-          serviceAccountName: {{ template "jenkins.fullname" . }}-backup
+          serviceAccountName: {{ include "backup.serviceAccountBackupName" . }}
           {{- if .Values.backup.usePodSecurityContext }}
           securityContext:
             {{- if hasKey .Values.backup "podSecurityContextOverride" }}
