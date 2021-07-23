@@ -14,7 +14,8 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.5.8
 
-Add parameter `backup.createServiceAccount` to disable service account creation for backup service
+Add parameter `backup.serviceAccount.create` to disable service account creation for backup service and `backup.serviceAccount.name` to allow change of the SA name.
+`backup.annotations` was moved to `backup.serviceAccount.annotations`
 
 ## 3.5.7
 
