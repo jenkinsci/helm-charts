@@ -799,7 +799,10 @@ backup:
   # Ref: https://crontab.guru/
   schedule: "0 2 * * *"
   labels: {}
-  annotations: {}
+  serviceAccount:
+    create: true
+    name:
+    annotations: {}
     # Example for authorization to AWS S3 using kube2iam or IRSA
     # Can also be done using environment variables
     # iam.amazonaws.com/role: "jenkins"
