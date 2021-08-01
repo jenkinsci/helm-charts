@@ -55,7 +55,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.numExecutors`         | Set Number of executors              | 0                                         |
 | `controller.executorMode`         | Set executor mode of the Jenkins node. Possible values are: NORMAL or EXCLUSIVE | NORMAL |
-| `controller.customJenkinsLabels`  | Append Jenkins labels to the controller  | `{}`                                      |
+| `controller.customJenkinsLabels`  | Append Jenkins labels to the controller  | `[]`                                      |
 | `controller.jenkinsHome`          | Custom Jenkins home path             | `/var/jenkins_home`                       |
 | `controller.jenkinsRef`           | Custom Jenkins reference path        | `/usr/share/jenkins/ref`                  |
 | `controller.jenkinsAdminEmail`    | Email address for the administrator of the Jenkins instance | Not set            |
@@ -287,7 +287,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.websocket`          | Enables agent communication via websockets      | false                  |
 | `agent.podName`            | Agent Pod base name                             | Not set                |
-| `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `{}`                   |
+| `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `[]`                   |
 | `agent.envVars`            | Environment variables for the agent Pod         | `[]`                   |
 | `agent.idleMinutes`        | Allows the Pod to remain active for reuse       | 0                      |
 | `agent.imagePullSecretName` | Agent image pull secret                        | Not set                |
