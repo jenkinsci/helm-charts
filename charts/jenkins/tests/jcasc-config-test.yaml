@@ -35,6 +35,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
