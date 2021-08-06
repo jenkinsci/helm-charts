@@ -46,7 +46,7 @@ spec:
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
         {{- if .Values.controller.podAnnotations }}
-{{ toYaml .Values.controller.podAnnotations | indent 8 }}
+{{ tpl (toYaml .Values.controller.podAnnotations | indent 8) . }}
         {{- end }}
     spec:
       {{- if .Values.controller.schedulerName }}
@@ -115,8 +115,15 @@ spec:
 {{ (tpl (toYaml .Values.controller.initContainerEnv) .) | indent 12 }}
             {{- end }}
           resources:
+{{- if .Values.controller.initContainerResources }}
+{{ toYaml .Values.controller.initContainerResources | indent 12 }}
+{{- else }}
 {{ toYaml .Values.controller.resources | indent 12 }}
+{{- end }}
           volumeMounts:
+            {{- if .Values.persistence.mounts }}
+{{ toYaml .Values.persistence.mounts | indent 12 }}
+            {{- end }}
             - mountPath: {{ .Values.controller.jenkinsHome }}
               name: jenkins-home
               {{- if .Values.persistence.subPath }}

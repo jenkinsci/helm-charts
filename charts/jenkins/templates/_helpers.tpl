@@ -139,7 +139,7 @@ jenkins:
       webSocket: true
       {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
-      name: "kubernetes"
+      name: "{{ .Values.controller.cloudName }}"
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       serverUrl: "https://kubernetes.default"
       {{- if .Values.agent.enabled }}
@@ -250,9 +250,9 @@ Returns kubernetes pod template configuration as code
     {{- $_ := set $local "first" false }}
   {{- end }}
 {{- end }}
-  nodeUsageMode: "NORMAL"
+  nodeUsageMode: {{ quote .Values.agent.nodeUsageMode }}
   podRetention: {{ .Values.agent.podRetention }}
-  showRawYaml: true
+  showRawYaml: {{ .Values.agent.showRawYaml }}
   serviceAccount: "{{ include "jenkins.serviceAccountAgentName" . }}"
   slaveConnectTimeoutStr: "{{ .Values.agent.connectTimeout }}"
 {{- if .Values.agent.volumes }}
@@ -331,5 +331,16 @@ Create the name of the service account for Jenkins agents to use
     {{ default (printf "%s-%s" (include "jenkins.fullname" .) "agent") .Values.serviceAccountAgent.name }}
 {{- else -}}
     {{ default "default" .Values.serviceAccountAgent.name }}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create the name of the service account for Jenkins backup to use
+*/}}
+{{- define "backup.serviceAccountBackupName" -}}
+{{- if .Values.backup.serviceAccount.create -}}
+    {{ default (printf "%s-%s" (include "jenkins.fullname" .) "backup") .Values.backup.serviceAccount.name }}
+{{- else -}}
+    {{ default "default" .Values.backup.serviceAccount.name }}
 {{- end -}}
 {{- end -}}

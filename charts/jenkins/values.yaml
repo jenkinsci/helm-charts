@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.277.4-jdk11"
+  tag: "2.289.3-jdk11"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -68,6 +68,14 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+  # Overrides the init container default values
+  # initContainerResources:
+  #   requests:
+  #     cpu: "50m"
+  #     memory: "256Mi"
+  #   limits:
+  #     cpu: "2000m"
+  #     memory: "4096Mi"
   # Environment variables that get added to the init container (useful for e.g. http_proxy)
   # initContainerEnv:
   #   - name: http_proxy
@@ -112,6 +120,9 @@ controller:
   # For minikube, set this to NodePort, elsewhere use LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   serviceType: ClusterIP
+  # Use Local to preserve the client source IP and avoids a second hop for LoadBalancer and Nodeport type services,
+  # but risks potentially imbalanced traffic spreading.
+  serviceExternalTrafficPolicy:
   # Jenkins controller service annotations
   serviceAnnotations: {}
   # Jenkins controller custom labels
@@ -215,6 +226,9 @@ controller:
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: false
 
+  # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
+  installLatestSpecifiedPlugins: false
+
   # List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
 
@@ -268,6 +282,9 @@ controller:
   #   type: kubernetes.io/tls # optional
   #   renew: 60               # optional
 
+  # Name of default cloud configuration.
+  cloudName: "kubernetes"
+
   # Below is the implementation of Jenkins Configuration as Code.  Add a key under configScripts for each configuration area,
   # where each corresponds to a plugin or section of the UI.  Each key (prior to | character) is just a label, and can be any value.
   # Keys are only used to give the section a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label
@@ -308,7 +325,7 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:0.1.275
+      image: kiwigrid/k8s-sidecar:1.12.2
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -395,6 +412,9 @@ controller:
     annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
+    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+    # ingressClassName: nginx
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
     # path: "/jenkins"
     # configures the hostname e.g. jenkins.example.com
@@ -420,6 +440,9 @@ controller:
     annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
+    # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+    # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+    # ingressClassName: nginx
     # configures the hostname e.g. jenkins-external.example.com
     hostName:
     tls:
@@ -543,6 +566,7 @@ agent:
   image: "jenkins/inbound-agent"
   tag: "4.6-1"
   workingDir: "/home/jenkins"
+  nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
   imagePullSecretName:
@@ -563,6 +587,10 @@ agent:
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
+  # Disable if you do not want the Yaml the agent pod template to show up
+  # in the job Console Output. This can be helpful for either security reasons
+  # or simply to clean up the output to make it easier to read.
+  showRawYaml: true
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
@@ -771,7 +799,10 @@ backup:
   # Ref: https://crontab.guru/
   schedule: "0 2 * * *"
   labels: {}
-  annotations: {}
+  serviceAccount:
+    create: true
+    name:
+    annotations: {}
     # Example for authorization to AWS S3 using kube2iam or IRSA
     # Can also be done using environment variables
     # iam.amazonaws.com/role: "jenkins"

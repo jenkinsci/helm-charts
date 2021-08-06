@@ -1,8 +1,9 @@
 {{- if .Values.backup.enabled }}
+{{- if .Values.backup.serviceAccount.create }}
 apiVersion: v1
 kind: ServiceAccount
 metadata:
-  name: {{ template "jenkins.fullname" . }}-backup
+  name: {{ include "backup.serviceAccountBackupName" . }}
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
@@ -12,15 +13,16 @@ metadata:
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
-  {{- if .Values.backup.annotations }}
+  {{- if .Values.backup.serviceAccount.annotations }}
   annotations:
-    {{- toYaml .Values.backup.annotations | nindent 4 }}
+    {{- toYaml .Values.backup.serviceAccount.annotations | nindent 4 }}
   {{- end }}
+{{- end }}
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: {{ template "jenkins.fullname" . }}-backup
+  name: {{ include "backup.serviceAccountBackupName" . }}
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
@@ -57,6 +59,6 @@ roleRef:
   name: {{ template "jenkins.fullname" . }}-backup
 subjects:
 - kind: ServiceAccount
-  name: {{ template "jenkins.fullname" . }}-backup
+  name: {{ include "backup.serviceAccountBackupName" . }}
   namespace: {{ template "jenkins.namespace" . }}
 {{- end }}

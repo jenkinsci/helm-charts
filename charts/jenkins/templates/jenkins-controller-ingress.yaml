@@ -27,6 +27,9 @@ metadata:
 {{- end }}
   name: {{ template "jenkins.fullname" . }}
 spec:
+{{- if .Values.controller.ingress.ingressClassName }}
+  ingressClassName: {{ .Values.controller.ingress.ingressClassName | quote }}
+{{- end }}
   rules:
   - http:
       paths:
@@ -60,6 +63,7 @@ spec:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
+        pathType: ImplementationSpecific
 {{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
