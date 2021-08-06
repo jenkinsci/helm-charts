@@ -1259,7 +1259,7 @@ tests:
   - it: custom jenkins label
     set:
       controller:
-        labelString: "testlabel"
+        customJenkinsLabels: ["testlabel"]
     release:
       namespace: default
     asserts:
