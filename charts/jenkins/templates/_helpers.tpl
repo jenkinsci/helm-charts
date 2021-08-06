@@ -109,7 +109,9 @@ jenkins:
     enabled: true
   mode: {{ .Values.controller.executorMode }}
   numExecutors: {{ .Values.controller.numExecutors }}
+  {{- if not (kindIs "invalid" .Values.controller.customJenkinsLabels) }}
   labelString: "{{ join " " .Values.controller.customJenkinsLabels }}"
+  {{- end }}
   projectNamingStrategy: "standard"
   markupFormatter:
     {{- if .Values.controller.enableRawHtmlMarkupFormatter }}
