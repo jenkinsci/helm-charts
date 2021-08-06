@@ -1258,8 +1258,8 @@ tests:
          count: 0
   - it: custom jenkins label
     set:
-    controller:
-      labelString: "testlabel"
+      controller:
+        labelString: "testlabel"
     release:
       namespace: default
     asserts:
