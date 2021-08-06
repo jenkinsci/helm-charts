@@ -595,6 +595,24 @@ controller:
        password: "changeit"
        jenkinsKeyStoreBase64Encoded: ''
 ```
+### AWS Security Group Policies
+
+To create SecurityGroupPolicies set `awsSecurityGroupPolicies.enabled` to true and add your policies. Each policy requires a `name`, array of `securityGroupIds` and a `podSelector`. Example:
+
+```yaml
+awsSecurityGroupPolicies:
+  enabled: true
+  policies:
+    - name: "jenkins-controller"
+      securityGroupIds: 
+        - sg-123456789
+      podSelector:
+        matchExpressions:
+          - key: app.kubernetes.io/component
+            operator: In
+            values:
+              - jenkins-controller
+```
 
 ## Migration Guide
 

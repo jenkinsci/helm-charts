@@ -368,3 +368,5 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.runAsUser`                       | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
 | `backup.fsGroup`                         | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `backup.podSecurityContextOverride`      | Completely overwrites the contents of the backup pod's security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
+| `awsSecurityGroupPolicies.enabled`      | Enable the creation of SecurityGroupPolicy resources | `false` |
+| `awsSecurityGroupPolicies.policies` | Security Group Policy definitions. `awsSecurityGroupPolicies.enabled` must be `true`  | Not set |
