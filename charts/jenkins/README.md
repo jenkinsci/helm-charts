@@ -450,10 +450,23 @@ persistence:
   enabled: true # So that we have a PVC that we can backup
 ```
 
-  * **NOTE**: The `gcpcredentials` key in the `jenkinsgcp` field tells the Helm chart that we will be using a GCS bucket as our backup.
+  * **NOTE**: The [`gcpcredentials`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L829) key in the [`jenkinsgcp`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L827) field tells the Helm chart that we will be using a GCS bucket as our backup.
 
-8. Create jobs, download plugins, and create credentials so that we have something to backup.
-9. Wait for the backup to start running, then query the backup pod logs to monitor progress as follows:
+8. Go to Jenkins and create jobs, download plugins, and create credentials so that we have something to backup other than the default Jenkins installation.
+9. If you don't want to wait that long for the job to start running, then patch the CronJob to run in the next minute with the following command:
+
+```bash
+# Update CronJob to run every minute
+kubectl -n jenkins patch cronjob.batch/jenkins-backup --patch '{"spec": {"schedule": "* * * * *"}}'
+
+# Run this command until the "jenkins-backup-*" container is running
+kubectl get pods | grep backup;
+
+# To prevent multiple jobs from spanning every minute, change the CronJob back to original schedule
+kubectl -n jenkins patch cronjob.batch/jenkins-backup --patch '{"spec": {"schedule": "0 2 * * *"}}'
+```
+
+10. Once the job is running, then query the backup pod logs to monitor progress as follows:
 
 ```bash
 # Get backup container name
@@ -463,7 +476,7 @@ BACKUP_CONTAINER=$(kubectl get pods | grep backup | awk '{print $1}');
 kubectl logs -f ${BACKUP_CONTAINER};
 ```
 
-**NOTE**: The backup job will create a time-stamped folder in the GCS bucket each time the backup is run.
+**NOTE**: The backup job will create a time-stamped folder in the GCS bucket each time the backup job runs.
 
 If you can see a success message from the backup job and can see the contents of the backup on your GCS bucket, then the backup was successful!
 
@@ -479,10 +492,10 @@ See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/exa
 
 **NOTE**: This section assumes that you ran the steps in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket) beforehand and that you **saved the password** for that Jenkins installation, which you will need at the end of this section.
 
-Let's pretend we are restoring a backup from a Google Cloud Storage Bucket because we completely lost or Jenkins installation and we are starting from scratch. This is what the process would look like:
+Let's pretend you are restoring a backup from a Google Cloud Storage Bucket because you completely lost your Jenkins installation and you are starting from scratch. This is what the process would look like:
 
 1. Re-install the Jenkins Chart.
-2. Create [Kubernetes Service Account](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/), which will be used for the Restoration process using the following manifest:
+2. Create a [Kubernetes Service Account](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/), which will be used for the Restoration process, using the following manifest:
 
 ```yaml
 apiVersion: v1
@@ -494,7 +507,7 @@ metadata:
   namespace: jenkins
 ```
 
-3. Create [ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) that has `pod/exec` permission, which is needed to run restore job using the following manifest:
+3. Create a [ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) that has `pod/exec` permission, which is needed to run restore job, using the following manifest:
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -512,7 +525,7 @@ rules:
   verbs: ["create"]
 ```
 
-4. Use a [ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) to bind the role to the Service Account in `jenkins` namespace using the following manifest.
+4. Create a [ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) to bind the role to the Service Account in `jenkins` namespace using the following manifest.
 
 ```yaml
 apiVersion: rbac.authorization.k8s.io/v1
@@ -531,7 +544,7 @@ subjects:
   namespace: jenkins
 ```
 
-5. Create a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which will run only once and perform the Restoration logic following these steps:
+5. Create a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which will run only once and perform the Restoration logic, following these steps:
 
   - Create a manifest file called `restore.yaml` with the following content:
 
@@ -575,9 +588,9 @@ spec:
 ```
 
   - Replace `BUCKET_NAME` with the GCS Bucket name created in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket).
-  - Go to your GCS bucket and find the name of the latest timestamped folder (i.e. `20210717154947`), then replace `BACKUP_NAME` with that.
+  - Go to your GCS bucket and find the name of the latest timestamped folder (i.e. `20210717154947`), then replace `BACKUP_NAME` with that, then save the file.
   - **NOTE**: Notice that we are using the `jenkinsgcp/sa-credentials.json` Kubernetes Secret that holds the key for the GCP Service Account that we created in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket).
-    - This is what will allow the Job to download the contents of the backup from the GCS bucket and put it into the `/var/jenkins_home` folder in the `jenkins-0` pod.
+    - This is what will allow the Job to download the contents of the backup from the GCS bucket and put it into the `/var/jenkins_home` folder in the Persistent Volume Claim of the `jenkins-0` pod.
 
 6. Deploy the job using the following command:
 
@@ -605,7 +618,7 @@ Because we are restoring from the backup of a previous installation, we need to 
 
 So, refresh your browser and login to Jenkins using the password from the backup.
 
-Now, verify that all your jobs, plugins, and credentials from that backup are showing up, and if they are, CONGRATULATIONS on successfully restoring Jenkins from a GCS Backup!
+Now, verify that all your jobs, plugins, and credentials from that backup are showing up, and if they are, then CONGRATULATIONS on successfully restoring Jenkins from a GCS Backup!
 
 A similar process would work for AWS S3. See additional `backup` values using [configuration commands](#configuration) to figure out how what fields to put in the Restore Job manifest.
 
