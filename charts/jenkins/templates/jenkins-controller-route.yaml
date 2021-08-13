@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ template "jenkins.fullname" . }}
     {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    "helm.sh/chart": "{{ template "jenkins.label" .}}"
     {{- end }}
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
