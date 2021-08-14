@@ -12,6 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.5.11
+Sanitized the Jenkins Label
+
 ## 3.5.10
 Fixed `controller.customJenkinsLabels` not getting templated into the controller `labelString:` field in JCasC
 
