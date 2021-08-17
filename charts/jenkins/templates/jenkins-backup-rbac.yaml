@@ -8,7 +8,7 @@ metadata:
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    "helm.sh/chart": "{{ template "jenkins.label" .}}"
     {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
@@ -27,7 +27,7 @@ metadata:
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    "helm.sh/chart": "{{ template "jenkins.label" .}}"
     {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
@@ -48,7 +48,7 @@ metadata:
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    "helm.sh/chart": "{{ template "jenkins.label" .}}"
     {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"

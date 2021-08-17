@@ -7,6 +7,14 @@ Expand the name of the chart.
 {{- end -}}
 
 {{/*
+Expand the label of the chart.
+*/}}
+{{- define "jenkins.label" -}}
+{{- printf "%s-%s" (include "jenkins.name" .) .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
 {{- define "jenkins.namespace" -}}
