@@ -422,18 +422,50 @@ Adds a backup CronJob for jenkins, along with required RBAC resources. See addit
 
 Let's look at a quick example. Let's pretend we are backing up Jenkins to a **Google Cloud Storage (GCS) Bucket**. Here is what the process would look like:
 
-1. Create a Google Cloud Platform Account.
-2. Create a GCS bucket with a unique name.
-3. [Create a Service Account](https://cloud.google.com/iam/docs/creating-managing-service-accounts).
-4. [Bind `roles/storage.admin` role to Service Account](https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-gcloud-manual).
-5. [Create a Service account Key](https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-gcloud).
-6. Create a **Kubernetes Secret** from that Service Account key, using a command like the following:
+##### 1. Create a Google Cloud Platform Account
+
+If you don't have a GCP account, you can create a Free Account with the link below:
+
+- <https://cloud.google.com/>
+
+##### 2. Create a GCS bucket with a unique name
+
+You need to create a GCS bucket with a unique name, which you can do by following the guide below:
+
+- <https://cloud.google.com/storage/docs/creating-buckets>
+
+##### 3. Create a GCP Service Account
+
+In order for the backup job to upload Jenkins data to the GCS bucket, you need to provide it with a Google Service Account, which you can create by following the guide below:
+
+- <https://cloud.google.com/iam/docs/creating-managing-service-accounts>
+
+##### 4. Bind `roles/storage.admin` role to Service Account
+
+Now you need to provide your GCP Service Account with the `roles/storage.admin` role, which has permissions to read/write content to a GCS bucket. You can do this by following the guide below:
+
+- <https://cloud.google.com/iam/docs/granting-changing-revoking-access#granting-gcloud-manual>
+
+##### 5. Create a Service Account Key
+
+Now that you have a Service Account (SA), you need to create a Service Account Key, which is a file that represents the GCP Service Account that will get passed to the Backup Job (and later on to the Recovery Job). You can create it by following the guide below:
+
+- <https://cloud.google.com/iam/docs/creating-managing-service-account-keys#iam-service-account-keys-create-gcloud>
+
+##### 6. Create a Kubernetes Secret from the Service Account key
+
+In order for the Backup Job to access the GCP Service Account Key you need to create Kubernetes Secret, which you can create using the comand below:
 
 ```bash
-kubectl -n jenkins create secret generic jenkinsgcp --from-file=sa-credentials.json=/path/to/sa_key.json;
+# Replace with the path to the SA Key
+kubectl -n jenkins create secret generic jenkinsgcp --from-file=sa-credentials.json=/path/to/sa_key.json
 ```
 
-7. Deploy Jenkins Helm Chart using a values file like the following:
+**NOTE**: This assumes that you will deploy the Jenkins chart in the `jenkins` namespace.
+
+##### 7. Deploy the Jenkins Helm Chart using a modified values file
+
+Rather than using a long command to pass on all the new Chart values, create a values file called `values.yaml`, then put the following content on it, then save it:
 
 ```yaml
 backup:
@@ -450,10 +482,29 @@ persistence:
   enabled: true # So that we have a PVC that we can backup
 ```
 
-  * **NOTE**: The [`gcpcredentials`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L829) key in the [`jenkinsgcp`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L827) field tells the Helm chart that we will be using a GCS bucket as our backup.
+**NOTE**: The [`gcpcredentials`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L829) key in the [`jenkinsgcp`](https://github.com/fabiogomezdiaz/helm-charts-1/blob/main/charts/jenkins/values.yaml#L827) field tells the Helm chart that we will be using a GCS bucket as our backup.
 
-8. Go to Jenkins and create jobs, download plugins, and create credentials so that we have something to backup other than the default Jenkins installation.
-9. If you don't want to wait that long for the job to start running, then patch the CronJob to run in the next minute with the following command:
+##### 8. Deploy Jenkins Chart with new values
+
+Now that we have everything in place, let's deploy the Jenkins Chart with the new values file:
+
+```bash
+helm upgrade --install jenkins --namespace jenkins \
+    -f values.yaml \
+    jenkinsci/jenkins;
+```
+
+**NOTE**: Save the password from this installation as it will be needed in the [Restore from Backup in Google Cloud Storage Bucket](#example-restore-from-backup-in-google-cloud-storage-bucket) section.
+
+##### 9. Create resources to backup in Jenkins
+
+Once Jenkins is available, go to Jenkins and create jobs, download plugins, and create credentials so that we have something to backup other than the default Jenkins installation.
+
+##### 10. Trigger the backup job
+
+The values file we used to deploy Jenkins runs the backup job every day at 2 AM.
+
+If you don't want to wait that long for the job to start running, then patch the CronJob to run in the next minute with the following commands:
 
 ```bash
 # Update CronJob to run every minute
@@ -466,7 +517,9 @@ kubectl get pods | grep backup;
 kubectl -n jenkins patch cronjob.batch/jenkins-backup --patch '{"spec": {"schedule": "0 2 * * *"}}'
 ```
 
-10. Once the job is running, then query the backup pod logs to monitor progress as follows:
+##### 11. Verify that the backup job completed successfully
+
+Once the job is running, then query the backup pod logs to monitor progress as follows:
 
 ```bash
 # Get backup container name
@@ -486,16 +539,46 @@ A similar process would work for AWS S3. See additional `backup` values using [c
 
 To restore a backup, you can use the `kube-tasks` underlying tool called [skbn](https://github.com/maorfr/skbn), which copies files from cloud storage to Kubernetes.
 The best way to do it would be using a `Job` to copy files from the desired backup tag to the Jenkins pod.
-See the [skbn in-cluster example](https://github.com/maorfr/skbn/tree/master/examples/in-cluster) for more details.
+
+See the following example for more details.
 
 #### Example: Restore from Backup in Google Cloud Storage Bucket
 
 **NOTE**: This section assumes that you ran the steps in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket) beforehand and that you **saved the password** for that Jenkins installation, which you will need at the end of this section.
 
-Let's pretend you are restoring a backup from a Google Cloud Storage Bucket because you completely lost your Jenkins installation and you are starting from scratch. This is what the process would look like:
+Let's pretend you are restoring a backup from a Google Cloud Storage Bucket because you completely lost your Jenkins installation and you are starting from scratch.
 
-1. Re-install the Jenkins Chart.
-2. Create a [Kubernetes Service Account](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/), which will be used for the Restoration process, using the following manifest:
+In the following steps, we will explain what this process would look like:
+
+##### 1. Reinstall the Jenkins Helm Chart
+
+First, we need to remove the old Jenkins installation that we backed up previously, then we can install a clean Jenkins instance to restore from GCS backup.
+
+To do so, run the following commands:
+
+```bash
+# Delete old Jenkins installation
+helm delete jenkins
+
+# Install Jenkins Chart
+helm upgrade --install jenkins --namespace jenkins \
+    -f values.yaml \
+    jenkinsci/jenkins;
+```
+
+**NOTE**: This Command uses the same values file that was created in the [7. Deploy the Jenkins Helm Chart using a modified values file](#7-deploy-the-jenkins-helm-chart-using-a-modified-values-file) section.
+
+Now verify that Jenkins is up and running and it DOES NOT have any of the resources you created earlier.
+
+##### 2. Create a Kubernetes Service Account for the Restore Job
+
+In order for the Restore job to pull backup data from the GCS bucket and put it in the jenkins `/var/jenkins_home` folder in the Jenkins pod, you need to create the following:
+
+- A [Kubernetes Service Account](https://kubernetes.io/docs/reference/access-authn-authz/service-accounts-admin/) (not to be confused with a GCP Service Account) for the Restore job.
+- A [Kubernetes ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole)  that lists the necessary permissions to update the data in the volumes of other pods.
+- A [Kubernetes ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) that binds the above ClusterRole to the Service Account.
+
+To do so, create a file called `restore-rbac.yaml` and enter the following content, then save it:
 
 ```yaml
 apiVersion: v1
@@ -505,11 +588,7 @@ metadata:
     app: skbn
   name: skbn
   namespace: jenkins
-```
-
-3. Create a [ClusterRole](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#role-and-clusterrole) that has `pod/exec` permission, which is needed to run restore job, using the following manifest:
-
-```yaml
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
@@ -523,11 +602,7 @@ rules:
 - apiGroups: [""]
   resources: ["pods/exec"]
   verbs: ["create"]
-```
-
-4. Create a [ClusterRoleBinding](https://kubernetes.io/docs/reference/access-authn-authz/rbac/#rolebinding-and-clusterrolebinding) to bind the role to the Service Account in `jenkins` namespace using the following manifest.
-
-```yaml
+---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -544,9 +619,18 @@ subjects:
   namespace: jenkins
 ```
 
-5. Create a [Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which will run only once and perform the Restoration logic, following these steps:
+To apply the above manifest, run the following command:
 
-  - Create a manifest file called `restore.yaml` with the following content:
+```bash
+kubectl apply -f restore-rbac.yaml
+```
+
+##### 3. Create a Kubernetes Job to restore Jenkins
+
+The logic that will execute the Jenkins restoration from a GCS backup will be done through a
+[Kubernetes Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/), which will run only once as needed.
+
+To create the job, create a manifest file called `restore.yaml` with the following content, then save it:
 
 ```yaml
 apiVersion: batch/v1
@@ -587,18 +671,24 @@ spec:
           secretName: jenkinsgcp
 ```
 
-  - Replace `BUCKET_NAME` with the GCS Bucket name created in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket).
-  - Go to your GCS bucket and find the name of the latest timestamped folder (i.e. `20210717154947`), then replace `BACKUP_NAME` with that, then save the file.
-  - **NOTE**: Notice that we are using the `jenkinsgcp/sa-credentials.json` Kubernetes Secret that holds the key for the GCP Service Account that we created in [Example: Backup to Google Cloud Storage Bucket](#example-backup-to-google-cloud-storage-bucket).
-    - This is what will allow the Job to download the contents of the backup from the GCS bucket and put it into the `/var/jenkins_home` folder in the Persistent Volume Claim of the `jenkins-0` pod.
+While the above Job manifest is mostly complete, you need to replace a couple of things, as follows:
 
-6. Deploy the job using the following command:
+- Replace `BUCKET_NAME` with the GCS Bucket name created in [Create a GCS bucket with a unique name](#2-create-a-gcs-bucket-with-a-unique-name).
+- Go to your GCS bucket and find the name of the latest timestamped folder (i.e. `20210717154947`), then replace `BACKUP_NAME` with it, then save the file.
+
+Notice that we are using the `jenkinsgcp` Kubernetes Secret that holds the `sa-credentials.json` key file for the GCP Service Account that we created in [Create a Service Account Key](#5-create-a-service-account-key).
+
+Having the Kubernetes Secret provide the GCP Service Account Key to the Restore Kubernetes Job is what will allow the Job to download the contents of the backup from the GCS bucket and put it into the `/var/jenkins_home` folder in the Persistent Volume Claim of the `jenkins-0` pod.
+
+##### 4. Deploy the Restore Job
+
+Deploy the Restore Job using the following command:
 
 ```bash
 kubectl apply -f restore.yaml
 ```
 
-7. Wait about a minute for the Job to start, then query the logs using the following commands:
+Wait about a minute for the Job to start, then query the logs using the following commands:
 
 ```bash
 # Get restore container name
@@ -608,11 +698,13 @@ RESTORE_CONTAINER=$(kubectl get pods | grep skbn | awk '{print $1}');
 kubectl logs -f ${RESTORE_CONTAINER};
 ```
 
-  - Watch the logs until the job is done
+Watch the logs until the job is done. This usually takes a few minutes.
 
-8. Login to Jenkins, then click on `Manage Jenkins-> Reload Configuration from Disk`, then press `OK`.
+##### 5. Verify that Jenkins was restored from GCS Backup
 
-Jenkins is now going to reload the backed up content from the disk and restart. Now, if you performed this on a new Jenkins installation, you will **not be able to login** using the password for the new installation of Jenkins.
+Login to Jenkins, then click on `Manage Jenkins-> Reload Configuration from Disk`, then press `OK`.
+
+Jenkins is now going to reload the backup content from disk and restart. Now, if you performed this on a new Jenkins installation, you will **not be able to login** using the password for the new installation of Jenkins.
 
 Because we are restoring from the backup of a previous installation, we need to login using the password for the old Jenkins installation.
 
