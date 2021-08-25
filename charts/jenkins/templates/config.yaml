@@ -35,7 +35,7 @@ data:
     rm -rf {{ .Values.controller.jenkinsRef }}/plugins/*.lock
     version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
     if [ -f "{{ .Values.controller.jenkinsWar }}" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
-      jenkins-plugin-cli --war "{{ .Values.controller.jenkinsWar }}" --plugin-file "{{ .Values.controller.jenkinsHome }}/plugins.txt" --latest {{ .Values.controller.installLatestPlugins }}{{- if .Values.controller.installLatestSpecifiedPlugins }} --latest-specified{{- end }};
+      jenkins-plugin-cli --verbose --war "{{ .Values.controller.jenkinsWar }}" --plugin-file "{{ .Values.controller.jenkinsHome }}/plugins.txt" --latest {{ .Values.controller.installLatestPlugins }}{{- if .Values.controller.installLatestSpecifiedPlugins }} --latest-specified{{- end }};
     else
       /usr/local/bin/install-plugins.sh `echo $(cat {{ .Values.controller.jenkinsHome }}/plugins.txt)`;
     fi
