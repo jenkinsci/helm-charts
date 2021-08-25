@@ -12,10 +12,15 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.5.14
+
+* Updated versions of default plugins
+* Use verbose logging during plugin installation
+* download the latest version of all plugin dependencies (Fixes #442)
+
 ## 3.5.13
 
 Update Jenkins image and appVersion to jenkins lts release version 2.303.1
-
 
 ## 3.5.12
 
