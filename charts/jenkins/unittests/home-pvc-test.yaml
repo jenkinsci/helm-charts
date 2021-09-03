@@ -76,3 +76,19 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+
+  - it: add label
+    set:
+      renderHelmLabels: false
+      persistence:
+        labels:
+          test-label: test-value
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            app.kubernetes.io/component: jenkins-controller
+            app.kubernetes.io/instance: my-release
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: jenkins
+            test-label: test-value
