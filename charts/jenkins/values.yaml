@@ -738,6 +738,7 @@ persistence:
   ##
   storageClass:
   annotations: {}
+  labels: {}
   accessMode: "ReadWriteOnce"
   size: "8Gi"
   volumes:

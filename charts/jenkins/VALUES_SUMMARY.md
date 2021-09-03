@@ -334,6 +334,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `persistence.existingClaim` | Provide the name of a PVC       | `nil`           |
 | `persistence.storageClass`  | Storage class for the PVC       | `nil`           |
 | `persistence.annotations`   | Annotations for the PVC         | `{}`            |
+| `persistence.labels`        | Labels for the PVC              | `{}`            |
 | `persistence.accessMode`    | The PVC access mode             | `ReadWriteOnce` |
 | `persistence.size`          | The size of the PVC             | `8Gi`           |
 | `persistence.subPath`       | SubPath for jenkins-home mount  | `nil`           |
