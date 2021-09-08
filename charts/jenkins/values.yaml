@@ -565,7 +565,7 @@ agent:
   namespace:
   image: "jenkins/inbound-agent"
   tag: "4.6-1"
-  workingDir: "/home/jenkins"
+  workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
