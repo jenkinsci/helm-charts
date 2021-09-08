@@ -317,7 +317,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.command`            | Executed command when side container starts     | Not set                |
 | `agent.args`               | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}` |
 | `agent.TTYEnabled`         | Allocate pseudo tty to the side container       | false                  |
-| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins`        |
+| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins/agent`        |
 
 #### Other
 

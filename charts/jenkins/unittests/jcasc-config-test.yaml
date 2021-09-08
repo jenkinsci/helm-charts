@@ -61,7 +61,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -72,10 +72,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -95,7 +95,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: agent namespace and templates
     release:
@@ -181,7 +181,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -192,10 +192,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -211,7 +211,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -222,10 +222,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent maven"
@@ -252,10 +252,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: true
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent python"
@@ -279,7 +279,7 @@ tests:
                           resourceRequestMemory: "512Mi"
                           resourceLimitCpu: "1"
                           resourceLimitMemory: "1024Mi"
-                    
+
               crumbIssuer:
                 standard:
                   excludeClientIPFromCrumb: true
@@ -290,7 +290,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: customized config
     set:
@@ -620,7 +620,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -631,10 +631,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -659,7 +659,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: custom emptyDir workspace volume
     set:
@@ -725,7 +725,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -736,10 +736,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -762,7 +762,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: custom hostPath workspace volume
     set:
@@ -828,7 +828,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -839,10 +839,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -865,7 +865,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: custom nfs workspace volume
     set:
@@ -933,7 +933,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -944,10 +944,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -972,7 +972,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: custom pvc workspace volume
     set:
@@ -1039,7 +1039,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1050,10 +1050,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1077,7 +1077,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: custom other workspace volume
     set:
@@ -1144,7 +1144,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1155,10 +1155,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1182,7 +1182,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: disable helm.sh label
     set:
@@ -1248,7 +1248,7 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
   - it: disable default config
     set:
@@ -1318,7 +1318,7 @@ tests:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: 
+                        command:
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1329,10 +1329,10 @@ tests:
                         resourceLimitMemory: 512Mi
                         resourceRequestCpu: 512m
                         resourceRequestMemory: 512Mi
-                        runAsUser: 
-                        runAsGroup: 
+                        runAsUser:
+                        runAsGroup:
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1352,5 +1352,5 @@ tests:
                 usageStatisticsEnabled: true
             unclassified:
               location:
-                adminAddress: 
+                adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
