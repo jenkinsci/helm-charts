@@ -174,9 +174,6 @@ controller:
     enabled: false
     annotations: {}
     labels: {}
-    # Default to not allowing any unavailable nodes
-    # This ensures that Jenkins is available as much as possible
-    maxUnavailable: "0"
 
   agentListenerEnabled: true
   agentListenerPort: 50000
