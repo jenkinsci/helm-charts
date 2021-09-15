@@ -172,6 +172,9 @@ controller:
   # PodDisruptionBudget config
   podDisruptionBudget:
     enabled: false
+    # For Kubernetes v1.5+, use 'policy/v1beta1'
+    # For Kubernetes v1.21+, use 'policy/v1'
+    apiVersion: "policy/v1beta1"
     annotations: {}
     labels: {}
     # maxUnavailable: "0"

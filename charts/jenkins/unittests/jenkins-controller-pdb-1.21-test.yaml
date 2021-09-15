@@ -6,7 +6,7 @@ templates:
   - jenkins-controller-pdb.yaml
 capabilities:
   majorVersion: 1
-  minorVersion: 18
+  minorVersion: 21
 tests:
   - it: test defaults
     asserts:
@@ -22,7 +22,7 @@ tests:
           of: PodDisruptionBudget
       - equal:
           path: apiVersion
-          value: policy/v1beta1
+          value: policy/v1
       - equal:
           path: metadata.name
           value: my-release-jenkins-pdb
@@ -42,16 +42,3 @@ tests:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
                 "app.kubernetes.io/name": "jenkins"
-  - it: disable helm.sh label
-    set:
-      renderHelmLabels: false
-      controller.podDisruptionBudget:
-        enabled: true
-    asserts:
-      - equal:
-          path: metadata.labels
-          value:
-            app.kubernetes.io/component: jenkins-controller
-            app.kubernetes.io/instance: my-release
-            app.kubernetes.io/managed-by: Helm
-            app.kubernetes.io/name: jenkins

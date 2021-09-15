@@ -145,6 +145,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.podDisruptionBudget.enabled` | Enable [Kubernetes Pod Disruption Budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) configuration from `controller.podDisruptionBudget` (see below) | `false` |
+| `controller.podDisruptionBudget.apiVersion` | Policy API version | `policy/v1beta1` |
 | `controller.podDisruptionBudget.maxUnavailable` | Number of pods that can be unavailable. Either an absolute number or a percentage. | Not set |
 
 #### Kubernetes Health Probes

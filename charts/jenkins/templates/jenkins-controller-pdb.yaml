@@ -1,5 +1,12 @@
 {{- if .Values.controller.podDisruptionBudget.enabled }}
+{{- $kubeTargetVersion := default .Capabilities.KubeVersion.GitVersion .Values.kubeTargetVersionOverride }}
+{{- if semverCompare ">=1.21-0" $kubeTargetVersion -}}
 apiVersion: policy/v1
+{{- else if semverCompare ">=1.5-0" $kubeTargetVersion -}}
+apiVersion: policy/v1beta1
+{{- else -}}
+apiVersion: {{ .Values.controller.podDisruptionBudget.apiVersion }}
+{{- end }}
 kind: PodDisruptionBudget
 metadata:
   name: {{ template "jenkins.fullname" . }}-pdb
@@ -19,7 +26,7 @@ metadata:
   annotations: {{ toYaml .Values.controller.podDisruptionBudget.annotations | nindent 4 }}
   {{- end }}
 spec:
-  maxUnavailable: "{{ .Values.controller.podDisruptionBudget.maxUnavailable }}"
+  maxUnavailable: {{ .Values.controller.podDisruptionBudget.maxUnavailable }}
   selector:
     matchLabels:
       "app.kubernetes.io/instance": "{{ .Release.Name }}"
