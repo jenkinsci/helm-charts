@@ -1,0 +1,44 @@
+suite: Controller Pod Disruption Budget
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-controller-pdb.yaml
+capabilities:
+  majorVersion: 1
+  minorVersion: 21
+tests:
+  - it: test defaults
+    asserts:
+    - hasDocuments:
+        count: 0
+  - it: enabled
+    set:
+      controller.podDisruptionBudget:
+        enabled: true
+        maxUnavailable: "0"
+    asserts:
+      - isKind:
+          of: PodDisruptionBudget
+      - equal:
+          path: apiVersion
+          value: policy/v1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-pdb
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
+      - isNull:
+          path: metadata.annotations
+      - equal:
+          path: spec
+          value:
+            maxUnavailable: 0
+            selector:
+              matchLabels:
+                "app.kubernetes.io/instance": "my-release"
+                "app.kubernetes.io/name": "jenkins"

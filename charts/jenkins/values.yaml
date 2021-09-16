@@ -169,6 +169,16 @@ controller:
       # It delays the initial readyness probe while Jenkins is starting
       # initialDelaySeconds: 60
 
+  # PodDisruptionBudget config
+  podDisruptionBudget:
+    enabled: false
+    # For Kubernetes v1.5+, use 'policy/v1beta1'
+    # For Kubernetes v1.21+, use 'policy/v1'
+    apiVersion: "policy/v1beta1"
+    annotations: {}
+    labels: {}
+    # maxUnavailable: "0"
+
   agentListenerEnabled: true
   agentListenerPort: 50000
   agentListenerHostPort:
