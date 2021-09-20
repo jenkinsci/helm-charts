@@ -156,6 +156,10 @@ jenkins:
       podLabels:
       - key: "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}"
         value: "true"
+      {{- range $key, $val := .Values.agent.podLabels }}
+      - key: {{ $key | quote }}
+        value: {{ $val | quote }}
+      {{- end }}
       templates:
       {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
     {{- if .Values.additionalAgents }}
