@@ -105,8 +105,6 @@ tests:
                     periodSeconds: 10
                     timeoutSeconds: 5
                     failureThreshold: 12
-                  terminationMessagePath: /dev/termination-log
-                  terminationMessagePolicy: File
                   volumeMounts:
                   - mountPath: /var/jenkins_home
                     name: jenkins-home
@@ -231,9 +229,8 @@ tests:
           drop:
             - NET_RAW
         hostNetworking: true
-        terminationMessage:
-          terminationMessagePath: /tmp/termination-log-diff
-          terminationMessagePolicy: FallbackToLogsOnError
+        terminationMessagePath: /tmp/termination-log-diff
+        terminationMessagePolicy: FallbackToLogsOnError
         hostAliases:
           - ip: 192.168.50.50
             hostnames:

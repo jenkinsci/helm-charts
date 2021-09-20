@@ -163,9 +163,11 @@ spec:
           lifecycle:
 {{ toYaml .Values.controller.lifecycle | indent 12 }}
           {{- end }}
-{{- if .Values.controller.terminationMessage }}
-          terminationMessagePath: {{ .Values.controller.terminationMessage.terminationMessagePath }}
-          terminationMessagePolicy: {{ .Values.controller.terminationMessage.terminationMessagePolicy }}
+{{- if .Values.controller.terminationMessagePath }}
+          terminationMessagePath: {{ .Values.controller.terminationMessagePath }}
+{{- end }}
+{{- if .Values.controller.terminationMessagePolicy }}
+          terminationMessagePolicy: {{ .Values.controller.terminationMessagePolicy }}
 {{- end }}
           env:
             - name: POD_NAME

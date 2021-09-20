@@ -128,7 +128,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.affinity`                 | Affinity settings                    | `{}`                                      |
 | `controller.schedulerName`            | Kubernetes scheduler name            | Not set                                   |
 | `controller.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds   | Not set                               |
-| `controller.terminationMessage` | Set the termination log properties   | `{terminationMessagePath: /dev/termination-log, terminationMessagePolicy: File}`|
+| `controller.terminationMessagePath` | Set the termination message path   | Not set                               |
+| `controller.terminationMessagePolicy` | Set the termination message policy   | Not set                               |
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
