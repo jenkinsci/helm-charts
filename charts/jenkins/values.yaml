@@ -388,6 +388,10 @@ controller:
 
   terminationGracePeriodSeconds:
 
+  terminationMessage:
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+
   tolerations: []
 
   affinity: {}
