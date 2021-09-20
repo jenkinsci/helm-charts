@@ -229,6 +229,8 @@ tests:
           drop:
             - NET_RAW
         hostNetworking: true
+        terminationMessagePath: /tmp/termination-log-diff
+        terminationMessagePolicy: FallbackToLogsOnError
         hostAliases:
           - ip: 192.168.50.50
             hostnames:
@@ -287,6 +289,12 @@ tests:
     - equal:
         path: spec.template.spec.hostNetwork
         value: true
+    - equal:
+        path: spec.template.spec.containers[0].terminationMessagePath
+        value: /tmp/termination-log-diff
+    - equal:
+        path: spec.template.spec.containers[0].terminationMessagePolicy
+        value: FallbackToLogsOnError
     - equal:
         path: spec.template.spec.dnsPolicy
         value: ClusterFirstWithHostNet

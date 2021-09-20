@@ -388,6 +388,9 @@ controller:
 
   terminationGracePeriodSeconds:
 
+  terminationMessagePath:
+  terminationMessagePolicy:
+
   tolerations: []
 
   affinity: {}
