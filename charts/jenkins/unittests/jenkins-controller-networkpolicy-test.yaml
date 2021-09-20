@@ -72,3 +72,23 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+  - it: disable agent listener
+    set:
+      networkPolicy.enabled: true
+      controller.agentListenerEnabled: false
+    asserts:
+    - hasDocuments:
+        count: 2
+    - isKind:
+        of: NetworkPolicy
+    - equal:
+        path: spec
+        value:
+          ingress:
+          - ports:
+            - port: 8080
+          podSelector:
+            matchLabels:
+              app.kubernetes.io/component: jenkins-controller
+              app.kubernetes.io/instance: my-release
+      documentIndex: 0

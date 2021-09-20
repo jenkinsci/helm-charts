@@ -21,6 +21,7 @@ spec:
     # Allow web access to the UI
     - ports:
       - port: {{ .Values.controller.targetPort }}
+    {{- if .Values.controller.agentListenerEnabled }}
     # Allow inbound connections from agents
     - from:
       {{- if .Values.networkPolicy.internalAgents.allowed }}
@@ -50,6 +51,7 @@ spec:
       {{- end }}
       ports:
       - port: {{ .Values.controller.agentListenerPort }}
+    {{- end }}
 {{- if .Values.agent.enabled }}
 ---
 kind: NetworkPolicy
