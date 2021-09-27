@@ -18,6 +18,50 @@ entries:
           url: https://www.jenkins.io/
     apiVersion: v2
     appVersion: 2.303.1
+    created: "2021-09-27T09:14:58.554626895Z"
+    description: Jenkins - Build great things at any scale! The leading open source
+      automation server, Jenkins provides hundreds of plugins to support building,
+      deploying and automating any project.
+    digest: 0c818f120f3bc61349d8573c73e6aa77b6539296d2e9b847c6118218f535f15a
+    home: https://jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-3.5.20/jenkins-3.5.20.tgz
+    version: 3.5.20
+  - annotations:
+      artifacthub.io/images: |
+        - name: jenkins
+          image: jenkins/jenkins:2.303.1-jdk11
+        - name: k8s-sidecar
+          image: kiwigrid/k8s-sidecar:0.1.275
+        - name: inbound-agent
+          image: jenkins/inbound-agent:4.6-1
+        - name: backup
+          image: maorfr/kube-tasks:0.2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+    apiVersion: v2
+    appVersion: 2.303.1
     created: "2021-09-20T14:34:20.892492535Z"
     description: Jenkins - Build great things at any scale! The leading open source
       automation server, Jenkins provides hundreds of plugins to support building,
@@ -11763,4 +11807,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2021-09-20T14:34:20.897955951Z"
+generated: "2021-09-27T09:14:58.561830347Z"
