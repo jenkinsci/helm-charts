@@ -123,7 +123,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.loadBalancerIP`           | Optional fixed external IP           | Not set                                   |
 | `controller.statefulSetLabels`        | Custom StatefulSet labels            | Not set                                   |
 | `controller.serviceLabels`            | Custom Service labels                | Not set                                   |
-| `controller.podLabels`                | Custom Pod labels                    | Not set                                   |
+| `controller.podLabels`                | Custom Pod labels (an object with `label-key: label-value` pairs)                    | Not set                                   |
 | `controller.nodeSelector`             | Node labels for pod assignment       | `{}`                                      |
 | `controller.affinity`                 | Affinity settings                    | `{}`                                      |
 | `controller.schedulerName`            | Kubernetes scheduler name            | Not set                                   |
@@ -293,6 +293,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
 | `agent.kubernetesReadTimeout` | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
 | `agent.maxRequestsPerHostStr` | The maximum concurrent connections to Kubernetes API | 32 |
+| `agent.podLabels`             | Custom Pod labels (an object with `label-key: label-value` pairs)                    | Not set                         |
 
 #### Pod Configuration
 
