@@ -46,7 +46,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: e7818e32b5bbbb17988f6a688ca77fe20facffa3886facf2b27a7c8846cf9df6
+                  checksum/config: dcf606d26b60483d2cf523616909460c03211c96c949f89488b9fa54866ca405
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -69,7 +69,7 @@ tests:
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.289.3-jdk11
+                  image: jenkins/jenkins:2.303.2-jdk11
                   imagePullPolicy: Always
                   livenessProbe:
                     failureThreshold: 5
@@ -155,7 +155,7 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.289.3-jdk11
+                  image: jenkins/jenkins:2.303.2-jdk11
                   imagePullPolicy: Always
                   name: init
                   resources:
@@ -229,6 +229,8 @@ tests:
           drop:
             - NET_RAW
         hostNetworking: true
+        terminationMessagePath: /tmp/termination-log-diff
+        terminationMessagePolicy: FallbackToLogsOnError
         hostAliases:
           - ip: 192.168.50.50
             hostnames:
@@ -287,6 +289,12 @@ tests:
     - equal:
         path: spec.template.spec.hostNetwork
         value: true
+    - equal:
+        path: spec.template.spec.containers[0].terminationMessagePath
+        value: /tmp/termination-log-diff
+    - equal:
+        path: spec.template.spec.containers[0].terminationMessagePolicy
+        value: FallbackToLogsOnError
     - equal:
         path: spec.template.spec.dnsPolicy
         value: ClusterFirstWithHostNet

@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  tag: "2.289.3-jdk11"
+  tag: "2.303.2-jdk11"
   imagePullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
@@ -169,6 +169,16 @@ controller:
       # It delays the initial readyness probe while Jenkins is starting
       # initialDelaySeconds: 60
 
+  # PodDisruptionBudget config
+  podDisruptionBudget:
+    enabled: false
+    # For Kubernetes v1.5+, use 'policy/v1beta1'
+    # For Kubernetes v1.21+, use 'policy/v1'
+    apiVersion: "policy/v1beta1"
+    annotations: {}
+    labels: {}
+    # maxUnavailable: "0"
+
   agentListenerEnabled: true
   agentListenerPort: 50000
   agentListenerHostPort:
@@ -218,13 +228,13 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.29.4
+    - kubernetes:1.30.1
     - workflow-aggregator:2.6
-    - git:4.7.1
-    - configuration-as-code:1.51
+    - git:4.8.2
+    - configuration-as-code:1.52
 
   # Set to false to download the minimum required version of all dependencies.
-  installLatestPlugins: false
+  installLatestPlugins: true
 
   # Set to true to download latest dependencies of any plugin that is requested to have the latest version.
   installLatestSpecifiedPlugins: false
@@ -377,6 +387,9 @@ controller:
   nodeSelector: {}
 
   terminationGracePeriodSeconds:
+
+  terminationMessagePath:
+  terminationMessagePolicy:
 
   tolerations: []
 
@@ -565,7 +578,7 @@ agent:
   namespace:
   image: "jenkins/inbound-agent"
   tag: "4.6-1"
-  workingDir: "/home/jenkins"
+  workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
   # name of the secret to be used for image pulling
@@ -738,6 +751,7 @@ persistence:
   ##
   storageClass:
   annotations: {}
+  labels: {}
   accessMode: "ReadWriteOnce"
   size: "8Gi"
   volumes:

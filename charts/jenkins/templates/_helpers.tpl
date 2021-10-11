@@ -7,6 +7,14 @@ Expand the name of the chart.
 {{- end -}}
 
 {{/*
+Expand the label of the chart.
+*/}}
+{{- define "jenkins.label" -}}
+{{- printf "%s-%s" (include "jenkins.name" .) .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
+
+{{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
 {{- define "jenkins.namespace" -}}
@@ -109,6 +117,9 @@ jenkins:
     enabled: true
   mode: {{ .Values.controller.executorMode }}
   numExecutors: {{ .Values.controller.numExecutors }}
+  {{- if not (kindIs "invalid" .Values.controller.customJenkinsLabels) }}
+  labelString: "{{ join " " .Values.controller.customJenkinsLabels }}"
+  {{- end }}
   projectNamingStrategy: "standard"
   markupFormatter:
     {{- if .Values.controller.enableRawHtmlMarkupFormatter }}
@@ -145,6 +156,10 @@ jenkins:
       podLabels:
       - key: "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}"
         value: "true"
+      {{- range $key, $val := .Values.agent.podLabels }}
+      - key: {{ $key | quote }}
+        value: {{ $val | quote }}
+      {{- end }}
       templates:
       {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
     {{- if .Values.additionalAgents }}

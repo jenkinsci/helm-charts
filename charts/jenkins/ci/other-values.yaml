@@ -35,7 +35,7 @@ agent:
       memory: "2048Mi"
   envVars:
     - name: HOME
-      value: /home/jenkins
+      value: /home/jenkins/agent
     - name: PATH
       value: /usr/local/bin
   nodeSelector:

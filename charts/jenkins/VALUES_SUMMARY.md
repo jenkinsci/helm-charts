@@ -56,7 +56,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.numExecutors`         | Set Number of executors              | 0                                         |
 | `controller.executorMode`         | Set executor mode of the Jenkins node. Possible values are: NORMAL or EXCLUSIVE | NORMAL |
-| `controller.customJenkinsLabels`  | Append Jenkins labels to the controller  | `{}`                                      |
+| `controller.customJenkinsLabels`  | Append Jenkins labels to the controller  | `[]`                                      |
 | `controller.jenkinsHome`          | Custom Jenkins home path             | `/var/jenkins_home`                       |
 | `controller.jenkinsRef`           | Custom Jenkins reference path        | `/usr/share/jenkins/ref`                  |
 | `controller.jenkinsAdminEmail`    | Email address for the administrator of the Jenkins instance | Not set            |
@@ -99,7 +99,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
-| `controller.tag`                      | Controller image tag                      | `2.289.3-jdk11`                           |
+| `controller.tag`                      | Controller image tag                      | `2.303.2-jdk11`                           |
 | `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
@@ -123,11 +123,13 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.loadBalancerIP`           | Optional fixed external IP           | Not set                                   |
 | `controller.statefulSetLabels`        | Custom StatefulSet labels            | Not set                                   |
 | `controller.serviceLabels`            | Custom Service labels                | Not set                                   |
-| `controller.podLabels`                | Custom Pod labels                    | Not set                                   |
+| `controller.podLabels`                | Custom Pod labels (an object with `label-key: label-value` pairs)                    | Not set                                   |
 | `controller.nodeSelector`             | Node labels for pod assignment       | `{}`                                      |
 | `controller.affinity`                 | Affinity settings                    | `{}`                                      |
 | `controller.schedulerName`            | Kubernetes scheduler name            | Not set                                   |
 | `controller.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds   | Not set                               |
+| `controller.terminationMessagePath` | Set the termination message path   | Not set                               |
+| `controller.terminationMessagePolicy` | Set the termination message policy   | Not set                               |
 | `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
 | `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
 | `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
@@ -139,6 +141,14 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.admin.passwordKey`        | The key in the existing admin secret containing the password. | `jenkins-admin-password` |
 | `controller.customInitContainers`     | Custom init-container specification in raw-yaml format | Not set                 |
 | `controller.sidecars.other`           | Configures additional sidecar container(s) for Jenkins controller | `[]`             |
+
+#### Kubernetes Pod Disruption Budget
+
+| Parameter                         | Description                          | Default                                   |
+| --------------------------------- | ------------------------------------ | ----------------------------------------- |
+| `controller.podDisruptionBudget.enabled` | Enable [Kubernetes Pod Disruption Budget](https://kubernetes.io/docs/tasks/run-application/configure-pdb/) configuration from `controller.podDisruptionBudget` (see below) | `false` |
+| `controller.podDisruptionBudget.apiVersion` | Policy API version | `policy/v1beta1` |
+| `controller.podDisruptionBudget.maxUnavailable` | Number of pods that can be unavailable. Either an absolute number or a percentage. | Not set |
 
 #### Kubernetes Health Probes
 
@@ -283,6 +293,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5. | 5 |
 | `agent.kubernetesReadTimeout` | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15. | 15 |
 | `agent.maxRequestsPerHostStr` | The maximum concurrent connections to Kubernetes API | 32 |
+| `agent.podLabels`             | Custom Pod labels (an object with `label-key: label-value` pairs)                    | Not set                         |
 
 #### Pod Configuration
 
@@ -290,7 +301,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.websocket`          | Enables agent communication via websockets      | false                  |
 | `agent.podName`            | Agent Pod base name                             | Not set                |
-| `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `{}`                   |
+| `agent.customJenkinsLabels`| Append Jenkins labels to the agent              | `[]`                   |
 | `agent.envVars`            | Environment variables for the agent Pod         | `[]`                   |
 | `agent.idleMinutes`        | Allows the Pod to remain active for reuse       | 0                      |
 | `agent.imagePullSecretName` | Agent image pull secret                        | Not set                |
@@ -317,7 +328,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.command`            | Executed command when side container starts     | Not set                |
 | `agent.args`               | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}` |
 | `agent.TTYEnabled`         | Allocate pseudo tty to the side container       | false                  |
-| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins`        |
+| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins/agent`        |
 
 #### Other
 
@@ -334,6 +345,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `persistence.existingClaim` | Provide the name of a PVC       | `nil`           |
 | `persistence.storageClass`  | Storage class for the PVC       | `nil`           |
 | `persistence.annotations`   | Annotations for the PVC         | `{}`            |
+| `persistence.labels`        | Labels for the PVC              | `{}`            |
 | `persistence.accessMode`    | The PVC access mode             | `ReadWriteOnce` |
 | `persistence.size`          | The size of the PVC             | `8Gi`           |
 | `persistence.subPath`       | SubPath for jenkins-home mount  | `nil`           |

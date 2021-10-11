@@ -10,7 +10,7 @@ metadata:
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
     {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    "helm.sh/chart": "{{ template "jenkins.label" .}}"
     {{- end }}
     "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
@@ -163,6 +163,12 @@ spec:
           lifecycle:
 {{ toYaml .Values.controller.lifecycle | indent 12 }}
           {{- end }}
+{{- if .Values.controller.terminationMessagePath }}
+          terminationMessagePath: {{ .Values.controller.terminationMessagePath }}
+{{- end }}
+{{- if .Values.controller.terminationMessagePolicy }}
+          terminationMessagePolicy: {{ .Values.controller.terminationMessagePolicy }}
+{{- end }}
           env:
             - name: POD_NAME
               valueFrom:
@@ -219,7 +225,8 @@ spec:
 {{ toYaml .Values.persistence.mounts | indent 12 }}
 {{- end }}
             {{- if .Values.controller.httpsKeyStore.enable }}
-            - mountPath: {{ .Values.controller.httpsKeyStore.path }}
+            {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
+            - mountPath: {{ $httpsJKSFilePath }}
               name: jenkins-https-keystore
             {{- end }}
             - mountPath: {{ .Values.controller.jenkinsHome }}

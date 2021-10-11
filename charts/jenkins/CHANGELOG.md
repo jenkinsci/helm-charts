@@ -12,9 +12,61 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 3.6.0
+## 3.7.0
 
 Added the option to create AWS SecurityGroupPolicy resources
+
+## 3.6.2
+
+Fix httpsKeyStore mount when `controller.httpsKeyStore.enable` is `true`
+
+## 3.6.1
+
+Update Jenkins image and appVersion to jenkins lts release version 2.303.2
+
+
+## 3.6.0
+Support custom agent pod labels
+
+## 3.5.20
+Disallow ingress on port 50000 when agent listener is disabled
+
+## 3.5.19
+Add support for specifying termination-log behaviour for Jenkins controller
+
+## 3.5.18
+Add support for creating a Pod Disruption Budget for Jenkins controller
+
+## 3.5.17
+Update workdingDir to `/home/jenkins/agent`
+
+## 3.5.16
+Update location of icon (wiki.jenkins.io is down)
+
+## 3.5.15
+Add support for adding labels to the Jenkins home Persistent Volume Claim (pvc)
+
+## 3.5.14
+
+* Updated versions of default plugins
+* Use verbose logging during plugin installation
+* download the latest version of all plugin dependencies (Fixes #442)
+
+## 3.5.13
+
+Update Jenkins image and appVersion to jenkins lts release version 2.303.1
+
+## 3.5.12
+
+Added extended documentation for Backup and Restore.
+
+## 3.5.11
+
+Sanitized the Jenkins Label
+
+## 3.5.10
+
+Fixed `controller.customJenkinsLabels` not getting templated into the controller `labelString:` field in JCasC
 
 ## 3.5.9
 

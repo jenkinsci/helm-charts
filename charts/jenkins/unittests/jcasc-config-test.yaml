@@ -35,6 +35,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -55,7 +56,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 39698bb1fb92f2e49811b1514ddba69a93e9a734af456f227baa88a887431b41
+                      id: 8e87a0373bebcc6a10449d2a90262bb02a7cf7e5ec63c98cc4e123b67e58650a
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -74,7 +75,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -154,6 +155,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -174,7 +176,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: ea9b1bd1a53689cacf8464096fd4cb61dad0b77da3f0a1da422a6e732c8cbfd2
+                      id: 7f0e77752c448c03efc67d90ced2c63b7c97d78ffe57cb9d9930aa3d75bd9684
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -193,7 +195,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -204,7 +206,7 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "maven"
-                      id: 3deafdceb090397579777ff03befc1e5c7405eeae8254eb9fc3003e64fa59a86
+                      id: d204e244404e97e456aa1641883174c59de76250356af9148e1e38059d6fc6c2
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -223,7 +225,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent maven"
@@ -234,7 +236,7 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "python"
-                      id: 205cfe5e675ce593f15d07a86b0046a8edb144fba79f42898c754cd16ce857f5
+                      id: 8a44a96bd58091511ff4d749c8b7d91f5de04a750c284d144f464dd6234db3b3
                       containers:
                       - name: "python"
                         alwaysPullImage: false
@@ -253,7 +255,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: true
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent python"
@@ -448,6 +450,7 @@ tests:
                 enabled: true
               mode: EXCLUSIVE
               numExecutors: 1
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 rawHtml:
@@ -591,6 +594,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -611,7 +615,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: eca0dd95c77e2ff790d5046302ed3aaf214b619d07a1563ccf7b1ed22452acb9
+                      id: e4e2285e615c830c1ba647c108598c2bac7399537b6a4ceae64ace58a20847de
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -630,7 +634,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -695,6 +699,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -715,7 +720,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 7542e821a69f9876fc40e21d353520e3e81511c7145355dd45eab1892690e236
+                      id: 8d40959ed4bc63447ce4e98a8c824985644b0f7de86ec42baf851d18ac7fb9e4
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -734,7 +739,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -797,6 +802,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -817,7 +823,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: e5b46ea61079348c069ad58f5d671c4ceac9a7b82496a56454e78a92851d3439
+                      id: e8801493e50fd88f2fd677b5ad126776363d3764311d7875a20ffed439f07c75
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -836,7 +842,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -901,6 +907,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -921,7 +928,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 3a81a44afbcdd1b0e56d44d7df671bfed4943a447b02d6e98a2df5dd9c57ef19
+                      id: 748f16a465d93034ab811866b52d1dbbc629d1181e2af44347c8a4ca6d84eefa
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -940,7 +947,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1006,6 +1013,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -1026,7 +1034,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 2ac491f4c8cb6fd99532256a0e53f6e26a788d0edc6b2964e976d294f8cb4466
+                      id: 1e040540e1ee1cd3b2514de7dd2f012f7b1b8a7857d46d306ad57ad7093fd386
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1045,7 +1053,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1110,6 +1118,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -1130,7 +1139,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: e28377a534e272c951d72e47495466f893da5069ceea1fe98ff42083c8458b47
+                      id: bd99fe604a67f37d9661f1303f08d3f258b27da9517c88a6d493503bf35866d8
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1149,7 +1158,7 @@ tests:
                         runAsUser: 
                         runAsGroup: 
                         ttyEnabled: false
-                        workingDir: /home/jenkins
+                        workingDir: /home/jenkins/agent
                       idleMinutes: 0
                       instanceCap: 2147483647
                       label: "RELEASE-NAME-jenkins-agent "
@@ -1213,6 +1222,7 @@ tests:
                 enabled: true
               mode: NORMAL
               numExecutors: 0
+              labelString: ""
               projectNamingStrategy: "standard"
               markupFormatter:
                 plainText
@@ -1246,3 +1256,203 @@ tests:
     asserts:
       - hasDocuments:
          count: 0
+  - it: custom jenkins label
+    set:
+      controller:
+        customJenkinsLabels: ["testlabel"]
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data.jcasc-default-config\.yaml
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
+      - equal:
+          path: data.jcasc-default-config\.yaml
+          value: |-
+            jenkins:
+              authorizationStrategy:
+                loggedInUsersCanDoAnything:
+                  allowAnonymousRead: false
+              securityRealm:
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
+              disableRememberMe: false
+              remotingSecurity:
+                enabled: true
+              mode: NORMAL
+              numExecutors: 0
+              labelString: "testlabel"
+              projectNamingStrategy: "standard"
+              markupFormatter:
+                plainText
+              clouds:
+              - kubernetes:
+                  containerCapStr: "10"
+                  defaultsProviderTemplate: ""
+                  connectTimeout: "5"
+                  readTimeout: "15"
+                  jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+                  jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                  maxRequestsPerHostStr: "32"
+                  name: "kubernetes"
+                  namespace: "default"
+                  serverUrl: "https://kubernetes.default"
+                  podLabels:
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
+                    value: "true"
+                  templates:
+                    - name: "default"
+                      id: 8e87a0373bebcc6a10449d2a90262bb02a7cf7e5ec63c98cc4e123b67e58650a
+                      containers:
+                      - name: "jnlp"
+                        alwaysPullImage: false
+                        args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
+                        envVars:
+                          - envVar:
+                              key: "JENKINS_URL"
+                              value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                        image: "jenkins/inbound-agent:4.6-1"
+                        privileged: "false"
+                        resourceLimitCpu: 512m
+                        resourceLimitMemory: 512Mi
+                        resourceRequestCpu: 512m
+                        resourceRequestMemory: 512Mi
+                        runAsUser: 
+                        runAsGroup: 
+                        ttyEnabled: false
+                        workingDir: /home/jenkins/agent
+                      idleMinutes: 0
+                      instanceCap: 2147483647
+                      label: "RELEASE-NAME-jenkins-agent "
+                      nodeUsageMode: "NORMAL"
+                      podRetention: Never
+                      showRawYaml: true
+                      serviceAccount: "default"
+                      slaveConnectTimeoutStr: "100"
+                      yamlMergeStrategy: override
+              crumbIssuer:
+                standard:
+                  excludeClientIPFromCrumb: true
+            security:
+              apiToken:
+                creationOfLegacyTokenEnabled: false
+                tokenGenerationOnCreationEnabled: false
+                usageStatisticsEnabled: true
+            unclassified:
+              location:
+                adminAddress: 
+                url: http://RELEASE-NAME-jenkins:8080
+  - it: adds custom labels on agent pods
+    set:
+      agent:
+        podLabels:
+          label-one: value-one
+          label-two: true
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data.jcasc-default-config\.yaml
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
+      - equal:
+          path: data.jcasc-default-config\.yaml
+          value: |-
+            jenkins:
+              authorizationStrategy:
+                loggedInUsersCanDoAnything:
+                  allowAnonymousRead: false
+              securityRealm:
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
+              disableRememberMe: false
+              remotingSecurity:
+                enabled: true
+              mode: NORMAL
+              numExecutors: 0
+              labelString: ""
+              projectNamingStrategy: "standard"
+              markupFormatter:
+                plainText
+              clouds:
+              - kubernetes:
+                  containerCapStr: "10"
+                  defaultsProviderTemplate: ""
+                  connectTimeout: "5"
+                  readTimeout: "15"
+                  jenkinsUrl: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080"
+                  jenkinsTunnel: "RELEASE-NAME-jenkins-agent.NAMESPACE.svc.cluster.local:50000"
+                  maxRequestsPerHostStr: "32"
+                  name: "kubernetes"
+                  namespace: "NAMESPACE"
+                  serverUrl: "https://kubernetes.default"
+                  podLabels:
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
+                    value: "true"
+                  - key: "label-one"
+                    value: "value-one"
+                  - key: "label-two"
+                    value: "true"
+                  templates:
+                    - name: "default"
+                      id: 92841a8c166a0a5c48c932d898ad3b924bdeb49166b5b448b95818298f771b28
+                      containers:
+                      - name: "jnlp"
+                        alwaysPullImage: false
+                        args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
+                        envVars:
+                          - envVar:
+                              key: "JENKINS_URL"
+                              value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
+                        image: "jenkins/inbound-agent:4.6-1"
+                        privileged: "false"
+                        resourceLimitCpu: 512m
+                        resourceLimitMemory: 512Mi
+                        resourceRequestCpu: 512m
+                        resourceRequestMemory: 512Mi
+                        runAsUser: 
+                        runAsGroup: 
+                        ttyEnabled: false
+                        workingDir: /home/jenkins/agent
+                      idleMinutes: 0
+                      instanceCap: 2147483647
+                      label: "RELEASE-NAME-jenkins-agent "
+                      nodeUsageMode: "NORMAL"
+                      podRetention: Never
+                      showRawYaml: true
+                      serviceAccount: "default"
+                      slaveConnectTimeoutStr: "100"
+                      yamlMergeStrategy: override
+              crumbIssuer:
+                standard:
+                  excludeClientIPFromCrumb: true
+            security:
+              apiToken:
+                creationOfLegacyTokenEnabled: false
+                tokenGenerationOnCreationEnabled: false
+                usageStatisticsEnabled: true
+            unclassified:
+              location:
+                adminAddress: 
+                url: http://RELEASE-NAME-jenkins:8080
