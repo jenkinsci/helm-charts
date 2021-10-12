@@ -868,3 +868,10 @@ backup:
   #  drop:
   #    - NET_RAW
 checkDeprecation: true
+
+awsSecurityGroupPolicies:
+  enabled: false
+  policies:
+    - name: ""
+      securityGroupIds: []
+      podSelector: {}
