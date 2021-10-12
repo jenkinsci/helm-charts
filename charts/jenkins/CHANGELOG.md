@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.7.1
 
-Update git plugin version
+Update git and casc plugins versions
 
 ## 3.7.0
 
