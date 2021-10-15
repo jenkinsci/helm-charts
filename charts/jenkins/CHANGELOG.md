@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.8.1
 
-Update jenkins/inbound-agent:4.9-1
+Update jenkins/inbound-agent:4.10-3
 
 ## 3.8.0
 
