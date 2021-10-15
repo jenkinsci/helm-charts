@@ -56,7 +56,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 8e87a0373bebcc6a10449d2a90262bb02a7cf7e5ec63c98cc4e123b67e58650a
+                      id: 8fa1214206b3b06e1106344ce36aab6c4487336e4b44097756e1441c8f232341
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -176,7 +176,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 7f0e77752c448c03efc67d90ced2c63b7c97d78ffe57cb9d9930aa3d75bd9684
+                      id: f0b07d1a17a816852198bb12d45fa99fde8c04555012384cae98d001f8273991
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -615,7 +615,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: e4e2285e615c830c1ba647c108598c2bac7399537b6a4ceae64ace58a20847de
+                      id: 0618f92f896204131e617b060c61191b34dfd77c807b8f29412279952c8b5d52
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -720,7 +720,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 8d40959ed4bc63447ce4e98a8c824985644b0f7de86ec42baf851d18ac7fb9e4
+                      id: 7e0aba9fd7251e7d1f8de059fd4330b26253dd34bc4e2d3b0c340a8e5e5862ca
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -823,7 +823,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: e8801493e50fd88f2fd677b5ad126776363d3764311d7875a20ffed439f07c75
+                      id: ec09f5c97c3267db03626580fcd0c9ca73a864d01083702859bb955074b27e2c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -928,7 +928,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 748f16a465d93034ab811866b52d1dbbc629d1181e2af44347c8a4ca6d84eefa
+                      id: 4d7f2db72f3324d0ca49b458155c7390d7e47ac71c4b059153cbccbaf23c1f57
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1034,7 +1034,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 1e040540e1ee1cd3b2514de7dd2f012f7b1b8a7857d46d306ad57ad7093fd386
+                      id: 9909b46eb71b7d23b14beba26b4fd85da33ba028202d1279d5277655d2561849
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1139,7 +1139,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: bd99fe604a67f37d9661f1303f08d3f258b27da9517c88a6d493503bf35866d8
+                      id: 053ce0d43b2e1af555814a3ca725917adf77deb7462076ee234bcdbfd387b7f2
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1313,7 +1313,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 8e87a0373bebcc6a10449d2a90262bb02a7cf7e5ec63c98cc4e123b67e58650a
+                      id: 8fa1214206b3b06e1106344ce36aab6c4487336e4b44097756e1441c8f232341
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1415,7 +1415,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
-                      id: 92841a8c166a0a5c48c932d898ad3b924bdeb49166b5b448b95818298f771b28
+                      id: b8f5c99a0dae96046a966b7d93fe8d7b315a0543eed94525044c942c97fc268d
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
