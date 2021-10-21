@@ -332,7 +332,7 @@ spec:
       - name: init-scripts
         configMap:
           name: {{ .Values.controller.initConfigMap }}
-      {{- else }}
+      {{- else if .Values.controller.initScripts }}
       - name: init-scripts
         configMap:
           name: {{ template "jenkins.fullname" . }}-init-scripts
