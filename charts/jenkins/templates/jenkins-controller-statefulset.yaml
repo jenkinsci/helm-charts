@@ -139,7 +139,7 @@ spec:
             - mountPath: /var/jenkins_plugins
               name: plugin-dir
             {{- end }}
-            {{- if .Values.controller.initScripts }}
+            {{- if or .Values.controller.initScripts .Values.controller.initConfigMap }}
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
               name: init-scripts
             {{- end }}
@@ -243,7 +243,7 @@ spec:
               name: plugin-dir
               readOnly: false
             {{- end }}
-            {{- if .Values.controller.initScripts }}
+            {{- if or .Values.controller.initScripts .Values.controller.initConfigMap }}
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
               name: init-scripts
             {{- end }}
@@ -321,7 +321,18 @@ spec:
 {{- end }}
       - name: plugins
         emptyDir: {}
-      {{- if .Values.controller.initScripts }}
+      {{- if and .Values.controller.initScripts .Values.controller.initConfigMap }}
+      - name: init-scripts
+        projected:
+          - configMap:
+              name: {{ template "jenkins.fullname" . }}-init-scripts
+          - configMap:
+              name: {{ .Values.controller.initConfigMap }}
+      {{- else if .Values.controller.initConfigMap }}
+      - name: init-scripts
+        configMap:
+          name: {{ .Values.controller.initConfigMap }}
+      {{- else if .Values.controller.initScripts }}
       - name: init-scripts
         configMap:
           name: {{ template "jenkins.fullname" . }}-init-scripts
