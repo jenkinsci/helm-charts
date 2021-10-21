@@ -37,6 +37,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.initScripts`          | List of Jenkins init scripts         | `[]`                                      |
+| `conrroller.initConfigMap`        | Pre-existing init scripts            | Not set                                   |
 
 #### Jenkins Global Security
 
