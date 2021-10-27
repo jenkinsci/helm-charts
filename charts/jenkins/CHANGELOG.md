@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.8.5
+
+Add `controller.tagLabel` to specify the label for the image tag, for example `jdk11` or `alpine`
+
 ## 3.8.4
 
 Add `controller.initConfigMap` to pass pre-existing `init.groovy.d` ConfigMaps to the controller
