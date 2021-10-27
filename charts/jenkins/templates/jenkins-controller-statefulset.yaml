@@ -107,7 +107,7 @@ spec:
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
         - name: "init"
-          image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
+          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
             {{- if .Values.controller.initContainerEnv }}
@@ -145,7 +145,7 @@ spec:
             {{- end }}
       containers:
         - name: jenkins
-          image: "{{ .Values.controller.image }}:{{ .Values.controller.tag }}"
+          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           {{- if .Values.controller.overrideArgs }}
           args: [
