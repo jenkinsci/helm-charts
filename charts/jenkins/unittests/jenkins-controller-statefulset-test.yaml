@@ -64,7 +64,7 @@ tests:
                   - name: JAVA_OPTS
                     value: "-Dcasc.reload.token=$(POD_NAME) "
                   - name: JENKINS_OPTS
-                    value: ""
+                    value: "--webroot=/var/jenkins_war "
                   - name: JENKINS_SLAVE_AGENT_PORT
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
@@ -112,6 +112,8 @@ tests:
                   - mountPath: /var/jenkins_config
                     name: jenkins-config
                     readOnly: true
+                  - mountPath: /var/jenkins_war
+                    name: jenkins-webroot
                   - mountPath: /usr/share/jenkins/ref/plugins/
                     name: plugin-dir
                     readOnly: false
@@ -185,6 +187,8 @@ tests:
                 - configMap:
                     name: my-release-jenkins
                   name: jenkins-config
+                - emptyDir: {}
+                  name: jenkins-webroot
                 - emptyDir: {}
                   name: plugin-dir
                 - name: jenkins-home
@@ -368,7 +372,7 @@ tests:
          content:
            name: JENKINS_OPTS
            value: >-
-             -Dtest="custom: 'true'"
+             --webroot=/var/jenkins_war -Dtest="custom: 'true'"
   - it: test empty controller.podSecurityContextOverride
     template: jenkins-controller-statefulset.yaml
     set:

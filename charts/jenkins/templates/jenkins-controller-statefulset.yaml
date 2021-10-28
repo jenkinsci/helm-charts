@@ -179,7 +179,7 @@ spec:
                 {{ if .Values.controller.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}{{ default "" .Values.controller.javaOpts }}
             - name: JENKINS_OPTS
               value: >-
-                {{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.controller.jenkinsOpts}}
+                {{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }} --webroot=/var/jenkins_war {{ default "" .Values.controller.jenkinsOpts}}
             - name: JENKINS_SLAVE_AGENT_PORT
               value: "{{ .Values.controller.agentListenerPort }}"
             {{- if .Values.controller.httpsKeyStore.enable }}
@@ -238,6 +238,8 @@ spec:
             - mountPath: /var/jenkins_config
               name: jenkins-config
               readOnly: true
+            - mountPath: /var/jenkins_war
+              name: jenkins-webroot
             {{- if .Values.controller.installPlugins }}
             - mountPath: {{ .Values.controller.jenkinsRef }}/plugins/
               name: plugin-dir
@@ -340,6 +342,8 @@ spec:
       - name: jenkins-config
         configMap:
           name: {{ template "jenkins.fullname" . }}
+      - name: jenkins-webroot
+        emptyDir: {}
       {{- if .Values.controller.installPlugins }}
       - name: plugin-dir
         emptyDir: {}
