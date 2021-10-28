@@ -100,7 +100,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
-| `controller.tag`                      | Controller image tag                      | `2.303.2-jdk11`                           |
+| `controller.tagLabel`                 | Controller image tag label                | `jdk11`                                   |
+| `controller.tag`                      | Controller image tag override             | Not set                                   |
 | `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
