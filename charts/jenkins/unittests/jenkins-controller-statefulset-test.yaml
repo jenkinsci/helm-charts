@@ -327,6 +327,14 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].image
           value: jenkins/jenkins:2.303.2-alpine
+  - it: configure empty image tag label
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.tagLabel: 
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: jenkins/jenkins:2.303.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
