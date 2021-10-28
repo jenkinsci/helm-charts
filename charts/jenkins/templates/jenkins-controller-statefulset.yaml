@@ -179,7 +179,7 @@ spec:
                 {{ if .Values.controller.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}{{ default "" .Values.controller.javaOpts }}
             - name: JENKINS_OPTS
               value: >-
-                {{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }}{{ default "" .Values.controller.jenkinsOpts}}
+                {{ if .Values.controller.jenkinsUriPrefix }}--prefix={{ .Values.controller.jenkinsUriPrefix }} {{ end }} --webroot=/var/jenkins_cache/war {{ default "" .Values.controller.jenkinsOpts}}
             - name: JENKINS_SLAVE_AGENT_PORT
               value: "{{ .Values.controller.agentListenerPort }}"
             {{- if .Values.controller.httpsKeyStore.enable }}
@@ -273,6 +273,8 @@ spec:
               subPath: {{ $value.keyName }}
               readOnly: true
             {{- end }}
+            - name: jenkins-cache
+              mountPath: /var/jenkins_cache
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
         - name: config-reload
@@ -356,6 +358,8 @@ spec:
           secretName: {{ $value.name }}
       {{- end }}
       {{- end }}
+      - name: jenkins-cache
+        emptyDir: {}
       {{- if not (contains "jenkins-home" (quote .Values.persistence.volumes)) }}
       - name: jenkins-home
       {{- if .Values.persistence.enabled }}
