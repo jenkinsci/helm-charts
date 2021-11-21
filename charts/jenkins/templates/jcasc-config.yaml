@@ -6,7 +6,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "jenkins.fullname" $root }}-jenkins-config-{{ $key }}
+  name: {{ printf "%s-jenkins-config-%s" (include "jenkins.fullname" $root) $key | lower | trunc 63 | trimSuffix "-" }}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
