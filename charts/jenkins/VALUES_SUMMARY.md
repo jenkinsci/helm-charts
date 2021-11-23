@@ -31,7 +31,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.sidecars.configAutoReload.image` | Image which triggers the reload | `kiwigrid/k8s-sidecar:0.1.144`           |
 | `controller.sidecars.configAutoReload.reqRetryConnect` | How many connection-related errors to retry on  | `10`          |
 | `controller.sidecars.configAutoReload.env` | Environment variables for the Jenkins Config as Code auto-reload container  | Not set |
-| `controller.sidecars.configAutoReload.containerSecurityContext` | Enable container security context | `readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
+| `controller.sidecars.configAutoReload.containerSecurityContext` | Enable container security context | `{readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
 
 #### Jenkins Configuration Files & Scripts
 
