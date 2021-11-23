@@ -16,6 +16,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 Added containerSecurityContext
 
+## 3.8.9
+
+Fix mounting of https keystore secret when httpsKeyStore is enabled
+
 ## 3.8.8
 
 Update Jenkins image and appVersion to jenkins lts release version 2.303.3
