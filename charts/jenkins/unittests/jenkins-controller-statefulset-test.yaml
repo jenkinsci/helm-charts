@@ -132,6 +132,8 @@ tests:
                     subPath: jenkins-admin-password
                   - mountPath: /var/jenkins_cache
                     name: jenkins-cache
+                  - mountPath: /tmp
+                    name: tmp-volume
                 - env:
                   - name: POD_NAME
                     valueFrom:
@@ -189,6 +191,8 @@ tests:
                     name: plugins
                   - mountPath: /var/jenkins_plugins
                     name: plugin-dir
+                  - mountPath: /tmp
+                    name: tmp-volume
                 securityContext:
                   fsGroup: 1000
                   runAsUser: 1000
@@ -209,6 +213,8 @@ tests:
                     claimName: my-release-jenkins
                 - emptyDir: {}
                   name: sc-config-volume
+                - emptyDir: {}
+                  name: tmp-volume
                 - name: admin-secret
                   secret:
                     secretName: my-release-jenkins

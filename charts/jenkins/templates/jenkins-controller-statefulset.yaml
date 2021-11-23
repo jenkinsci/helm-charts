@@ -141,6 +141,8 @@ spec:
             {{- end }}
             - mountPath: /var/jenkins_plugins
               name: plugin-dir
+            - mountPath: /tmp
+              name: tmp-volume
             {{- end }}
             {{- if or .Values.controller.initScripts .Values.controller.initConfigMap }}
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
@@ -281,6 +283,8 @@ spec:
             {{- end }}
             - name: jenkins-cache
               mountPath: /var/jenkins_cache
+            - mountPath: /tmp
+              name: tmp-volume
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
         - name: config-reload
@@ -379,6 +383,8 @@ spec:
       {{- end -}}
       {{- end }}
       - name: sc-config-volume
+        emptyDir: {}
+      - name: tmp-volume
         emptyDir: {}
 
       {{- if .Values.controller.httpsKeyStore.enable }}
