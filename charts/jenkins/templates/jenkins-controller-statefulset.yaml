@@ -109,6 +109,9 @@ spec:
         - name: "init"
           image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          {{- if .Values.controller.containerSecurityContext }}
+          securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
+          {{- end }}
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
             {{- if .Values.controller.initContainerEnv }}
           env:
@@ -147,6 +150,9 @@ spec:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          {{- if .Values.controller.containerSecurityContext }}
+          securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
+          {{- end }}
           {{- if .Values.controller.overrideArgs }}
           args: [
             {{- range $overrideArg := .Values.controller.overrideArgs }}
@@ -280,6 +286,9 @@ spec:
         - name: config-reload
           image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
           imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
+          {{- if .Values.controller.sidecars.configAutoReload.containerSecurityContext }}
+          securityContext: {{- toYaml .Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 12 }}
+          {{- end }}
           env:
             - name: POD_NAME
               valueFrom:

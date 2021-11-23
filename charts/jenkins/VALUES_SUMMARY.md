@@ -31,6 +31,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.sidecars.configAutoReload.image` | Image which triggers the reload | `kiwigrid/k8s-sidecar:0.1.144`           |
 | `controller.sidecars.configAutoReload.reqRetryConnect` | How many connection-related errors to retry on  | `10`          |
 | `controller.sidecars.configAutoReload.env` | Environment variables for the Jenkins Config as Code auto-reload container  | Not set |
+| `controller.sidecars.configAutoReload.containerSecurityContext` | Enable container security context (enabled if `runAsUser`, `runAsGroup`, `readOnlyRootFilesystem` or `allowPrivilegeEscalation` are set) | Not set |
 
 #### Jenkins Configuration Files & Scripts
 
@@ -112,6 +113,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
 | `controller.fsGroup`                  | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `controller.podSecurityContextOverride` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
+| `controller.containerSecurityContext`    | Allow to control securityContext for the jenkins container. | Not set |
 | `controller.hostAliases`              | Aliases for IPs in `/etc/hosts`      | `[]`                                      |
 | `controller.serviceAnnotations`       | Service annotations                  | `{}`                                      |
 | `controller.serviceType`              | k8s service type                     | `ClusterIP`                               |

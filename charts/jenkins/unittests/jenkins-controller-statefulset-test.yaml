@@ -71,6 +71,11 @@ tests:
                     value: /var/jenkins_home/casc_configs
                   image: jenkins/jenkins:2.303.3-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   livenessProbe:
                     failureThreshold: 5
                     httpGet:
@@ -146,6 +151,9 @@ tests:
                     value: "10"
                   image: kiwigrid/k8s-sidecar:1.14.2
                   imagePullPolicy: IfNotPresent
+                  securityContext:
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: config-reload
                   resources: {}
                   volumeMounts:
@@ -159,6 +167,11 @@ tests:
                   - /var/jenkins_config/apply_config.sh
                   image: jenkins/jenkins:2.303.3-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: init
                   resources:
                     limits:
