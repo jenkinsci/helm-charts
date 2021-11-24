@@ -71,6 +71,11 @@ tests:
                     value: /var/jenkins_home/casc_configs
                   image: jenkins/jenkins:2.303.3-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   livenessProbe:
                     failureThreshold: 5
                     httpGet:
@@ -127,6 +132,8 @@ tests:
                     subPath: jenkins-admin-password
                   - mountPath: /var/jenkins_cache
                     name: jenkins-cache
+                  - mountPath: /tmp
+                    name: tmp-volume
                 - env:
                   - name: POD_NAME
                     valueFrom:
@@ -146,6 +153,9 @@ tests:
                     value: "10"
                   image: kiwigrid/k8s-sidecar:1.14.2
                   imagePullPolicy: IfNotPresent
+                  securityContext:
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: config-reload
                   resources: {}
                   volumeMounts:
@@ -159,6 +169,11 @@ tests:
                   - /var/jenkins_config/apply_config.sh
                   image: jenkins/jenkins:2.303.3-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: init
                   resources:
                     limits:
@@ -176,6 +191,8 @@ tests:
                     name: plugins
                   - mountPath: /var/jenkins_plugins
                     name: plugin-dir
+                  - mountPath: /tmp
+                    name: tmp-volume
                 securityContext:
                   fsGroup: 1000
                   runAsUser: 1000
@@ -196,6 +213,8 @@ tests:
                     claimName: my-release-jenkins
                 - emptyDir: {}
                   name: sc-config-volume
+                - emptyDir: {}
+                  name: tmp-volume
                 - name: admin-secret
                   secret:
                     secretName: my-release-jenkins
