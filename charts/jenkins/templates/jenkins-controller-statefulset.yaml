@@ -158,7 +158,7 @@ spec:
           {{- if .Values.controller.overrideArgs }}
           args: [
             {{- range $overrideArg := .Values.controller.overrideArgs }}
-              "{{- $overrideArg }}",
+              "{{- tpl $overrideArg $ }}",
             {{- end }}
           ]
           {{- else if .Values.controller.httpsKeyStore.enable }}
