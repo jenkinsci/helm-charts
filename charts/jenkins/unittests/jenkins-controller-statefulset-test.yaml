@@ -524,6 +524,18 @@ tests:
           value:
             - --httpPort=8080
             - --requestHeaderSize=32768
+  - it: allows templating in container args overrides
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.overrideArgs:
+        - --httpPort={{.Values.controller.targetPort}}
+        - --requestHeaderSize=32768
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].args
+          value:
+            - --httpPort=8080
+            - --requestHeaderSize=32768
   - it: render pod annotations
     template: jenkins-controller-statefulset.yaml
     set:
