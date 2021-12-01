@@ -12,6 +12,15 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.9.2
+
+Update Jenkins image and appVersion to jenkins lts release version 2.319.1
+Update following plugins:
+
+* kubernetes:1.30.11
+* git:4.10.0
+* configuration-as-code:1.54
+
 ## 3.9.1
 
 Adding `tpl` to `controller.overrideArgs`
