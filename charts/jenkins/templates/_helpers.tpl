@@ -369,3 +369,14 @@ Create a full tag name for controller image
     {{- default .Chart.AppVersion .Values.controller.tag -}}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create the HTTP port for interacting with the controller
+*/}}
+{{- define "controller.httpPort" -}}
+{{- if .Values.controller.httpsKeyStore.enable -}}
+    {{- .Values.controller.httpsKeyStore.httpPort -}}
+{{- else -}}
+    {{- .Values.controller.targetPort -}}
+{{- end -}}
+{{- end -}}
