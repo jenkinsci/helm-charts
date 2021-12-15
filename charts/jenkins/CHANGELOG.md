@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.9.4
+
+Add JAVA_OPTIONS to the README so proxy settings get picked by jenkins-plugin-cli
+
 ## 3.9.3
 
 Fix config reload request url when httpsKeystore in use
