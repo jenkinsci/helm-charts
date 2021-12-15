@@ -853,6 +853,8 @@ controller:
       value: "http://192.168.64.1:3128"
     - name: no_proxy
       value: ""
+    - name: JAVA_OPTIONS
+      value: "-Dhttps.proxyHost=proxy_host_name_without_protocal -Dhttps.proxyPort=3128"
   containerEnv:
     - name: http_proxy
       value: "http://192.168.64.1:3128"
