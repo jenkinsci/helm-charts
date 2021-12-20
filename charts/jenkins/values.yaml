@@ -238,7 +238,7 @@ controller:
     - kubernetes:1.30.11
     - workflow-aggregator:2.6
     - git:4.10.0
-    - configuration-as-code:1.54
+    - configuration-as-code:1.55
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
