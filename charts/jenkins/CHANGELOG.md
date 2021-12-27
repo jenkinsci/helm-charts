@@ -12,6 +12,16 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.10
+
+Update default plugin versions
+
+| plugin                | old version | new version |
+| --------------------- | ----------- | ----------- |
+| kubernetes            | 1.30.11     | 1.31.1      |
+| git                   | 4.10.0      | 4.10.1      |
+| configuration-as-code | 1.54        | 1.55        |
+
 ## 3.9.4
 
 Add JAVA_OPTIONS to the README so proxy settings get picked by jenkins-plugin-cli
