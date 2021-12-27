@@ -81,7 +81,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
 | `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
 | `controller.overwritePluginsFromImage` | Keep plugins that are already installed in the controller image.| `true`            |
-| `controller.installLatestPlugins`      | Set to false to download the minimum required version of all dependencies. | `false` |
+| `controller.installLatestPlugins`      | Set to false to download the minimum required version of all dependencies. | `true` |
 | `controller.installLatestSpecifiedPlugins`      | Set to true to download latest dependencies of any plugin that is requested to have the latest version. | `false` |
 
 #### Jenkins Agent Listener
