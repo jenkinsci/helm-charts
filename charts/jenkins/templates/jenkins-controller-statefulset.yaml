@@ -224,7 +224,14 @@ spec:
               name: {{ $port.name }}
 {{- end }}
 {{- if and .Values.controller.healthProbes .Values.controller.probes}}
-{{ tpl (toYaml .Values.controller.probes | indent 10) .}}
+  {{- if semverCompare ">=1.16-0" .Capabilities.KubeVersion.GitVersion }}
+          startupProbe:
+{{ tpl (toYaml .Values.controller.probes.startupProbe | indent 12) .}}
+  {{- end }}
+          livenessProbe:
+{{ tpl (toYaml .Values.controller.probes.livenessProbe | indent 12) .}}
+          readinessProbe:
+{{ tpl (toYaml .Values.controller.probes.readinessProbe | indent 12) .}}
 {{- end }}
           resources:
 {{ toYaml .Values.controller.resources | indent 12 }}
