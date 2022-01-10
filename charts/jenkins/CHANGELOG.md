@@ -12,6 +12,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.10.3
+
+Update default plugin versions
+
+| plugin                | old version | new version |
+| --------------------- | ----------- | ----------- |
+| kubernetes            | 1.31.1     | 1.31.2      |
+
 ## 3.10.2
 
 Fix definition of startupProbe when deploying on a Kubernetes cluster < 1.16
