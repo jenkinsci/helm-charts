@@ -40,7 +40,7 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.31.1
+            kubernetes:1.31.2
             workflow-aggregator:2.6
             git:4.10.1
             configuration-as-code:1.55
@@ -69,7 +69,7 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.31.1
+            kubernetes:1.31.2
             workflow-aggregator:2.6
             git:4.10.1
             configuration-as-code:1.55
