@@ -358,3 +358,25 @@ Create the name of the service account for Jenkins backup to use
     {{ default "default" .Values.backup.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+{{/*
+Create a full tag name for controller image
+*/}}
+{{- define "controller.tag" -}}
+{{- if .Values.controller.tagLabel -}}
+    {{- default (printf "%s-%s" .Chart.AppVersion .Values.controller.tagLabel) .Values.controller.tag -}}
+{{- else -}}
+    {{- default .Chart.AppVersion .Values.controller.tag -}}
+{{- end -}}
+{{- end -}}
+
+{{/*
+Create the HTTP port for interacting with the controller
+*/}}
+{{- define "controller.httpPort" -}}
+{{- if .Values.controller.httpsKeyStore.enable -}}
+    {{- .Values.controller.httpsKeyStore.httpPort -}}
+{{- else -}}
+    {{- .Values.controller.targetPort -}}
+{{- end -}}
+{{- end -}}

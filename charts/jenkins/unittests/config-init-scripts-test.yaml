@@ -1,0 +1,19 @@
+suite: ConfigMap
+templates:
+  - config-init-scripts.yaml
+tests:
+  - it: config templates
+    set:
+      some.val: val here
+      controller.initScripts:
+        test: |-
+          my script here {{ .Values.some.val }}
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - equal:
+          path: data.inittest\.groovy
+          value: |-
+            my script here val here

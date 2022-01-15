@@ -1,6 +1,7 @@
 ---
 controller:
   overwritePluginsFromImage: false
+  containerSecurityContext: ""
   runAsUser: 0
   fsGroup: 1000
   JCasC:

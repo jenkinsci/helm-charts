@@ -13,6 +13,6 @@ metadata:
 data:
 {{- range $key, $val := .Values.controller.initScripts }}
   init{{ $key }}.groovy: |-
-{{ $val | indent 4 }}
+{{ tpl $val $ | indent 4 }}
 {{- end }}
 {{- end }}

@@ -58,6 +58,54 @@ minikube service chart-$CHART
 
 Once changes have been merged, the release job will automatically run to package and release changed charts.
 
+### Unit Tests
+
+It's encouraged to add unit tests.
+This project uses helm-unittest plugin.
+Tests can be executed like this:
+
+```console
+# install the unittest plugin
+$ helm plugin install https://github.com/quintush/helm-unittest --version 0.2.6
+
+# run the unittests
+$ helm unittest --helm3 --strict -f 'unittests/*.yaml' charts/jenkins
+
+### Chart [ jenkins ] charts/jenkins
+
+2022/01/15 11:25:01 warning: destination for initScripts is a table. Ignoring non-table value []
+ PASS  ConfigMap                               charts/jenkins/unittests/config-init-scripts-test.yaml
+ PASS  ConfigMap                               charts/jenkins/unittests/config-test.yaml
+ PASS  PersistentVolumeClaim                   charts/jenkins/unittests/home-pvc-test.yaml
+ PASS  Configuration as Code                   charts/jenkins/unittests/jcasc-config-test.yaml
+ PASS  Jenkins Agent Service                   charts/jenkins/unittests/jenkins-agent-svc-test.yaml
+ PASS  Jenkins Backup Cronjob                  charts/jenkins/unittests/jenkins-backup-cronjob-test.yaml
+ PASS  Controller Prometheus PrometheusRule    charts/jenkins/unittests/jenkins-controller-alerting-rules-test.yaml
+ PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-1.19-test.yaml
+ PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-test.yaml
+ PASS  Network Policy                          charts/jenkins/unittests/jenkins-controller-networkpolicy-test.yaml
+ PASS  Controller Pod Disruption Budget        charts/jenkins/unittests/jenkins-controller-pdb-1.21-test.yaml
+ PASS  Controller Pod Disruption Budget        charts/jenkins/unittests/jenkins-controller-pdb-test.yaml
+ PASS  Controller Secondary Ingress            charts/jenkins/unittests/jenkins-controller-secondary-ingress-1.19-test.yaml
+ PASS  Controller Secondary Ingress            charts/jenkins/unittests/jenkins-controller-secondary-ingress-test.yaml
+ PASS  Controller Prometheus ServiceMonitor    charts/jenkins/unittests/jenkins-controller-servicemonitor_test.yaml
+ PASS  Jenkins Controller                      charts/jenkins/unittests/jenkins-controller-statefulset-test.yaml
+ PASS  Jenkins Controller                      charts/jenkins/unittests/jenkins-controller-svc-test.yaml
+ PASS  Role Based Access Control               charts/jenkins/unittests/rbac-test.yaml
+ PASS  Controller Admin Additional Secrets     charts/jenkins/unittests/secret-additional-test.yaml
+ PASS  Controller Secret Claims                charts/jenkins/unittests/secret-claims-test.yaml
+ PASS  Controller Additional Existing Secrets  charts/jenkins/unittests/secret-existing-test.yaml
+ PASS  Controller Admin Credentials            charts/jenkins/unittests/secret-test.yaml
+ PASS  Controller Service Account              charts/jenkins/unittests/service-account-agent-test.yaml
+ PASS  Controller Service Account              charts/jenkins/unittests/service-account-test.yaml
+
+Charts:      1 passed, 1 total
+Test Suites: 24 passed, 24 total
+Tests:       119 passed, 119 total
+Snapshot:    1 passed, 1 total
+Time:        440.35914ms
+```
+
 ### Immutability
 
 Chart releases must be immutable. Any change to a chart warrants a chart version bump even if it is only a change to the documentation.

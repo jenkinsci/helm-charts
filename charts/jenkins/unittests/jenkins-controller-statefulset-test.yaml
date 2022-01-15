@@ -46,7 +46,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: dcf606d26b60483d2cf523616909460c03211c96c949f89488b9fa54866ca405
+                  checksum/config: 43a92e9b975b2c73717c59db2ff64ecb0901c473ec92662eb381f79ffcb81b6b
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -64,13 +64,18 @@ tests:
                   - name: JAVA_OPTS
                     value: "-Dcasc.reload.token=$(POD_NAME) "
                   - name: JENKINS_OPTS
-                    value: ""
+                    value: "--webroot=/var/jenkins_cache/war "
                   - name: JENKINS_SLAVE_AGENT_PORT
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.303.2-jdk11
+                  image: jenkins/jenkins:2.319.2-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   livenessProbe:
                     failureThreshold: 5
                     httpGet:
@@ -125,6 +130,10 @@ tests:
                     name: admin-secret
                     readOnly: true
                     subPath: jenkins-admin-password
+                  - mountPath: /var/jenkins_cache
+                    name: jenkins-cache
+                  - mountPath: /tmp
+                    name: tmp-volume
                 - env:
                   - name: POD_NAME
                     valueFrom:
@@ -142,8 +151,11 @@ tests:
                     value: POST
                   - name: REQ_RETRY_CONNECT
                     value: "10"
-                  image: kiwigrid/k8s-sidecar:1.12.2
+                  image: kiwigrid/k8s-sidecar:1.14.2
                   imagePullPolicy: IfNotPresent
+                  securityContext:
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: config-reload
                   resources: {}
                   volumeMounts:
@@ -155,8 +167,13 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.303.2-jdk11
+                  image: jenkins/jenkins:2.319.2-jdk11
                   imagePullPolicy: Always
+                  securityContext:
+                    runAsUser: 1000
+                    runAsGroup: 1000
+                    readOnlyRootFilesystem: true
+                    allowPrivilegeEscalation: false
                   name: init
                   resources:
                     limits:
@@ -174,6 +191,8 @@ tests:
                     name: plugins
                   - mountPath: /var/jenkins_plugins
                     name: plugin-dir
+                  - mountPath: /tmp
+                    name: tmp-volume
                 securityContext:
                   fsGroup: 1000
                   runAsUser: 1000
@@ -187,11 +206,15 @@ tests:
                   name: jenkins-config
                 - emptyDir: {}
                   name: plugin-dir
+                - emptyDir: {}
+                  name: jenkins-cache
                 - name: jenkins-home
                   persistentVolumeClaim:
                     claimName: my-release-jenkins
                 - emptyDir: {}
                   name: sc-config-volume
+                - emptyDir: {}
+                  name: tmp-volume
                 - name: admin-secret
                   secret:
                     secretName: my-release-jenkins
@@ -319,6 +342,22 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
+  - it: configure image tag label
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.tagLabel: alpine
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: jenkins/jenkins:2.319.2-alpine
+  - it: configure empty image tag label
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.tagLabel: 
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].image
+          value: jenkins/jenkins:2.319.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
@@ -368,7 +407,7 @@ tests:
          content:
            name: JENKINS_OPTS
            value: >-
-             -Dtest="custom: 'true'"
+             --webroot=/var/jenkins_cache/war -Dtest="custom: 'true'"
   - it: test empty controller.podSecurityContextOverride
     template: jenkins-controller-statefulset.yaml
     set:
@@ -478,6 +517,18 @@ tests:
     set:
       controller.overrideArgs:
         - --httpPort=8080
+        - --requestHeaderSize=32768
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].args
+          value:
+            - --httpPort=8080
+            - --requestHeaderSize=32768
+  - it: allows templating in container args overrides
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.overrideArgs:
+        - --httpPort={{.Values.controller.targetPort}}
         - --requestHeaderSize=32768
     asserts:
       - equal:

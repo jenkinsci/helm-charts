@@ -12,6 +12,107 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.11.0
+
+Update default plugin versions
+
+| plugin                | old version | new version |
+| --------------------- | ----------- | ----------- |
+| kubernetes            | 1.31.1      | 1.31.3      |
+| git                   | 4.10.1      | 4.10.2      |
+
+## 3.10.3
+
+Update Jenkins image and appVersion to jenkins lts release version 2.319.2
+
+
+## 3.10.2
+
+Fix definition of startupProbe when deploying on a Kubernetes cluster < 1.16
+
+## 3.10.1
+
+correct VALUES_SUMMARY.md for installLatestPlugins
+
+## 3.10.0
+
+Update default plugin versions
+
+| plugin                | old version | new version |
+| --------------------- | ----------- | ----------- |
+| kubernetes            | 1.30.11     | 1.31.1      |
+| git                   | 4.10.0      | 4.10.1      |
+| configuration-as-code | 1.54        | 1.55        |
+
+## 3.9.4
+
+Add JAVA_OPTIONS to the README so proxy settings get picked by jenkins-plugin-cli
+
+## 3.9.3
+
+Fix config reload request url when httpsKeystore in use
+
+## 3.9.2
+
+Update Jenkins image and appVersion to jenkins lts release version 2.319.1
+Update following plugins:
+
+* kubernetes:1.30.11
+* git:4.10.0
+* configuration-as-code:1.54
+
+## 3.9.1
+
+Adding `tpl` to `controller.overrideArgs`
+
+## 3.9.0
+
+Added containerSecurityContext
+
+## 3.8.9
+
+Fix mounting of https keystore secret when httpsKeyStore is enabled
+
+## 3.8.8
+
+Update Jenkins image and appVersion to jenkins lts release version 2.303.3
+
+## 3.8.7
+
+Adding `tpl` to `initScripts`
+
+## 3.8.6
+
+Add `controller.tagLabel` to specify the label for the image tag, for example `jdk11` or `alpine`
+
+## 3.8.5
+
+Move jenkins web root outside of home dir
+
+## 3.8.4
+
+Add `controller.initConfigMap` to pass pre-existing `init.groovy.d` ConfigMaps to the controller
+
+## 3.8.3
+
+Update missed reference to jenkins/inbound-agent:4.11-1
+
+## 3.8.2
+
+Update jenkins/inbound-agent:4.11-1
+
+## 3.8.1
+
+Update jenkins/inbound-agent:4.10-3
+
+## 3.8.0
+
+Update kiwigrid/k8s-sidecar:1.14.2
+
+## 3.7.1
+
+Update git and casc plugins versions
+
 ## 3.7.0
 
 Added the option to create AWS SecurityGroupPolicy resources

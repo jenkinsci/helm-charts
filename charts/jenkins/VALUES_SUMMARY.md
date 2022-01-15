@@ -31,12 +31,14 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.sidecars.configAutoReload.image` | Image which triggers the reload | `kiwigrid/k8s-sidecar:0.1.144`           |
 | `controller.sidecars.configAutoReload.reqRetryConnect` | How many connection-related errors to retry on  | `10`          |
 | `controller.sidecars.configAutoReload.env` | Environment variables for the Jenkins Config as Code auto-reload container  | Not set |
+| `controller.sidecars.configAutoReload.containerSecurityContext` | Enable container security context | `{readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
 
 #### Jenkins Configuration Files & Scripts
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.initScripts`          | List of Jenkins init scripts         | `[]`                                      |
+| `controller.initConfigMap`        | Pre-existing init scripts            | Not set                                   |
 
 #### Jenkins Global Security
 
@@ -79,7 +81,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
 | `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
 | `controller.overwritePluginsFromImage` | Keep plugins that are already installed in the controller image.| `true`            |
-| `controller.installLatestPlugins`      | Set to false to download the minimum required version of all dependencies. | `false` |
+| `controller.installLatestPlugins`      | Set to false to download the minimum required version of all dependencies. | `true` |
 | `controller.installLatestSpecifiedPlugins`      | Set to true to download latest dependencies of any plugin that is requested to have the latest version. | `false` |
 
 #### Jenkins Agent Listener
@@ -99,7 +101,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
-| `controller.tag`                      | Controller image tag                      | `2.303.2-jdk11`                           |
+| `controller.tagLabel`                 | Controller image tag label                | `jdk11`                                   |
+| `controller.tag`                      | Controller image tag override             | Not set                                   |
 | `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
@@ -110,6 +113,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
 | `controller.fsGroup`                  | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
 | `controller.podSecurityContextOverride` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
+| `controller.containerSecurityContext`    | Allow to control securityContext for the jenkins container. | `{runAsUser: 1000, runAsGroup: 1000, readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
 | `controller.hostAliases`              | Aliases for IPs in `/etc/hosts`      | `[]`                                      |
 | `controller.serviceAnnotations`       | Service annotations                  | `{}`                                      |
 | `controller.serviceType`              | k8s service type                     | `ClusterIP`                               |
@@ -319,7 +323,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.sideContainerName`  | Side container name in agent                    | jnlp                   |
 | `agent.image`              | Agent image name                                | `jenkins/inbound-agent`|
-| `agent.tag`                | Agent image tag                                 | `4.3-4`               |
+| `agent.tag`                | Agent image tag                                 | `4.11-1`               |
 | `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                |
 | `agent.privileged`         | Agent privileged container                      | `false`                |
 | `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}` |
