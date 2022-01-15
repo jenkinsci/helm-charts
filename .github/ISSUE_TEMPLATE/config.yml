@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Community forum
+    url: https://community.jenkins.io/
+    about: Please ask and answer questions here
+  - name:  Report a security vulnerability
+    url: https://github.com/jenkinsci/helm-charts/security/policy
+    about: Please review our security policy for more details
+  - name: Mailing lists
+    url: https://www.jenkins.io/mailing-lists/
+    about: You can also raise a question on the infra mailing list
