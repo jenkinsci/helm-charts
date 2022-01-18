@@ -1,0 +1,113 @@
+name: Bug report
+description: Create a report to help us improve
+labels: ['bug']
+# assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing an issue!
+        Before hitting the button, please answer these questions.
+        It's helpful to search the existing GitHub issues first.
+        It's likely that another user has already reported the issue you're facing, or it's a known issue that we're already aware of. 
+
+        Fill in as much of the template below as you can.
+        The more information we have the better we can help you.
+
+        Be ready for followup questions, and please respond in a timely manner.
+        If we can't reproduce a bug or think a feature already exists, we might close your issue.
+        If we're wrong, PLEASE feel free to reopen it and explain why.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Describe the bug
+      description: |
+        A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: helm-and-kubernetes-versions
+    attributes:
+      label: Version of Helm and Kubernetes
+      description: |
+          To retrieve helm version:
+          ```console
+          $ helm version
+          ```
+
+          And kubernetes version:
+          ```console
+          $ kubectl version
+          ```
+          Example:
+          > - Helm: v3.7.2
+          > - Kubernetes: v1.20.13
+      value: |
+          - Helm: 
+          - Kubernetes: 
+      render: markdown
+    validations:
+      required: false
+
+  - type: input
+    id: helm-chart-version
+    attributes:
+      label: Chart version
+      description: Which version of the chart you're using?
+      placeholder: ex. jenkins-3.10.3
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: |
+        How do you trigger this bug? Please walk us through it step by step.
+      value: |
+        1.
+        2.
+        3.
+        ...
+      render: bash
+    validations:
+      required: false
+
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What you expected to happen?
+    validations:
+      required: false
+
+  - type: textarea
+    id: howto-reproduce
+    attributes:
+      label: How to reproduce it
+      description: |
+        (as minimally and precisely as possible)
+
+        This could be something like:
+
+        > values.yaml (only put values which differ from the defaults)
+
+        > ```
+        > key: value
+        > ```
+
+        > ```
+        > helm install my-release jenkins/jenkins --version version --values values.yaml
+        > ```
+      render: markdown
+    validations:
+      required: false
+
+  - type: textarea
+    id: anything-else
+    attributes:
+      label: Anything else we need to know?
+    validations:
+      required: false
