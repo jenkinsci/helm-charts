@@ -323,7 +323,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------- | ----------------------------------------------- | ---------------------- |
 | `agent.sideContainerName`  | Side container name in agent                    | jnlp                   |
 | `agent.image`              | Agent image name                                | `jenkins/inbound-agent`|
-| `agent.tag`                | Agent image tag                                 | `4.11-1`               |
+| `agent.tag`                | Agent image tag                                 | `4.11.2-4`             |
 | `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                |
 | `agent.privileged`         | Agent privileged container                      | `false`                |
 | `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}` |
@@ -332,7 +332,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.command`            | Executed command when side container starts     | Not set                |
 | `agent.args`               | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}` |
 | `agent.TTYEnabled`         | Allocate pseudo tty to the side container       | false                  |
-| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins/agent`        |
+| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins/agent`  |
 
 #### Other
 
