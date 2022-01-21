@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.11.3
+
+Update kiwigrid/k8s-sidecar:1.15.0
+Update jenkins/inbound-agent:4.11.2-4
+
 ## 3.11.2
 
 Improve example for workspaceVolume. Clarify that this is not a list.
