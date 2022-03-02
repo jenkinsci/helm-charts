@@ -182,6 +182,8 @@ spec:
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
+            - name: RELEASE_NAME
+              value: "{{ .Release.Name }}"
             - name: JAVA_OPTS
               value: >-
                 {{ if .Values.controller.sidecars.configAutoReload.enabled }} -Dcasc.reload.token=$(POD_NAME) {{ end }}{{ default "" .Values.controller.javaOpts }}

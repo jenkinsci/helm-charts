@@ -61,6 +61,8 @@ tests:
                     valueFrom:
                       fieldRef:
                         fieldPath: metadata.name
+                  - name: RELEASE_NAME
+                    value: "my-release"
                   - name: JAVA_OPTS
                     value: "-Dcasc.reload.token=$(POD_NAME) "
                   - name: JENKINS_OPTS
