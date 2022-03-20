@@ -31,8 +31,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -151,8 +149,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -446,8 +442,6 @@ tests:
               securityRealm:
                 local
               disableRememberMe: true
-              remotingSecurity:
-                enabled: true
               mode: EXCLUSIVE
               numExecutors: 1
               labelString: ""
@@ -590,8 +584,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -695,8 +687,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -798,8 +788,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -903,8 +891,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -1009,8 +995,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -1114,8 +1098,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -1218,8 +1200,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -1288,8 +1268,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: "testlabel"
@@ -1386,8 +1364,6 @@ tests:
                     name: "Jenkins Admin"
                     password: "${chart-admin-password}"
               disableRememberMe: false
-              remotingSecurity:
-                enabled: true
               mode: NORMAL
               numExecutors: 0
               labelString: ""
@@ -1425,6 +1401,104 @@ tests:
                           - envVar:
                               key: "JENKINS_URL"
                               value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
+                        image: "jenkins/inbound-agent:4.11.2-4"
+                        privileged: "false"
+                        resourceLimitCpu: 512m
+                        resourceLimitMemory: 512Mi
+                        resourceRequestCpu: 512m
+                        resourceRequestMemory: 512Mi
+                        runAsUser: 
+                        runAsGroup: 
+                        ttyEnabled: false
+                        workingDir: /home/jenkins/agent
+                      idleMinutes: 0
+                      instanceCap: 2147483647
+                      label: "RELEASE-NAME-jenkins-agent "
+                      nodeUsageMode: "NORMAL"
+                      podRetention: Never
+                      showRawYaml: true
+                      serviceAccount: "default"
+                      slaveConnectTimeoutStr: "100"
+                      yamlMergeStrategy: override
+              crumbIssuer:
+                standard:
+                  excludeClientIPFromCrumb: true
+            security:
+              apiToken:
+                creationOfLegacyTokenEnabled: false
+                tokenGenerationOnCreationEnabled: false
+                usageStatisticsEnabled: true
+            unclassified:
+              location:
+                adminAddress: 
+                url: http://RELEASE-NAME-jenkins:8080
+  - it: default config for jenkins 2.325 or older
+    release:
+      namespace: default
+    set:
+      controller:
+        tag: "2.325-jdk11"
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data.jcasc-default-config\.yaml
+      - matchRegex:
+          path: metadata.labels.helm\.sh/chart
+          pattern: ^jenkins-
+      - equal:
+          path: data.jcasc-default-config\.yaml
+          value: |-
+            jenkins:
+              authorizationStrategy:
+                loggedInUsersCanDoAnything:
+                  allowAnonymousRead: false
+              securityRealm:
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
+              disableRememberMe: false
+              remotingSecurity:
+                enabled: true
+              mode: NORMAL
+              numExecutors: 0
+              labelString: ""
+              projectNamingStrategy: "standard"
+              markupFormatter:
+                plainText
+              clouds:
+              - kubernetes:
+                  containerCapStr: "10"
+                  defaultsProviderTemplate: ""
+                  connectTimeout: "5"
+                  readTimeout: "15"
+                  jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+                  jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                  maxRequestsPerHostStr: "32"
+                  name: "kubernetes"
+                  namespace: "default"
+                  serverUrl: "https://kubernetes.default"
+                  podLabels:
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
+                    value: "true"
+                  templates:
+                    - name: "default"
+                      id: 1d5e7358aa57e8d8fb5290164936179288c8018247360a8e6c5bbd48e05cbb40
+                      containers:
+                      - name: "jnlp"
+                        alwaysPullImage: false
+                        args: "^${computer.jnlpmac} ^${computer.name}"
+                        command: 
+                        envVars:
+                          - envVar:
+                              key: "JENKINS_URL"
+                              value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
                         image: "jenkins/inbound-agent:4.11.2-4"
                         privileged: "false"
                         resourceLimitCpu: 512m
