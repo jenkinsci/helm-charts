@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.11.7
 
-Removed Configuration as Code `remotingSecurity` section for Jenkins 2.326 or newer. See https://www.jenkins.io/redirect/AdminWhitelistRule to learn more.
+Removed Configuration as Code `remotingSecurity` section for Jenkins 2.326 or newer. See [Documentation](https://www.jenkins.io/redirect/AdminWhitelistRule) to learn more.
 
 ## 3.11.6
 
