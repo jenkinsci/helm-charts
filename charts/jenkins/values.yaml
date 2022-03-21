@@ -190,6 +190,9 @@ controller:
   agentListenerPort: 50000
   agentListenerHostPort:
   agentListenerNodePort:
+  agentListenerExternalTrafficPolicy: Cluster
+  agentListenerLoadBalancerSourceRanges:
+  - 0.0.0.0/0
   disabledAgentProtocols:
     - JNLP-connect
     - JNLP2-connect

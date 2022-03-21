@@ -95,6 +95,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.agentListenerServiceType`        | Defines how to expose the agentListener service | `ClusterIP`  |
 | `controller.agentListenerServiceAnnotations` | Annotations for the agentListener service       | `{}`         |
 | `controller.agentListenerLoadBalancerIP`     | Static IP for the agentListener LoadBalancer    | Not set      |
+| `controller.agentListenerExternalTrafficPolicy` | [Traffic Policy](https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies) of for the agentListener service | `Cluster`      |
+| `controller.agentListenerLoadBalancerSourceRanges` | Allowed inbound IP for the agentListener service | `0.0.0.0/0`      |
 
 #### Kubernetes StatefulSet & Service
 
