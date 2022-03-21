@@ -190,7 +190,7 @@ controller:
   agentListenerPort: 50000
   agentListenerHostPort:
   agentListenerNodePort:
-  agentListenerExternalTrafficPolicy: Cluster
+  agentListenerExternalTrafficPolicy:
   agentListenerLoadBalancerSourceRanges:
   - 0.0.0.0/0
   disabledAgentProtocols:
