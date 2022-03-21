@@ -17,6 +17,9 @@ metadata:
     {{- toYaml .Values.controller.agentListenerServiceAnnotations | nindent 4 }}
   {{- end }}
 spec:
+  {{- if .Values.controller.agentListenerExternalTrafficPolicy }}
+  externalTrafficPolicy: {{.Values.controller.agentListenerExternalTrafficPolicy}}
+  {{- end }}
   ports:
     - port: {{ .Values.controller.agentListenerPort }}
       targetPort: {{ .Values.controller.agentListenerPort }}
@@ -28,6 +31,12 @@ spec:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"
   type: {{ .Values.controller.agentListenerServiceType }}
+  {{if eq .Values.controller.agentListenerServiceType "LoadBalancer"}}
+{{- if .Values.controller.agentListenerLoadBalancerSourceRanges }}
+  loadBalancerSourceRanges:
+{{ toYaml .Values.controller.agentListenerLoadBalancerSourceRanges | indent 4 }}
+{{- end }}
+  {{- end }}
   {{- if and (eq .Values.controller.agentListenerServiceType "LoadBalancer") (.Values.controller.agentListenerLoadBalancerIP) }}
   loadBalancerIP: {{  .Values.controller.agentListenerLoadBalancerIP }}
   {{- end }}

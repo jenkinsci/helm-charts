@@ -108,6 +108,8 @@ tests:
               app.kubernetes.io/instance: my-release
             type: LoadBalancer
             loadBalancerIP: 10.10.10.10
+            loadBalancerSourceRanges:
+              - 0.0.0.0/0
   - it: disable helm.sh label
     set:
       renderHelmLabels: false

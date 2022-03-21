@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.11.8
+
+Make [externalTrafficPolicy](https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies) and `loadBalancerSourceRanges` fields customizable for Agent listener service via `controller.agentListenerExternalTrafficPolicy` and `controller.loadBalancerSourceRanges`.
+
 ## 3.11.7
 
 Removed Configuration as Code `remotingSecurity` section for Jenkins 2.326 or newer. See [Documentation](https://www.jenkins.io/redirect/AdminWhitelistRule) to learn more.
