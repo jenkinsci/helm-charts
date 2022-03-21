@@ -14,8 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.11.8
 
-Make [externalTrafficPolicy](https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies) and `loadBalancerSourceRanges` fields customizable for Agent listener service via 
-`controller.agentListenerExternalTrafficPolicy` and `controller.loadBalancerSourceRanges`.
+Make [externalTrafficPolicy](https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies) and `loadBalancerSourceRanges` fields customizable for Agent listener service via `controller.agentListenerExternalTrafficPolicy` and `controller.loadBalancerSourceRanges`.
 
 ## 3.11.7
 

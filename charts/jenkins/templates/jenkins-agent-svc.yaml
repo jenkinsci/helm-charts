@@ -36,6 +36,7 @@ spec:
   loadBalancerSourceRanges:
 {{ toYaml .Values.controller.agentListenerLoadBalancerSourceRanges | indent 4 }}
 {{- end }}
+  {{- end }}
   {{- if and (eq .Values.controller.agentListenerServiceType "LoadBalancer") (.Values.controller.agentListenerLoadBalancerIP) }}
   loadBalancerIP: {{  .Values.controller.agentListenerLoadBalancerIP }}
   {{- end }}
