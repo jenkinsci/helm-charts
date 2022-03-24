@@ -54,6 +54,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: be62f2fe67fa3e83c0157edaa53417c084c49a8aa88c3702e3ca1cc8df3fcbe2
                       containers:
                       - name: "jnlp"
@@ -101,6 +102,7 @@ tests:
     set:
       additionalAgents:
         maven:
+          namespace: maven
           podName: maven
           customJenkinsLabels: maven
           image: jenkins/jnlp-agent-maven
@@ -172,6 +174,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "jenkins-agents"
                       id: fb186b04e498a07ac381b138f97f45cd407b0e542abf1b26f44ad3df4031b91f
                       containers:
                       - name: "jnlp"
@@ -202,7 +205,8 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "maven"
-                      id: df0244d29bd7312f2ce8eec55e63bd08c0ec8b07594a183a13e01c8dfc8ad0e5
+                      namespace: "maven"
+                      id: a2b13e847c4e27a7dff0a45a86d56d2accc1afc806de3a53c7f7e9d0d2275573
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -232,6 +236,7 @@ tests:
                       slaveConnectTimeoutStr: "100"
                       yamlMergeStrategy: override
                     - name: "python"
+                      namespace: "jenkins-agents"
                       id: 08d5db5de8b6a314bcc143600d3fb55332126f02c96c167221fba262ba75c516
                       containers:
                       - name: "python"
@@ -313,6 +318,7 @@ tests:
                 - jenkins.example.com
               secretName: tlsSecret
       agent:
+        namespace: default
         containerCap: 22
         defaultsProviderTemplate: my-defaults
         kubernetesConnectTimeout: 11
@@ -459,17 +465,18 @@ tests:
                   jenkinsTunnel: "my-release-jenkins-agent.other.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
                   name: "kubernetes"
-                  namespace: "other"
+                  namespace: "default"
                   serverUrl: "https://kubernetes.default"
                   podLabels:
                   - key: "jenkins/my-release-jenkins-agent"
                     value: "true"
                   templates:
                     - name: "my-agent"
+                      namespace: "default"
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
-                      id: 65241d1dcc7c5ab09096e3109ad3032ed82f771c8005b1db4b66ffeea179b4d4
+                      id: b23926d294f4506acd7bf4dd06d992d4f8f0baeb12bc2967fc962255c6362580
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -607,6 +614,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: ad22f5309074ca9d1cfb473f2a70f87e647be9d85f4f73238c0fe312e07f169b
                       containers:
                       - name: "jnlp"
@@ -710,6 +718,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: 34616e288fd4876ce8d28efd47e114b5eb1de8bb725ce8c3d9798b2f06987cbf
                       containers:
                       - name: "jnlp"
@@ -811,6 +820,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: b4cbcc759d506d82f7f4fca44406303e85dcd0949968116da31a3dd031bbae3b
                       containers:
                       - name: "jnlp"
@@ -914,6 +924,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: 80a11a5a66bdd2fecb8562311ad8d36161dec311cbb3e4c4cde867ef2b1c2dbb
                       containers:
                       - name: "jnlp"
@@ -1018,6 +1029,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: a8a87eb5b5691a7a71b301118b15f69c125532106334cc5c80bb7fb7f07675e2
                       containers:
                       - name: "jnlp"
@@ -1121,6 +1133,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: be86521933b05ad71d1c272af3378b422c9725e2f91a4070f9f40d32b4765ede
                       containers:
                       - name: "jnlp"
@@ -1291,6 +1304,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: be62f2fe67fa3e83c0157edaa53417c084c49a8aa88c3702e3ca1cc8df3fcbe2
                       containers:
                       - name: "jnlp"
@@ -1391,6 +1405,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "NAMESPACE"
                       id: b756d76152a021e2370bac48b60b44a0755d3a53fa3e074d8cda4e6711bbd7d5
                       containers:
                       - name: "jnlp"
@@ -1489,6 +1504,7 @@ tests:
                     value: "true"
                   templates:
                     - name: "default"
+                      namespace: "default"
                       id: be62f2fe67fa3e83c0157edaa53417c084c49a8aa88c3702e3ca1cc8df3fcbe2
                       containers:
                       - name: "jnlp"
