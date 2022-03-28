@@ -43,7 +43,7 @@ tests:
             kubernetes:1.31.3
             workflow-aggregator:2.6
             git:4.10.2
-            configuration-as-code:1.55.1
+            configuration-as-code:1414.v878271fc496f
   - it: no plugins
     set:
       controller.installPlugins: []
@@ -72,7 +72,7 @@ tests:
             kubernetes:1.31.3
             workflow-aggregator:2.6
             git:4.10.2
-            configuration-as-code:1.55.1
+            configuration-as-code:1414.v878271fc496f
             kubernetes-credentials-provider
   - it: install latest plugins
     set:
