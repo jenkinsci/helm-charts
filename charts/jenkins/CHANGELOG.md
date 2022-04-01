@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## next
 
-Update README to fix `_JAVA_OPTIONS` name.
+Update README to fix `JAVA_OPTS` name.
 
 ## 3.11.8
 
