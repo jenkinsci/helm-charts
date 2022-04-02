@@ -375,6 +375,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `backup.serviceAccount.annotations`      | Backup pod annotations                                            | `{}`                              |
 | `backup.image.repo`                      | Backup image repository                                           | `maorfr/kube-tasks`               |
 | `backup.image.tag`                       | Backup image tag                                                  | `0.2.0`                           |
+| `backup.image.imagePullSecretName`       | Backup image pull secret                                          | Not set                           |
 | `backup.extraArgs`                       | Additional arguments for kube-tasks                               | `[]`                              |
 | `backup.existingSecret`                  | Environment variables to add to the cronjob container             | `{}`                              |
 | `backup.existingSecret.*`                | Specify the secret name containing the AWS or GCP credentials     | `jenkinsaws`                      |
