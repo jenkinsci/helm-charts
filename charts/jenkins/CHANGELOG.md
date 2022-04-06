@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 3.11.10
+
+Update Jenkins image and appVersion to jenkins lts release version 2.332.2
+
+
 ## 3.11.9 Bump configuration-as-code plugin version
 
 | plugin                | old version | new version |
