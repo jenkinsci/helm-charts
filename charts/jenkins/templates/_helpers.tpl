@@ -165,7 +165,9 @@ jenkins:
         value: {{ $val | quote }}
       {{- end }}
       templates:
+    {{- if not .Values.agent.disableDefaultAgent }}
       {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
+    {{- end }}
     {{- if .Values.additionalAgents }}
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}

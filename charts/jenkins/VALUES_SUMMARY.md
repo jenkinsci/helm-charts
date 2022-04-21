@@ -338,10 +338,11 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Other
 
-| Parameter                  | Description                                     | Default                |
-| -------------------------- | ----------------------------------------------- | ---------------------- |
-| `agent.podTemplates`       | Configures extra pod templates for the default kubernetes cloud | `{}`   |
-| `additionalAgents`         | Configure additional agents which inherit values from `agent` | `{}`     |
+| Parameter                   | Description                                     | Default                |
+| --------------------------  | ----------------------------------------------- | ---------------------- |
+| `agent.disableDefaultAgent` | Ignore the default Jenkins Agent configuration  | false                  |
+| `agent.podTemplates`        | Configures extra pod templates for the default kubernetes cloud | `{}`   |
+| `additionalAgents`          | Configure additional agents which inherit values from `agent` | `{}`     |
 
 ### Persistence
 
