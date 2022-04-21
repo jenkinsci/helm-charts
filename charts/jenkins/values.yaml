@@ -711,6 +711,10 @@ agent:
   # Annotations to apply to the pod.
   annotations: {}
 
+  # Disable the default Jenkins Agent configuration.
+  # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
+  disableDefaultAgent: false
+
   # Below is the implementation of custom pod templates for the default configured kubernetes cloud.
   # Add a key under podTemplates for each pod template. Each key (prior to | character) is just a label, and can be any value.
   # Keys are only used to give the pod template a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label
