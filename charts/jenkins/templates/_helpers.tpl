@@ -215,6 +215,7 @@ Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
 - name: "{{ .Values.agent.podName }}"
+  namespace: "{{ template "jenkins.agent.namespace" . }}"
 {{- if .Values.agent.annotations }}
   annotations:
   {{- range $key, $value := .Values.agent.annotations }}
