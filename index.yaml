@@ -4,6 +4,50 @@ entries:
   - annotations:
       artifacthub.io/images: |
         - name: jenkins
+          image: jenkins/jenkins:2.332.3-jdk11
+        - name: k8s-sidecar
+          image: kiwigrid/k8s-sidecar:1.15.0
+        - name: inbound-agent
+          image: jenkins/inbound-agent:4.11.2-4
+        - name: backup
+          image: maorfr/kube-tasks:0.2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+    apiVersion: v2
+    appVersion: 2.332.3
+    created: "2022-05-04T22:11:15.780503531Z"
+    description: Jenkins - Build great things at any scale! The leading open source
+      automation server, Jenkins provides hundreds of plugins to support building,
+      deploying and automating any project.
+    digest: c9a9e70aaac250fe5ed67f89d9095cf29396358417bd938e8dbb67684f9b1e15
+    home: https://jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-3.12.2/jenkins-3.12.2.tgz
+    version: 3.12.2
+  - annotations:
+      artifacthub.io/images: |
+        - name: jenkins
           image: jenkins/jenkins:2.332.2-jdk11
         - name: k8s-sidecar
           image: kiwigrid/k8s-sidecar:1.15.0
@@ -13435,4 +13479,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2022-04-28T12:35:16.99766764Z"
+generated: "2022-05-04T22:11:15.786193901Z"
