@@ -114,10 +114,14 @@ jenkins:
   {{- end }}
   disableRememberMe: {{ .Values.controller.disableRememberMe }}
   {{- /* remove remotingSecurity in jenkins 2.326 or newer */}}
-  {{- $controllerVersion := semver (default .Chart.AppVersion .Values.controller.tag) }}
-  {{- if lt 0 ($controllerVersion | (semver "2.326").Compare) }}
+  {{- $controllerTag := (default .Chart.AppVersion .Values.controller.tag) }}
+  {{- /* Based on the official regex for matching semver: https://semver.org/#is-there-a-suggested-regular-expression-regex-to-check-a-semver-string*/}}
+  {{- if regexMatch "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)(\\.(0|[1-9]\\d*))?(?:-((?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\\.(?:0|[1-9]\\d*|\\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\\+([0-9a-zA-Z-]+(?:\\.[0-9a-zA-Z-]+)*))?$" $controllerTag }}
+    {{- $controllerVersion := semver $controllerTag }}
+    {{- if lt 0 ($controllerVersion | (semver "2.326").Compare) }}
   remotingSecurity:
     enabled: true
+    {{- end }}
   {{- end }}
   mode: {{ .Values.controller.executorMode }}
   numExecutors: {{ .Values.controller.numExecutors }}
