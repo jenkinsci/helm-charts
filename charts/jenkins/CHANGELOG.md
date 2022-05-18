@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.0.0
 
-Removes automatic `remotingSecurity` setting when using a container tag older than `2.236` (introduced in [`3.11.7`](#3117)). If you're using a version older than `2.236`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`. 
+Removes automatic `remotingSecurity` setting when using a container tag older than `2.326` (introduced in [`3.11.7`](#3117)). If you're using a version older than `2.326`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`.
 
 ## 3.12.2
 
