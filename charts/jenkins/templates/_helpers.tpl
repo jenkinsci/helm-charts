@@ -124,7 +124,7 @@ jenkins:
     {{- tpl .Values.controller.JCasC.securityRealm . | nindent 4 }}
   {{- end }}
   disableRememberMe: {{ .Values.controller.disableRememberMe }}
-  {{- if (eq (include "jenkins.casc.isLegacyRemotingSecurityEnabled" .) "true") }}
+  {{- if .Values.controller.legacyRemotingSecurityEnabled }}
   remotingSecurity:
     enabled: true
   {{- end }}
