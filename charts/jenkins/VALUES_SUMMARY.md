@@ -6,17 +6,18 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 ### Jenkins Controller
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `checkDeprecation`                | Checks for deprecated values used    | `true`                                 |
-| `clusterZone`                     | Override the cluster name for FQDN resolving    | `cluster.local`                |
-| `nameOverride`                    | Override the resource name prefix    | `jenkins`                                 |
-| `renderHelmLabels`                | Enables rendering of the helm.sh/chart label to the annotations    | `true`                                 |
-| `fullnameOverride`                | Override the full resource names     | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
-| `namespaceOverride`               | Override the deployment namespace    | Not set (`Release.Namespace`)             |
-| `controller.componentName`            | Jenkins controller name                  | `jenkins-controller`                          |
-| `controller.testEnabled`              | Can be used to disable rendering test resources when using helm template | `true`                         |
-| `controller.cloudName`                       | Name of default cloud configuration  | `kubernetes`                              |
+| Parameter                                   | Description                                                              | Default                                                               |
+|---------------------------------------------|--------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `checkDeprecation`                          | Checks for deprecated values used                                        | `true`                                                                |
+| `clusterZone`                               | Override the cluster name for FQDN resolving                             | `cluster.local`                                                       |
+| `nameOverride`                              | Override the resource name prefix                                        | `jenkins`                                                             |
+| `renderHelmLabels`                          | Enables rendering of the helm.sh/chart label to the annotations          | `true`                                                                |
+| `fullnameOverride`                          | Override the full resource names                                         | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`)  |
+| `namespaceOverride`                         | Override the deployment namespace                                        | Not set (`Release.Namespace`)                                         |
+| `controller.componentName`                  | Jenkins controller name                                                  | `jenkins-controller`                                                  |
+| `controller.testEnabled`                    | Can be used to disable rendering test resources when using helm template | `true`                                                                |
+| `controller.cloudName`                      | Name of default cloud configuration                                      | `kubernetes`                                                          |
+| `controller.legacyRemotingSecurityEnabled`  | Is remoting security enabled?                                            | `true` when `controller.tag` is older than `2.326`, `false` otherwise | 
 
 #### Jenkins Configuration as Code (JCasC)
 
