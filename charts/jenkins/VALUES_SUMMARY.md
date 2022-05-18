@@ -17,7 +17,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.componentName`                  | Jenkins controller name                                                  | `jenkins-controller`                                                  |
 | `controller.testEnabled`                    | Can be used to disable rendering test resources when using helm template | `true`                                                                |
 | `controller.cloudName`                      | Name of default cloud configuration                                      | `kubernetes`                                                          |
-| `controller.legacyRemotingSecurityEnabled`  | Is remoting security enabled?                                            | `true` when `controller.tag` is older than `2.326`, `false` otherwise | 
+| `controller.legacyRemotingSecurityEnabled`  | Is remoting security enabled?                                            | `true` when `controller.tag` is older than `2.326`, `false` otherwise |
 
 #### Jenkins Configuration as Code (JCasC)
 

@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 3.13.0
 
-Introduced a `.controller.legacyRemotingSecurityEnabled` flag, to explicitly enable or disable `remotingSecurity` (introduced in [`3.11.7`](#3117)) when the `.container.tag` is custom (e.g. `lts-alpine` or using a custom image which does not follow the Jenkins versioning). 
+Introduced a `.controller.legacyRemotingSecurityEnabled` flag, to explicitly enable or disable `remotingSecurity` (introduced in [`3.11.7`](#3117)) when the `.container.tag` is custom (e.g. `lts-alpine` or using a custom image which does not follow the Jenkins versioning).
 
 ## 3.12.2
 
