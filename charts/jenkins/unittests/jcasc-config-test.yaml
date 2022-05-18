@@ -1609,7 +1609,7 @@ tests:
                     - name: "jnlp"
                       alwaysPullImage: false
                       args: "^${computer.jnlpmac} ^${computer.name}"
-                      command:
+                      command: 
                       envVars:
                         - envVar:
                             key: "JENKINS_URL"
@@ -1620,8 +1620,8 @@ tests:
                       resourceLimitMemory: 512Mi
                       resourceRequestCpu: 512m
                       resourceRequestMemory: 512Mi
-                      runAsUser:
-                      runAsGroup:
+                      runAsUser: 
+                      runAsGroup: 
                       ttyEnabled: false
                       workingDir: /home/jenkins/agent
                     idleMinutes: 0
@@ -1643,8 +1643,9 @@ tests:
               usageStatisticsEnabled: true
           unclassified:
             location:
-              adminAddress:
+              adminAddress: 
               url: http://RELEASE-NAME-jenkins:8080
+
   - it: legacyRemotingSecurityEnabled = true
     release:
       namespace: default
@@ -1709,7 +1710,7 @@ tests:
                     - name: "jnlp"
                       alwaysPullImage: false
                       args: "^${computer.jnlpmac} ^${computer.name}"
-                      command:
+                      command: 
                       envVars:
                         - envVar:
                             key: "JENKINS_URL"
@@ -1720,8 +1721,8 @@ tests:
                       resourceLimitMemory: 512Mi
                       resourceRequestCpu: 512m
                       resourceRequestMemory: 512Mi
-                      runAsUser:
-                      runAsGroup:
+                      runAsUser: 
+                      runAsGroup: 
                       ttyEnabled: false
                       workingDir: /home/jenkins/agent
                     idleMinutes: 0
@@ -1743,8 +1744,6 @@ tests:
               usageStatisticsEnabled: true
           unclassified:
             location:
-              adminAddress:
+              adminAddress: 
               url: http://RELEASE-NAME-jenkins:8080
-
-
 
