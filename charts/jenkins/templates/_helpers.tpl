@@ -98,17 +98,6 @@ Returns the Jenkins URL
 {{- end}}
 {{- end -}}
 
-{{- define "jenkins.casc.isLegacyRemotingSecurityEnabled" }}
-{{- if hasKey .Values.controller "legacyRemotingSecurityEnabled" -}}
-{{- /* set remotingSecurity based on the .Values, if provided */ -}}
-{{- (.Values.controller.legacyRemotingSecurityEnabled | toString) -}}
-{{- else -}}
-{{- $controllerVersion := semver (default .Chart.AppVersion .Values.controller.tag) -}}
-{{- /* remove remotingSecurity in jenkins 2.326 or newer */ -}}
-{{- (lt 0 ($controllerVersion | (semver "2.326").Compare)) | toString -}}
-{{- end -}}
-{{- end -}}
-
 {{/*
 Returns configuration as code default config
 */}}
