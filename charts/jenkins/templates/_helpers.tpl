@@ -113,9 +113,7 @@ jenkins:
     {{- tpl .Values.controller.JCasC.securityRealm . | nindent 4 }}
   {{- end }}
   disableRememberMe: {{ .Values.controller.disableRememberMe }}
-  {{- /* remove remotingSecurity in jenkins 2.326 or newer */}}
-  {{- $controllerVersion := semver (default .Chart.AppVersion .Values.controller.tag) }}
-  {{- if lt 0 ($controllerVersion | (semver "2.326").Compare) }}
+  {{- if .Values.controller.legacyRemotingSecurityEnabled }}
   remotingSecurity:
     enabled: true
   {{- end }}
