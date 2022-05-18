@@ -1447,7 +1447,7 @@ tests:
               location:
                 adminAddress: 
                 url: http://RELEASE-NAME-jenkins:8080
-  - it: legacyRemotingSecurityEnabled = false (even though jenkins is 2.325 or older)
+  - it: legacyRemotingSecurityEnabled = false
     release:
       namespace: default
     set:
