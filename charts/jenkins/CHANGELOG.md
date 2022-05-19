@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.1.0
+
+Added `controller.sidecars.configAutoReload.envFrom`, `controller.initContainerEnvFrom`, `controller.containerEnvFrom` 
+
 ## 4.0.1
 
 No code changes - CI updated to run unit tests using Helm 3.8.2.

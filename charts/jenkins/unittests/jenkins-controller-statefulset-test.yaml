@@ -481,6 +481,15 @@ tests:
         value: "test-env-var-container"
       - name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
         value: '{{ .Values.testValue }}'
+      controller.initContainerEnvFrom:
+      - configMapRef:
+          name: special-config
+      controller.sidecars.configAutoReload.envFrom:
+      - configMapRef:
+          name: special-config
+      controller.containerEnvFrom:
+      - configMapRef:
+          name: special-config
     asserts:
       - contains:
           path: spec.template.spec.initContainers[0].env
@@ -512,6 +521,21 @@ tests:
           content:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
             value: 'some-value'
+      - contains:
+          path: spec.template.spec.initContainers[0].envFrom
+          content:
+            configMapRef:
+              name: special-config
+      - contains:
+          path: spec.template.spec.containers[0].envFrom
+          content:
+            configMapRef:
+              name: special-config
+      - contains:
+          path: spec.template.spec.containers[1].envFrom
+          content:
+            configMapRef:
+              name: special-config
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
