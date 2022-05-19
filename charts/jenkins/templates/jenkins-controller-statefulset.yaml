@@ -113,6 +113,10 @@ spec:
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
           {{- end }}
           command: [ "sh", "/var/jenkins_config/apply_config.sh" ]
+            {{- if .Values.controller.initContainerEnvFrom }}
+          envFrom:
+{{ (tpl (toYaml .Values.controller.initContainerEnvFrom) .) | indent 12 }}
+            {{- end }}
             {{- if .Values.controller.initContainerEnv }}
           env:
 {{ (tpl (toYaml .Values.controller.initContainerEnv) .) | indent 12 }}
@@ -177,6 +181,10 @@ spec:
 {{- if .Values.controller.terminationMessagePolicy }}
           terminationMessagePolicy: {{ .Values.controller.terminationMessagePolicy }}
 {{- end }}
+            {{- if .Values.controller.containerEnvFrom }}
+          envFrom:
+{{ (tpl ( toYaml .Values.controller.containerEnvFrom) .) | indent 12 }}
+            {{- end }}
           env:
             - name: POD_NAME
               valueFrom:
@@ -299,6 +307,10 @@ spec:
           imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
           {{- if .Values.controller.sidecars.configAutoReload.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 12 }}
+          {{- end }}
+          {{- if .Values.controller.sidecars.configAutoReload.envFrom }}
+          envFrom:
+{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.envFrom) .) | indent 12 }}
           {{- end }}
           env:
             - name: POD_NAME
