@@ -12,6 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.1.1
+Added 'controller.prometheus.metricRelabelings' to allow relabling and dropping unused prometheus metrics
+
 ## 4.1.0
 
 Added `controller.sidecars.configAutoReload.envFrom`, `controller.initContainerEnvFrom`, `controller.containerEnvFrom`
