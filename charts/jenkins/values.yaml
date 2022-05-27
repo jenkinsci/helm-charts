@@ -524,6 +524,10 @@ controller:
     alertingrules: []
     # Set a custom namespace where to deploy PrometheusRule resource
     prometheusRuleNamespace: ""
+    # Set relabling for metrics
+    metricRelabelings: []
+    # Set relablings
+    relabelings: []
 
   # Can be used to disable rendering controller test resources when using helm template
   testEnabled: true
