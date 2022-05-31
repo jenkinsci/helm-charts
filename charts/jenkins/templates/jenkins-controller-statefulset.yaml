@@ -358,6 +358,7 @@ spec:
       {{- if and .Values.controller.initScripts .Values.controller.initConfigMap }}
       - name: init-scripts
         projected:
+          sources:
           - configMap:
               name: {{ template "jenkins.fullname" . }}-init-scripts
           - configMap:
