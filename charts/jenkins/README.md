@@ -978,7 +978,6 @@ Here we show which values have changed and the previous default values:
 
 ```yaml
 controller:
-  enableXmlConfig: false  # was true
   runAsUser: 1000         # was unset before
   fsGroup: 1000           # was unset before
   JCasC:

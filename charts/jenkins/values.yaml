@@ -319,7 +319,6 @@ controller:
     #    jenkins:
     #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
     # Ignored if securityRealm is defined in controller.JCasC.configScripts and
-    # ignored if controller.enableXmlConfig=true as controller.securityRealm takes precedence
     securityRealm: |-
       local:
         allowsSignup: false
