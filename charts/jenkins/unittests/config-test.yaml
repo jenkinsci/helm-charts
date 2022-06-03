@@ -40,10 +40,10 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.31.3
-            workflow-aggregator:2.6
-            git:4.10.2
-            configuration-as-code:1414.v878271fc496f
+            kubernetes:3600.v144b_cd192ca_a_
+            workflow-aggregator:581.v0c46fa_697ffd
+            git:4.11.3
+            configuration-as-code:1429.v09b_044a_c93de
   - it: no plugins
     set:
       controller.installPlugins: []
@@ -69,10 +69,10 @@ tests:
       - equal:
           path: data.plugins\.txt
           value: |-
-            kubernetes:1.31.3
-            workflow-aggregator:2.6
-            git:4.10.2
-            configuration-as-code:1414.v878271fc496f
+            kubernetes:3600.v144b_cd192ca_a_
+            workflow-aggregator:581.v0c46fa_697ffd
+            git:4.11.3
+            configuration-as-code:1429.v09b_044a_c93de
             kubernetes-credentials-provider
   - it: install latest plugins
     set:
