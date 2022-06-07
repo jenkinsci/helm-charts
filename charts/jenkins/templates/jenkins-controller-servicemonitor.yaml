@@ -26,6 +26,9 @@ spec:
   - interval: {{ .Values.controller.prometheus.scrapeInterval }}
     port: http
     path: {{ .Values.controller.jenkinsUriPrefix }}{{ .Values.controller.prometheus.scrapeEndpoint }}
+  {{- if .Values.controller.prometheus.metricRelabelings }}
+    metricRelabelings: {{ .Values.controller.prometheus.metricRelabelings }}
+  {{- end  }}
   jobLabel: {{ template "jenkins.fullname" . }}
   namespaceSelector:
     matchNames:

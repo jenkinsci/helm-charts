@@ -15,7 +15,7 @@ jobs:
 
       - name: next release version
         id: nextversion
-        uses: jenkins-x-plugins/jx-release-version@v2.5.1
+        uses: jenkins-x-plugins/jx-release-version@v2.5.2
         with:
           previous-version: from-file:charts/jenkins/Chart.yaml
 
@@ -37,7 +37,7 @@ jobs:
           fi
 
       - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.23.1
+        uses: mikefarah/yq@v4.25.2
         if: ${{ steps.update.outputs.available == 'true' }}
         with:
           cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml

@@ -6,17 +6,18 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 ### Jenkins Controller
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `checkDeprecation`                | Checks for deprecated values used    | `true`                                 |
-| `clusterZone`                     | Override the cluster name for FQDN resolving    | `cluster.local`                |
-| `nameOverride`                    | Override the resource name prefix    | `jenkins`                                 |
-| `renderHelmLabels`                | Enables rendering of the helm.sh/chart label to the annotations    | `true`                                 |
-| `fullnameOverride`                | Override the full resource names     | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
-| `namespaceOverride`               | Override the deployment namespace    | Not set (`Release.Namespace`)             |
-| `controller.componentName`            | Jenkins controller name                  | `jenkins-controller`                          |
-| `controller.testEnabled`              | Can be used to disable rendering test resources when using helm template | `true`                         |
-| `controller.cloudName`                       | Name of default cloud configuration  | `kubernetes`                              |
+| Parameter                                   | Description                                                              | Default                                                              |
+|---------------------------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------|
+| `checkDeprecation`                          | Checks for deprecated values used                                        | `true`                                                               |
+| `clusterZone`                               | Override the cluster name for FQDN resolving                             | `cluster.local`                                                      |
+| `nameOverride`                              | Override the resource name prefix                                        | `jenkins`                                                            |
+| `renderHelmLabels`                          | Enables rendering of the helm.sh/chart label to the annotations          | `true`                                                               |
+| `fullnameOverride`                          | Override the full resource names                                         | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
+| `namespaceOverride`                         | Override the deployment namespace                                        | Not set (`Release.Namespace`)                                        |
+| `controller.componentName`                  | Jenkins controller name                                                  | `jenkins-controller`                                                 |
+| `controller.testEnabled`                    | Can be used to disable rendering test resources when using helm template | `true`                                                               |
+| `controller.cloudName`                      | Name of default cloud configuration                                      | `kubernetes`                                                         |
+| `controller.legacyRemotingSecurityEnabled`  | Is remoting security enabled?                                            | Not set (i.e. not enabled)                                           |
 
 #### Jenkins Configuration as Code (JCasC)
 
@@ -30,6 +31,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.sidecars.configAutoReload.enabled` | Jenkins Config as Code auto-reload settings (Attention: rbac needs to be enabled otherwise the sidecar can't read the config map) | `true`                                                      |
 | `controller.sidecars.configAutoReload.image` | Image which triggers the reload | `kiwigrid/k8s-sidecar:0.1.144`           |
 | `controller.sidecars.configAutoReload.reqRetryConnect` | How many connection-related errors to retry on  | `10`          |
+| `controller.sidecars.configAutoReload.envFrom` | Environment variable sources for the Jenkins Config as Code auto-reload container | Not set |
 | `controller.sidecars.configAutoReload.env` | Environment variables for the Jenkins Config as Code auto-reload container  | Not set |
 | `controller.sidecars.configAutoReload.containerSecurityContext` | Enable container security context | `{readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
 
@@ -76,7 +78,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `false` | `kubernetes:1.29.2 workflow-aggregator:2.6 git:4.7.1 configuration-as-code:1.47` |
+| `controller.installPlugins`       | List of Jenkins plugins to install. If you don't want to install plugins set it to `false` | `kubernetes:1.31.3 workflow-aggregator:2.6 git:4.10.2 configuration-as-code:1414.v878271fc496f` |
 | `controller.additionalPlugins`    | List of Jenkins plugins to install in addition to those listed in controller.installPlugins | `[]` |
 | `controller.initializeOnce`       | Initialize only on first install. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`. | `false` |
 | `controller.overwritePlugins`     | Overwrite installed plugins on start.| `false`                                   |
@@ -109,7 +111,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
 | `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
 | `controller.initContainerResources`   | Resources allocation (Requests and Limits) for Init Container            | Not set |
+| `controller.initContainerEnvFrom`     | Environment variable sources for Init Container                          | Not set |
 | `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
+| `controller.containerEnvFrom`         | Environment variable sources for Jenkins Container                       | Not set |
 | `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
 | `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
 | `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
@@ -338,10 +342,11 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Other
 
-| Parameter                  | Description                                     | Default                |
-| -------------------------- | ----------------------------------------------- | ---------------------- |
-| `agent.podTemplates`       | Configures extra pod templates for the default kubernetes cloud | `{}`   |
-| `additionalAgents`         | Configure additional agents which inherit values from `agent` | `{}`     |
+| Parameter                   | Description                                     | Default                |
+| --------------------------  | ----------------------------------------------- | ---------------------- |
+| `agent.disableDefaultAgent` | Ignore the default Jenkins Agent configuration  | false                  |
+| `agent.podTemplates`        | Configures extra pod templates for the default kubernetes cloud | `{}`   |
+| `additionalAgents`          | Configure additional agents which inherit values from `agent` | `{}`     |
 
 ### Persistence
 

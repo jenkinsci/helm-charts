@@ -46,7 +46,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: 825dc67e020a515fa22aba1f860dcdb52e36f4b9af997b66e66f2f427f25cbd0
+                  checksum/config: bbd8e81dd215c1efa4c6386f581744226b96bef4b84d0b8d5012c47b69506503
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -69,7 +69,7 @@ tests:
                     value: "50000"
                   - name: CASC_JENKINS_CONFIG
                     value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.332.1-jdk11
+                  image: jenkins/jenkins:2.332.3-jdk11
                   imagePullPolicy: Always
                   securityContext:
                     runAsUser: 1000
@@ -167,7 +167,7 @@ tests:
                 - command:
                   - sh
                   - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.332.1-jdk11
+                  image: jenkins/jenkins:2.332.3-jdk11
                   imagePullPolicy: Always
                   securityContext:
                     runAsUser: 1000
@@ -349,7 +349,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.332.1-alpine
+          value: jenkins/jenkins:2.332.3-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
@@ -357,7 +357,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.332.1
+          value: jenkins/jenkins:2.332.3
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
@@ -481,6 +481,15 @@ tests:
         value: "test-env-var-container"
       - name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
         value: '{{ .Values.testValue }}'
+      controller.initContainerEnvFrom:
+      - configMapRef:
+          name: special-config
+      controller.sidecars.configAutoReload.envFrom:
+      - configMapRef:
+          name: special-config
+      controller.containerEnvFrom:
+      - configMapRef:
+          name: special-config
     asserts:
       - contains:
           path: spec.template.spec.initContainers[0].env
@@ -512,6 +521,21 @@ tests:
           content:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
             value: 'some-value'
+      - contains:
+          path: spec.template.spec.initContainers[0].envFrom
+          content:
+            configMapRef:
+              name: special-config
+      - contains:
+          path: spec.template.spec.containers[0].envFrom
+          content:
+            configMapRef:
+              name: special-config
+      - contains:
+          path: spec.template.spec.containers[1].envFrom
+          content:
+            configMapRef:
+              name: special-config
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:

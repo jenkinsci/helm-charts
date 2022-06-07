@@ -113,9 +113,7 @@ jenkins:
     {{- tpl .Values.controller.JCasC.securityRealm . | nindent 4 }}
   {{- end }}
   disableRememberMe: {{ .Values.controller.disableRememberMe }}
-  {{- /* remove remotingSecurity in jenkins 2.326 or newer */}}
-  {{- $controllerVersion := semver (default .Chart.AppVersion .Values.controller.tag) }}
-  {{- if lt 0 ($controllerVersion | (semver "2.326").Compare) }}
+  {{- if .Values.controller.legacyRemotingSecurityEnabled }}
   remotingSecurity:
     enabled: true
   {{- end }}
@@ -165,7 +163,9 @@ jenkins:
         value: {{ $val | quote }}
       {{- end }}
       templates:
+    {{- if not .Values.agent.disableDefaultAgent }}
       {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
+    {{- end }}
     {{- if .Values.additionalAgents }}
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}
@@ -213,6 +213,7 @@ Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
 - name: "{{ .Values.agent.podName }}"
+  namespace: "{{ template "jenkins.agent.namespace" . }}"
 {{- if .Values.agent.annotations }}
   annotations:
   {{- range $key, $value := .Values.agent.annotations }}

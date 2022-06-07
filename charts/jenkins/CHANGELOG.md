@@ -12,9 +12,53 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 3.11.9
+## 4.1.5
 
 Update README to fix `JAVA_OPTS` name.
+
+## 4.1.4
+Update plugins
+
+## 4.1.3
+Update jenkins-controller-statefulset projected volumes definition
+
+## 4.1.1
+Added 'controller.prometheus.metricRelabelings' to allow relabling and dropping unused prometheus metrics
+
+## 4.1.0
+
+Added `controller.sidecars.configAutoReload.envFrom`, `controller.initContainerEnvFrom`, `controller.containerEnvFrom`
+
+## 4.0.1
+
+No code changes - CI updated to run unit tests using Helm 3.8.2.
+
+## 4.0.0
+
+Removes automatic `remotingSecurity` setting when using a container tag older than `2.326` (introduced in [`3.11.7`](#3117)). If you're using a version older than `2.326`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`.
+
+## 3.12.2
+
+Update Jenkins image and appVersion to jenkins lts release version 2.332.3
+
+## 3.12.1
+
+Make namespace configurable for agents and additional agents.
+
+## 3.12.0
+
+Added a flag for disabling the default Jenkins Agent configuration.
+
+## 3.11.10
+
+Update Jenkins image and appVersion to jenkins lts release version 2.332.2
+
+
+## 3.11.9 Bump configuration-as-code plugin version
+
+| plugin                | old version | new version |
+| --------------------- | ----------- | ----------- |
+| configuration-as-code | 1.51        | 1414.v878271fc496f        |
 
 ## 3.11.8
 

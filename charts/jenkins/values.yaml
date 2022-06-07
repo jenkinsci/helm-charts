@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.332.1-jdk11"
+  # tag: "2.332.3-jdk11"
   tagLabel: jdk11
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -238,10 +238,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:1.31.3
-    - workflow-aggregator:2.6
-    - git:4.10.2
-    - configuration-as-code:1.55.1
+    - kubernetes:3600.v144b_cd192ca_a_
+    - workflow-aggregator:581.v0c46fa_697ffd
+    - git:4.11.3
+    - configuration-as-code:1429.v09b_044a_c93de
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
@@ -319,7 +319,6 @@ controller:
     #    jenkins:
     #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
     # Ignored if securityRealm is defined in controller.JCasC.configScripts and
-    # ignored if controller.enableXmlConfig=true as controller.securityRealm takes precedence
     securityRealm: |-
       local:
         allowsSignup: false
@@ -710,6 +709,10 @@ agent:
   connectTimeout: 100
   # Annotations to apply to the pod.
   annotations: {}
+
+  # Disable the default Jenkins Agent configuration.
+  # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
+  disableDefaultAgent: false
 
   # Below is the implementation of custom pod templates for the default configured kubernetes cloud.
   # Add a key under podTemplates for each pod template. Each key (prior to | character) is just a label, and can be any value.
