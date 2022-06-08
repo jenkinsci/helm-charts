@@ -459,7 +459,7 @@ tests:
                 - secret:
                     name: my-release-jenkins-additional-secrets
                 - secret:
-                    name: my-release
+                    name: my-release-jenkins
                     items:
                       - key: jenkins-admin-user
                         path: chart-admin-username
