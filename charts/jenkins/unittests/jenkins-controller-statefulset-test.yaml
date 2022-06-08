@@ -201,15 +201,6 @@ tests:
                     name: jenkins-config
                   - emptyDir: {}
                     name: plugin-dir
-                  - emptyDir: {}
-                    name: jenkins-cache
-                  - name: jenkins-home
-                    persistentVolumeClaim:
-                      claimName: my-release-jenkins
-                  - emptyDir: {}
-                    name: sc-config-volume
-                  - emptyDir: {}
-                    name: tmp-volume
                   - name: jenkins-secrets
                     projected:
                       sources:
@@ -220,6 +211,15 @@ tests:
                                 path: chart-admin-username
                               - key: jenkins-admin-password
                                 path: chart-admin-password
+                  - emptyDir: {}
+                    name: jenkins-cache
+                  - name: jenkins-home
+                    persistentVolumeClaim:
+                      claimName: my-release-jenkins
+                  - emptyDir: {}
+                    name: sc-config-volume
+                  - emptyDir: {}
+                    name: tmp-volume
   - it: test different values
     template: jenkins-controller-statefulset.yaml
     capabilities:
@@ -457,7 +457,7 @@ tests:
             projected:
               sources:
                 - secret:
-                    name: my-release-jenkins-secrets
+                    name: my-release-jenkins-additional-secrets
                 - secret:
                     name: my-release
                     items:
