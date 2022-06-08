@@ -443,7 +443,7 @@ tests:
           value: anothersecret
     asserts:
       - equal:
-          path: spec.template.spec.containers[0].volumeMounts[6]
+          path: spec.template.spec.containers[0].volumeMounts[4]
           value:
             mountPath: /run/secrets/
             name: jenkins-additional-secrets
@@ -451,11 +451,18 @@ tests:
       - equal:
           path: spec.template.spec.volumes[3]
           value:
-            name: jenkins-additional-secrets
+            name: jenkins-secrets
             projected:
               sources:
                 - secret:
-                    name: my-release-jenkins-additional-secrets
+                    name: my-release-jenkins-secrets
+                - secret:
+                    name: my-release
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
   - it: test templated environment variables
     template: jenkins-controller-statefulset.yaml
     set:
