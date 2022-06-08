@@ -3,6 +3,3 @@ controller:
   JCasC:
     configScripts:
       empty: ""
-  additionalSecrets:
-    - name: nameOfSecret
-      value: secretText
