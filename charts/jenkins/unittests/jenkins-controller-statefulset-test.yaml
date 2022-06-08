@@ -54,170 +54,174 @@ tests:
                   app.kubernetes.io/name: jenkins
               spec:
                 containers:
-                - args:
-                  - --httpPort=8080
-                  env:
-                  - name: POD_NAME
-                    valueFrom:
-                      fieldRef:
-                        fieldPath: metadata.name
-                  - name: JAVA_OPTS
-                    value: "-Dcasc.reload.token=$(POD_NAME) "
-                  - name: JENKINS_OPTS
-                    value: "--webroot=/var/jenkins_cache/war "
-                  - name: JENKINS_SLAVE_AGENT_PORT
-                    value: "50000"
-                  - name: CASC_JENKINS_CONFIG
-                    value: /var/jenkins_home/casc_configs
-                  image: jenkins/jenkins:2.332.3-jdk11
-                  imagePullPolicy: Always
-                  securityContext:
-                    runAsUser: 1000
-                    runAsGroup: 1000
-                    readOnlyRootFilesystem: true
-                    allowPrivilegeEscalation: false
-                  livenessProbe:
-                    failureThreshold: 5
-                    httpGet:
-                      path: /login
-                      port: http
-                    periodSeconds: 10
-                    timeoutSeconds: 5
-                  name: jenkins
-                  ports:
-                  - containerPort: 8080
-                    name: http
-                  - containerPort: 50000
-                    name: agent-listener
-                  readinessProbe:
-                    failureThreshold: 3
-                    httpGet:
-                      path: /login
-                      port: http
-                    periodSeconds: 10
-                    timeoutSeconds: 5
-                  resources:
-                    limits:
-                      cpu: 2000m
-                      memory: 4096Mi
-                    requests:
-                      cpu: 50m
-                      memory: 256Mi
-                  startupProbe:
-                    httpGet:
-                      path: '/login'
-                      port: http
-                    periodSeconds: 10
-                    timeoutSeconds: 5
-                    failureThreshold: 12
-                  volumeMounts:
-                  - mountPath: /var/jenkins_home
-                    name: jenkins-home
-                    readOnly: false
-                  - mountPath: /var/jenkins_config
-                    name: jenkins-config
-                    readOnly: true
-                  - mountPath: /usr/share/jenkins/ref/plugins/
-                    name: plugin-dir
-                    readOnly: false
-                  - mountPath: /var/jenkins_home/casc_configs
-                    name: sc-config-volume
-                  - mountPath: /run/secrets/chart-admin-username
-                    name: admin-secret
-                    readOnly: true
-                    subPath: jenkins-admin-user
-                  - mountPath: /run/secrets/chart-admin-password
-                    name: admin-secret
-                    readOnly: true
-                    subPath: jenkins-admin-password
-                  - mountPath: /var/jenkins_cache
-                    name: jenkins-cache
-                  - mountPath: /tmp
-                    name: tmp-volume
-                - env:
-                  - name: POD_NAME
-                    valueFrom:
-                      fieldRef:
-                        fieldPath: metadata.name
-                  - name: LABEL
-                    value: my-release-jenkins-jenkins-config
-                  - name: FOLDER
-                    value: /var/jenkins_home/casc_configs
-                  - name: NAMESPACE
-                    value: my-namespace
-                  - name: REQ_URL
-                    value: http://localhost:8080/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)
-                  - name: REQ_METHOD
-                    value: POST
-                  - name: REQ_RETRY_CONNECT
-                    value: "10"
-                  image: kiwigrid/k8s-sidecar:1.15.0
-                  imagePullPolicy: IfNotPresent
-                  securityContext:
-                    readOnlyRootFilesystem: true
-                    allowPrivilegeEscalation: false
-                  name: config-reload
-                  resources: {}
-                  volumeMounts:
-                  - mountPath: /var/jenkins_home/casc_configs
-                    name: sc-config-volume
-                  - mountPath: /var/jenkins_home
-                    name: jenkins-home
+                  - args:
+                      - --httpPort=8080
+                    env:
+                      - name: SECRETS
+                        value: /run/secrets/additional
+                      - name: POD_NAME
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.name
+                      - name: JAVA_OPTS
+                        value: "-Dcasc.reload.token=$(POD_NAME) "
+                      - name: JENKINS_OPTS
+                        value: "--webroot=/var/jenkins_cache/war "
+                      - name: JENKINS_SLAVE_AGENT_PORT
+                        value: "50000"
+                      - name: CASC_JENKINS_CONFIG
+                        value: /var/jenkins_home/casc_configs
+                    image: jenkins/jenkins:2.332.3-jdk11
+                    imagePullPolicy: Always
+                    securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                    livenessProbe:
+                      failureThreshold: 5
+                      httpGet:
+                        path: /login
+                        port: http
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                    name: jenkins
+                    ports:
+                      - containerPort: 8080
+                        name: http
+                      - containerPort: 50000
+                        name: agent-listener
+                    readinessProbe:
+                      failureThreshold: 3
+                      httpGet:
+                        path: /login
+                        port: http
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                    resources:
+                      limits:
+                        cpu: 2000m
+                        memory: 4096Mi
+                      requests:
+                        cpu: 50m
+                        memory: 256Mi
+                    startupProbe:
+                      httpGet:
+                        path: "/login"
+                        port: http
+                      periodSeconds: 10
+                      timeoutSeconds: 5
+                      failureThreshold: 12
+                    volumeMounts:
+                      - mountPath: /var/jenkins_home
+                        name: jenkins-home
+                        readOnly: false
+                      - mountPath: /var/jenkins_config
+                        name: jenkins-config
+                        readOnly: true
+                      - mountPath: /usr/share/jenkins/ref/plugins/
+                        name: plugin-dir
+                        readOnly: false
+                      - mountPath: /var/jenkins_home/casc_configs
+                        name: sc-config-volume
+                      - mountPath: /run/secrets/additional
+                        name: jenkins-secrets
+                        readOnly: true
+                      - mountPath: /var/jenkins_cache
+                        name: jenkins-cache
+                      - mountPath: /tmp
+                        name: tmp-volume
+                  - env:
+                      - name: POD_NAME
+                        valueFrom:
+                          fieldRef:
+                            fieldPath: metadata.name
+                      - name: LABEL
+                        value: my-release-jenkins-jenkins-config
+                      - name: FOLDER
+                        value: /var/jenkins_home/casc_configs
+                      - name: NAMESPACE
+                        value: my-namespace
+                      - name: REQ_URL
+                        value: http://localhost:8080/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)
+                      - name: REQ_METHOD
+                        value: POST
+                      - name: REQ_RETRY_CONNECT
+                        value: "10"
+                    image: kiwigrid/k8s-sidecar:1.15.0
+                    imagePullPolicy: IfNotPresent
+                    securityContext:
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                    name: config-reload
+                    resources: {}
+                    volumeMounts:
+                      - mountPath: /var/jenkins_home/casc_configs
+                        name: sc-config-volume
+                      - mountPath: /var/jenkins_home
+                        name: jenkins-home
                 initContainers:
-                - command:
-                  - sh
-                  - /var/jenkins_config/apply_config.sh
-                  image: jenkins/jenkins:2.332.3-jdk11
-                  imagePullPolicy: Always
-                  securityContext:
-                    runAsUser: 1000
-                    runAsGroup: 1000
-                    readOnlyRootFilesystem: true
-                    allowPrivilegeEscalation: false
-                  name: init
-                  resources:
-                    limits:
-                      cpu: 2000m
-                      memory: 4096Mi
-                    requests:
-                      cpu: 50m
-                      memory: 256Mi
-                  volumeMounts:
-                  - mountPath: /var/jenkins_home
-                    name: jenkins-home
-                  - mountPath: /var/jenkins_config
-                    name: jenkins-config
-                  - mountPath: /usr/share/jenkins/ref/plugins
-                    name: plugins
-                  - mountPath: /var/jenkins_plugins
-                    name: plugin-dir
-                  - mountPath: /tmp
-                    name: tmp-volume
+                  - command:
+                      - sh
+                      - /var/jenkins_config/apply_config.sh
+                    image: jenkins/jenkins:2.332.3-jdk11
+                    imagePullPolicy: Always
+                    securityContext:
+                      runAsUser: 1000
+                      runAsGroup: 1000
+                      readOnlyRootFilesystem: true
+                      allowPrivilegeEscalation: false
+                    name: init
+                    resources:
+                      limits:
+                        cpu: 2000m
+                        memory: 4096Mi
+                      requests:
+                        cpu: 50m
+                        memory: 256Mi
+                    volumeMounts:
+                      - mountPath: /var/jenkins_home
+                        name: jenkins-home
+                      - mountPath: /var/jenkins_config
+                        name: jenkins-config
+                      - mountPath: /usr/share/jenkins/ref/plugins
+                        name: plugins
+                      - mountPath: /var/jenkins_plugins
+                        name: plugin-dir
+                      - mountPath: /tmp
+                        name: tmp-volume
                 securityContext:
                   fsGroup: 1000
                   runAsUser: 1000
                   runAsNonRoot: true
                 serviceAccountName: my-release-jenkins
                 volumes:
-                - emptyDir: {}
-                  name: plugins
-                - configMap:
-                    name: my-release-jenkins
-                  name: jenkins-config
-                - emptyDir: {}
-                  name: plugin-dir
-                - emptyDir: {}
-                  name: jenkins-cache
-                - name: jenkins-home
-                  persistentVolumeClaim:
-                    claimName: my-release-jenkins
-                - emptyDir: {}
-                  name: sc-config-volume
-                - emptyDir: {}
-                  name: tmp-volume
-                - name: admin-secret
-                  secret:
-                    secretName: my-release-jenkins
+                  - emptyDir: {}
+                    name: plugins
+                  - configMap:
+                      name: my-release-jenkins
+                    name: jenkins-config
+                  - emptyDir: {}
+                    name: plugin-dir
+                  - name: jenkins-secrets
+                    projected:
+                      sources:
+                        - secret:
+                            name: my-release-jenkins
+                            items:
+                              - key: jenkins-admin-user
+                                path: chart-admin-username
+                              - key: jenkins-admin-password
+                                path: chart-admin-password
+                  - emptyDir: {}
+                    name: jenkins-cache
+                  - name: jenkins-home
+                    persistentVolumeClaim:
+                      claimName: my-release-jenkins
+                  - emptyDir: {}
+                    name: sc-config-volume
+                  - emptyDir: {}
+                    name: tmp-volume
   - it: test different values
     template: jenkins-controller-statefulset.yaml
     capabilities:
@@ -231,18 +235,18 @@ tests:
         nodeSelector:
           nodeLabel: value
         tolerations:
-        - key: "key"
-          operator: "Equal"
-          value: "value"
-          effect: "NoSchedule"
+          - key: "key"
+            operator: "Equal"
+            value: "value"
+            effect: "NoSchedule"
         affinity:
           requiredDuringSchedulingIgnoredDuringExecution:
             - labelSelector:
                 matchExpressions:
-                - key: security
-                  operator: In
-                  values:
-                  - S1
+                  - key: security
+                    operator: In
+                    values:
+                      - S1
               topologyKey: failure-domain.beta.kubernetes.io/zone
         terminationGracePeriodSeconds: 120
         priorityClassName: important
@@ -262,74 +266,74 @@ tests:
           type: OnDelete
       serviceAccount.name: my-serviceaccount
     asserts:
-    - equal:
-        path: metadata.annotations
-        value:
-          my-annotation: value
-    - equal:
-        path: spec.template.spec.schedulerName
-        value: my-scheduler
-    - equal:
-        path: spec.template.spec.nodeSelector
-        value:
-          nodeLabel: value
-    - equal:
-        path: spec.template.spec.tolerations
-        value:
-          - key: "key"
-            operator: "Equal"
-            value: "value"
-            effect: "NoSchedule"
-    - equal:
-        path: spec.template.spec.affinity
-        value:
-          requiredDuringSchedulingIgnoredDuringExecution:
-          - labelSelector:
-              matchExpressions:
-              - key: security
-                operator: In
-                values:
-                - S1
-            topologyKey: failure-domain.beta.kubernetes.io/zone
-    - equal:
-        path: spec.template.spec.terminationGracePeriodSeconds
-        value: 120
-    - equal:
-        path: spec.template.spec.priorityClassName
-        value: important
-    - equal:
-        path: spec.template.spec.securityContext
-        value:
-          runAsUser: 2000
-          fsGroup: 4000
-          runAsNonRoot: true
-          capabilities:
-            drop:
-              - NET_RAW
-    - equal:
-        path: spec.template.spec.serviceAccountName
-        value: my-serviceaccount
-    - equal:
-        path: spec.template.spec.hostNetwork
-        value: true
-    - equal:
-        path: spec.template.spec.containers[0].terminationMessagePath
-        value: /tmp/termination-log-diff
-    - equal:
-        path: spec.template.spec.containers[0].terminationMessagePolicy
-        value: FallbackToLogsOnError
-    - equal:
-        path: spec.template.spec.dnsPolicy
-        value: ClusterFirstWithHostNet
-    - equal:
-        path: spec.template.spec.hostAliases
-        value:
-          - ip: 192.168.50.50
-            hostnames:
-              - something.local
-    - equal:
-        path: spec.updateStrategy.type
-        value: OnDelete
+      - equal:
+          path: metadata.annotations
+          value:
+            my-annotation: value
+      - equal:
+          path: spec.template.spec.schedulerName
+          value: my-scheduler
+      - equal:
+          path: spec.template.spec.nodeSelector
+          value:
+            nodeLabel: value
+      - equal:
+          path: spec.template.spec.tolerations
+          value:
+            - key: "key"
+              operator: "Equal"
+              value: "value"
+              effect: "NoSchedule"
+      - equal:
+          path: spec.template.spec.affinity
+          value:
+            requiredDuringSchedulingIgnoredDuringExecution:
+              - labelSelector:
+                  matchExpressions:
+                    - key: security
+                      operator: In
+                      values:
+                        - S1
+                topologyKey: failure-domain.beta.kubernetes.io/zone
+      - equal:
+          path: spec.template.spec.terminationGracePeriodSeconds
+          value: 120
+      - equal:
+          path: spec.template.spec.priorityClassName
+          value: important
+      - equal:
+          path: spec.template.spec.securityContext
+          value:
+            runAsUser: 2000
+            fsGroup: 4000
+            runAsNonRoot: true
+            capabilities:
+              drop:
+                - NET_RAW
+      - equal:
+          path: spec.template.spec.serviceAccountName
+          value: my-serviceaccount
+      - equal:
+          path: spec.template.spec.hostNetwork
+          value: true
+      - equal:
+          path: spec.template.spec.containers[0].terminationMessagePath
+          value: /tmp/termination-log-diff
+      - equal:
+          path: spec.template.spec.containers[0].terminationMessagePolicy
+          value: FallbackToLogsOnError
+      - equal:
+          path: spec.template.spec.dnsPolicy
+          value: ClusterFirstWithHostNet
+      - equal:
+          path: spec.template.spec.hostAliases
+          value:
+            - ip: 192.168.50.50
+              hostnames:
+                - something.local
+      - equal:
+          path: spec.updateStrategy.type
+          value: OnDelete
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
@@ -397,17 +401,17 @@ tests:
           -Dtest="custom: 'true'"
     asserts:
       - contains:
-         path: spec.template.spec.containers[0].env
-         content:
-           name: JAVA_OPTS
-           value: >-
-             -Dcasc.reload.token=$(POD_NAME) -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: >-
+              -Dcasc.reload.token=$(POD_NAME) -Dhudson.model.DirectoryBrowserSupport.CSP="default-src 'self';"
       - contains:
-         path: spec.template.spec.containers[0].env
-         content:
-           name: JENKINS_OPTS
-           value: >-
-             --webroot=/var/jenkins_cache/war -Dtest="custom: 'true'"
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JENKINS_OPTS
+            value: >-
+              --webroot=/var/jenkins_cache/war -Dtest="custom: 'true'"
   - it: test empty controller.podSecurityContextOverride
     template: jenkins-controller-statefulset.yaml
     set:
@@ -443,53 +447,54 @@ tests:
           value: anothersecret
     asserts:
       - equal:
-          path: spec.template.spec.containers[0].volumeMounts[6]
+          path: spec.template.spec.containers[0].volumeMounts[4]
           value:
-            mountPath: /run/secrets/something
-            name: jenkins-additional-secrets
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
             readOnly: true
-            subPath: something
-      - equal:
-          path: spec.template.spec.containers[0].volumeMounts[7]
-          value:
-            mountPath: /run/secrets/anotherthing
-            name: jenkins-additional-secrets
-            readOnly: true
-            subPath: anotherthing
       - equal:
           path: spec.template.spec.volumes[3]
           value:
-            name: jenkins-additional-secrets
-            secret:
-              secretName: my-release-jenkins-additional-secrets
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    name: my-release-jenkins-additional-secrets
+                - secret:
+                    name: my-release-jenkins
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
   - it: test templated environment variables
     template: jenkins-controller-statefulset.yaml
     set:
       testValue: some-value
       controller.initContainerEnv:
-      - name: "TEST_ENV_VAR_INIT"
-        value: "test-env-var-init"
-      - name: "TEST_ENV_VAR_INIT_TEMPLATED"
-        value: '{{ .Values.testValue }}'
+        - name: "TEST_ENV_VAR_INIT"
+          value: "test-env-var-init"
+        - name: "TEST_ENV_VAR_INIT_TEMPLATED"
+          value: "{{ .Values.testValue }}"
       controller.sidecars.configAutoReload.env:
-      - name: "TEST_ENV_VAR_CONFIG"
-        value: "test-env-var-config"
-      - name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
-        value: '{{ .Values.testValue }}'
+        - name: "TEST_ENV_VAR_CONFIG"
+          value: "test-env-var-config"
+        - name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+          value: "{{ .Values.testValue }}"
       controller.containerEnv:
-      - name: "TEST_ENV_VAR_CONTAINER"
-        value: "test-env-var-container"
-      - name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
-        value: '{{ .Values.testValue }}'
+        - name: "TEST_ENV_VAR_CONTAINER"
+          value: "test-env-var-container"
+        - name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
+          value: "{{ .Values.testValue }}"
       controller.initContainerEnvFrom:
-      - configMapRef:
-          name: special-config
+        - configMapRef:
+            name: special-config
       controller.sidecars.configAutoReload.envFrom:
-      - configMapRef:
-          name: special-config
+        - configMapRef:
+            name: special-config
       controller.containerEnvFrom:
-      - configMapRef:
-          name: special-config
+        - configMapRef:
+            name: special-config
     asserts:
       - contains:
           path: spec.template.spec.initContainers[0].env
@@ -500,7 +505,7 @@ tests:
           path: spec.template.spec.initContainers[0].env
           content:
             name: "TEST_ENV_VAR_INIT_TEMPLATED"
-            value: 'some-value'
+            value: "some-value"
       - contains:
           path: spec.template.spec.containers[1].env
           content:
@@ -510,7 +515,7 @@ tests:
           path: spec.template.spec.containers[1].env
           content:
             name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
-            value: 'some-value'
+            value: "some-value"
       - contains:
           path: spec.template.spec.containers[0].env
           content:
@@ -520,7 +525,7 @@ tests:
           path: spec.template.spec.containers[0].env
           content:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
-            value: 'some-value'
+            value: "some-value"
       - contains:
           path: spec.template.spec.initContainers[0].envFrom
           content:
@@ -565,7 +570,7 @@ tests:
     set:
       controller:
         podAnnotations:
-          templated-annotations: '{{ .Release.Name }}'
+          templated-annotations: "{{ .Release.Name }}"
           fixed-annotation: some-fixed-annotation
     asserts:
       - matchSnapshot:
