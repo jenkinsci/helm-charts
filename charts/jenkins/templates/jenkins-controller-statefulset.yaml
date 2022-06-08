@@ -186,6 +186,10 @@ spec:
 {{ (tpl ( toYaml .Values.controller.containerEnvFrom) .) | indent 12 }}
             {{- end }}
           env:
+            {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+            - name: SECRETS
+              value: /run/secrets/additional
+            {{- end }}
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -276,8 +280,8 @@ spec:
             {{- end }}
             {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
             - name: jenkins-secrets
-              mountPath: /run/secrets/
-              readOnly: false
+              mountPath: /run/secrets/additional
+              readOnly: true
             {{- end }}
             - name: jenkins-cache
               mountPath: /var/jenkins_cache

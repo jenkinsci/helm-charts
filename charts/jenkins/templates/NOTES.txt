@@ -1,5 +1,5 @@
 1. Get your '{{ .Values.controller.adminUser }}' user password by running:
-  kubectl exec --namespace {{ template "jenkins.namespace" . }} -it svc/{{ template "jenkins.fullname" . }} -c jenkins -- /bin/cat /run/secrets/chart-admin-password && echo
+  kubectl exec --namespace {{ template "jenkins.namespace" . }} -it svc/{{ template "jenkins.fullname" . }} -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
 {{- if .Values.controller.ingress.hostName }}
 
 2. Visit http://{{ .Values.controller.ingress.hostName }}

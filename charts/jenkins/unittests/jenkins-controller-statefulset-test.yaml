@@ -57,6 +57,8 @@ tests:
                   - args:
                       - --httpPort=8080
                     env:
+                      - name: SECRETS
+                        value: /run/secrets/additional
                       - name: POD_NAME
                         valueFrom:
                           fieldRef:
@@ -122,9 +124,9 @@ tests:
                         readOnly: false
                       - mountPath: /var/jenkins_home/casc_configs
                         name: sc-config-volume
-                      - mountPath: /run/secrets/
+                      - mountPath: /run/secrets/additional
                         name: jenkins-secrets
-                        readOnly: false
+                        readOnly: true
                       - mountPath: /var/jenkins_cache
                         name: jenkins-cache
                       - mountPath: /tmp
@@ -447,9 +449,9 @@ tests:
       - equal:
           path: spec.template.spec.containers[0].volumeMounts[4]
           value:
-            mountPath: /run/secrets/
+            mountPath: /run/secrets/additional
             name: jenkins-secrets
-            readOnly: false
+            readOnly: true
       - equal:
           path: spec.template.spec.volumes[3]
           value:

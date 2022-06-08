@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.1.6
 
-project additionalSecrets and additionalExistingSecrets instead of mount with subPath
+project adminSecret, additionalSecrets and additionalExistingSecrets instead of mount with subPath
 
 ## 4.1.5
 
