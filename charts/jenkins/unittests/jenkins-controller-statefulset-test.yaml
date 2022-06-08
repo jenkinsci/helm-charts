@@ -122,14 +122,6 @@ tests:
                         readOnly: false
                       - mountPath: /var/jenkins_home/casc_configs
                         name: sc-config-volume
-                      - mountPath: /run/secrets/chart-admin-username
-                        name: admin-secret
-                        readOnly: true
-                        subPath: jenkins-admin-user
-                      - mountPath: /run/secrets/chart-admin-password
-                        name: admin-secret
-                        readOnly: true
-                        subPath: jenkins-admin-password
                       - mountPath: /var/jenkins_cache
                         name: jenkins-cache
                       - mountPath: /tmp
@@ -215,9 +207,16 @@ tests:
                     name: sc-config-volume
                   - emptyDir: {}
                     name: tmp-volume
-                  - name: admin-secret
-                    secret:
-                      secretName: my-release-jenkins
+                  - name: jenkins-secrets
+                    projected:
+                      sources:
+                        secret:
+                          name: my-release-jenkins
+                          items:
+                            - key: jenkins-admin-user
+                              path: chart-admin-username
+                            - key: jenkins-admin-password
+                              path: chart-admin-password
   - it: test different values
     template: jenkins-controller-statefulset.yaml
     capabilities:
@@ -446,7 +445,7 @@ tests:
           path: spec.template.spec.containers[0].volumeMounts[4]
           value:
             mountPath: /run/secrets/
-            name: jenkins-additional-secrets
+            name: jenkins-secrets
             readOnly: true
       - equal:
           path: spec.template.spec.volumes[3]

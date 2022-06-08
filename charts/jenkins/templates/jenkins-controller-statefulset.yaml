@@ -381,12 +381,12 @@ spec:
           {{- end }}
           {{- if .Values.controller.adminSecret }}
           - secret:
-            name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
-            items:
-              - key: {{ .Values.controller.admin.userKey | default "jenkins-admin-user" }}
-                path: chart-admin-username
-              - key: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
-                path: chart-admin-password
+              name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
+              items:
+                - key: {{ .Values.controller.admin.userKey | default "jenkins-admin-user" }}
+                  path: chart-admin-username
+                - key: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
+                  path: chart-admin-password
         {{- end }}
       {{- end }}
       - name: jenkins-cache
