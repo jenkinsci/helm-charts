@@ -284,16 +284,9 @@ spec:
               subPath: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
               readOnly: true
             {{- end }}
-            {{- range .Values.controller.additionalSecrets }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets }}
             - name: jenkins-additional-secrets
-              mountPath: /run/secrets/{{ .name }}
-              subPath: {{ .name }}
-              readOnly: true
-            {{- end }}
-            {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
-            - name: {{ $value.name }}-{{ $value.keyName }}
-              mountPath: /run/secrets/{{ $value.name }}-{{ $value.keyName }}
-              subPath: {{ $value.keyName }}
+              mountPath: /run/secrets/
               readOnly: true
             {{- end }}
             - name: jenkins-cache
@@ -379,17 +372,23 @@ spec:
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
-      {{- if .Values.controller.additionalSecrets }}
+      {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets }}
       - name: jenkins-additional-secrets
-        secret:
-          secretName: {{ template "jenkins.fullname" . }}-additional-secrets
-      {{- end }}
-      {{- if .Values.controller.additionalExistingSecrets }}
-      {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
-      - name: {{ $value.name }}-{{ $value.keyName }}
-        secret:
-          secretName: {{ $value.name }}
-      {{- end }}
+        projected:
+          sources:
+          {{- if .Values.controller.additionalSecrets }}
+          - secret:
+              name: {{ template "jenkins.fullname" . }}-additional-secrets
+          {{- end }}
+          {{- if .Values.controller.additionalExistingSecrets }}
+          {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
+          - secret:
+              name: {{ $value.name }}
+              items:
+                - key: {{ $value.keyName }}
+                  path: {{ $value.keyName }}
+          {{- end }}
+          {{- end }}
       {{- end }}
       - name: jenkins-cache
         emptyDir: {}
