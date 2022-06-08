@@ -124,7 +124,7 @@ tests:
                         name: sc-config-volume
                       - mountPath: /run/secrets/
                         name: jenkins-secrets
-                        readOnly: true
+                        readOnly: false
                       - mountPath: /var/jenkins_cache
                         name: jenkins-cache
                       - mountPath: /tmp
@@ -449,7 +449,7 @@ tests:
           value:
             mountPath: /run/secrets/
             name: jenkins-secrets
-            readOnly: true
+            readOnly: false
       - equal:
           path: spec.template.spec.volumes[3]
           value:
