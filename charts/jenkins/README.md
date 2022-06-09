@@ -535,6 +535,15 @@ If you can see a success message from the backup job and can see the contents of
 
 A similar process would work for AWS S3. See additional `backup` values using [configuration commands](#configuration).
 
+**NOTE**: If an environmental variable `AWS_REGION` is not provided, the region of the AWS S3 bucket will be assumed to be `eu-central-1`. If you want to use an S3 bucket in another region, you need to provide the bucket's region as an environmental variable as below:
+
+```yaml
+backup:
+  env: # The region of your S3 bucket.
+    - name: AWS_REGION
+      value: us-east-1
+```
+
 ### Restore From Backup
 
 To restore a backup, you can use the `kube-tasks` underlying tool called [skbn](https://github.com/maorfr/skbn), which copies files from cloud storage to Kubernetes.
