@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.1.7
+
+Update README with explanation on the required environmental variable `AWS_REGION` in case of using an S3 bucket.
+
 ## 4.1.6
 
 project adminSecret, additionalSecrets and additionalExistingSecrets instead of mount with subPath
