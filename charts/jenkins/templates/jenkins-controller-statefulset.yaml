@@ -380,7 +380,7 @@ spec:
               name: {{ $value.name }}
               items:
                 - key: {{ $value.keyName }}
-                  path: {{ $value.keyName }}
+                  path: {{ $value.name }}-{{ $value.keyName }}
           {{- end }}
           {{- end }}
           {{- if .Values.controller.adminSecret }}
