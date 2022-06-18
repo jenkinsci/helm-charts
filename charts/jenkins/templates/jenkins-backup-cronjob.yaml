@@ -161,4 +161,8 @@ spec:
           nodeSelector:
           {{- toYaml . | nindent 12 }}
       {{- end }}
+      {{- if .Values.backup.imagePullSecretName }}
+          imagePullSecrets:
+          - name: {{ .Values.backup.imagePullSecretName }}
+      {{- end -}}
 {{- end }}
