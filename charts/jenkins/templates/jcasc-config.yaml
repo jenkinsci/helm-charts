@@ -6,7 +6,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "jenkins.fullname" $root }}-jenkins-config-{{ $key }}
+  name: {{ template "jenkins.casc.configName" (list (printf "config-%s" $key) $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
@@ -27,7 +27,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ template "jenkins.fullname" $root }}-jenkins-jcasc-config
+  name: {{ template "jenkins.casc.configName" (list "jcasc-config" $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     "app.kubernetes.io/name": {{ template "jenkins.name" $root}}

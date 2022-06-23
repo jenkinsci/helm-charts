@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.1.11
+
+JCasC ConfigMaps now generate their name from the `jenkins.casc.configName` helper
+
 ## 4.1.10
 
 Update Jenkins image and appVersion to jenkins lts release version 2.346.1

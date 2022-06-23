@@ -209,6 +209,16 @@ unclassified:
 {{- end -}}
 
 {{/*
+Returns a name template to be used for jcasc configmaps, using 
+suffix passed in at call as index 0
+*/}}
+{{- define "jenkins.casc.configName" -}}
+{{- $name := index . 0 -}}
+{{- $root := index . 1 -}}
+"{{- include "jenkins.fullname" $root -}}-jenkins-{{ $name }}"
+{{- end -}}
+
+{{/*
 Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
