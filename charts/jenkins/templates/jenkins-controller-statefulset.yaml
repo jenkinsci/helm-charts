@@ -152,6 +152,11 @@ spec:
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
               name: init-scripts
             {{- end }}
+            {{- if .Values.controller.httpsKeyStore.enable }}
+            {{- $httpsJKSDirPath :=  printf "%s" .Values.controller.httpsKeyStore.path }}
+            - mountPath: {{ $httpsJKSDirPath }}
+              name: jenkins-https-keystore
+            {{- end }}
       containers:
         - name: jenkins
           image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
