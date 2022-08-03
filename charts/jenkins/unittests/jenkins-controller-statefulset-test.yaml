@@ -575,3 +575,18 @@ tests:
     asserts:
       - matchSnapshot:
           path: spec.template.metadata.annotations
+  - it: 
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        installPlugins: false
+    asserts:
+      - notContains: 
+          path: spec.template.spec.volumes
+          content:
+            name: plugins
+            emptyDir: {}
+      - notContains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            name: plugins
