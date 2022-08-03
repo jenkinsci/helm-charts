@@ -410,6 +410,26 @@ controller:
       renew: 60
 ```
 
+### User Content
+
+The [User Content](https://www.jenkins.io/doc/book/managing/user-content/) mechanism allows to use the Jenkins server to host custom files under the `/userContent` prefix.
+
+```yaml
+controller:
+  userContents:
+  - name: foobar.txt
+    data: |
+      My
+      File
+      Content
+
+  binaryUserContents:
+  - name: foobar.bin
+    data: SGVsbG8gV29ybGQ= # Hello World
+```
+
+Will provide the content via the `http(s)://jenkins.example.com/userContent/foobar.txt` and `http(s)://jenkins.example.com/userContent/foobar.bin` URL. Be aware that ConfigMaps & Secrets are __limited to 1 MB__ in Kubernetes - so the mechanism only provides a way to host limited content.
+
 ### RBAC
 
 RBAC is enabled by default. If you want to disable it you will need to set `rbac.create` to `false`.
