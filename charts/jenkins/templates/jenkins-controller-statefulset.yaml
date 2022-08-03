@@ -345,8 +345,12 @@ spec:
 {{- if .Values.persistence.volumes }}
 {{ tpl (toYaml .Values.persistence.volumes | indent 6) . }}
 {{- end }}
+      {{- if .Values.controller.installPlugins }}
+      {{- if .Values.controller.overwritePluginsFromImage }}
       - name: plugins
         emptyDir: {}
+      {{- end }}
+      {{- end }}
       {{- if and .Values.controller.initScripts .Values.controller.initConfigMap }}
       - name: init-scripts
         projected:
