@@ -288,6 +288,20 @@ spec:
               mountPath: /run/secrets/additional
               readOnly: true
             {{- end }}
+            {{- if or .Values.controller.userContents .Values.controller.binaryUserContents }}
+            {{- range $content := .Values.controller.userContents }}
+            - name: jenkins-user-contents
+              mountPath: {{ $.Values.controller.jenkinsHome }}/userContent/{{ $content.name }}
+              subPath: {{ $content.name }}
+              readOnly: true
+            {{- end }}
+            {{- range $content := .Values.controller.binaryUserContents }}
+            - name: jenkins-user-contents
+              mountPath: {{ $.Values.controller.jenkinsHome }}/userContent/{{ $content.name }}
+              subPath: {{ $content.name }}
+              readOnly: true
+            {{- end }}
+            {{- end }}
             - name: jenkins-cache
               mountPath: /var/jenkins_cache
             - mountPath: /tmp
@@ -424,6 +438,11 @@ spec:
           items:
           - key: jenkins-jks-file
             path: {{ .Values.controller.httpsKeyStore.fileName }}
+      {{- end }}
+      {{- if or .Values.controller.userContents .Values.controller.binaryUserContents }}
+      - name: jenkins-user-contents
+        configMap:
+          name: {{ template "jenkins.fullname" . }}-user-contents
       {{- end }}
 
 {{- if .Values.controller.imagePullSecretName }}

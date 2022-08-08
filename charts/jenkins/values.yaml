@@ -338,6 +338,15 @@ controller:
   #   imagePullPolicy: Always
   #   command: [ "uname", "-a" ]
 
+  # Provide files that will be served by the Jenkins via the User Content mechanism. Content can be either UTF-8 encoded or be base64 encoded
+  userContents: []
+  #  - name: filename
+  #    data: file content
+
+  binaryUserContents: []
+  #  - name: filename
+  #    data: base64 encoded file content
+
   sidecars:
     configAutoReload:
       # If enabled: true, Jenkins Configuration as Code will be reloaded on-the-fly without a reboot.  If false or not-specified,
