@@ -122,7 +122,14 @@ jenkins:
   {{- if not (kindIs "invalid" .Values.controller.customJenkinsLabels) }}
   labelString: "{{ join " " .Values.controller.customJenkinsLabels }}"
   {{- end }}
-  projectNamingStrategy: "standard"
+  {{- if .Values.controller.projectNamingStrategy }}
+  {{- if kindIs "string" .Values.controller.projectNamingStrategy }}
+  projectNamingStrategy: "{{ .Values.controller.projectNamingStrategy }}"
+  {{- else }}
+  projectNamingStrategy:
+    {{- toYaml .Values.controller.projectNamingStrategy | nindent 4 }}
+  {{- end }}
+  {{- end }}
   markupFormatter:
     {{- if .Values.controller.enableRawHtmlMarkupFormatter }}
     rawHtml:
