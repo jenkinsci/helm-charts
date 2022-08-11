@@ -321,7 +321,13 @@ controller:
     #  welcome-message: |
     #    jenkins:
     #      systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
-    # Ignored if securityRealm is defined in controller.JCasC.configScripts and
+    # Allows adding to the top-level security JCasC section. For legacy,  default the chart includes apiToken configurations
+    security:
+      apiToken:
+        creationOfLegacyTokenEnabled: false
+        tokenGenerationOnCreationEnabled: false
+        usageStatisticsEnabled: true
+    # Ignored if securityRealm is defined in controller.JCasC.configScripts
     securityRealm: |-
       local:
         allowsSignup: false

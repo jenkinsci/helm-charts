@@ -197,11 +197,7 @@ jenkins:
     standard:
       excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
   {{- end }}
-security:
-  apiToken:
-    creationOfLegacyTokenEnabled: false
-    tokenGenerationOnCreationEnabled: false
-    usageStatisticsEnabled: true
+{{- include "jenkins.casc.security" . }}
 {{- if .Values.controller.scriptApproval }}
   scriptApproval:
     approvedSignatures:
@@ -216,7 +212,7 @@ unclassified:
 {{- end -}}
 
 {{/*
-Returns a name template to be used for jcasc configmaps, using 
+Returns a name template to be used for jcasc configmaps, using
 suffix passed in at call as index 0
 */}}
 {{- define "jenkins.casc.configName" -}}
@@ -346,6 +342,15 @@ Returns kubernetes pod template configuration as code
       {{- end -}}
     {{- end -}}
   {{- end -}}
+{{- end -}}
+
+{{- define "jenkins.casc.security" }}
+security:
+{{- with .Values.controller.JCasC }}
+{{- if .security }}
+  {{- .security | toYaml | nindent 2 }}
+{{- end }}
+{{- end }}
 {{- end -}}
 
 {{/*
