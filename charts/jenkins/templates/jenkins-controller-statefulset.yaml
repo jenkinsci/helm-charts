@@ -107,7 +107,7 @@ spec:
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
         - name: "init"
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
+          image: "{{ .Values.controller.image }}:{{- include "image.tag" (dict "ver" .Chart.AppVersion "ctx" .Values.controller) -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
@@ -159,7 +159,7 @@ spec:
             {{- end }}
       containers:
         - name: jenkins
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
+          image: "{{ .Values.controller.image }}:{{- include "image.tag" (dict "ver" .Chart.AppVersion "ctx" .Values.controller) -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
@@ -295,7 +295,7 @@ spec:
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
         - name: config-reload
-          image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
+          image: "{{ .Values.controller.sidecars.configAutoReload.image }}:{{- include "image.tag" (dict "ctx" .Values.controller.sidecars.configAutoReload) -}}"
           imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
           {{- if .Values.controller.sidecars.configAutoReload.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 12 }}

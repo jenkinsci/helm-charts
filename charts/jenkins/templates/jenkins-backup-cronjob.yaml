@@ -53,7 +53,7 @@ spec:
           {{- end }}
           containers:
           - name: jenkins-backup
-            image: "{{ .Values.backup.image.repository }}:{{ .Values.backup.image.tag }}"
+            image: "{{ .Values.backup.image.image }}:{{- include "image.tag" (dict "ctx" .Values.backup.image) -}}"
             command: ["kube-tasks"]
             args:
             - simple-backup

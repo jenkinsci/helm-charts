@@ -252,7 +252,7 @@ Returns kubernetes pod template configuration as code
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
-    image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
+    image: "{{ .Values.agent.image.image }}:{{- include "image.tag" (dict "ctx" .Values.agent.image) -}}"
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
     resourceLimitMemory: {{.Values.agent.resources.limits.memory}}
@@ -382,13 +382,13 @@ Create the name of the service account for Jenkins backup to use
 {{- end -}}
 
 {{/*
-Create a full tag name for controller image
+Create a full tag name for an image
 */}}
-{{- define "controller.tag" -}}
-{{- if .Values.controller.tagLabel -}}
-    {{- default (printf "%s-%s" .Chart.AppVersion .Values.controller.tagLabel) .Values.controller.tag -}}
+{{- define "image.tag" -}}
+{{- if .ctx.tagLabel -}}
+    {{- default (printf "%s-%s" .ver .ctx.tagLabel) .ctx.tag -}}
 {{- else -}}
-    {{- default .Chart.AppVersion .Values.controller.tag -}}
+    {{- default .ver .ctx.tag -}}
 {{- end -}}
 {{- end -}}
 

@@ -1,4 +1,4 @@
-{{- if .Values.controller.testEnabled }}
+{{- if .Values.controller.test.enabled }}
 apiVersion: v1
 kind: Pod
 metadata:
@@ -17,7 +17,7 @@ spec:
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: "bats/bats:1.2.1"
+      image: "{{ .Values.controller.test.bats.image }}:{{- include "image.tag" (dict "ctx" .Values.controller.test.bats) -}}"
       command:
         - "bash"
         - "-c"
@@ -31,7 +31,7 @@ spec:
         name: tools
   containers:
     - name: {{ .Release.Name }}-ui-test
-      image: {{ .Values.controller.image }}:{{ .Chart.AppVersion }}-{{ .Values.controller.tagLabel }}
+      image: "{{ .Values.controller.image }}:{{- include "image.tag" (dict "ver" .Chart.AppVersion "ctx" .Values.controller) -}}"
       command: ["/tools/bats/bin/bats", "-t", "/tests/run.sh"]
       volumeMounts:
       - mountPath: /tests
