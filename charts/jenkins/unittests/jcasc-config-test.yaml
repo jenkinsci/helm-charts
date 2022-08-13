@@ -327,8 +327,9 @@ tests:
         sideContainerName: sideContainer
         alwaysPullImage: true
         command: /bin/command
-        image: my-image/jnlp
-        tag: v1.2.3
+        image:
+          image: my-image/jnlp
+          tag: v1.2.3
         privileged: true
         resources:
           limits:
