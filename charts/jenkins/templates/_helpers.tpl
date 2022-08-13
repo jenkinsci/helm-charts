@@ -252,7 +252,7 @@ Returns kubernetes pod template configuration as code
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
-    image: "{{ .Values.agent.image.image }}:{{- include "image.tag" (dict "ctx" .Values.agent.image) -}}"
+    image: "{{ .Values.agent.image }}:{{- include "image.tag" (dict "ctx" .Values.agent) -}}"
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
     resourceLimitMemory: {{.Values.agent.resources.limits.memory}}

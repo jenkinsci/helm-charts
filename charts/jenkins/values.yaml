@@ -596,9 +596,8 @@ agent:
   kubernetesReadTimeout: 15
   maxRequestsPerHostStr: "32"
   namespace:
-  image:
-    image: "jenkins/inbound-agent"
-    tag: "4.11.2-4"
+  image: "jenkins/inbound-agent"
+  tag: "4.11.2-4"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -854,9 +853,8 @@ backup:
     # "eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/jenkins-backup"
   # Set this to terminate the job that is running/failing continously and set the job status to "Failed"
   activeDeadlineSeconds: ""
-  image:
-    image: "maorfr/kube-tasks"
-    tag: "0.2.0"
+  image: "maorfr/kube-tasks"
+  tag: "0.2.0"
   imagePullSecretName:
   # Additional arguments for kube-tasks
   # Ref: https://github.com/maorfr/kube-tasks#simple-backup
