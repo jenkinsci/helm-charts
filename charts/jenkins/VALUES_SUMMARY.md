@@ -25,6 +25,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.JCasC.defaultConfig`      | Enables default Jenkins configuration via configuration as code plugin | `true`  |
 | `controller.JCasC.configScripts`      | List of Jenkins Config as Code scripts | `{}`                                    |
+| `controller.JCasC.security`      | Jenkins Config as Code for Security section | `legacy`                             |
 | `controller.JCasC.securityRealm`      | Jenkins Config as Code for Security Realm | `legacy`                             |
 | `controller.JCasC.authorizationStrategy` | Jenkins Config as Code for Authorization Strategy | `loggedInUsersCanDoAnything` |
 | `controller.sidecars.configAutoReload` | Jenkins Config as Code auto-reload settings |                                   |
