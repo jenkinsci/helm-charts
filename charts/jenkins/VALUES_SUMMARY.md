@@ -323,6 +323,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.yamlTemplate`       | The raw yaml of a Pod API Object to merge into the agent spec | Not set  |
 | `agent.yamlMergeStrategy`   | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates | `override` |
 | `agent.annotations`       | Annotations to apply to the pod                  | `{}`                   |
+| `agent.additionalContainers` | Add additional containers to the agents.      | `[]`                   |
 
 #### Side Container Configuration
 
