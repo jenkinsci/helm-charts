@@ -719,6 +719,23 @@ agent:
   # Annotations to apply to the pod.
   annotations: {}
 
+  # Add additional containers to the agents.
+  # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
+  additionalContainers: []
+  #  - sideContainerName: dind
+  #    image: docker
+  #    tag: dind
+  #    command: dockerd-entrypoint.sh
+  #    args:
+  #    privileged: true
+  #    resources:
+  #      requests:
+  #        cpu: 500m
+  #        memory: 1Gi
+  #      limits:
+  #        cpu: 1
+  #        memory: 2Gi
+
   # Disable the default Jenkins Agent configuration.
   # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
   disableDefaultAgent: false

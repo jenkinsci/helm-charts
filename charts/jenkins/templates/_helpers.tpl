@@ -177,8 +177,13 @@ jenkins:
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}
       {{- range $name, $additionalAgent := .Values.additionalAgents }}
+        {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
         {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
         {{- $additionalAgent := merge $additionalAgent $agent }}
+        {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
+        {{- if $additionalContainersEmpty }}
+        {{- $_ := set $additionalAgent "additionalContainers" list }}
+        {{- end }}
         {{- /* set .Values.agent to $additionalAgent */}}
         {{- $_ := set $.Values "agent" $additionalAgent }}
         {{- include "jenkins.casc.podTemplate" $ | nindent 8 }}
@@ -238,8 +243,8 @@ Returns kubernetes pod template configuration as code
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
-    args: "{{ .Values.agent.args | replace "$" "^$" }}"
-    command: {{ .Values.agent.command }}
+    args: {{ if or (empty .Values.agent.args) (kindIs "string" .Values.agent.args) }}{{ .Values.agent.args | default "" | replace "$" "^$" | quote }}{{ else }}{{ toYaml .Values.agent.args | nindent 4 }}{{ end }}
+    command: {{ if or (empty .Values.agent.command) (kindIs "string" .Values.agent.command) }}{{ .Values.agent.command }}{{ else }}{{ toYaml .Values.agent.command | nindent 4 }}{{ end }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
@@ -258,6 +263,30 @@ Returns kubernetes pod template configuration as code
     runAsGroup: {{ .Values.agent.runAsGroup }}
     ttyEnabled: {{ .Values.agent.TTYEnabled }}
     workingDir: {{ .Values.agent.workingDir }}
+{{- range $additionalContainers := .Values.agent.additionalContainers }}
+  - name: "{{ $additionalContainers.sideContainerName }}"
+    alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.agent.alwaysPullImage }}
+    args: {{ if or (empty $additionalContainers.args) (kindIs "string" $additionalContainers.args) }}"{{ $additionalContainers.args | default "" | replace "$" "^$" }}"{{ else }}{{ toYaml $additionalContainers.args | nindent 4 }}{{ end }}
+    command: {{ if or (empty $additionalContainers.command) (kindIs "string" $additionalContainers.command) }}{{ $additionalContainers.command }}{{ else }}{{ toYaml $additionalContainers.command | nindent 4 }}{{ end }}
+    envVars:
+      - envVar:
+          key: "JENKINS_URL"
+          {{- if $additionalContainers.jenkinsUrl }}
+          value: {{ tpl ($additionalContainers.jenkinsUrl) . }}
+          {{- else }}
+          value: "http://{{ template "jenkins.fullname" $ }}.{{ template "jenkins.namespace" $ }}.svc.{{ $.Values.clusterZone }}:{{ $.Values.controller.servicePort }}{{ default "/" $.Values.controller.jenkinsUriPrefix }}"
+          {{- end }}
+    image: "{{ $additionalContainers.image }}:{{ $additionalContainers.tag }}"
+    privileged: "{{- if $additionalContainers.privileged }}true{{- else }}false{{- end }}"
+    resourceLimitCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.cpu }}{{ else }}{{ $.Values.agent.resources.limits.cpu }}{{ end }}
+    resourceLimitMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.memory }}{{ else }}{{ $.Values.agent.resources.limits.memory }}{{ end }}
+    resourceRequestCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.cpu }}{{ else }}{{ $.Values.agent.resources.requests.cpu }}{{ end }}
+    resourceRequestMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.memory }}{{ else }}{{ $.Values.agent.resources.requests.memory }}{{ end }}
+    runAsUser: {{ $additionalContainers.runAsUser | default $.Values.agent.runAsUser }}
+    runAsGroup: {{ $additionalContainers.runAsGroup | default $.Values.agent.runAsGroup }}
+    ttyEnabled: {{ $additionalContainers.TTYEnabled | default $.Values.agent.TTYEnabled }}
+    workingDir: {{ $additionalContainers.workingDir | default $.Values.agent.workingDir }}
+{{- end }}
 {{- if .Values.agent.envVars }}
   envVars:
   {{- range $index, $var := .Values.agent.envVars }}
