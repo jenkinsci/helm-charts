@@ -2014,7 +2014,7 @@ tests:
             image: docker
             tag: dind
             command: dockerd-entrypoint.sh
-            args:
+            args: ""
             privileged: true
     asserts:
       - equal:
@@ -2057,7 +2057,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ea8d291bc77df9854d22d7ad61b392cef24edd05aeafff3898c02f28366d58ef
+                      id: 14a4774e31b763fcb8221e158e00895c5d3549b2098bd41f8ecf0d8ba052aa4e
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2126,7 +2126,7 @@ tests:
             image: docker
             tag: dind
             command: dockerd-entrypoint.sh
-            args:
+            args: ""
             privileged: true
       additionalAgents:
         additional-agent:
@@ -2136,9 +2136,7 @@ tests:
               image: my-additional-container-image
               tag: latest
               command: entrypoint.sh
-              args:
-                - arg1
-                - arg2
+              args: arg1 arg2
     asserts:
       - equal:
           path: data.jcasc-default-config\.yaml
@@ -2180,7 +2178,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ea8d291bc77df9854d22d7ad61b392cef24edd05aeafff3898c02f28366d58ef
+                      id: 14a4774e31b763fcb8221e158e00895c5d3549b2098bd41f8ecf0d8ba052aa4e
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2229,7 +2227,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: 3f856cbccbeed5435cc01de2a0806dfb96163294f0d757f1cb1a6be94a358a60
+                      id: e7e44e732821cf87cbdcc849b61a40e2f555780796218d1e735b22459c5671d5
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2251,9 +2249,7 @@ tests:
                         workingDir: /home/jenkins/agent
                       - name: "additional"
                         alwaysPullImage: false
-                        args:
-                        - arg1
-                        - arg2
+                        args: "arg1 arg2"
                         command: entrypoint.sh
                         envVars:
                           - envVar:
@@ -2300,7 +2296,7 @@ tests:
             image: docker
             tag: dind
             command: dockerd-entrypoint.sh
-            args:
+            args: ""
             privileged: true
       additionalAgents:
         additional-agent:
@@ -2347,7 +2343,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ea8d291bc77df9854d22d7ad61b392cef24edd05aeafff3898c02f28366d58ef
+                      id: 14a4774e31b763fcb8221e158e00895c5d3549b2098bd41f8ecf0d8ba052aa4e
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
