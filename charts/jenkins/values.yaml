@@ -726,7 +726,7 @@ agent:
   #    image: docker
   #    tag: dind
   #    command: dockerd-entrypoint.sh
-  #    args:
+  #    args: ""
   #    privileged: true
   #    resources:
   #      requests:

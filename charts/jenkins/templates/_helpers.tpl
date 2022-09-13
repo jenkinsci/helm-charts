@@ -243,8 +243,8 @@ Returns kubernetes pod template configuration as code
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
-    args: {{ if or (empty .Values.agent.args) (kindIs "string" .Values.agent.args) }}{{ .Values.agent.args | default "" | replace "$" "^$" | quote }}{{ else }}{{ toYaml .Values.agent.args | nindent 4 }}{{ end }}
-    command: {{ if or (empty .Values.agent.command) (kindIs "string" .Values.agent.command) }}{{ .Values.agent.command }}{{ else }}{{ toYaml .Values.agent.command | nindent 4 }}{{ end }}
+    args: "{{ .Values.agent.args | replace "$" "^$" }}"
+    command: {{ .Values.agent.command }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
@@ -266,8 +266,8 @@ Returns kubernetes pod template configuration as code
 {{- range $additionalContainers := .Values.agent.additionalContainers }}
   - name: "{{ $additionalContainers.sideContainerName }}"
     alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.agent.alwaysPullImage }}
-    args: {{ if or (empty $additionalContainers.args) (kindIs "string" $additionalContainers.args) }}"{{ $additionalContainers.args | default "" | replace "$" "^$" }}"{{ else }}{{ toYaml $additionalContainers.args | nindent 4 }}{{ end }}
-    command: {{ if or (empty $additionalContainers.command) (kindIs "string" $additionalContainers.command) }}{{ $additionalContainers.command }}{{ else }}{{ toYaml $additionalContainers.command | nindent 4 }}{{ end }}
+    args: "{{ $additionalContainers.args | replace "$" "^$" }}"
+    command: {{ $additionalContainers.command }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
