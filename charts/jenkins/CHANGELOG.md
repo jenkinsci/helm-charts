@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.2.2
+
+Support Google Managed Prometheus
+
 ## 4.2.1
 
 Remove option to provide command and args of agent as YAML. This feature was never supported by the Jenkins Kubernetes

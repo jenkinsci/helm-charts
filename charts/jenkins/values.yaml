@@ -533,6 +533,15 @@ controller:
     # Set a custom namespace where to deploy PrometheusRule resource
     prometheusRuleNamespace: ""
 
+  googlePodMonitor:
+    # If enabled, It creates Google Managed Prometheus scraping config
+    enabled: false
+    # Set a custom namespace where to deploy PodMonitoring resource
+    # serviceMonitorNamespace: ""
+    scrapeInterval: 60s
+    # This is the default endpoint used by the prometheus plugin
+    scrapeEndpoint: /prometheus
+
   # Can be used to disable rendering controller test resources when using helm template
   testEnabled: true
 
