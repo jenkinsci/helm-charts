@@ -16,6 +16,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 Update apiVersion Cronjob backup
 
+## 4.2.2
+
+Support Google Managed Prometheus
+
 ## 4.2.1
 
 Remove option to provide command and args of agent as YAML. This feature was never supported by the Jenkins Kubernetes
