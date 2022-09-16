@@ -12,6 +12,17 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.2.3 Update plugin versions
+
+| plugin                | old version           | new version           |
+| --------------------- | --------------------- | --------------------- |
+| kubernetes            | 3600.v144b_cd192ca_a_ | 3706.vdfb_d599579f3   |
+| workflow-aggregator   | 581.v0c46fa_697ffd    | 590.v6a_d052e5a_a_b_5 |
+| configuration-as-code | 1429.v09b_044a_c93de  | 1512.vb_79d418d5fc8   |
+| git                   | 4.11.3                | 4.11.5                |
+
+Resolve version conflict between default install of plugins.
+
 ## 4.2.2
 
 Support Google Managed Prometheus
