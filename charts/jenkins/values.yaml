@@ -618,6 +618,7 @@ agent:
   privileged: false
   runAsUser:
   runAsGroup:
+  hostNetworking: false
   resources:
     requests:
       cpu: "512m"
