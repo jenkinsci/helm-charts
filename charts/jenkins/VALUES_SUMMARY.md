@@ -316,6 +316,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `agent.envVars`            | Environment variables for the agent Pod         | `[]`                   |
 | `agent.idleMinutes`        | Allows the Pod to remain active for reuse       | 0                      |
 | `agent.imagePullSecretName` | Agent image pull secret                        | Not set                |
+| `agent.hostNetworking`     | Enabled agent to use hostnetwork                | false                  |
 | `agent.nodeSelector`       | Node labels for pod assignment                  | `{}`                   |
 | `agent.connectTimeout`     | Timeout in seconds for an agent to be online    | 100                    |
 | `agent.volumes`            | Additional volumes                              | `[]`                   |
