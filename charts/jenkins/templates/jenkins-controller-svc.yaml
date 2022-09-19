@@ -35,7 +35,11 @@ spec:
 {{- range $index, $port := .Values.controller.extraPorts }}
     - port: {{ $port.port }}
       name: {{ $port.name }}
+      {{- if $port.targetPort }}
+      targetPort: {{ $port.targetPort }}
+      {{- else }}
       targetPort: {{ $port.port }}
+      {{- end -}}
 {{- end }}
   selector:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
