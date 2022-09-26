@@ -297,6 +297,9 @@ Returns kubernetes pod template configuration as code
 {{- end }}
   idleMinutes: {{ .Values.agent.idleMinutes }}
   instanceCap: 2147483647
+  {{- if .Values.agent.hostNetworking }}
+  hostNetwork: {{ .Values.agent.hostNetworking }}
+  {{- end }}
   {{- if .Values.agent.imagePullSecretName }}
   imagePullSecrets:
   - name: {{ .Values.agent.imagePullSecretName }}
