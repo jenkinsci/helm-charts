@@ -70,6 +70,43 @@ tests:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: ClusterIP
+  - it: extraPort with targetPort
+    set:
+      controller:
+        serviceLabels:
+          label: label-value
+        serviceAnnotations:
+          key: value
+        clusterIP: 10.10.10.11
+        servicePort: 8888
+        targetPort: 7777
+        extraPorts:
+          - name: https
+            port: 443
+            targetPort: 8080
+    asserts:
+      - equal:
+          path: metadata.labels.label
+          value: label-value
+      - equal:
+          path: metadata.annotations
+          value:
+            key: value
+      - equal:
+          path: spec
+          value:
+            clusterIP: 10.10.10.11
+            ports:
+            - name: http
+              port: 8888
+              targetPort: 7777
+            - name: https
+              port: 443
+              targetPort: 8080
+            selector:
+              app.kubernetes.io/component: jenkins-controller
+              app.kubernetes.io/instance: my-release
+            type: ClusterIP
   - it: node port
     set:
       controller:

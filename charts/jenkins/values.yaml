@@ -235,6 +235,7 @@ controller:
   extraPorts: []
   # - name: BuildInfoProxy
   #   port: 9000
+  #   targetPort: 9010 (Optional: Use to explicitly set targetPort if different from port)
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
