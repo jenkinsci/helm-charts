@@ -590,3 +590,29 @@ tests:
           path: spec.template.spec.initContainers[0].volumeMounts
           content:
             name: plugins
+  - it:
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        JCasC:
+          configUrls:
+           - https://acme.org/jenkins.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "CASC_JENKINS_CONFIG"
+            value: "/var/jenkins_home/casc_configs,https://acme.org/jenkins.yaml"
+
+  - it:
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        JCasC:
+          configUrls: []
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "CASC_JENKINS_CONFIG"
+            value: "/var/jenkins_home/casc_configs"
