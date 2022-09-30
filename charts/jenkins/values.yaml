@@ -318,6 +318,9 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+    configUrls: []
+    # - https://acme.org/jenkins.yaml
+    # Remote URL:s for configuration files.
     configScripts: {}
     #  welcome-message: |
     #    jenkins:
@@ -619,6 +622,7 @@ agent:
   privileged: false
   runAsUser:
   runAsGroup:
+  hostNetworking: false
   resources:
     requests:
       cpu: "512m"
