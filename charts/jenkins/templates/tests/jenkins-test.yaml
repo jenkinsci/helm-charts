@@ -17,7 +17,7 @@ spec:
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: {{ .Values.controller.image }}:{{ .Chart.AppVersion }}-{{ .Values.controller.tagLabel }}
+      image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
       command:
         - "bash"
         - "-c"
