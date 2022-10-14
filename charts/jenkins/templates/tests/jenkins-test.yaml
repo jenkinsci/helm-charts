@@ -17,7 +17,7 @@ spec:
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: "bats/bats:1.2.1"
+      image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
       command:
         - "bash"
         - "-c"
