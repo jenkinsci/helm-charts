@@ -30,10 +30,10 @@ jobs:
         run: |
           CURRENT_VERSION=$(cat charts/jenkins/Chart.yaml| grep appVersion | sed 's/appVersion: //')
           if [ "$CURRENT_VERSION" = "${{ steps.lts.outputs.jenkins_version }}" ]; then
-            echo "::set-output name=available::false"
+            echo "available=false" >> $GITHUB_OUTPUT
           else
-            echo "::set-output name=available::true"
-            echo "::set-output name=current-version::$CURRENT_VERSION"
+            echo "available=true" >> $GITHUB_OUTPUT
+            echo "current-version=$CURRENT_VERSION" >> $GITHUB_OUTPUT
           fi
 
       - name: Update version in Chart.yaml
