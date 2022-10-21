@@ -85,7 +85,7 @@ With the configuration above there is only a single user.
 This is ok for getting started quickly, but it needs to be adjusted for any serious environment.
 
 So you should adjust this to suite your needs.
-That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine grained permissions.
+That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine-grained permissions.
 
 ### Consider using a custom image
 
@@ -101,7 +101,7 @@ FROM jenkins/jenkins:lts
 RUN jenkins-plugin-cli --plugins kubernetes workflow-aggregator git configuration-as-code
 ```
 
-NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
+NOTE: If you want a reproducible build then you should specify a non-floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
 
 Once you built the image and pushed it to your registry you can specify it in your values file like this:
 
@@ -234,7 +234,7 @@ This option requires installation of the [OWASP Markup Formatter Plugin (antisam
 This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
 ### Change max connections to Kubernetes API
-When using agents with containers other then JNLP, The kubernetes plugin will commuincate with those containers using the Kubernetes API. this changes the maximum concurrent connections
+When using agents with containers other than JNLP, The kubernetes plugin will communicate with those containers using the Kubernetes API. this changes the maximum concurrent connections
 ```yaml
 agent:
   maxRequestsPerHostStr: "32"
@@ -454,7 +454,7 @@ Now that you have a Service Account (SA), you need to create a Service Account K
 
 ##### 6. Create a Kubernetes Secret from the Service Account key
 
-In order for the Backup Job to access the GCP Service Account Key you need to create Kubernetes Secret, which you can create using the comand below:
+In order for the Backup Job to access the GCP Service Account Key you need to create Kubernetes Secret, which you can create using the command below:
 
 ```bash
 # Replace with the path to the SA Key
@@ -863,7 +863,7 @@ controller:
     - name: no_proxy
       value: ""
     - name: JAVA_OPTS
-      value: "-Dhttps.proxyHost=proxy_host_name_without_protocal -Dhttps.proxyPort=3128"
+      value: "-Dhttps.proxyHost=proxy_host_name_without_protocol -Dhttps.proxyPort=3128"
   containerEnv:
     - name: http_proxy
       value: "http://192.168.64.1:3128"
@@ -928,7 +928,7 @@ Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where 
 ### To 3.0.0
 
 * Check `securityRealm` and `authorizationStrategy` and adjust it.
-  Otherwise your configured users and permissions will be overridden.
+  Otherwise, your configured users and permissions will be overridden.
 * You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
 * All XML configuration options have been removed.
   In case those are still in use you need to migrate to configuration as code.
@@ -964,7 +964,7 @@ Configuration as Code is now default + container does not run as root anymore.
 
 Configuration is done via [Jenkins Configuration as Code Plugin](https://github.com/jenkinsci/configuration-as-code-plugin) by default.
 That means that changes in values which result in a configuration change are always applied.
-In contrast the XML configuration was only applied during the first start and never altered.
+In contrast, the XML configuration was only applied during the first start and never altered.
 
 :exclamation::exclamation::exclamation:
 Attention:
@@ -1010,7 +1010,7 @@ So think of the list below more as a general guideline of what should be done.
   `Manage Jenkins` -> `Configuration as Code` -> `Download Configuration`
 - prepare your values file for the update e.g. add additional configuration as code setting that you need.
   The export taken from above might be a good starting point for this.
-  In addition the [demos](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos) from the plugin itself are quite useful.
+  In addition, the [demos](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos) from the plugin itself are quite useful.
 - Test drive those setting on a separate installation
 - Put Jenkins to Quiet Down mode so that it does not accept new jobs
   `<JENKINS_URL>/quietDown`
