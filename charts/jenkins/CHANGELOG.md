@@ -12,6 +12,16 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.2.11
+
+Update default plugin versions
+
+| plugin                | old version           | new version            |
+|-----------------------|-----------------------|------------------------|
+| kubernetes            | 3706.vdfb_d599579f3   | 3734.v562b_b_a_627ea_c |
+| git                   | 4.11.5                | 4.13.0                 |
+| configuration-as-code | 1512.vb_79d418d5fc8   | 1569.vb_72405b_80249   |
+
 ## 4.2.10
 Fix grammar and typos
 
