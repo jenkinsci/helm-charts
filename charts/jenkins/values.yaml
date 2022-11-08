@@ -295,6 +295,9 @@ controller:
   #  - name: nameOfSecret
   #    value: secretText
 
+  # an existing secret "secret-credentials" and all inside it named "github-password" should be used in Jcasc as ${github-password}
+  additionalExistingSecret:
+
   # Generate SecretClaim resources in order to create Kubernetes secrets from HashiCorp Vault using kube-vault-controller.
   # 'name' is name of the secret that will be created in Kubernetes. The Jenkins fullname is prepended to this value.
   # 'path' is the fully qualified path to the secret in Vault
