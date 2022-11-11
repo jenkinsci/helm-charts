@@ -386,10 +386,10 @@ spec:
           {{- if .Values.controller.additionalExistingSecrets }}
           {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
           - secret:
-              name: {{ $value.name }}
+              name: {{ tpl $value.name $ }}
               items:
-                - key: {{ $value.keyName }}
-                  path: {{ $value.name }}-{{ $value.keyName }}
+                - key: {{ tpl $value.keyName $ }}
+                  path: {{ tpl $value.name $ }}-{{ tpl $value.keyName $ }}
           {{- end }}
           {{- end }}
           {{- if .Values.controller.adminSecret }}
