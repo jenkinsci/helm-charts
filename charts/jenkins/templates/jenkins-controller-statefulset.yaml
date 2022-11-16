@@ -385,11 +385,6 @@ spec:
           {{- end }}
           {{- if .Values.controller.additionalExistingSecrets }}
           {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
-          {{- if .Values.controller.existingSecret }}
-          - secret:
-              name: {{ .Values.controller.existingSecret }}
-          {{- end }}
-
           - secret:
               name: {{ tpl $value.name $ }}
               items:
@@ -405,6 +400,10 @@ spec:
                   path: chart-admin-username
                 - key: {{ .Values.controller.admin.passwordKey | default "jenkins-admin-password" }}
                   path: chart-admin-password
+        {{- end }}
+        {{- if .Values.controller.existingSecret }}
+          - secret:
+              name: {{ .Values.controller.existingSecret }}
         {{- end }}
       {{- end }}
       - name: jenkins-cache

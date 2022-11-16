@@ -467,6 +467,73 @@ tests:
                         path: chart-admin-username
                       - key: jenkins-admin-password
                         path: chart-admin-password
+  - it: test existing secret without additionalExistingSecrets
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.existingSecret: my-exisiting-credentials
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[4]
+          value:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - equal:
+          path: spec.template.spec.volumes[3]
+          value:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    name: my-release-jenkins
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+                - secret:
+                    name: my-exisiting-credentials
+  - it: test existing secret with additionalExistingSecrets
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.existingSecret: my-exisiting-credentials
+      controller.additionalExistingSecrets:
+        - name: my-exisiting-credentials
+          keyName: github-username
+        - name: my-exisiting-credentials
+          keyName: github-password
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[4]
+          value:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - equal:
+          path: spec.template.spec.volumes[3]
+          value:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    items:
+                      - key: github-username
+                        path: my-exisiting-credentials-github-username
+                    name: my-exisiting-credentials
+                - secret:
+                    items:
+                      - key: github-password
+                        path: my-exisiting-credentials-github-password
+                    name: my-exisiting-credentials
+                - secret:
+                    name: my-release-jenkins
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+                - secret:
+                    name: my-exisiting-credentials
   - it: test templated environment variables
     template: jenkins-controller-statefulset.yaml
     set:
