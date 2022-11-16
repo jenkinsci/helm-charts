@@ -191,7 +191,7 @@ spec:
 {{ (tpl ( toYaml .Values.controller.containerEnvFrom) .) | indent 12 }}
             {{- end }}
           env:
-            {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
             - name: SECRETS
               value: /run/secrets/additional
             {{- end }}
@@ -283,7 +283,7 @@ spec:
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
             - name: jenkins-secrets
               mountPath: /run/secrets/additional
               readOnly: true
@@ -375,7 +375,7 @@ spec:
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
-      {{- if or .Values.controller.additionalSecrets .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
       - name: jenkins-secrets
         projected:
           sources:
@@ -385,6 +385,11 @@ spec:
           {{- end }}
           {{- if .Values.controller.additionalExistingSecrets }}
           {{- range $key, $value := .Values.controller.additionalExistingSecrets }}
+          {{- if .Values.controller.existingSecret }}
+          - secret:
+              name: {{ .Values.controller.existingSecret }}
+          {{- end }}
+
           - secret:
               name: {{ tpl $value.name $ }}
               items:
