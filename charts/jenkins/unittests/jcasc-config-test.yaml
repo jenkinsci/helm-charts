@@ -55,12 +55,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -113,7 +113,7 @@ tests:
           sideContainerName: python
           image: python
           tag: "3"
-          command: /bin/sh -c
+          command: "/bin/sh -c"
           args: "cat"
           TTYEnabled: true
       agent:
@@ -175,12 +175,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "jenkins-agents"
-                      id: 7307908575f538e589dc3d4dbdc1a6253272e2f9b8a5dd00b1bf621ac667d147
+                      id: b96e1edcb94db13c9bfa7a92c0a40260c6fd7b769d7247e4b03cd003c12d05de
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -206,12 +206,12 @@ tests:
                       yamlMergeStrategy: override
                     - name: "maven"
                       namespace: "maven"
-                      id: b190aa8d417807129354bab0f4fdfd606b62b066087c50179c9e52907ad41743
+                      id: 27db2be246d40441836eeb6bca73f59bf03b7cc1a4fcc36fb766a6e03c0dc8a7
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -242,7 +242,7 @@ tests:
                       - name: "python"
                         alwaysPullImage: false
                         args: "cat"
-                        command: /bin/sh -c
+                        command: "/bin/sh -c"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -326,7 +326,7 @@ tests:
         podName: my-agent
         sideContainerName: sideContainer
         alwaysPullImage: true
-        command: /bin/command
+        command: "/bin/command"
         image: my-image/jnlp
         tag: v1.2.3
         privileged: true
@@ -481,7 +481,7 @@ tests:
                       - name: "sideContainer"
                         alwaysPullImage: true
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command: /bin/command
+                        command: "/bin/command"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -615,12 +615,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 1e2872fbe512d77fddd2ca221cff1763e42c0c4502ca2e95bf1000975e3d10c5
+                      id: 104e75dcf36f3b003a268cec5a1b3558235c7fdee287b3c1ac3058f039c049cd
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -719,12 +719,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 757a72739ebcbb90e9a96279bd10ce41dc53526c46f34060eb73799003d5aba9
+                      id: 8242950db9343f03997a1777e3b973987d8fae300c4c9a904b162d8efd332db1
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -821,12 +821,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 2d231767003e71ba46679b0fcadd375d4086f807ada4d7eba063c795b637e756
+                      id: 5e1e6e06014f8e032c48d593b54e4b6ddaa5f3a14f73daebef92b7f7eff69344
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -925,12 +925,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: db9d3f716b0f3e4b6e545be69adafc7325dfcd122da33e08cc7faaaaa5fd375b
+                      id: b4ef99169ce68430a3c7bec2d3ef569977a09c6b8bdabe479728b2b9949acd2f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1030,12 +1030,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: eea7fdb28adcd66c05a441af81e65ce54e00205704fd751458973d63d053118e
+                      id: 6ac47f7d73dd78141bdc57d4bc68f5af8558cf1b6e481f2b546df59a18b22433
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1134,12 +1134,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: b7deb1458a074f14c7a7ba7865f7d10f1ec7c3a3a01e35239715e42d951736b7
+                      id: 68ff5ba48505a81d345e96cbd393226b0e72da5af39815a4a5c50dcda5657800
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1305,12 +1305,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1406,12 +1406,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "NAMESPACE"
-                      id: bf20792ca3a4df02858e21158b61d86adde33dee1d3cddadcdb05f71c7f619e8
+                      id: 8618cb0249c6cce190853acd8124a4fe2256d164b84444b0717ef2e6543b4d33
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1503,12 +1503,12 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                    id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
                       args: "^${computer.jnlpmac} ^${computer.name}"
-                      command:
+                      command: ""
                       envVars:
                         - envVar:
                             key: "JENKINS_URL"
@@ -1602,12 +1602,12 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                    id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
                       args: "^${computer.jnlpmac} ^${computer.name}"
-                      command:
+                      command: ""
                       envVars:
                         - envVar:
                             key: "JENKINS_URL"
@@ -1689,12 +1689,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1783,12 +1783,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1874,12 +1874,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -1966,12 +1966,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: ec9481133f16b4bfc8be7ba738f0c6d698e96e979bb73abd5c6089ad5ee48fde
+                      id: 4a8771c88534387d58c4689208371b38f41fbce2332a74bafc7a8e027e2bdb5c
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2013,7 +2013,7 @@ tests:
           - sideContainerName: dind
             image: docker
             tag: dind
-            command: dockerd-entrypoint.sh
+            command: "dockerd-entrypoint.sh"
             args: ""
             privileged: true
     asserts:
@@ -2057,12 +2057,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 6ba469d9131b1f0538603ce3cb0512b8718387b92b7240ad962161cdec03bbac
+                      id: 1395a0a27985b137a0f411afe6e203a717ce0bc58a8bc60b819c1286d70f5257
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2080,7 +2080,7 @@ tests:
                       - name: "dind"
                         alwaysPullImage: false
                         args: ""
-                        command: dockerd-entrypoint.sh
+                        command: "dockerd-entrypoint.sh"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2135,7 +2135,7 @@ tests:
             - sideContainerName: additional
               image: my-additional-container-image
               tag: latest
-              command: entrypoint.sh
+              command: "entrypoint.sh"
               args: arg1 arg2
     asserts:
       - equal:
@@ -2178,12 +2178,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 6ba469d9131b1f0538603ce3cb0512b8718387b92b7240ad962161cdec03bbac
+                      id: 1395a0a27985b137a0f411afe6e203a717ce0bc58a8bc60b819c1286d70f5257
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2201,7 +2201,7 @@ tests:
                       - name: "dind"
                         alwaysPullImage: false
                         args: ""
-                        command: dockerd-entrypoint.sh
+                        command: "dockerd-entrypoint.sh"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2227,12 +2227,12 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: 8c98bd8737e13fcc4d1e3f74369123d0c4d5871c60b22d87913d86c0563f04fb
+                      id: 5af8ff2ca3d5863f32556ecfb18116e0feaa6c8c1ebc3c9d133d9867db682373
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2250,7 +2250,7 @@ tests:
                       - name: "additional"
                         alwaysPullImage: false
                         args: "arg1 arg2"
-                        command: entrypoint.sh
+                        command: "entrypoint.sh"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2295,7 +2295,7 @@ tests:
           - sideContainerName: dind
             image: docker
             tag: dind
-            command: dockerd-entrypoint.sh
+            command: "dockerd-entrypoint.sh"
             args: ""
             privileged: true
       additionalAgents:
@@ -2343,12 +2343,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 6ba469d9131b1f0538603ce3cb0512b8718387b92b7240ad962161cdec03bbac
+                      id: 1395a0a27985b137a0f411afe6e203a717ce0bc58a8bc60b819c1286d70f5257
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2366,7 +2366,7 @@ tests:
                       - name: "dind"
                         alwaysPullImage: false
                         args: ""
-                        command: dockerd-entrypoint.sh
+                        command: "dockerd-entrypoint.sh"
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2392,12 +2392,12 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: 6fbf4887a1919c89a58c9b58bff0fdac73fc10046adbe956c228a8eb7fec4f49
+                      id: 88942c75e41b0cec2212b893a7b079dc91f35921b026e23bdfac9c07340d0e9f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"
@@ -2480,12 +2480,12 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 458f66fc654bef659d5f143995e126250108e5046f6cb993322900b2036ba81a
+                      id: fcfd29efcbba5f34c48f2e964f197138c62698e67ea20304d5d229835606c8f5
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
                         args: "^${computer.jnlpmac} ^${computer.name}"
-                        command:
+                        command: ""
                         envVars:
                           - envVar:
                               key: "JENKINS_URL"

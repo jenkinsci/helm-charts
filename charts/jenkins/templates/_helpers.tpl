@@ -244,7 +244,7 @@ Returns kubernetes pod template configuration as code
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
     args: "{{ .Values.agent.args | replace "$" "^$" }}"
-    command: {{ .Values.agent.command }}
+    command: "{{ .Values.agent.command }}"
     envVars:
       - envVar:
           key: "JENKINS_URL"
@@ -267,7 +267,7 @@ Returns kubernetes pod template configuration as code
   - name: "{{ $additionalContainers.sideContainerName }}"
     alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.agent.alwaysPullImage }}
     args: "{{ $additionalContainers.args | replace "$" "^$" }}"
-    command: {{ $additionalContainers.command }}
+    command: "{{ $additionalContainers.command }}"
     envVars:
       - envVar:
           key: "JENKINS_URL"
