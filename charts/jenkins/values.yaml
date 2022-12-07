@@ -705,7 +705,7 @@ agent:
   # jenkins-agent: v1
 
   # Executed command when side container gets started
-  command:
+  command: ""
   args: "${computer.jnlpmac} ${computer.name}"
   # Side container name
   sideContainerName: "jnlp"
@@ -743,7 +743,7 @@ agent:
   #  - sideContainerName: dind
   #    image: docker
   #    tag: dind
-  #    command: dockerd-entrypoint.sh
+  #    command: "dockerd-entrypoint.sh"
   #    args: ""
   #    privileged: true
   #    resources:
