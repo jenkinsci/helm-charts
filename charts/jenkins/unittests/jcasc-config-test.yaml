@@ -2522,4 +2522,3 @@ tests:
               location:
                 adminAddress:
                 url: http://RELEASE-NAME-jenkins:8080
-          
