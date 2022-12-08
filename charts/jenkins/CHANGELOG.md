@@ -12,16 +12,18 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.2.17
+
+## 4.2.18
 
 Added quotes to the Agent command to prevent defaulting to the sleep command when the command variable was null.
 Updated the unittest to reflect this change.
+
+## 4.2.17
+Update Jenkins image and appVersion to jenkins lts release version 2.375.1
+
 
 ## 4.2.16
- 
-Added quotes to the Agent command to prevent defaulting to the sleep command when the command variable was null.
-Updated the unittest to reflect this change.
-=======
+
 Fixed chart notes not rendering Jenkins URL with prefix when `controller.jenkinsUriPrefix` is set.
 Fixed chart notes not rendering Jenkins URL with `https` when `controller.ingress.tls` or `controller.controller.httpsKeyStore.enable` is set.
 Fixed chart notes rendering wrong JCasC URL when not using `controller.ingress`.
