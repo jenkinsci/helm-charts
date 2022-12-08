@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.2.17
+
+Update Jenkins image and appVersion to jenkins lts release version 2.375.1
+
+
 ## 4.2.16
 
 Fixed chart notes not rendering Jenkins URL with prefix when `controller.jenkinsUriPrefix` is set.
