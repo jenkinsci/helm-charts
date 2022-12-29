@@ -287,12 +287,19 @@ Returns kubernetes pod template configuration as code
     ttyEnabled: {{ $additionalContainers.TTYEnabled | default $.Values.agent.TTYEnabled }}
     workingDir: {{ $additionalContainers.workingDir | default $.Values.agent.workingDir }}
 {{- end }}
-{{- if .Values.agent.envVars }}
+{{- if or .Values.agent.envVars .Values.agent.secretEnvVars }}
   envVars:
   {{- range $index, $var := .Values.agent.envVars }}
     - envVar:
         key: {{ $var.name }}
         value: {{ tpl $var.value $ }}
+  {{- end }}
+  {{- range $index, $var := .Values.agent.secretEnvVars }}
+    - secretEnvVar:
+        key: {{ $var.key }}
+        secretName: {{ $var.secretName }}
+        secretKey: {{ $var.secretKey }}
+        optional: {{ $var.optional | default false }}
   {{- end }}
 {{- end }}
   idleMinutes: {{ .Values.agent.idleMinutes }}
