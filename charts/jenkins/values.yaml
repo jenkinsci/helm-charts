@@ -700,6 +700,12 @@ agent:
   envVars: []
   # - name: PATH
   #   value: /usr/local/bin
+  # Mount a secret as environment variable
+  secretEnvVars: []
+  # - key: PATH
+  #   optional: false # default: false
+  #   secretKey: MY-K8S-PATH
+  #   secretName: my-k8s-secret
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
