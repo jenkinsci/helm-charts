@@ -940,6 +940,9 @@ backup:
   securityContextCapabilities: {}
   #  drop:
   #    - NET_RAW
+cronJob:
+  apiVersion: batch/v1
+
 checkDeprecation: true
 
 awsSecurityGroupPolicies:
