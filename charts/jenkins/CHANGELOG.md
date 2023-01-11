@@ -14,9 +14,9 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.2.20
 
-Fixed the 'controller.prometheus.metricRelabelings' being unable to convert the value to the ServiceMonitor.
+Fixed the `controller.prometheus.metricRelabelings` being unable to convert the value to the ServiceMonitor.
 Added `controller.prometheus.relabelings` to allow relabling before scrape.
-Added default values for 'controller.prometheus.relabelings' and 'controller.prometheus.metricRelabelings'.
+Added default values for `controller.prometheus.relabelings` and `controller.prometheus.metricRelabelings`.
 
 ## 4.2.19
 
