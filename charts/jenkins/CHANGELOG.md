@@ -12,6 +12,12 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.2.20
+
+Fixed the `controller.prometheus.metricRelabelings` being unable to convert the value to the ServiceMonitor.
+Added `controller.prometheus.relabelings` to allow relabling before scrape.
+Added default values for `controller.prometheus.relabelings` and `controller.prometheus.metricRelabelings`.
+
 ## 4.2.19
 
 CronJob api version upgraded to batch/v1
