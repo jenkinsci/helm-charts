@@ -80,3 +80,35 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+  - it: set relabling
+    set:
+      controller:
+        prometheus:
+          enabled: true
+          relabelings:
+            - sourceLabels: [metric]
+              regex: "(.*)"
+              action: drop
+    asserts:
+      - equal:
+          path: spec.endpoints[0].relabelings
+          value:
+            - sourceLabels: [metric]
+              regex: "(.*)"
+              action: drop
+  - it: set metricRelabelings
+    set:
+      controller:
+        prometheus:
+          enabled: true
+          metricRelabelings:
+            - sourceLabels: [__name__]
+              regex: "kubernetes_cloud_(.*)_provision_request_total"
+              action: drop
+    asserts:
+      - equal:
+          path: spec.endpoints[0].metricRelabelings
+          value:
+            - sourceLabels: [__name__]
+              regex: "kubernetes_cloud_(.*)_provision_request_total"
+              action: drop
