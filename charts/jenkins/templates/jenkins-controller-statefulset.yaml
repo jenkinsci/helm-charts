@@ -191,6 +191,9 @@ spec:
 {{ (tpl ( toYaml .Values.controller.containerEnvFrom) .) | indent 12 }}
             {{- end }}
           env:
+            {{- if .Values.controller.containerEnv }}
+{{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
+            {{- end }}
             {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
             - name: SECRETS
               value: /run/secrets/additional
@@ -215,9 +218,6 @@ spec:
                   key: {{ "https-jks-password" | quote }}
             {{- end }}
 
-            {{- if .Values.controller.containerEnv }}
-{{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
-            {{- end }}
             - name: CASC_JENKINS_CONFIG
               value: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}{{- if .Values.controller.JCasC.configUrls }},{{ join "," .Values.controller.JCasC.configUrls }}{{- end }}
           ports:
