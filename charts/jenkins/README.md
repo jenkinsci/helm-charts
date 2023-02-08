@@ -540,7 +540,7 @@ Now that we have everything in place, let's deploy the Jenkins Chart with the ne
 ```bash
 helm upgrade --install jenkins --namespace jenkins \
     -f values.yaml \
-    jenkinsci/jenkins;
+    jenkins/jenkins;
 ```
 
 **NOTE**: Save the password from this installation as it will be needed in the [Restore from Backup in Google Cloud Storage Bucket](#example-restore-from-backup-in-google-cloud-storage-bucket) section.
@@ -621,7 +621,7 @@ helm delete jenkins
 # Install Jenkins Chart
 helm upgrade --install jenkins --namespace jenkins \
     -f values.yaml \
-    jenkinsci/jenkins;
+    jenkins/jenkins;
 ```
 
 **NOTE**: This Command uses the same values file that was created in the [7. Deploy the Jenkins Helm Chart using a modified values file](#7-deploy-the-jenkins-helm-chart-using-a-modified-values-file) section.
