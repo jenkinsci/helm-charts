@@ -17,5 +17,5 @@ metadata:
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   jcasc-kubernetes-config.yaml: |-
-    {{- include "jenkins.casc.agents" . |nindent 4 }}
+    {{- include "jenkins.casc.kubernetes" . |nindent 4 }}
 {{- end}}

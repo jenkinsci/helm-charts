@@ -37,7 +37,9 @@ jenkins:
     {{- else }}
     {{- toYaml .Values.controller.markupFormatter | nindent 4 }}
     {{- end }}
-  {{- include "jenkins.casc.agents" . }}
+  {{- if .Values.kubernetes.enabled -}}
+  {{- include "jenkins.casc.kubernetes" . }}
+  {{- end -}}
   {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
   crumbIssuer:
     standard:
@@ -58,7 +60,7 @@ unclassified:
 {{- end -}}
 
 
-{{- define "jenkins.casc.agents" }}
+{{- define "jenkins.casc.kubernetes" }}
 clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.kubernetes.agent.containerCap }}"

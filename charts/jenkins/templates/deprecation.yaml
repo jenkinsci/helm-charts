@@ -55,8 +55,10 @@
       {{ fail "`controller.slaveListenerServiceAnnotations` does no longer exist. It has been renamed to `controller.agentListenerServiceAnnotations`" }}
    {{- end }}
 
-   {{- if .Values.agent.slaveConnectTimeout }}
-      {{ fail "`agent.slaveConnectTimeout` does no longer exist. It has been renamed to `agent.connectTimeout`" }}
+   {{- if .Values.agent }}
+      {{- if .Values.agent.slaveConnectTimeout }}
+         {{ fail "`agent.slaveConnectTimeout` does no longer exist. It has been renamed to `agent.connectTimeout`" }}
+      {{- end }}
    {{- end }}
 
    {{- if .Values.NetworkPolicy }}
