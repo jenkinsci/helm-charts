@@ -27,7 +27,7 @@ spec:
       {{- if .Values.networkPolicy.internalAgents.allowed }}
       - podSelector:
           matchLabels:
-            "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}": "true"
+            "jenkins/{{ .Release.Name }}-{{ .Values.kubernetes.agent.componentName }}": "true"
             {{- range $k,$v:= .Values.networkPolicy.internalAgents.podLabels }}
             {{ $k }}: {{ $v }}
             {{- end }}
@@ -52,12 +52,12 @@ spec:
       ports:
       - port: {{ .Values.controller.agentListenerPort }}
     {{- end }}
-{{- if .Values.agent.enabled }}
+{{- if .Values.kubernetes.agent.enabled }}
 ---
 kind: NetworkPolicy
 apiVersion: {{ .Values.networkPolicy.apiVersion }}
 metadata:
-  name: "{{ .Release.Name }}-{{ .Values.agent.componentName }}"
+  name: "{{ .Release.Name }}-{{ .Values.kubernetes.agent.componentName }}"
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
@@ -71,6 +71,6 @@ spec:
   podSelector:
     matchLabels:
       # DefaultDeny
-      "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}": "true"
+      "jenkins/{{ .Release.Name }}-{{ .Values.kubernetes.agent.componentName }}": "true"
 {{- end }}
 {{- end }}

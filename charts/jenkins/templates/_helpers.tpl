@@ -25,9 +25,9 @@ Allow the release namespace to be overridden for multi-namespace deployments in 
   {{- end -}}
 {{- end -}}
 
-{{- define "jenkins.agent.namespace" -}}
-  {{- if .Values.agent.namespace -}}
-    {{- tpl .Values.agent.namespace . -}}
+{{- define "jenkins.kubernetes.namespace" -}}
+  {{- if .Values.kubernetes.namespace -}}
+    {{- tpl .Values.kubernetes.namespace . -}}
   {{- else -}}
     {{- if .Values.namespaceOverride -}}
       {{- .Values.namespaceOverride -}}
@@ -99,124 +99,6 @@ Returns the Jenkins URL
 {{- end -}}
 
 {{/*
-Returns configuration as code default config
-*/}}
-{{- define "jenkins.casc.defaults" -}}
-jenkins:
-  {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
-  {{- if and (.Values.controller.JCasC.authorizationStrategy) (not (contains "authorizationStrategy:" $configScripts)) }}
-  authorizationStrategy:
-    {{- tpl .Values.controller.JCasC.authorizationStrategy . | nindent 4 }}
-  {{- end }}
-  {{- if and (.Values.controller.JCasC.securityRealm) (not (contains "securityRealm:" $configScripts)) }}
-  securityRealm:
-    {{- tpl .Values.controller.JCasC.securityRealm . | nindent 4 }}
-  {{- end }}
-  disableRememberMe: {{ .Values.controller.disableRememberMe }}
-  {{- if .Values.controller.legacyRemotingSecurityEnabled }}
-  remotingSecurity:
-    enabled: true
-  {{- end }}
-  mode: {{ .Values.controller.executorMode }}
-  numExecutors: {{ .Values.controller.numExecutors }}
-  {{- if not (kindIs "invalid" .Values.controller.customJenkinsLabels) }}
-  labelString: "{{ join " " .Values.controller.customJenkinsLabels }}"
-  {{- end }}
-  {{- if .Values.controller.projectNamingStrategy }}
-  {{- if kindIs "string" .Values.controller.projectNamingStrategy }}
-  projectNamingStrategy: "{{ .Values.controller.projectNamingStrategy }}"
-  {{- else }}
-  projectNamingStrategy:
-    {{- toYaml .Values.controller.projectNamingStrategy | nindent 4 }}
-  {{- end }}
-  {{- end }}
-  markupFormatter:
-    {{- if .Values.controller.enableRawHtmlMarkupFormatter }}
-    rawHtml:
-      disableSyntaxHighlighting: true
-    {{- else }}
-    {{- toYaml .Values.controller.markupFormatter | nindent 4 }}
-    {{- end }}
-  clouds:
-  - kubernetes:
-      containerCapStr: "{{ .Values.agent.containerCap }}"
-      defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
-      connectTimeout: "{{ .Values.agent.kubernetesConnectTimeout }}"
-      readTimeout: "{{ .Values.agent.kubernetesReadTimeout }}"
-      {{- if .Values.agent.jenkinsUrl }}
-      jenkinsUrl: "{{ tpl .Values.agent.jenkinsUrl . }}"
-      {{- else }}
-      jenkinsUrl: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}"
-      {{- end }}
-      {{- if not .Values.agent.websocket }}
-      {{- if .Values.agent.jenkinsTunnel }}
-      jenkinsTunnel: "{{ tpl .Values.agent.jenkinsTunnel . }}"
-      {{- else }}
-      jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{ .Values.controller.agentListenerPort }}"
-      {{- end }}
-      {{- else }}
-      webSocket: true
-      {{- end }}
-      maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
-      name: "{{ .Values.controller.cloudName }}"
-      namespace: "{{ template "jenkins.agent.namespace" . }}"
-      serverUrl: "https://kubernetes.default"
-      {{- if .Values.agent.enabled }}
-      podLabels:
-      - key: "jenkins/{{ .Release.Name }}-{{ .Values.agent.componentName }}"
-        value: "true"
-      {{- range $key, $val := .Values.agent.podLabels }}
-      - key: {{ $key | quote }}
-        value: {{ $val | quote }}
-      {{- end }}
-      templates:
-    {{- if not .Values.agent.disableDefaultAgent }}
-      {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
-    {{- end }}
-    {{- if .Values.additionalAgents }}
-      {{- /* save .Values.agent */}}
-      {{- $agent := .Values.agent }}
-      {{- range $name, $additionalAgent := .Values.additionalAgents }}
-        {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
-        {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
-        {{- $additionalAgent := merge $additionalAgent $agent }}
-        {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
-        {{- if $additionalContainersEmpty }}
-        {{- $_ := set $additionalAgent "additionalContainers" list }}
-        {{- end }}
-        {{- /* set .Values.agent to $additionalAgent */}}
-        {{- $_ := set $.Values "agent" $additionalAgent }}
-        {{- include "jenkins.casc.podTemplate" $ | nindent 8 }}
-      {{- end }}
-      {{- /* restore .Values.agent */}}
-      {{- $_ := set .Values "agent" $agent }}
-    {{- end }}
-      {{- if .Values.agent.podTemplates }}
-        {{- range $key, $val := .Values.agent.podTemplates }}
-          {{- tpl $val $ | nindent 8 }}
-        {{- end }}
-      {{- end }}
-      {{- end }}
-  {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
-  crumbIssuer:
-    standard:
-      excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
-  {{- end }}
-{{- include "jenkins.casc.security" . }}
-{{- if .Values.controller.scriptApproval }}
-  scriptApproval:
-    approvedSignatures:
-{{- range $key, $val := .Values.controller.scriptApproval }}
-    - "{{ $val }}"
-{{- end }}
-{{- end }}
-unclassified:
-  location:
-    adminAddress: {{ default "" .Values.controller.jenkinsAdminEmail }}
-    url: {{ template "jenkins.url" . }}
-{{- end -}}
-
-{{/*
 Returns a name template to be used for jcasc configmaps, using
 suffix passed in at call as index 0
 */}}
@@ -230,42 +112,42 @@ suffix passed in at call as index 0
 Returns kubernetes pod template configuration as code
 */}}
 {{- define "jenkins.casc.podTemplate" -}}
-- name: "{{ .Values.agent.podName }}"
-  namespace: "{{ template "jenkins.agent.namespace" . }}"
-{{- if .Values.agent.annotations }}
+- name: "{{ .Values.kubernetes.agent.podName }}"
+  namespace: "{{ template "jenkins.kubernetes.namespace" . }}"
+{{- if .Values.kubernetes.agent.annotations }}
   annotations:
-  {{- range $key, $value := .Values.agent.annotations }}
+  {{- range $key, $value := .Values.kubernetes.agent.annotations }}
   - key: {{ $key }}
     value: {{ $value | quote }}
   {{- end }}
 {{- end }}
-  id: {{ sha256sum (toYaml .Values.agent) }}
+  id: {{ sha256sum (toYaml .Values.kubernetes.agent) }}
   containers:
-  - name: "{{ .Values.agent.sideContainerName }}"
-    alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
-    args: "{{ .Values.agent.args | replace "$" "^$" }}"
-    command: {{ .Values.agent.command }}
+  - name: "{{ .Values.kubernetes.agent.sideContainerName }}"
+    alwaysPullImage: {{ .Values.kubernetes.agent.alwaysPullImage }}
+    args: "{{ .Values.kubernetes.agent.args | replace "$" "^$" }}"
+    command: {{ .Values.kubernetes.agent.command }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
-          {{- if .Values.agent.jenkinsUrl }}
-          value: {{ tpl .Values.agent.jenkinsUrl . }}
+          {{- if .Values.kubernetes.agent.jenkinsUrl }}
+          value: {{ tpl .Values.kubernetes.agent.jenkinsUrl . }}
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
-    image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
-    privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
-    resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
-    resourceLimitMemory: {{.Values.agent.resources.limits.memory}}
-    resourceRequestCpu: {{.Values.agent.resources.requests.cpu}}
-    resourceRequestMemory: {{.Values.agent.resources.requests.memory}}
-    runAsUser: {{ .Values.agent.runAsUser }}
-    runAsGroup: {{ .Values.agent.runAsGroup }}
-    ttyEnabled: {{ .Values.agent.TTYEnabled }}
-    workingDir: {{ .Values.agent.workingDir }}
-{{- range $additionalContainers := .Values.agent.additionalContainers }}
+    image: "{{ .Values.kubernetes.agent.image }}:{{ .Values.kubernetes.agent.tag }}"
+    privileged: "{{- if .Values.kubernetes.agent.privileged }}true{{- else }}false{{- end }}"
+    resourceLimitCpu: {{.Values.kubernetes.agent.resources.limits.cpu}}
+    resourceLimitMemory: {{.Values.kubernetes.agent.resources.limits.memory}}
+    resourceRequestCpu: {{.Values.kubernetes.agent.resources.requests.cpu}}
+    resourceRequestMemory: {{.Values.kubernetes.agent.resources.requests.memory}}
+    runAsUser: {{ .Values.kubernetes.agent.runAsUser }}
+    runAsGroup: {{ .Values.kubernetes.agent.runAsGroup }}
+    ttyEnabled: {{ .Values.kubernetes.agent.TTYEnabled }}
+    workingDir: {{ .Values.kubernetes.agent.workingDir }}
+{{- range $additionalContainers := .Values.kubernetes.agent.additionalContainers }}
   - name: "{{ $additionalContainers.sideContainerName }}"
-    alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.agent.alwaysPullImage }}
+    alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.kubernetes.agent.alwaysPullImage }}
     args: "{{ $additionalContainers.args | replace "$" "^$" }}"
     command: {{ $additionalContainers.command }}
     envVars:
@@ -278,23 +160,23 @@ Returns kubernetes pod template configuration as code
           {{- end }}
     image: "{{ $additionalContainers.image }}:{{ $additionalContainers.tag }}"
     privileged: "{{- if $additionalContainers.privileged }}true{{- else }}false{{- end }}"
-    resourceLimitCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.cpu }}{{ else }}{{ $.Values.agent.resources.limits.cpu }}{{ end }}
-    resourceLimitMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.memory }}{{ else }}{{ $.Values.agent.resources.limits.memory }}{{ end }}
-    resourceRequestCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.cpu }}{{ else }}{{ $.Values.agent.resources.requests.cpu }}{{ end }}
-    resourceRequestMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.memory }}{{ else }}{{ $.Values.agent.resources.requests.memory }}{{ end }}
-    runAsUser: {{ $additionalContainers.runAsUser | default $.Values.agent.runAsUser }}
-    runAsGroup: {{ $additionalContainers.runAsGroup | default $.Values.agent.runAsGroup }}
-    ttyEnabled: {{ $additionalContainers.TTYEnabled | default $.Values.agent.TTYEnabled }}
-    workingDir: {{ $additionalContainers.workingDir | default $.Values.agent.workingDir }}
+    resourceLimitCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.cpu }}{{ else }}{{ $.Values.kubernetes.agent.resources.limits.cpu }}{{ end }}
+    resourceLimitMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.memory }}{{ else }}{{ $.Values.kubernetes.agent.resources.limits.memory }}{{ end }}
+    resourceRequestCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.cpu }}{{ else }}{{ $.Values.kubernetes.agent.resources.requests.cpu }}{{ end }}
+    resourceRequestMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.memory }}{{ else }}{{ $.Values.kubernetes.agent.resources.requests.memory }}{{ end }}
+    runAsUser: {{ $additionalContainers.runAsUser | default $.Values.kubernetes.agent.runAsUser }}
+    runAsGroup: {{ $additionalContainers.runAsGroup | default $.Values.kubernetes.agent.runAsGroup }}
+    ttyEnabled: {{ $additionalContainers.TTYEnabled | default $.Values.kubernetes.agent.TTYEnabled }}
+    workingDir: {{ $additionalContainers.workingDir | default $.Values.kubernetes.agent.workingDir }}
 {{- end }}
-{{- if or .Values.agent.envVars .Values.agent.secretEnvVars }}
+{{- if or .Values.kubernetes.agent.envVars .Values.kubernetes.agent.secretEnvVars }}
   envVars:
-  {{- range $index, $var := .Values.agent.envVars }}
+  {{- range $index, $var := .Values.kubernetes.agent.envVars }}
     - envVar:
         key: {{ $var.name }}
         value: {{ tpl $var.value $ }}
   {{- end }}
-  {{- range $index, $var := .Values.agent.secretEnvVars }}
+  {{- range $index, $var := .Values.kubernetes.agent.secretEnvVars }}
     - secretEnvVar:
         key: {{ $var.key }}
         secretName: {{ $var.secretName }}
@@ -302,33 +184,33 @@ Returns kubernetes pod template configuration as code
         optional: {{ $var.optional | default false }}
   {{- end }}
 {{- end }}
-  idleMinutes: {{ .Values.agent.idleMinutes }}
+  idleMinutes: {{ .Values.kubernetes.agent.idleMinutes }}
   instanceCap: 2147483647
-  {{- if .Values.agent.hostNetworking }}
-  hostNetwork: {{ .Values.agent.hostNetworking }}
+  {{- if .Values.kubernetes.agent.hostNetworking }}
+  hostNetwork: {{ .Values.kubernetes.agent.hostNetworking }}
   {{- end }}
-  {{- if .Values.agent.imagePullSecretName }}
+  {{- if .Values.kubernetes.agent.imagePullSecretName }}
   imagePullSecrets:
-  - name: {{ .Values.agent.imagePullSecretName }}
+  - name: {{ .Values.kubernetes.agent.imagePullSecretName }}
   {{- end }}
-  label: "{{ .Release.Name }}-{{ .Values.agent.componentName }} {{ .Values.agent.customJenkinsLabels  | join " " }}"
-{{- if .Values.agent.nodeSelector }}
+  label: "{{ .Release.Name }}-{{ .Values.kubernetes.agent.componentName }} {{ .Values.kubernetes.agent.customJenkinsLabels  | join " " }}"
+{{- if .Values.kubernetes.agent.nodeSelector }}
   nodeSelector:
   {{- $local := dict "first" true }}
-  {{- range $key, $value := .Values.agent.nodeSelector }}
+  {{- range $key, $value := .Values.kubernetes.agent.nodeSelector }}
     {{- if $local.first }} {{ else }},{{ end }}
     {{- $key }}={{ tpl $value $ }}
     {{- $_ := set $local "first" false }}
   {{- end }}
 {{- end }}
-  nodeUsageMode: {{ quote .Values.agent.nodeUsageMode }}
-  podRetention: {{ .Values.agent.podRetention }}
-  showRawYaml: {{ .Values.agent.showRawYaml }}
+  nodeUsageMode: {{ quote .Values.kubernetes.agent.nodeUsageMode }}
+  podRetention: {{ .Values.kubernetes.agent.podRetention }}
+  showRawYaml: {{ .Values.kubernetes.agent.showRawYaml }}
   serviceAccount: "{{ include "jenkins.serviceAccountAgentName" . }}"
-  slaveConnectTimeoutStr: "{{ .Values.agent.connectTimeout }}"
-{{- if .Values.agent.volumes }}
+  slaveConnectTimeoutStr: "{{ .Values.kubernetes.agent.connectTimeout }}"
+{{- if .Values.kubernetes.agent.volumes }}
   volumes:
-  {{- range $index, $volume := .Values.agent.volumes }}
+  {{- range $index, $volume := .Values.kubernetes.agent.volumes }}
     -{{- if (eq $volume.type "ConfigMap") }} configMapVolume:
      {{- else if (eq $volume.type "EmptyDir") }} emptyDirVolume:
      {{- else if (eq $volume.type "HostPath") }} hostPathVolume:
@@ -344,32 +226,32 @@ Returns kubernetes pod template configuration as code
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if .Values.agent.workspaceVolume }}
+{{- if .Values.kubernetes.agent.workspaceVolume }}
   workspaceVolume:
-    {{- if (eq .Values.agent.workspaceVolume.type "DynamicPVC") }}
+    {{- if (eq .Values.kubernetes.agent.workspaceVolume.type "DynamicPVC") }}
     dynamicPVC:
-    {{- else if (eq .Values.agent.workspaceVolume.type "EmptyDir") }}
+    {{- else if (eq .Values.kubernetes.agent.workspaceVolume.type "EmptyDir") }}
     emptyDirWorkspaceVolume:
-    {{- else if (eq .Values.agent.workspaceVolume.type "HostPath") }}
+    {{- else if (eq .Values.kubernetes.agent.workspaceVolume.type "HostPath") }}
     hostPathWorkspaceVolume:
-    {{- else if (eq .Values.agent.workspaceVolume.type "Nfs") }}
+    {{- else if (eq .Values.kubernetes.agent.workspaceVolume.type "Nfs") }}
     nfsWorkspaceVolume:
-    {{- else if (eq .Values.agent.workspaceVolume.type "PVC") }}
+    {{- else if (eq .Values.kubernetes.agent.workspaceVolume.type "PVC") }}
     persistentVolumeClaimWorkspaceVolume:
     {{- else }}
-    {{ .Values.agent.workspaceVolume.type }}:
+    {{ .Values.kubernetes.agent.workspaceVolume.type }}:
     {{- end }}
-  {{- range $key, $value := .Values.agent.workspaceVolume }}
+  {{- range $key, $value := .Values.kubernetes.agent.workspaceVolume }}
     {{- if not (eq $key "type") }}
       {{ $key }}: {{ if kindIs "string" $value }}{{ tpl $value $ | quote }}{{ else }}{{ $value }}{{ end }}
     {{- end }}
   {{- end }}
 {{- end }}
-{{- if .Values.agent.yamlTemplate }}
+{{- if .Values.kubernetes.agent.yamlTemplate }}
   yaml: |-
-    {{- tpl (trim .Values.agent.yamlTemplate) . | nindent 4 }}
+    {{- tpl (trim .Values.kubernetes.agent.yamlTemplate) . | nindent 4 }}
 {{- end }}
-  yamlMergeStrategy: {{ .Values.agent.yamlMergeStrategy }}
+  yamlMergeStrategy: {{ .Values.kubernetes.agent.yamlMergeStrategy }}
 {{- end -}}
 
 {{- define "jenkins.kubernetes-version" -}}
