@@ -12,9 +12,9 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.3.2
+## 4.3.3
 
-Added `.Values.unittest.testFramework.image` and `.Values.unittest.testFramework.image`. Fixes [https://github.com/jenkinsci/helm-charts/issues/683]
+Added `.Values.unittest.testFramework.image` and `.Values.unittest.testFramework.image` to allow unit tests to be configurable. Fixes [https://github.com/jenkinsci/helm-charts/issues/683]
 
 ## 4.3.2
 
