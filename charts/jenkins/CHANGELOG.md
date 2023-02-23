@@ -14,6 +14,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.3.2
 
+Added `.Values.unittest.testFramework.image` and `.Values.unittest.testFramework.image`. Fixes [https://github.com/jenkinsci/helm-charts/issues/683]
+
+## 4.3.2
+
 Added `.Values.serviceAccount.extraLabels` on Service Account
 Added `.Values.serviceAccountAgent.extraLabels` on Agent's Service Account
 
