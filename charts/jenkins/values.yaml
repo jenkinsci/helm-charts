@@ -963,9 +963,9 @@ awsSecurityGroupPolicies:
       podSelector: {}
 
 # Here you can configure unit tests values when executing the helm unittest in the CONTRIBUTING.md
-unittest:
+helmtest:
   # A testing framework for bash
-  testFramework:
+  bats:
     # Bash Automated Testing System (BATS)
     image: "bats/bats"
     tag: "1.2.1"

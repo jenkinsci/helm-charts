@@ -402,9 +402,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `awsSecurityGroupPolicies.enabled`      | Enable the creation of SecurityGroupPolicy resources | `false` |
 | `awsSecurityGroupPolicies.policies` | Security Group Policy definitions. `awsSecurityGroupPolicies.enabled` must be `true`  | Not set |
 
-### Unit Test
+### Helm Tests
 
-| Parameter                      | Description                       | Default         |
-| ------------------------------ | --------------------------------- | --------------- |
-| `unittest.testFramework.image` | Image used to test the framework  | `bats/bats`     |
-| `unittest.testFramework.tag`   | Test framework image tag override | `1.2.1`         |
+| Parameter             | Description                       | Default         |
+| --------------------- | --------------------------------- | --------------- |
+| `helmtest.bats.image` | Image used to test the framework  | `bats/bats`     |
+| `helmtest.bats.tag`   | Test framework image tag override | `1.2.1`         |
