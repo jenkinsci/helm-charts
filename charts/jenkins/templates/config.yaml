@@ -16,6 +16,9 @@ data:
 {{- if .Values.controller.initializeOnce }}
     if [ -f {{ .Values.controller.jenkinsHome }}/initialization-completed ]; then
       echo "controller was previously initialized, refusing to re-initialize"
+      {{- if not .Values.controller.sidecars.configAutoReload.enabled }}
+      rm -rf {{ .Values.controller.jenkinsHome }}/casc_configs/*
+      {{- end }}
       exit 0
     fi
 {{- end }}
