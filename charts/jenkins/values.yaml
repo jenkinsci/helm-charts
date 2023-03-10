@@ -69,6 +69,8 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+  # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
+  shareProcessNamespace: false
   # Overrides the init container default values
   # initContainerResources:
   #   requests:
@@ -564,6 +566,7 @@ controller:
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
     enable: false
+    disableSecretMount: false
     httpPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"
