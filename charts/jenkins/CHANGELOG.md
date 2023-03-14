@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.3.8
+
+Added `.Values.agent.directConnection` to allow agents to be configured to connect direct to the JNLP port on the
+controller, preventing the need for an external HTTP endpoint for this purpose.
+
 ## 4.3.7
 
 Added `.Values.controller.shareProcessNamespace` and `.Values.controller.httpsKeyStore.disableSecretMount` to enable sourcing TLS certs from external issuers
