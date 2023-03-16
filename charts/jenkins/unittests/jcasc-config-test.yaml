@@ -1030,7 +1030,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: e00d701466613fe20ab781b75a1926a4031a76bdd0c219460c2f51559f923704
+                      id: 65f61f69c153a78222e9c29622476c31ec92388e6ccd67f6c3d5ee153490949e
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1134,7 +1134,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: f07d9eb43cda17bd6c3f448332448bd4a3eff51936cde7c7afc44b02dff8e299
+                      id: 01a50fedfff36f9040028fa08f4412e81449043b9962e667ab783e03193d26ed
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
