@@ -964,6 +964,16 @@ awsSecurityGroupPolicies:
               - jenkins-controller
 ```
 
+### Agent Direct Connection
+
+Set `directConnection` to `true` to allow agents to connect directly to a given TCP port without having to negotiate a HTTP(S) connection. This can allow you to have agent connections without an external HTTP(S) port. Example:
+
+```yaml
+agent:
+  jenkinsTunnel: "jenkinsci-agent:50000"
+  directConnection: true
+```
+
 ## Migration Guide
 
 ### From stable repo

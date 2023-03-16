@@ -634,6 +634,7 @@ agent:
   imagePullSecretName:
   componentName: "jenkins-agent"
   websocket: false
+  directConnection: false
   privileged: false
   runAsUser:
   runAsGroup:
