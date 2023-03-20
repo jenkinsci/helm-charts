@@ -254,9 +254,9 @@ Returns kubernetes pod template configuration as code
         {{- if .Values.agent.directConnection }}
           key: "JENKINS_DIRECT_CONNECTION"
           {{- if .Values.agent.jenkinsTunnel }}
-          jenkinsTunnel: "{{ tpl .Values.agent.jenkinsTunnel . }}"
+          value: "{{ tpl .Values.agent.jenkinsTunnel . }}"
           {{- else }}
-          jenkinsTunnel: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{ .Values.controller.agentListenerPort }}"
+          value: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{ .Values.controller.agentListenerPort }}"
           {{- end }}
         {{- else }}
           key: "JENKINS_URL"
