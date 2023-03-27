@@ -682,6 +682,11 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - notContains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - notContains:
           path: spec.template.spec.volumes
           content:
             name: jenkins-https-keystore
@@ -712,6 +717,11 @@ tests:
                 key: "https-jks-password"
       - contains:
           path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - contains:
+          path: spec.template.spec.initContainers[0].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore

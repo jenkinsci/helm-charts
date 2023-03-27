@@ -2698,7 +2698,7 @@ tests:
                         envVars:
                           - envVar:
                               key: "JENKINS_DIRECT_CONNECTION"
-                              jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                              value: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                         image: "jenkins/inbound-agent:4.11.2-4"
                         privileged: "false"
                         resourceLimitCpu: 512m
