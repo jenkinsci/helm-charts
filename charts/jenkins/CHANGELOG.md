@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.3.15
+
+
+Update bats from 1.2.1 to 1.9.0.
+
 ## 4.3.14
 
 
@@ -20,12 +25,12 @@ Update various GH actions, typo fixes, and miscellaneous chores.
 ## 4.3.13
 
 
-Bump helm-unittest from 0.2.8 to 0.2.11
+Bump helm-unittest from 0.2.8 to 0.2.11.
 
 ## 4.3.12
 
 
-Update wording in values.yml
+Update wording in values.yml.
 
 ## 4.3.11
 
