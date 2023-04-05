@@ -38,6 +38,5 @@ We would like these checks to pass before we even continue reviewing your change
 
 ### Checklist
 <!-- [Place an '[x]' (no spaces) in all applicable fields. Please remove unrelated fields.] -->
-- [ ] [DCO](https://github.com/jenkinsci/helm-charts/blob/main/CONTRIBUTING.md#sign-off-your-work) signed
 - [ ] Chart Version bumped
 - [ ] CHANGELOG.md was updated
