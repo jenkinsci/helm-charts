@@ -70,6 +70,9 @@ spec:
       {{- if .Values.controller.priorityClassName }}
       priorityClassName: {{ .Values.controller.priorityClassName }}
       {{- end }}
+      {{- if .Values.controller.shareProcessNamespace }}
+      shareProcessNamespace: true
+      {{- end }}
 {{- if .Values.controller.usePodSecurityContext }}
       securityContext:
   {{- if hasKey .Values.controller "podSecurityContextOverride" }}
@@ -152,7 +155,7 @@ spec:
             - mountPath: {{ .Values.controller.jenkinsHome }}/init.groovy.d
               name: init-scripts
             {{- end }}
-            {{- if .Values.controller.httpsKeyStore.enable }}
+            {{- if and .Values.controller.httpsKeyStore.enable (not .Values.controller.httpsKeyStore.disableSecretMount) }}
             {{- $httpsJKSDirPath :=  printf "%s" .Values.controller.httpsKeyStore.path }}
             - mountPath: {{ $httpsJKSDirPath }}
               name: jenkins-https-keystore
@@ -191,6 +194,9 @@ spec:
 {{ (tpl ( toYaml .Values.controller.containerEnvFrom) .) | indent 12 }}
             {{- end }}
           env:
+            {{- if .Values.controller.containerEnv }}
+{{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
+            {{- end }}
             {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
             - name: SECRETS
               value: /run/secrets/additional
@@ -209,15 +215,16 @@ spec:
               value: "{{ .Values.controller.agentListenerPort }}"
             {{- if .Values.controller.httpsKeyStore.enable }}
             - name: JENKINS_HTTPS_KEYSTORE_PASSWORD
+            {{- if not .Values.controller.httpsKeyStore.disableSecretMount }}
               valueFrom:
                 secretKeyRef:
                   name: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
                   key: {{ "https-jks-password" | quote }}
+            {{- else }}
+              value: {{ .Values.controller.httpsKeyStore.password }}
+            {{- end }}
             {{- end }}
 
-            {{- if .Values.controller.containerEnv }}
-{{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
-            {{- end }}
             - name: CASC_JENKINS_CONFIG
               value: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}{{- if .Values.controller.JCasC.configUrls }},{{ join "," .Values.controller.JCasC.configUrls }}{{- end }}
           ports:
@@ -256,7 +263,7 @@ spec:
 {{- if .Values.persistence.mounts }}
 {{ toYaml .Values.persistence.mounts | indent 12 }}
 {{- end }}
-            {{- if .Values.controller.httpsKeyStore.enable }}
+            {{- if and .Values.controller.httpsKeyStore.enable (not .Values.controller.httpsKeyStore.disableSecretMount) }}
             {{- $httpsJKSDirPath :=  printf "%s" .Values.controller.httpsKeyStore.path }}
             - mountPath: {{ $httpsJKSDirPath }}
               name: jenkins-https-keystore
@@ -421,7 +428,8 @@ spec:
         emptyDir: {}
       - name: tmp-volume
         emptyDir: {}
-      {{- if .Values.controller.httpsKeyStore.enable }}
+
+      {{- if and .Values.controller.httpsKeyStore.enable (not .Values.controller.httpsKeyStore.disableSecretMount) }}
       - name: jenkins-https-keystore
         secret:
           secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}

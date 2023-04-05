@@ -209,6 +209,51 @@ controller:
 
 Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
 
+#### Breaking out large Config as Code scripts
+
+Jenkins Config as Code scripts can become quite large, and maintaining all of your scripts within one yaml file can be difficult.  The Config as Code plugin itself suggests updating the `CASC_JENKINS_CONFIG` environment variable to be a comma seperated list of paths for the plugin to traverse, picking up the yaml files as needed.  
+However, under the Jenkins helm chart, this `CASC_JENKINS_CONFIG` value is maintained through the templates.  A better solution is to split your `controller.JCasC.configScripts` into seperate values files, and provide each file during the helm install.
+
+For example, you can have a values file (e.g values_main.yaml) that defines the values described in the `VALUES_SUMMARY.md` for your Jenkins configuration:
+
+```yaml
+jenkins:
+  controller:
+    jenkinsUrlProtocol: https
+    installPlugins: false
+    ...
+```
+
+In a second file (e.g values_jenkins_casc.yaml), you can define a section of your config scripts:
+
+```yaml
+jenkins:
+  controller:
+    JCasC:
+      configScripts:
+        jenkinsCasc:  |
+          jenkins:
+            disableRememberMe: false
+            mode: NORMAL
+            ...
+```
+
+And keep extending your config scripts by creating more files (so not all config scripts are located in one yaml file for better maintenance):
+
+values_jenkins_unclassified.yaml
+
+```yaml
+jenkins:
+  controller:
+    JCasC:
+      configScripts:
+        unclassifiedCasc: |
+          unclassified:
+            ...
+```
+
+When installing, you provide all relevant yaml files (e.g `helm install -f values_main.yaml -f values_jenkins_casc.yaml -f values_jenkins_unclassified.yaml ...`).  Instead of updating the `CASC_JENKINS_CONFIG` environment variable to include multiple paths, multiple CasC yaml files will be created in the same path `var/jenkins_home/casc_configs`.
+
 #### Config as Code With or Without Auto-Reload
 
 Config as Code changes (to `controller.JCasC.configScripts`) can either force a new pod to be created and only be applied at next startup, or can be auto-reloaded on-the-fly.
@@ -917,6 +962,16 @@ awsSecurityGroupPolicies:
             operator: In
             values:
               - jenkins-controller
+```
+
+### Agent Direct Connection
+
+Set `directConnection` to `true` to allow agents to connect directly to a given TCP port without having to negotiate a HTTP(S) connection. This can allow you to have agent connections without an external HTTP(S) port. Example:
+
+```yaml
+agent:
+  jenkinsTunnel: "jenkinsci-agent:50000"
+  directConnection: true
 ```
 
 ## Migration Guide

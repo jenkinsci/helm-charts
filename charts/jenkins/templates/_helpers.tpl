@@ -143,6 +143,9 @@ jenkins:
       defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
       connectTimeout: "{{ .Values.agent.kubernetesConnectTimeout }}"
       readTimeout: "{{ .Values.agent.kubernetesReadTimeout }}"
+      {{- if .Values.agent.directConnection }}
+      directConnection: true
+      {{- else }}
       {{- if .Values.agent.jenkinsUrl }}
       jenkinsUrl: "{{ tpl .Values.agent.jenkinsUrl . }}"
       {{- else }}
@@ -156,6 +159,7 @@ jenkins:
       {{- end }}
       {{- else }}
       webSocket: true
+      {{- end }}
       {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       name: "{{ .Values.controller.cloudName }}"
@@ -247,12 +251,21 @@ Returns kubernetes pod template configuration as code
     command: {{ .Values.agent.command }}
     envVars:
       - envVar:
+        {{- if .Values.agent.directConnection }}
+          key: "JENKINS_DIRECT_CONNECTION"
+          {{- if .Values.agent.jenkinsTunnel }}
+          value: "{{ tpl .Values.agent.jenkinsTunnel . }}"
+          {{- else }}
+          value: "{{ template "jenkins.fullname" . }}-agent.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{ .Values.controller.agentListenerPort }}"
+          {{- end }}
+        {{- else }}
           key: "JENKINS_URL"
           {{- if .Values.agent.jenkinsUrl }}
           value: {{ tpl .Values.agent.jenkinsUrl . }}
           {{- else }}
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
+        {{- end }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
