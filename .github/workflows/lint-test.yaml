@@ -24,7 +24,7 @@ jobs:
       - name: Set up Helm
         uses: azure/setup-helm@v3.5
         with:
-          version: v3.8.2
+          version: v3.11.2
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -48,7 +48,7 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm env
-          helm plugin install https://github.com/quintush/helm-unittest --version 0.2.8
+          helm plugin install https://github.com/quintush/helm-unittest --version 0.2.11
 
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml
