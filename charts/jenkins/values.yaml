@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.375.2-jdk11"
+  # tag: "2.387.2-jdk11"
   tagLabel: jdk11
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -69,6 +69,8 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+  # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
+  shareProcessNamespace: false
   # Overrides the init container default values
   # initContainerResources:
   #   requests:
@@ -564,6 +566,7 @@ controller:
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
     enable: false
+    disableSecretMount: false
     httpPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"
@@ -631,6 +634,7 @@ agent:
   imagePullSecretName:
   componentName: "jenkins-agent"
   websocket: false
+  directConnection: false
   privileged: false
   runAsUser:
   runAsGroup:
@@ -961,3 +965,11 @@ awsSecurityGroupPolicies:
     - name: ""
       securityGroupIds: []
       podSelector: {}
+
+# Here you can configure unit tests values when executing the helm unittest in the CONTRIBUTING.md
+helmtest:
+  # A testing framework for bash
+  bats:
+    # Bash Automated Testing System (BATS)
+    image: "bats/bats"
+    tag: "1.2.1"

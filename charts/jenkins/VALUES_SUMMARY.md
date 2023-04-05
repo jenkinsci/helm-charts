@@ -401,3 +401,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `cronJob.apiVersion`                     | CronJob API version | 'batch/v1' |
 | `awsSecurityGroupPolicies.enabled`      | Enable the creation of SecurityGroupPolicy resources | `false` |
 | `awsSecurityGroupPolicies.policies` | Security Group Policy definitions. `awsSecurityGroupPolicies.enabled` must be `true`  | Not set |
+
+### Helm Tests
+
+| Parameter             | Description                       | Default         |
+| --------------------- | --------------------------------- | --------------- |
+| `helmtest.bats.image` | Image used to test the framework  | `bats/bats`     |
+| `helmtest.bats.tag`   | Test framework image tag override | `1.2.1`         |

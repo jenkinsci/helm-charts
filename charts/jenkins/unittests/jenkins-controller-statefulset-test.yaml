@@ -71,7 +71,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.375.2-jdk11
+                    image: jenkins/jenkins:2.387.2-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -164,7 +164,7 @@ tests:
                   - command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.375.2-jdk11
+                    image: jenkins/jenkins:2.387.2-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -353,7 +353,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.375.2-alpine
+          value: jenkins/jenkins:2.387.2-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
@@ -361,7 +361,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.375.2
+          value: jenkins/jenkins:2.387.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
@@ -642,6 +642,98 @@ tests:
     asserts:
       - matchSnapshot:
           path: spec.template.metadata.annotations
+  - it: test true shareProcessNamespace
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        shareProcessNamespace: true
+    asserts:
+      - equal:
+          path: spec.template.spec.shareProcessNamespace
+          value: true
+  - it: test false shareProcessNamespace
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        shareProcessNamespace: false
+    asserts:
+      - isNull:
+          path: spec.template.spec.shareProcessNamespace
+  - it: test disableSecretMount
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: true
+          password: some-secret-password
+          path: /some/path
+          jenkinsHttpsJksSecretName: some-secret-name
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            value: some-secret-password
+      - notContains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - notContains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+              - key: jenkins-jks-file
+                path: some-file-name
+
+  - it: test not disableSecretMount
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: some-secret-name
+                key: "https-jks-password"
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - contains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: some-file-name
   - it:
     template: jenkins-controller-statefulset.yaml
     set:

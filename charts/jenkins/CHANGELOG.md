@@ -12,6 +12,47 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.3.11
+
+Update Jenkins image and appVersion to jenkins lts release version 2.387.2
+
+
+## 4.3.10
+
+Correct incorrect env var definition
+Disable volume mount if disableSecretMount enabled
+
+## 4.3.9
+
+Document `.Values.agent.directConnection` in README.
+Add default value for `.Values.agent.directConnection` to `values.yaml`
+
+## 4.3.8
+
+Added `.Values.agent.directConnection` to allow agents to be configured to connect direct to the JNLP port on the
+controller, preventing the need for an external HTTP endpoint for this purpose.
+
+## 4.3.7
+
+Added `.Values.controller.shareProcessNamespace` and `.Values.controller.httpsKeyStore.disableSecretMount` to enable sourcing TLS certs from external issuers
+
+## 4.3.6
+
+Update Jenkins image and appVersion to jenkins lts release version 2.387.1
+
+## 4.3.5
+
+Added `.Values.helmtest.bats.image` and `.Values.helmtest.bats.image` to allow unit tests to be configurable. Fixes [https://github.com/jenkinsci/helm-charts/issues/683]
+
+## 4.3.4
+
+Update Jenkins image and appVersion to jenkins lts release version 2.375.3
+
+
+## 4.3.3
+
+Removed hardcoding of chart version in tests to make maintenance easier
+
 ## 4.3.2
 
 Added `.Values.serviceAccount.extraLabels` on Service Account
