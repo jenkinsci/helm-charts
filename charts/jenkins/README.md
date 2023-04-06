@@ -11,14 +11,14 @@ This chart installs a Jenkins server which spawns agents on [Kubernetes](http://
 
 Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 
-## Get Repo Info
+## Get Repository Info
 
 ```console
 helm repo add jenkins https://charts.jenkins.io
 helm repo update
 ```
 
-_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
 ## Install Chart
 
@@ -87,7 +87,7 @@ controller:
 ```
 
 With the configuration above there is only a single user.
-This is ok for getting started quickly, but it needs to be adjusted for any serious environment.
+This is fine for getting started quickly, but it needs to be adjusted for any serious environment.
 
 So you should adjust this to suite your needs.
 That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine-grained permissions.
@@ -134,7 +134,7 @@ controller:
 If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
 The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
 
-If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
+If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the URL definition.
 
 ### Configuration as Code
 
@@ -189,7 +189,7 @@ controller:
 
 Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
 
-For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflicting configuration error.
+For example, you can not configure Jenkins URL and System Admin email address like this because of conflicting configuration error.
 
 Incorrect:
 
@@ -782,7 +782,7 @@ A similar process would work for AWS S3. See additional `backup` values using [c
 It is possible to add custom pod templates for the default configured kubernetes cloud.
 Add a key under `agent.podTemplates` for each pod template. Each key (prior to `|` character) is just a label, and can be any value.
 Keys are only used to give the pod template a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers.
-There's no need to add the *jnlp* container since the kubernetes plugin will automatically inject it into the pod.
+There's no need to add the _jnlp_ container since the kubernetes plugin will automatically inject it into the pod.
 For this pod templates configuration to be loaded the following values must be set:
 
 ```yaml
@@ -981,13 +981,13 @@ agent:
 
 ## Migration Guide
 
-### From stable repo
+### From stable repository
 
-Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
+Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repository info](#get-repository-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
 
 ### Major Version Upgrades
 
-Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
+Chart release versions follow [SemVer](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
 
 ### To 3.0.0
 
@@ -1040,7 +1040,7 @@ It also applies to `securityRealm` and `authorizationStrategy` as they are also 
 
 It's not recommended to run containers in Kubernetes as `root`.
 
-:exclamation: Attention: If you had not configured a different user before then you need to ensure that your image supports the user and group id configured and also manually change permissions of all files so that Jenkins is still able to use them.
+❗Attention: If you had not configured a different user before then you need to ensure that your image supports the user and group ID configured and also manually change permissions of all files so that Jenkins is still able to use them.
 
 #### Summary of updated values
 
@@ -1066,7 +1066,7 @@ controller:
 Migration instructions heavily depend on your current setup.
 So think of the list below more as a general guideline of what should be done.
 
-- Ensure that the Jenkins image you are using contains a user with id 1000 and a group with the same id.
+- Ensure that the Jenkins image you are using contains a user with ID 1000 and a group with the same ID.
   That's the case for `jenkins/jenkins:lts` image, which the chart uses by default
 - Make a backup of your existing installation especially the persistent volume
 - Ensure that you have the configuration as code plugin installed
