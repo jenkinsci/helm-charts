@@ -1,7 +1,7 @@
 apiVersion: v2
 name: jenkins
 home: https://jenkins.io/
-version: 4.3.19
+version: 4.3.20
 appVersion: 2.387.2
 description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 sources:
@@ -21,12 +21,18 @@ maintainers:
   - name: timja
     email: timjacomb1@gmail.com
 icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+keywords:
+  - jenkins
+  - ci
+  - devops
 annotations:
   artifacthub.io/links: |
     - name: Chart Source
       url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
     - name: Jenkins
       url: https://www.jenkins.io/
+    - name: support
+      url: https://github.com/jenkinsci/helm-charts/issues
   artifacthub.io/images: |
     - name: jenkins
       image: jenkins/jenkins:2.387.2-jdk11
@@ -36,3 +42,5 @@ annotations:
       image: jenkins/inbound-agent:3107.v665000b_51092-5
     - name: backup
       image: maorfr/kube-tasks:0.2.0
+  artifacthub.io/category: "integration-delivery"
+  artifacthub.io/license: "Apache-2.0"

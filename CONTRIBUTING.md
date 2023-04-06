@@ -100,4 +100,4 @@ Charts should start at `1.0.0`. Any breaking (backwards incompatible) changes to
 
 This project is released with a [Contributor Covenant](https://www.contributor-covenant.org).
 By participating in this project you agree to abide by its terms.
-See [CODE_OF_CONDUCT.md](./CODE_OF_CONDUCT.md).
+Visit our [code of conduct](https://www.jenkins.io/project/conduct/).
