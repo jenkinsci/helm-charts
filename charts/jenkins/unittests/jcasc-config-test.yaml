@@ -55,7 +55,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -175,7 +175,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "jenkins-agents"
-                      id: f59dda3f9137b76ec0a8ba16e45477ce0203ff2a01fb4f536b296c87ab210911
+                      id: 67908da8853cf5cad0226b130ab2fb2ffbc366c94701a41d296bdaf49f3cffa5
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -615,7 +615,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: c5bae257f874193f84e53b25db3a70615276f102ac12342e289f49dd1975483d
+                      id: bacdf2e1a72d322877ad560492ebcfaf80d4ad59365b467882b934edcc33587a
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -719,7 +719,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 2da1a3f5825f1ee9fcdea91f96111e1d7fbce8499e348d0deca4d32fe01e2944
+                      id: 53621a16409165a8c558c4109e49d6daff72e551751055db28bb317c9ad6ddba
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -821,7 +821,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 74e55530e6a5a4478a46d91b346902faecbde6d70eb8b93fdf9988f33f4c80f3
+                      id: 7890750e97ceaac3fef2593299438dc6a7b8fa32501fe17959c5e4014d738bfb
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -925,7 +925,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 92df729c899add5483fdcfb8d3ce3437b7ba67b64458ecd4c5cc71deae281889
+                      id: ed2358510eaa4d700e7601efc8d63b23c6fb9eaebcae714b201d0cc4a15b7fcc
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1030,7 +1030,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: afd894b774c1f6cbbb51b6c5adbfad5a31f4ec4892a28498266f81734b79fb8f
+                      id: ef77b14c9ce0a495d147a75ab1df4416366c8044912ec9caaa0b207f1fea7211
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1134,7 +1134,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 37c434871531267e6c7f9be92890e6d45cd001854b50d6bf0bdaeaed564b7764
+                      id: 561e119ef9d6bebe219e7cb626ba618a97009170823d46edd4a33be891c88c57
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1305,7 +1305,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1406,7 +1406,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "NAMESPACE"
-                      id: 30e48c4c6095fab3c1a5637ba46f678d4378c60f5260774ca1ecd301de9fb8eb
+                      id: 2165d75efe14a64900a4476f8141a123a643889416f0724d74f878e4c94dad69
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1503,7 +1503,7 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                    id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
@@ -1602,7 +1602,7 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                    id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
@@ -1689,7 +1689,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1783,7 +1783,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1874,7 +1874,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1966,7 +1966,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 450984a4c331307af380204f2a89b0a3944893092de4244964136c8064b4ac0e
+                      id: e0cd10fbcdae0f46f80cd106dcebfbc8d442809678e09bccf7e773fe9accbf8f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2057,7 +2057,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: e4cec910550a55fa421bba70c013f085e1f4aec5ed429b9bd0adc4ae43994010
+                      id: 03cd1338d0314d386eba7b9beab89ca680a007c468a7e30bb4adcf47f16a78ee
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2178,7 +2178,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: e4cec910550a55fa421bba70c013f085e1f4aec5ed429b9bd0adc4ae43994010
+                      id: 03cd1338d0314d386eba7b9beab89ca680a007c468a7e30bb4adcf47f16a78ee
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2227,7 +2227,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: 59f78d934f0d5515afb03165749977359ebb83cb92be84f42fb47c66682ffe77
+                      id: c2af7380218139b99ea8bbb9c88dc9d20f2ad50281ad6d38477e25fc33c24012
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2343,7 +2343,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: e4cec910550a55fa421bba70c013f085e1f4aec5ed429b9bd0adc4ae43994010
+                      id: 03cd1338d0314d386eba7b9beab89ca680a007c468a7e30bb4adcf47f16a78ee
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2392,7 +2392,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: ef1ff7d7bb05f3bf4d51b6a411131d9cb6933e578da9ae75faf39e5d96468670
+                      id: f9e3f06260d37c1b82ca4d934a79f6ab50660ad9f78969d5c97cd5c277f593cd
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2480,7 +2480,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 73757237ef64ff2fb161c5f0af02372ce204b2ec079028fef3f8c6b2b0d83c86
+                      id: d6dfac7ba19edddafc17052d7c6f246c9bf28d3a102013597cd6a38aea949f73
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2584,7 +2584,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 3b87aaff86994bf5c91805a734226bf1765862651282b06c4b64340b8cdc173f
+                      id: d1472cb06e768e986a767e6668ec662150d533997c3f18d74eb04547ff264ab4
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2689,7 +2689,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: e49b488de283ebf1c614513d61b34d517660cf41bfd95f862bcf35a9f35c5d9c
+                      id: c8daeb4c4b3467acc0217358350fe49c9ce283c75134acdfb56dd64453425560
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
