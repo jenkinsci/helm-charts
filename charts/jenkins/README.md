@@ -1061,7 +1061,7 @@ controller:
 Migration instructions heavily depend on your current setup.
 So think of the list below more as a general guideline of what should be done.
 
-- Ensure that the Jenkins image you are using contains a user with ID 1000 and a group with the same id.
+- Ensure that the Jenkins image you are using contains a user with ID 1000 and a group with the same ID.
   That's the case for `jenkins/jenkins:lts` image, which the chart uses by default
 - Make a backup of your existing installation especially the persistent volume
 - Ensure that you have the configuration as code plugin installed
