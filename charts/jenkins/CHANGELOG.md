@@ -1,4 +1,4 @@
-# Change Log
+# Changelog
 
 This file documents all notable changes to the Jenkins Helm Chart.
 The release numbering uses [semantic versioning](http://semver.org).
@@ -9,8 +9,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 * PR:     `https://github.com/helm/charts/pull/[pr#]`
 * Commit: `https://github.com/helm/charts/commit/[commit]/stable/jenkins`
 
-The change log until v1.5.7 was auto-generated based on git commits.
+The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
+
+## 4.3.18
+
+
+Bump kiwigrid/k8s-sidecar from 1.15.0 to 1.23.1.
 
 ## 4.3.17
 
@@ -110,7 +115,7 @@ Added default values for `controller.prometheus.relabelings` and `controller.pro
 
 ## 4.2.19
 
-CronJob api version upgraded to batch/v1
+CronJob API version upgraded to batch/v1
 
 ## 4.2.18
 
@@ -164,7 +169,7 @@ Update Jenkins image and appVersion to jenkins lts release version 2.361.2
 Modify the condition to trigger copying jenkins_config files when configAutoReload option is disabled during Jenkins initialization
 
 ## 4.2.7
-Support for remote url for configuration
+Support for remote URL for configuration
 
 ## 4.2.6
 Add option to set hostnetwork for agents
@@ -377,7 +382,7 @@ Add JAVA_OPTIONS to the README so proxy settings get picked by jenkins-plugin-cl
 
 ## 3.9.3
 
-Fix config reload request url when httpsKeystore in use
+Fix config reload request URL when httpsKeystore in use
 
 ## 3.9.2
 
@@ -398,7 +403,7 @@ Added containerSecurityContext
 
 ## 3.8.9
 
-Fix mounting of https keystore secret when httpsKeyStore is enabled
+Fix mounting of HTTPS keystore secret when httpsKeyStore is enabled
 
 ## 3.8.8
 
@@ -547,7 +552,7 @@ configAutoReload container updated from `kiwigrid/k8s-sidecar:0.1.275` to `kiwig
 
 ## 3.3.23
 
-Make `controller.ingress.resourceRootUrl` compatible with api version networking.k8s.io/v1 on k8s >= 1.19.x
+Make `controller.ingress.resourceRootUrl` compatible with API version networking.k8s.io/v1 on k8s >= 1.19.x
 
 ## 3.3.22
 
@@ -836,7 +841,7 @@ Fix error on missing `ingress.paths` value
 
 ## 2.15.2
 
-Added documentation for ingress and jenkins url
+Added documentation for ingress and jenkins URL
 
 ## 2.15.1
 
@@ -1165,7 +1170,7 @@ Update JCasC auto-reload docs and remove stale ssh key references from version "
 
 ## 1.9.23 Support jenkinsUriPrefix when JCasC is enabled
 
-Fixed a bug in the configuration as code reload url, where it wouldn't work with a jenkinsUriPrefix set.
+Fixed a bug in the configuration as code reload URL, where it wouldn't work with a jenkinsUriPrefix set.
 
 ## 1.9.22
 
@@ -1350,7 +1355,7 @@ Update the default requirements for jenkins-agent to 512Mi which fixes frequentl
 
 JCasC default configuration includes:
 
-- Jenkins url
+- Jenkins URL
 - Admin email `master.jenkinsAdminEmail`
 - crumbIssuer
 - disableRememberMe: false
@@ -1458,7 +1463,7 @@ commit: 387d97a4c
 
 ## 1.5.3
 
-extracted "jenkins.url" into template (#16347)
+extracted "jenkins.URL" into template (#16347)
 commit: f2fdf5332
 
 ## 1.5.2
@@ -1814,7 +1819,7 @@ commit: 9de96faa0
 
 ## 0.32.7
 
-Fix markdown syntax in README (#11496)
+Fix Markdown syntax in README (#11496)
 commit: a32221a95
 
 ## 0.32.6
