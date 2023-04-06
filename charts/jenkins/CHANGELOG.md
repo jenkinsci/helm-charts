@@ -13,8 +13,6 @@ The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
 ## 4.3.19
-
-
 Comply with superlinter rules and address ShellCheck issues.
 
 ## 4.3.18
