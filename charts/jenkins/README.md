@@ -46,20 +46,20 @@ $ helm upgrade [RELEASE_NAME] jenkins/jenkins [flags]
 
 _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
 
-Visit the chart's [CHANGELOG](./CHANGELOG.md) to view the chart's release history.
+Visit the chart's [CHANGELOG](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/CHANGELOG.md) to view the chart's release history.
 For migration between major version check [migration guide](#migration-guide).
 
 ## Configuration
 
 See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
-To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
+To see all configurable options with detailed comments, visit the chart's [values.yaml](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml), or run these configuration commands:
 
 ```console
 # Helm 3
 $ helm show values jenkins/jenkins
 ```
 
-For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
+For a summary of all configurable options, see [VALUES_SUMMARY.md](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md).
 
 ### Configure Security Realm and Authorization Strategy
 
