@@ -36,3 +36,6 @@ annotations:
       image: jenkins/inbound-agent:3107.v665000b_51092-5
     - name: backup
       image: maorfr/kube-tasks:0.2.0
+  artifacthub.io/signKey: |
+    fingerprint: 63667EE74BBA1F0A08A698725BA31D57EF5975CA
+    url: https://raw.githubusercontent.com/jenkins-infra/jenkins-infra/production/dist/profile/files/pkgrepo/jenkins.io-2023.key
