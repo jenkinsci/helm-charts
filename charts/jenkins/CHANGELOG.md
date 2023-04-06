@@ -12,10 +12,19 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The change log until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.3.16
+## 4.3.17
 
 
 Bump jenkins/inbound-agent from 4.11.2-4 to 3107.v665000b_51092-5.
+
+## 4.3.16
+
+
+Update bundled plugins:
+- [ldap](https://plugins.jenkins.io/ldap/): From 2.5 to 671.v2a_9192a_7419d
+- [kubernetes](https://plugins.jenkins.io/kubernetes/): From 3734.v562b_b_a_627ea_c to 3900.va_dce992317b_4
+- [workflow-aggregator](https://plugins.jenkins.io/workflow-aggregator/): From 590.v6a_d052e5a_a_b_5 to 590.v6a_d052e5a_a_b_5
+- [configuration-as-code](https://plugins.jenkins.io/configuration-as-code/): From 1569.vb_72405b_80249 to 1625.v27444588cc3d
 
 ## 4.3.15
 
