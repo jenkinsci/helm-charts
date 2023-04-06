@@ -46,7 +46,7 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: 27c6cde5ca265fc73187297fb82674d8ec1234d8bdb247e79be8a846a222487f
+                  checksum/config: 572b6e6e44f82aa907092e9fcd7e4070830217a6bdca52f224d0c82dea885b9a
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
@@ -71,7 +71,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.361.1-jdk11
+                    image: jenkins/jenkins:2.387.2-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -148,7 +148,7 @@ tests:
                         value: POST
                       - name: REQ_RETRY_CONNECT
                         value: "10"
-                    image: kiwigrid/k8s-sidecar:1.15.0
+                    image: kiwigrid/k8s-sidecar:1.23.1
                     imagePullPolicy: IfNotPresent
                     securityContext:
                       readOnlyRootFilesystem: true
@@ -164,7 +164,7 @@ tests:
                   - command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.361.1-jdk11
+                    image: jenkins/jenkins:2.387.2-jdk11
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -353,7 +353,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.361.1-alpine
+          value: jenkins/jenkins:2.387.2-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
@@ -361,7 +361,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.361.1
+          value: jenkins/jenkins:2.387.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
@@ -467,6 +467,73 @@ tests:
                         path: chart-admin-username
                       - key: jenkins-admin-password
                         path: chart-admin-password
+  - it: test existing secret without additionalExistingSecrets
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.existingSecret: my-exisiting-credentials
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[4]
+          value:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - equal:
+          path: spec.template.spec.volumes[3]
+          value:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    name: my-release-jenkins
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+                - secret:
+                    name: my-exisiting-credentials
+  - it: test existing secret with additionalExistingSecrets
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.existingSecret: my-exisiting-credentials
+      controller.additionalExistingSecrets:
+        - name: my-exisiting-credentials
+          keyName: github-username
+        - name: my-exisiting-credentials
+          keyName: github-password
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[0].volumeMounts[4]
+          value:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - equal:
+          path: spec.template.spec.volumes[3]
+          value:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    items:
+                      - key: github-username
+                        path: my-exisiting-credentials-github-username
+                    name: my-exisiting-credentials
+                - secret:
+                    items:
+                      - key: github-password
+                        path: my-exisiting-credentials-github-password
+                    name: my-exisiting-credentials
+                - secret:
+                    name: my-release-jenkins
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+                - secret:
+                    name: my-exisiting-credentials
   - it: test templated environment variables
     template: jenkins-controller-statefulset.yaml
     set:
@@ -575,13 +642,105 @@ tests:
     asserts:
       - matchSnapshot:
           path: spec.template.metadata.annotations
-  - it: 
+  - it: test true shareProcessNamespace
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        shareProcessNamespace: true
+    asserts:
+      - equal:
+          path: spec.template.spec.shareProcessNamespace
+          value: true
+  - it: test false shareProcessNamespace
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        shareProcessNamespace: false
+    asserts:
+      - isNull:
+          path: spec.template.spec.shareProcessNamespace
+  - it: test disableSecretMount
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: true
+          password: some-secret-password
+          path: /some/path
+          jenkinsHttpsJksSecretName: some-secret-name
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            value: some-secret-password
+      - notContains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - notContains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+              - key: jenkins-jks-file
+                path: some-file-name
+
+  - it: test not disableSecretMount
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: some-secret-name
+                key: "https-jks-password"
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - contains:
+          path: spec.template.spec.initContainers[0].volumeMounts
+          content:
+            mountPath: /some/path
+            name: jenkins-https-keystore
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: some-file-name
+  - it:
     template: jenkins-controller-statefulset.yaml
     set:
       controller:
         installPlugins: false
     asserts:
-      - notContains: 
+      - notContains:
           path: spec.template.spec.volumes
           content:
             name: plugins
@@ -590,3 +749,44 @@ tests:
           path: spec.template.spec.initContainers[0].volumeMounts
           content:
             name: plugins
+  - it:
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        JCasC:
+          configUrls:
+           - https://acme.org/jenkins.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "CASC_JENKINS_CONFIG"
+            value: "/var/jenkins_home/casc_configs,https://acme.org/jenkins.yaml"
+
+  - it:
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        JCasC:
+          configUrls:
+            - https://acme.org/jenkins.yaml
+            - https://foobar.org/jenkins.yaml
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "CASC_JENKINS_CONFIG"
+            value: "/var/jenkins_home/casc_configs,https://acme.org/jenkins.yaml,https://foobar.org/jenkins.yaml"
+
+  - it:
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        JCasC:
+          configUrls: []
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "CASC_JENKINS_CONFIG"
+            value: "/var/jenkins_home/casc_configs"

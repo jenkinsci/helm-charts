@@ -1,8 +1,5 @@
 name: Lint Code Base
 
-# Documentation:
-# https://help.github.com/en/articles/workflow-syntax-for-github-actions
-
 on: pull_request
 
 jobs:
@@ -15,9 +12,9 @@ jobs:
         with:
           fetch-depth: 0
       - name: Lint Code Base
-        uses: docker://github/super-linter:v4.5.0
+        uses: github/super-linter@v4
         env:
-          VALIDATE_ALL_CODEBASE: false
+          VALIDATE_ALL_CODEBASE: true
           VALIDATE_JSCPD: false
           VALIDATE_KUBERNETES_KUBEVAL: false
           VALIDATE_YAML: false

@@ -1,19 +1,24 @@
 # Jenkins
 
+[![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/jenkins)](https://artifacthub.io/packages/helm/jenkinsci/jenkins)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![Releases downloads](https://img.shields.io/github/downloads/jenkinsci/helm-charts/total.svg)](https://github.com/jenkinsci/helm-charts/releases)
+[![Join the chat at https://app.gitter.im/#/room/#jenkins-ci:matrix.org](https://badges.gitter.im/badge.svg)](https://app.gitter.im/#/room/#jenkins-ci:matrix.org)
+
 [Jenkins](https://www.jenkins.io/) is the leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 
 This chart installs a Jenkins server which spawns agents on [Kubernetes](http://kubernetes.io) utilizing the [Jenkins Kubernetes plugin](https://plugins.jenkins.io/kubernetes/).
 
 Inspired by the awesome work of [Carlos Sanchez](https://github.com/carlossg).
 
-## Get Repo Info
+## Get Repository Info
 
 ```console
 helm repo add jenkins https://charts.jenkins.io
 helm repo update
 ```
 
-_See [helm repo](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
 ## Install Chart
 
@@ -46,20 +51,20 @@ $ helm upgrade [RELEASE_NAME] jenkins/jenkins [flags]
 
 _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documentation._
 
-Visit the chart's [CHANGELOG](./CHANGELOG.md) to view the chart's release history.
+Visit the chart's [CHANGELOG](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/CHANGELOG.md) to view the chart's release history.
 For migration between major version check [migration guide](#migration-guide).
 
 ## Configuration
 
 See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
-To see all configurable options with detailed comments, visit the chart's [values.yaml](./values.yaml), or run these configuration commands:
+To see all configurable options with detailed comments, visit the chart's [values.yaml](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/values.yaml), or run these configuration commands:
 
 ```console
 # Helm 3
 $ helm show values jenkins/jenkins
 ```
 
-For a summary of all configurable options, see [VALUES_SUMMARY.md](./VALUES_SUMMARY.md)
+For a summary of all configurable options, see [VALUES_SUMMARY.md](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES_SUMMARY.md).
 
 ### Configure Security Realm and Authorization Strategy
 
@@ -82,10 +87,10 @@ controller:
 ```
 
 With the configuration above there is only a single user.
-This is ok for getting started quickly, but it needs to be adjusted for any serious environment.
+This is fine for getting started quickly, but it needs to be adjusted for any serious environment.
 
 So you should adjust this to suite your needs.
-That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine grained permissions.
+That could be using LDAP / OIDC / .. as authorization strategy and use globalMatrix as authorization strategy to configure more fine-grained permissions.
 
 ### Consider using a custom image
 
@@ -101,7 +106,7 @@ FROM jenkins/jenkins:lts
 RUN jenkins-plugin-cli --plugins kubernetes workflow-aggregator git configuration-as-code
 ```
 
-NOTE: If you want a reproducible build then you should specify a non floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
+NOTE: If you want a reproducible build then you should specify a non-floating tag for the image `jenkins/jenkins:2.249.3` and specify plugin versions.
 
 Once you built the image and pushed it to your registry you can specify it in your values file like this:
 
@@ -129,7 +134,7 @@ controller:
 If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
 The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
 
-If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the url definition.
+If you are not using the provided ingress you can specify `controller.jenkinsUrl` to change the URL definition.
 
 ### Configuration as Code
 
@@ -184,7 +189,7 @@ controller:
 
 Keep in mind that default configuration file already contains some values that you won't be able to override under configScripts section.
 
-For example, you can not configure Jenkins URL and System Admin e-mail address like this because of conflicting configuration error.
+For example, you can not configure Jenkins URL and System Admin email address like this because of conflicting configuration error.
 
 Incorrect:
 
@@ -208,6 +213,51 @@ controller:
 ```
 
 Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
+
+#### Breaking out large Config as Code scripts
+
+Jenkins Config as Code scripts can become quite large, and maintaining all of your scripts within one yaml file can be difficult.  The Config as Code plugin itself suggests updating the `CASC_JENKINS_CONFIG` environment variable to be a comma seperated list of paths for the plugin to traverse, picking up the yaml files as needed.  
+However, under the Jenkins helm chart, this `CASC_JENKINS_CONFIG` value is maintained through the templates.  A better solution is to split your `controller.JCasC.configScripts` into seperate values files, and provide each file during the helm install.
+
+For example, you can have a values file (e.g values_main.yaml) that defines the values described in the `VALUES_SUMMARY.md` for your Jenkins configuration:
+
+```yaml
+jenkins:
+  controller:
+    jenkinsUrlProtocol: https
+    installPlugins: false
+    ...
+```
+
+In a second file (e.g values_jenkins_casc.yaml), you can define a section of your config scripts:
+
+```yaml
+jenkins:
+  controller:
+    JCasC:
+      configScripts:
+        jenkinsCasc:  |
+          jenkins:
+            disableRememberMe: false
+            mode: NORMAL
+            ...
+```
+
+And keep extending your config scripts by creating more files (so not all config scripts are located in one yaml file for better maintenance):
+
+values_jenkins_unclassified.yaml
+
+```yaml
+jenkins:
+  controller:
+    JCasC:
+      configScripts:
+        unclassifiedCasc: |
+          unclassified:
+            ...
+```
+
+When installing, you provide all relevant yaml files (e.g `helm install -f values_main.yaml -f values_jenkins_casc.yaml -f values_jenkins_unclassified.yaml ...`).  Instead of updating the `CASC_JENKINS_CONFIG` environment variable to include multiple paths, multiple CasC yaml files will be created in the same path `var/jenkins_home/casc_configs`.
 
 #### Config as Code With or Without Auto-Reload
 
@@ -234,7 +284,7 @@ This option requires installation of the [OWASP Markup Formatter Plugin (antisam
 This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
 ### Change max connections to Kubernetes API
-When using agents with containers other then JNLP, The kubernetes plugin will commuincate with those containers using the Kubernetes API. this changes the maximum concurrent connections
+When using agents with containers other than JNLP, The kubernetes plugin will communicate with those containers using the Kubernetes API. this changes the maximum concurrent connections
 ```yaml
 agent:
   maxRequestsPerHostStr: "32"
@@ -353,6 +403,10 @@ controller:
   # an existing secret "secret-credentials" and a key inside it named "github-password" should be used in Jcasc as ${secret-credentials-github-password}
   # 'name' and 'keyName' must be lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-',
   # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
+  # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in Jcasc as ${github-username}
+  # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
+  existingSecret: secret-credentials
+  
   additionalExistingSecrets:
     - name: secret-credentials
       keyName: github-username
@@ -454,7 +508,7 @@ Now that you have a Service Account (SA), you need to create a Service Account K
 
 ##### 6. Create a Kubernetes Secret from the Service Account key
 
-In order for the Backup Job to access the GCP Service Account Key you need to create Kubernetes Secret, which you can create using the comand below:
+In order for the Backup Job to access the GCP Service Account Key you need to create Kubernetes Secret, which you can create using the command below:
 
 ```bash
 # Replace with the path to the SA Key
@@ -728,7 +782,7 @@ A similar process would work for AWS S3. See additional `backup` values using [c
 It is possible to add custom pod templates for the default configured kubernetes cloud.
 Add a key under `agent.podTemplates` for each pod template. Each key (prior to `|` character) is just a label, and can be any value.
 Keys are only used to give the pod template a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers.
-There's no need to add the *jnlp* container since the kubernetes plugin will automatically inject it into the pod.
+There's no need to add the _jnlp_ container since the kubernetes plugin will automatically inject it into the pod.
 For this pod templates configuration to be loaded the following values must be set:
 
 ```yaml
@@ -863,7 +917,7 @@ controller:
     - name: no_proxy
       value: ""
     - name: JAVA_OPTS
-      value: "-Dhttps.proxyHost=proxy_host_name_without_protocal -Dhttps.proxyPort=3128"
+      value: "-Dhttps.proxyHost=proxy_host_name_without_protocol -Dhttps.proxyPort=3128"
   containerEnv:
     - name: http_proxy
       value: "http://192.168.64.1:3128"
@@ -915,20 +969,30 @@ awsSecurityGroupPolicies:
               - jenkins-controller
 ```
 
+### Agent Direct Connection
+
+Set `directConnection` to `true` to allow agents to connect directly to a given TCP port without having to negotiate a HTTP(S) connection. This can allow you to have agent connections without an external HTTP(S) port. Example:
+
+```yaml
+agent:
+  jenkinsTunnel: "jenkinsci-agent:50000"
+  directConnection: true
+```
+
 ## Migration Guide
 
-### From stable repo
+### From stable repository
 
-Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repo info](#get-repo-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
+Upgrade an existing release from `stable/jenkins` to `jenkins/jenkins` seamlessly by ensuring you have the latest [repository info](#get-repository-info) and running the [upgrade commands](#upgrade-chart) specifying the `jenkins/jenkins` chart.
 
 ### Major Version Upgrades
 
-Chart release versions follow [semver](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
+Chart release versions follow [SemVer](../../CONTRIBUTING.md#versioning), where a MAJOR version change (example `1.0.0` -> `2.0.0`) indicates an incompatible breaking change needing manual actions.
 
 ### To 3.0.0
 
 * Check `securityRealm` and `authorizationStrategy` and adjust it.
-  Otherwise your configured users and permissions will be overridden.
+  Otherwise, your configured users and permissions will be overridden.
 * You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
 * All XML configuration options have been removed.
   In case those are still in use you need to migrate to configuration as code.
@@ -964,7 +1028,7 @@ Configuration as Code is now default + container does not run as root anymore.
 
 Configuration is done via [Jenkins Configuration as Code Plugin](https://github.com/jenkinsci/configuration-as-code-plugin) by default.
 That means that changes in values which result in a configuration change are always applied.
-In contrast the XML configuration was only applied during the first start and never altered.
+In contrast, the XML configuration was only applied during the first start and never altered.
 
 :exclamation::exclamation::exclamation:
 Attention:
@@ -976,7 +1040,7 @@ It also applies to `securityRealm` and `authorizationStrategy` as they are also 
 
 It's not recommended to run containers in Kubernetes as `root`.
 
-:exclamation: Attention: If you had not configured a different user before then you need to ensure that your image supports the user and group id configured and also manually change permissions of all files so that Jenkins is still able to use them.
+❗Attention: If you had not configured a different user before then you need to ensure that your image supports the user and group ID configured and also manually change permissions of all files so that Jenkins is still able to use them.
 
 #### Summary of updated values
 
@@ -1002,7 +1066,7 @@ controller:
 Migration instructions heavily depend on your current setup.
 So think of the list below more as a general guideline of what should be done.
 
-- Ensure that the Jenkins image you are using contains a user with id 1000 and a group with the same id.
+- Ensure that the Jenkins image you are using contains a user with ID 1000 and a group with the same ID.
   That's the case for `jenkins/jenkins:lts` image, which the chart uses by default
 - Make a backup of your existing installation especially the persistent volume
 - Ensure that you have the configuration as code plugin installed
@@ -1010,7 +1074,7 @@ So think of the list below more as a general guideline of what should be done.
   `Manage Jenkins` -> `Configuration as Code` -> `Download Configuration`
 - prepare your values file for the update e.g. add additional configuration as code setting that you need.
   The export taken from above might be a good starting point for this.
-  In addition the [demos](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos) from the plugin itself are quite useful.
+  In addition, the [demos](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos) from the plugin itself are quite useful.
 - Test drive those setting on a separate installation
 - Put Jenkins to Quiet Down mode so that it does not accept new jobs
   `<JENKINS_URL>/quietDown`

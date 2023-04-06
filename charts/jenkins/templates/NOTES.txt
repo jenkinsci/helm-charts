@@ -1,34 +1,51 @@
+{{- $prefix := .Values.controller.jenkinsUriPrefix | default "" -}}
+{{- $url := "" -}}
 1. Get your '{{ .Values.controller.adminUser }}' user password by running:
   kubectl exec --namespace {{ template "jenkins.namespace" . }} -it svc/{{ template "jenkins.fullname" . }} -c jenkins -- /bin/cat /run/secrets/additional/chart-admin-password && echo
-{{- if .Values.controller.ingress.hostName }}
-
-2. Visit http://{{ .Values.controller.ingress.hostName }}
+{{- if .Values.controller.ingress.hostName -}}
+{{- if .Values.controller.ingress.tls -}}
+{{- $url = print "https://" .Values.controller.ingress.hostName $prefix -}}
+{{- else -}}
+{{- $url = print "http://" .Values.controller.ingress.hostName $prefix -}}
+{{- end }}
+2. Visit {{ $url }}
 {{- else }}
 2. Get the Jenkins URL to visit by running these commands in the same shell:
 {{- if contains "NodePort" .Values.controller.serviceType }}
   export NODE_PORT=$(kubectl get --namespace {{ template "jenkins.namespace" . }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ template "jenkins.fullname" . }})
   export NODE_IP=$(kubectl get nodes --namespace {{ template "jenkins.namespace" . }} -o jsonpath="{.items[0].status.addresses[0].address}")
-  echo http://$NODE_IP:$NODE_PORT/login
+{{- if .Values.controller.httpsKeyStore.enable -}}
+{{- $url = print "https://$NODE_IP:$NODE_PORT" $prefix -}}
+{{- else -}}
+{{- $url = print "http://$NODE_IP:$NODE_PORT" $prefix -}}
+{{- end }}
+  echo {{ $url }}
 
 {{- else if contains "LoadBalancer" .Values.controller.serviceType }}
   NOTE: It may take a few minutes for the LoadBalancer IP to be available.
         You can watch the status of by running 'kubectl get svc --namespace {{ template "jenkins.namespace" . }} -w {{ template "jenkins.fullname" . }}'
   export SERVICE_IP=$(kubectl get svc --namespace {{ template "jenkins.namespace" . }} {{ template "jenkins.fullname" . }} --template "{{ "{{ range (index .status.loadBalancer.ingress 0) }}{{ . }}{{ end }}" }}")
-{{- if .Values.controller.httpsKeyStore.enable }}
-  echo https://$SERVICE_IP:{{ .Values.controller.servicePort }}/login
-{{- else }}
-  echo http://$SERVICE_IP:{{ .Values.controller.servicePort }}/login
+{{- if .Values.controller.httpsKeyStore.enable -}}
+{{- $url = print "https://$SERVICE_IP:" .Values.controller.servicePort $prefix -}}
+{{- else -}}
+{{- $url = print "http://$SERVICE_IP:" .Values.controller.servicePort $prefix -}}
 {{- end }}
+  echo {{ $url }}
 
-{{- else if contains "ClusterIP"  .Values.controller.serviceType }}
-  echo http://127.0.0.1:{{ .Values.controller.servicePort }}
+{{- else if contains "ClusterIP"  .Values.controller.serviceType -}}
+{{- if .Values.controller.httpsKeyStore.enable -}}
+{{- $url = print "https://127.0.0.1:" .Values.controller.servicePort $prefix -}}
+{{- else -}}
+{{- $url = print "http://127.0.0.1:" .Values.controller.servicePort $prefix -}}
+{{- end }}
+  echo {{ $url }}
   kubectl --namespace {{ template "jenkins.namespace" . }} port-forward svc/{{template "jenkins.fullname" . }} {{ .Values.controller.servicePort }}:{{ .Values.controller.servicePort }}
 {{- end }}
 {{- end }}
 
 3. Login with the password from step 1 and the username: {{ .Values.controller.adminUser }}
 4. Configure security realm and authorization strategy
-5. Use Jenkins Configuration as Code by specifying configScripts in your values.yaml file, see documentation: http://{{ .Values.controller.ingress.hostName }}/configuration-as-code and examples: https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos
+5. Use Jenkins Configuration as Code by specifying configScripts in your values.yaml file, see documentation: {{ $url }}/configuration-as-code and examples: https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos
 
 For more information on running Jenkins on Kubernetes, visit:
 https://cloud.google.com/solutions/jenkins-on-container-engine

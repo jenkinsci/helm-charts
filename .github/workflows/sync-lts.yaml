@@ -3,7 +3,7 @@ name: Sync LTS Version
 
 on:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "0 * * * 3"
   workflow_dispatch:
 
 jobs:
@@ -15,29 +15,29 @@ jobs:
 
       - name: next release version
         id: nextversion
-        uses: jenkins-x-plugins/jx-release-version@v2.6.0
+        uses: jenkins-x-plugins/jx-release-version@v2.6.6
         with:
           previous-version: from-file:charts/jenkins/Chart.yaml
 
       - name: Jenkins LTS version
         id: lts
-        uses: garethjevans/jenkins-version@0.1.2
+        uses: jenkins-infra/jenkins-version@0.3.2
         with:
           version-identifier: lts
 
       - name: Check if update is available
         id: update
         run: |
-          CURRENT_VERSION=$(cat charts/jenkins/Chart.yaml| grep appVersion | sed 's/appVersion: //')
-          if [ "$CURRENT_VERSION" = "${{ steps.lts.outputs.jenkins_version }}" ]; then
-            echo "::set-output name=available::false"
+          CURRENT_VERSION=$(grep -E "^appVersion:" charts/jenkins/Chart.yaml | awk '{print $2}')
+          if [ "${CURRENT_VERSION}" = "${{ steps.lts.outputs.jenkins_version }}" ]; then
+            echo "available=false" >> "${GITHUB_OUTPUT}"
           else
-            echo "::set-output name=available::true"
-            echo "::set-output name=current-version::$CURRENT_VERSION"
+            echo "available=true" >> "${GITHUB_OUTPUT}"
+            echo "current-version=${CURRENT_VERSION}" >> "${GITHUB_OUTPUT}"
           fi
 
       - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.27.5
+        uses: mikefarah/yq@v4.33.2
         if: ${{ steps.update.outputs.available == 'true' }}
         with:
           cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml

@@ -47,7 +47,7 @@ data:
     echo "copy configuration as code files"
     mkdir -p {{ .Values.controller.jenkinsHome }}/casc_configs;
     rm -rf {{ .Values.controller.jenkinsHome }}/casc_configs/*
-    {{- if .Values.controller.JCasC.configScripts }}
+    {{- if or .Values.controller.JCasC.defaultConfig .Values.controller.JCasC.configScripts }}
     cp -v /var/jenkins_config/*.yaml {{ .Values.controller.jenkinsHome }}/casc_configs
     {{- end }}
   {{- end }}

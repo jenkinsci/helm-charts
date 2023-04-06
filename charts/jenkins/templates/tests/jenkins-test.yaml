@@ -17,7 +17,7 @@ spec:
   {{- end }}
   initContainers:
     - name: "test-framework"
-      image: "bats/bats:1.2.1"
+      image: {{ .Values.helmtest.bats.image }}:{{ .Values.helmtest.bats.tag }}
       command:
         - "bash"
         - "-c"

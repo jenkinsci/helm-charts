@@ -19,7 +19,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.361.1-jdk11"
+  # tag: "2.387.2-jdk11"
   tagLabel: jdk11
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -70,6 +70,8 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+  # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
+  shareProcessNamespace: false
   # Overrides the init container default values
   # initContainerResources:
   #   requests:
@@ -142,7 +144,7 @@ controller:
   #   service.beta.kubernetes.io/aws-load-balancer-backend-protocol: https
   # Put labels on Jenkins controller pod
   podLabels: {}
-  # Used to create Ingress record (should used with ServiceType: ClusterIP)
+  # Used to create Ingress record (should be used with ServiceType: ClusterIP)
   # nodePort: <to set explicitly, choose port between 30000-32767
   # Enable Kubernetes Startup, Liveness and Readiness Probes
   # if Startup Probe is supported, enable it too
@@ -240,10 +242,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:3706.vdfb_d599579f3
-    - workflow-aggregator:590.v6a_d052e5a_a_b_5
-    - git:4.11.5
-    - configuration-as-code:1512.vb_79d418d5fc8
+    - kubernetes:3900.va_dce992317b_4
+    - workflow-aggregator:596.v8c21c963d92d
+    - git:5.0.0
+    - configuration-as-code:1625.v27444588cc3d
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
@@ -286,6 +288,10 @@ controller:
   # an existing secret "secret-credentials" and a key inside it named "github-password" should be used in Jcasc as ${secret-credentials-github-password}
   # 'name' and 'keyName' must be lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-',
   # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
+  # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in Jcasc as ${github-username}
+  # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
+  existingSecret:
+
   additionalExistingSecrets: []
   #  - name: secret-name-1
   #    keyName: username
@@ -319,6 +325,9 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+    configUrls: []
+    # - https://acme.org/jenkins.yaml
+    # Remote URL:s for configuration files.
     configScripts: {}
     #  welcome-message: |
     #    jenkins:
@@ -355,7 +364,7 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:1.15.0
+      image: kiwigrid/k8s-sidecar:1.23.1
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -535,6 +544,14 @@ controller:
     # Set a custom namespace where to deploy PrometheusRule resource
     prometheusRuleNamespace: ""
 
+    # RelabelConfigs to apply to samples before scraping. Prometheus Operator automatically adds
+    # relabelings for a few standard Kubernetes fields. The original scrape job’s name
+    # is available via the __tmp_prometheus_job_name label.
+    # More info: https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config
+    relabelings: []
+    # MetricRelabelConfigs to apply to samples before ingestion.
+    metricRelabelings: []
+
   googlePodMonitor:
     # If enabled, It creates Google Managed Prometheus scraping config
     enabled: false
@@ -550,6 +567,7 @@ controller:
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
     enable: false
+    disableSecretMount: false
     httpPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"
@@ -600,7 +618,7 @@ controller:
 agent:
   enabled: true
   defaultsProviderTemplate: ""
-  # URL for connecting to the Jenkins contoller
+  # URL for connecting to the Jenkins controller
   jenkinsUrl:
   # connect to the specified host and port, instead of connecting directly to the Jenkins controller
   jenkinsTunnel:
@@ -609,7 +627,7 @@ agent:
   maxRequestsPerHostStr: "32"
   namespace:
   image: "jenkins/inbound-agent"
-  tag: "4.11.2-4"
+  tag: "3107.v665000b_51092-5"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -617,9 +635,11 @@ agent:
   imagePullSecretName:
   componentName: "jenkins-agent"
   websocket: false
+  directConnection: false
   privileged: false
   runAsUser:
   runAsGroup:
+  hostNetworking: false
   resources:
     requests:
       cpu: "512m"
@@ -693,6 +713,12 @@ agent:
   envVars: []
   # - name: PATH
   #   value: /usr/local/bin
+  # Mount a secret as environment variable
+  secretEnvVars: []
+  # - key: PATH
+  #   optional: false # default: false
+  #   secretKey: MY-K8S-PATH
+  #   secretName: my-k8s-secret
   nodeSelector: {}
   # Key Value selectors. Ex:
   # jenkins-agent: v1
@@ -848,6 +874,7 @@ serviceAccount:
   # The name of the service account is autogenerated by default
   name:
   annotations: {}
+  extraLabels: {}
   imagePullSecretName:
 
 
@@ -858,6 +885,7 @@ serviceAccountAgent:
   # If not set and create is true, a name is generated using the fullname template
   name:
   annotations: {}
+  extraLabels: {}
   imagePullSecretName:
 
 ## Backup cronjob configuration
@@ -927,6 +955,9 @@ backup:
   securityContextCapabilities: {}
   #  drop:
   #    - NET_RAW
+cronJob:
+  apiVersion: batch/v1
+
 checkDeprecation: true
 
 awsSecurityGroupPolicies:
@@ -935,3 +966,11 @@ awsSecurityGroupPolicies:
     - name: ""
       securityGroupIds: []
       podSelector: {}
+
+# Here you can configure unit tests values when executing the helm unittest in the CONTRIBUTING.md
+helmtest:
+  # A testing framework for bash
+  bats:
+    # Bash Automated Testing System (BATS)
+    image: "bats/bats"
+    tag: "1.9.0"
