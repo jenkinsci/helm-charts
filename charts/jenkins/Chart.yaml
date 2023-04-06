@@ -31,6 +31,8 @@ annotations:
       url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
     - name: Jenkins
       url: https://www.jenkins.io/
+    - name: support
+      url: https://github.com/jenkinsci/helm-charts/issues
   artifacthub.io/images: |
     - name: jenkins
       image: jenkins/jenkins:2.387.2-jdk11
