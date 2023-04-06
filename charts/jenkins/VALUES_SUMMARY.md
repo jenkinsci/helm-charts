@@ -191,7 +191,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.ingress.enabled`          | Enables ingress                      | `false`                                   |
 | `controller.ingress.apiVersion`       | Ingress API version                  | `extensions/v1beta1`                      |
-| `controller.ingress.hostName`         | Ingress host name                    | Not set                                   |
+| `controller.ingress.hostName`         | Ingress hostname                    | Not set                                   |
 | `controller.ingress.resourceRootUrl`  | Hostname to serve assets from        | Not set                                   |
 | `controller.ingress.annotations`      | Ingress annotations                  | `{}`                                      |
 | `controller.ingress.labels`           | Ingress labels                       | `{}`                                      |
@@ -236,10 +236,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.httpsKeyStore.enable`     | Enables https keystore on jenkins controller      | `false`      |
+| `controller.httpsKeyStore.enable`     | Enables HTTPS keystore on jenkins controller      | `false`      |
 | `controller.httpsKeyStore.jenkinsHttpsJksSecretName`     | Name of the secret that already has ssl keystore      | ``      |
-| `controller.httpsKeyStore.httpPort`   | Http Port that Jenkins should listen on along with https, it also serves liveness and readiness probs port. When https keystore is enabled servicePort and targetPort will be used as https port  | `8081`   |
-| `controller.httpsKeyStore.path`       | Path of https keystore file                  |     `/var/jenkins_keystore`     |
+| `controller.httpsKeyStore.httpPort`   | HTTP Port that Jenkins should listen on along with HTTPS, it also serves liveness and readiness probs port. When HTTPS keystore is enabled servicePort and targetPort will be used as HTTPS port  | `8081`   |
+| `controller.httpsKeyStore.path`       | Path of HTTPS keystore file                  |     `/var/jenkins_keystore`     |
 | `controller.httpsKeyStore.fileName`  | Jenkins keystore filename which will appear under controller.httpsKeyStore.path      | `keystore.jks` |
 | `controller.httpsKeyStore.password`   | Jenkins keystore password                                           | `password` |
 | `controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded`  | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here  | a self signed cert |
