@@ -13,7 +13,7 @@ helm repo add jenkins https://charts.jenkins.io
 helm repo update
 ```
 
-_See [helm repository](https://helm.sh/docs/helm/helm_repo/) for command documentation._
+_See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentation._
 
 ## Install Chart
 
