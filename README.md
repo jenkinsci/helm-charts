@@ -1,11 +1,9 @@
-# Jenkins Community Kubernetes Helm Charts
+# Jenkins Helm Charts for Long-Term-Support (LTS) releases
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/jenkins)](https://artifacthub.io/packages/helm/jenkinsci/jenkins)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![Releases downloads](https://img.shields.io/github/downloads/jenkinsci/helm-charts/total.svg)](https://github.com/jenkinsci/helm-charts/releases)
 [![Join the chat at https://app.gitter.im/#/room/#jenkins-ci:matrix.org](https://badges.gitter.im/badge.svg)](https://app.gitter.im/#/room/#jenkins-ci:matrix.org)
-
-The code is provided as-is with no warranties.
 
 ## Usage
 
