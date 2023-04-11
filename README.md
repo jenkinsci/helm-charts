@@ -22,7 +22,7 @@ You can then run `helm search repo jenkins` to see the charts or obtain an exhau
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 Chart documentation is available in [jenkins directory](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md).
 
-# Building weekly releases
+## Building weekly releases
 
 The default charts target Long-Term-Support (LTS) releases of Jenkins.
 
