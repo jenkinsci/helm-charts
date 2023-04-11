@@ -54,6 +54,12 @@ _See [helm upgrade](https://helm.sh/docs/helm/helm_upgrade/) for command documen
 Visit the chart's [CHANGELOG](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/CHANGELOG.md) to view the chart's release history.
 For migration between major version check [migration guide](#migration-guide).
 
+## Building weekly releases
+
+The default charts target Long-Term-Support (LTS) releases of Jenkins.
+To use other versions the easiest way is to update the image tag to the version you want.
+You can also rebuild the chart if you want the `appVersion` field to match.
+
 ## Configuration
 
 See [Customizing the Chart Before Installing](https://helm.sh/docs/intro/using_helm/#customizing-the-chart-before-installing).
