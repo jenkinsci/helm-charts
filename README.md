@@ -1,4 +1,4 @@
-# Jenkins Helm Charts for Long-Term-Support (LTS) releases
+# Jenkins Helm Charts
 
 [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/jenkins)](https://artifacthub.io/packages/helm/jenkinsci/jenkins)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
@@ -21,6 +21,12 @@ You can then run `helm search repo jenkins` to see the charts or obtain an exhau
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
 Chart documentation is available in [jenkins directory](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md).
+
+## Building weekly releases
+
+The default charts target Long-Term-Support (LTS) releases of Jenkins.
+
+You can build charts for weekly releases yourself by replacing `appVersion` in [`charts/jenkins/Chart.yaml`](https://github.com/jenkinsci/helm-charts/blob/14e78d66107c61341fbb843f156f6e4e30238c65/charts/jenkins/Chart.yaml#L5) with the desired version and running `helm package charts/jenkins`.
 
 ## Contributing
 
