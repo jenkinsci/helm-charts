@@ -57,10 +57,8 @@ For migration between major version check [migration guide](#migration-guide).
 ## Building weekly releases
 
 The default charts target Long-Term-Support (LTS) releases of Jenkins.
-
-The default charts target Long-Term-Support (LTS) releases of Jenkins.
 To use other versions the easiest way is to update the image tag to the version you want.
-You can also rebuild the chart if you want the `appVersion` field to match
+You can also rebuild the chart if you want the `appVersion` field to match.
 
 ## Configuration
 
