@@ -26,7 +26,9 @@ Chart documentation is available in [jenkins directory](https://github.com/jenki
 
 The default charts target Long-Term-Support (LTS) releases of Jenkins.
 
-You can build helm charts for weekly releases yourself by replacing `appVersion` in [`charts/jenkins/Chart.yaml`](https://github.com/jenkinsci/helm-charts/blob/14e78d66107c61341fbb843f156f6e4e30238c65/charts/jenkins/Chart.yaml#L5) with the [desired version](https://updates.jenkins.io/download/war/), bumping the chart [`version`](https://github.com/jenkinsci/helm-charts/blob/14e78d66107c61341fbb843f156f6e4e30238c65/charts/jenkins/Chart.yaml#L4) and running `helm package charts/jenkins`.
+The default charts target Long-Term-Support (LTS) releases of Jenkins.
+To use other versions the easiest way is to update the image tag to the version you want.
+You can also rebuild the chart if you want the `appVersion` field to match
 
 ## Contributing
 
