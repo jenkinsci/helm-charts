@@ -25,9 +25,7 @@ Chart documentation is available in [jenkins directory](https://github.com/jenki
 ## Building weekly releases
 
 The default charts target Long-Term-Support (LTS) releases of Jenkins.
-
-The default charts target Long-Term-Support (LTS) releases of Jenkins.
-To use other versions the easiest way is to update the image tag to the version you want.
+To use other versions, the easiest way is to update the image tag to the version you want.
 You can also rebuild the chart if you want the `appVersion` field to match.
 
 ## Contributing
