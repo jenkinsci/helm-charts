@@ -15,10 +15,11 @@ Those entries include a reference to the git commit to be able to get more detai
 ## 4.3.25
 
 | plugin                | old version          | new version           |
-| --------------------- |----------------------|-----------------------|
+|-----------------------|----------------------|-----------------------|
 | kubernetes            | 3900.va_dce992317b_4 | 3937.vd7b_82db_e347b_ |
 | configuration-as-code | 1625.v27444588cc3d   | 1647.ve39ca_b_829b_42 |
 | git                   | 5.0.0                | 5.1.0                 |
+| ldap                  | 671.v2a_9192a_7419d  | 682.v7b_544c9d1512    |
 
 ## 4.3.24
 
