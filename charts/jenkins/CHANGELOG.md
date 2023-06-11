@@ -18,7 +18,6 @@ Fix various typos in the chart documentation.
 
 ## 4.3.25
 
-=======
 | plugin                | old version          | new version           |
 |-----------------------|----------------------|-----------------------|
 | kubernetes            | 3900.va_dce992317b_4 | 3937.vd7b_82db_e347b_ |
