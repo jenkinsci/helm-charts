@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.3.27
+
+Bump kiwigrid/k8s-sidecar from 1.23.1 to 1.24.4 and jenkins/inbound-agent from 3107.v665000b_51092-5 to 3107.v665000b_51092-15.
+
 ## 4.3.26
 
 Fix various typos in the chart documentation.
