@@ -1,7 +1,7 @@
 apiVersion: v2
 name: jenkins
 home: https://jenkins.io/
-version: 4.3.26
+version: 4.3.27
 appVersion: 2.401.1
 description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
 sources:
@@ -37,7 +37,7 @@ annotations:
     - name: jenkins
       image: jenkins/jenkins:2.401.1-jdk11
     - name: k8s-sidecar
-      image: kiwigrid/k8s-sidecar:1.23.1
+      image: kiwigrid/k8s-sidecar:1.24.4
     - name: inbound-agent
       image: jenkins/inbound-agent:3107.v665000b_51092-5
     - name: backup
