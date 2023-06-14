@@ -10,6 +10,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 |---------------------------------------------|--------------------------------------------------------------------------|----------------------------------------------------------------------|
 | `checkDeprecation`                          | Checks for deprecated values used                                        | `true`                                                               |
 | `clusterZone`                               | Override the cluster name for FQDN resolving                             | `cluster.local`                                                      |
+| `kubernetesURL`                             | Override the Kubernetes API server URL                                   | `https://kubernetes.default`                                         |
 | `nameOverride`                              | Override the resource name prefix                                        | `jenkins`                                                            |
 | `renderHelmLabels`                          | Enables rendering of the helm.sh/chart label to the annotations          | `true`                                                               |
 | `fullnameOverride`                          | Override the full resource names                                         | `jenkins-{release-name}` (or `jenkins` if release-name is `jenkins`) |
