@@ -12,6 +12,12 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.3.29
+
+Adding common labels helper
+Adding additional labels app.kubernetes.io/part-of and app.kubernetes.io/version
+Include jenkins.commonlabels across resources
+
 ## 4.3.28
 
 Allow the kubernetes API server URL to be configurable.
