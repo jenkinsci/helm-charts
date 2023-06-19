@@ -4,12 +4,7 @@ metadata:
   name: {{template "jenkins.fullname" . }}
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
+    {{- include "jenkins.commonlabels" . | nindent 4 }}
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     {{- if .Values.controller.serviceLabels }}
 {{ toYaml .Values.controller.serviceLabels | indent 4 }}

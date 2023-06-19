@@ -15,6 +15,20 @@ Expand the label of the chart.
 
 
 {{/*
+Common labels
+*/}}
+{{- define "jenkins.commonlabels" -}}
+app.kubernetes.io/name: {{ .Chart.Name }}
+{{- if .Values.renderHelmLabels }}
+helm.sh/chart: {{ template "jenkins.label" .}}
+{{- end }}
+app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/part-of: {{ .Chart.Name }}
+app.kubernetes.io/instance: {{ .Release.Name }}
+app.kubernetes.io/version: {{ include "controller.tag" . }}
+{{- end -}}
+
+{{/*s
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
 {{- define "jenkins.namespace" -}}

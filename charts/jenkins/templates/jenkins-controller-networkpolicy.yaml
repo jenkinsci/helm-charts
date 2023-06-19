@@ -5,12 +5,7 @@ metadata:
   name: "{{ .Release.Name }}-{{ .Values.controller.componentName }}"
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
+    {{- include "jenkins.commonlabels" . | nindent 4 }}
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 spec:
   podSelector:
@@ -60,12 +55,7 @@ metadata:
   name: "{{ .Release.Name }}-{{ .Values.agent.componentName }}"
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
+    {{- include "jenkins.commonlabels" . | nindent 4 }}
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
 spec:
   podSelector:
