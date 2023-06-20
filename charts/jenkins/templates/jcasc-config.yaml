@@ -26,6 +26,7 @@ metadata:
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
     {{- include "jenkins.commonlabels" . | nindent 4 }}
+    "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   jcasc-default-config.yaml: |-

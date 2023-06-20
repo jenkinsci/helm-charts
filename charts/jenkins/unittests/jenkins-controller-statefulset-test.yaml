@@ -46,12 +46,15 @@ tests:
             template:
               metadata:
                 annotations:
-                  checksum/config: e9c390a2ecfa538ee038b07834bd56ac20fee77706eb3a112fdaa2d177185ede
+                  checksum/config: 53565fb86283bddd3593f55fbdfc781b78320ab662fbb6d0c0b99f66342188c2
                 labels:
                   app.kubernetes.io/component: jenkins-controller
                   app.kubernetes.io/instance: my-release
                   app.kubernetes.io/managed-by: Helm
                   app.kubernetes.io/name: jenkins
+                  app.kubernetes.io/part-of: jenkins
+                  app.kubernetes.io/version: 2.401.1-jdk11
+                  helm.sh/chart: jenkins-4.3.29
               spec:
                 containers:
                   - args:
@@ -391,6 +394,8 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+            app.kubernetes.io/part-of: jenkins
+            app.kubernetes.io/version: 2.401.1-jdk11
   - it: java & jenkins opts with quotes
     template: jenkins-controller-statefulset.yaml
     set:

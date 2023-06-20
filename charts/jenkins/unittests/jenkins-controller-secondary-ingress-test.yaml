@@ -74,3 +74,5 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+            app.kubernetes.io/part-of: jenkins
+            app.kubernetes.io/version: 2.401.1-jdk11
