@@ -15,6 +15,9 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+            app.kubernetes.io/part-of: jenkins
+            app.kubernetes.io/version: 2.401.1-jdk11
+            helm.sh/chart: jenkins-4.3.29
       - equal:
           path: data.apply_config\.sh
           value: |-

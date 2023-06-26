@@ -9,12 +9,7 @@ metadata:
   name: {{ template "jenkins.casc.configName" (list (printf "config-%s" $key) $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
-    "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    {{- if $root.Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ $root.Chart.Name }}-{{ $root.Chart.Version }}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
-    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
+    {{- include "jenkins.commonlabels" . | nindent 4 }}
     "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
@@ -30,12 +25,7 @@ metadata:
   name: {{ template "jenkins.casc.configName" (list "jcasc-config" $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
-    "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ $root.Chart.Name }}-{{ $root.Chart.Version }}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
-    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
+    {{- include "jenkins.commonlabels" . | nindent 4 }}
     "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:

@@ -1191,6 +1191,8 @@ tests:
             app.kubernetes.io/instance: RELEASE-NAME
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+            app.kubernetes.io/part-of: jenkins
+            app.kubernetes.io/version: 2.401.1-jdk11
   - it: disable agents
     release:
       namespace: controller-namespace
