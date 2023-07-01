@@ -337,12 +337,12 @@ tests:
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tag: 2.249.1-slim
+      controller.tag: 2.401.2-slim
       controller.imagePullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.249.1-slim
+          value: jenkins/jenkins:2.401.2-slim
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
