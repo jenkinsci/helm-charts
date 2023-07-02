@@ -628,6 +628,8 @@ agent:
   kubernetesReadTimeout: 15
   maxRequestsPerHostStr: "32"
   namespace:
+  # private registry for agent image
+  jnlpregistry:
   image: "jenkins/inbound-agent"
   tag: "3107.v665000b_51092-15"
   workingDir: "/home/jenkins/agent"

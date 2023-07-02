@@ -140,6 +140,9 @@ jenkins:
   clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.agent.containerCap }}"
+      {{- if .Values.agent.jnlpregistry }}
+      jnlpregistry: "{{ .Values.agent.jnlpregistry }}"
+      {{- end }}
       defaultsProviderTemplate: "{{ .Values.agent.defaultsProviderTemplate }}"
       connectTimeout: "{{ .Values.agent.kubernetesConnectTimeout }}"
       readTimeout: "{{ .Values.agent.kubernetesReadTimeout }}"
