@@ -267,6 +267,15 @@ Returns kubernetes pod template configuration as code
           {{- end }}
         {{- end }}
     image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
+    {{- if .Values.agent.livenessProbe }}
+    livenessProbe:
+      execArgs: {{.Values.agent.livenessProbe.execArgs | quote}}
+      failureThreshold: {{.Values.agent.livenessProbe.failureThreshold}}
+      initialDelaySeconds: {{.Values.agent.livenessProbe.initialDelaySeconds}}
+      periodSeconds: {{.Values.agent.livenessProbe.periodSeconds}}
+      successThreshold: {{.Values.agent.livenessProbe.successThreshold}}
+      timeoutSeconds: {{.Values.agent.livenessProbe.timeoutSeconds}}
+    {{- end }}
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
     resourceLimitMemory: {{.Values.agent.resources.limits.memory}}
@@ -290,6 +299,15 @@ Returns kubernetes pod template configuration as code
           value: "http://{{ template "jenkins.fullname" $ }}.{{ template "jenkins.namespace" $ }}.svc.{{ $.Values.clusterZone }}:{{ $.Values.controller.servicePort }}{{ default "/" $.Values.controller.jenkinsUriPrefix }}"
           {{- end }}
     image: "{{ $additionalContainers.image }}:{{ $additionalContainers.tag }}"
+    {{- if $additionalContainers.livenessProbe }}
+    livenessProbe:
+      execArgs: {{$additionalContainers.livenessProbe.execArgs | quote}}
+      failureThreshold: {{$additionalContainers.livenessProbe.failureThreshold}}
+      initialDelaySeconds: {{$additionalContainers.livenessProbe.initialDelaySeconds}}
+      periodSeconds: {{$additionalContainers.livenessProbe.periodSeconds}}
+      successThreshold: {{$additionalContainers.livenessProbe.successThreshold}}
+      timeoutSeconds: {{$additionalContainers.livenessProbe.timeoutSeconds}}
+    {{- end }}
     privileged: "{{- if $additionalContainers.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.cpu }}{{ else }}{{ $.Values.agent.resources.limits.cpu }}{{ end }}
     resourceLimitMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.memory }}{{ else }}{{ $.Values.agent.resources.limits.memory }}{{ end }}
