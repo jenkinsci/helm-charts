@@ -649,6 +649,13 @@ agent:
     limits:
       cpu: "512m"
       memory: "512Mi"
+  livenessProbe: {}
+#    execArgs: "cat /tmp/healthy"
+#    failureThreshold: 3
+#    initialDelaySeconds: 0
+#    periodSeconds: 10
+#    successThreshold: 1
+#    timeoutSeconds: 1
   # You may want to change this to true while testing a new image
   alwaysPullImage: false
   # Controls how agent pods are retained after the Jenkins build completes
