@@ -12,9 +12,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.4.1
+
+Added `.Values.agent.jnlpregistry` to allow agents to be configured with private registry.
+
 ## 4.4.0
 
 Add config keys for liveness probes on agent containers.
+
 
 ## 4.3.30
 
