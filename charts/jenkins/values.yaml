@@ -850,6 +850,11 @@ persistence:
   labels: {}
   accessMode: "ReadWriteOnce"
   size: "8Gi"
+  # Existing data source to clone PVC from
+  # ref: https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/
+  dataSource:
+  #   name: PVC-NAME
+  #   kind: PersistentVolumeClaim
   volumes:
   #  - name: nothing
   #    emptyDir: {}
