@@ -358,18 +358,19 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 ### Persistence
 
-| Parameter                   | Description                     | Default         |
-| --------------------------- | ------------------------------- | --------------- |
-| `persistence.enabled`       | Enable the use of a Jenkins PVC | `true`          |
-| `persistence.existingClaim` | Provide the name of a PVC       | `nil`           |
-| `persistence.storageClass`  | Storage class for the PVC       | `nil`           |
-| `persistence.annotations`   | Annotations for the PVC         | `{}`            |
-| `persistence.labels`        | Labels for the PVC              | `{}`            |
-| `persistence.accessMode`    | The PVC access mode             | `ReadWriteOnce` |
-| `persistence.size`          | The size of the PVC             | `8Gi`           |
-| `persistence.subPath`       | SubPath for jenkins-home mount  | `nil`           |
-| `persistence.volumes`       | Additional volumes              | `nil`           |
-| `persistence.mounts`        | Additional mounts               | `nil`           |
+| Parameter                   | Description                            | Default         |
+| --------------------------- | -------------------------------------- | --------------- |
+| `persistence.enabled`       | Enable the use of a Jenkins PVC        | `true`          |
+| `persistence.existingClaim` | Provide the name of a PVC              | `nil`           |
+| `persistence.storageClass`  | Storage class for the PVC              | `nil`           |
+| `persistence.annotations`   | Annotations for the PVC                | `{}`            |
+| `persistence.labels`        | Labels for the PVC                     | `{}`            |
+| `persistence.accessMode`    | The PVC access mode                    | `ReadWriteOnce` |
+| `persistence.size`          | The size of the PVC                    | `8Gi`           |
+| `persistence.dataSource`    | Existing data source to clone PVC from | `nil`           |
+| `persistence.subPath`       | SubPath for jenkins-home mount         | `nil`           |
+| `persistence.volumes`       | Additional volumes                     | `nil`           |
+| `persistence.mounts`        | Additional mounts                      | `nil`           |
 
 ### Backup
 

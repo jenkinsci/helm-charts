@@ -31,6 +31,8 @@ tests:
           value:
             storage: 8Gi
       - isNull:
+          path: spec.dataSource
+      - isNull:
           path: spec.storageClassName
             
   - it: test different values
@@ -92,3 +94,18 @@ tests:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
             test-label: test-value
+
+  - it: clone from dataSource
+    set:
+      persistence:
+        dataSource:
+          name: PVC-NAME
+          kind: PersistentVolumeClaim
+    asserts:
+      - equal:
+          path: spec.dataSource.name
+          value: PVC-NAME
+      - equal:
+          path: spec.dataSource.kind
+          value: PersistentVolumeClaim
+

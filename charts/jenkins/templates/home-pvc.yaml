@@ -21,6 +21,10 @@ metadata:
 {{ toYaml .Values.persistence.labels | indent 4 }}
 {{- end }}
 spec:
+{{- if .Values.persistence.dataSource }}
+  dataSource:
+{{ toYaml .Values.persistence.dataSource | indent 4 }}
+{{- end }}
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
   resources:
