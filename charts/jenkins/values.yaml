@@ -568,6 +568,9 @@ controller:
 
   httpsKeyStore:
     jenkinsHttpsJksSecretName: ''
+    jenkinsHttpsJksSecretKey: "jenkins-jks-file"
+    jenkinsHttpsJksPasswordSecretName: ""
+    jenkinsHttpsJksPasswordSecretKey: "https-jks-password"
     enable: false
     disableSecretMount: false
     httpPort: 8081
