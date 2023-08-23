@@ -239,6 +239,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.httpsKeyStore.enable`     | Enables HTTPS keystore on jenkins controller      | `false`      |
 | `controller.httpsKeyStore.jenkinsHttpsJksSecretName`     | Name of the secret that already has ssl keystore      | ``      |
+| `controller.httpsKeyStore.jenkinsHttpsJksSecretKey`     | Name of the key in the secret that already has ssl keystore | `jenkins-jks-file`      |
+| `controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName`     | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file | ``      |
+| `controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey`     | Name of the key in the secret that contains the JKS password | `https-jks-password`      |
 | `controller.httpsKeyStore.httpPort`   | HTTP Port that Jenkins should listen on along with HTTPS, it also serves liveness and readiness probs port. When HTTPS keystore is enabled servicePort and targetPort will be used as HTTPS port  | `8081`   |
 | `controller.httpsKeyStore.path`       | Path of HTTPS keystore file                  |     `/var/jenkins_keystore`     |
 | `controller.httpsKeyStore.fileName`  | Jenkins keystore filename which will appear under controller.httpsKeyStore.path      | `keystore.jks` |

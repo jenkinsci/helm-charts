@@ -218,8 +218,8 @@ spec:
             {{- if not .Values.controller.httpsKeyStore.disableSecretMount }}
               valueFrom:
                 secretKeyRef:
-                  name: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
-                  key: {{ "https-jks-password" | quote }}
+                  name: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName }} {{ else if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
+                  key: "{{ .Values.controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey }}"
             {{- else }}
               value: {{ .Values.controller.httpsKeyStore.password }}
             {{- end }}
@@ -434,7 +434,7 @@ spec:
         secret:
           secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
           items:
-          - key: jenkins-jks-file
+          - key: {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretKey }}
             path: {{ .Values.controller.httpsKeyStore.fileName }}
       {{- end }}
 

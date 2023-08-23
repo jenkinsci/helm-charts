@@ -734,6 +734,48 @@ tests:
               items:
                 - key: jenkins-jks-file
                   path: some-file-name
+  - it: test override with jenkinsHttpsJksPasswordSecretName and jenkinsHttpsJksPasswordSecretKey
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksPasswordSecretName: "some-jks-name"
+          jenkinsHttpsJksPasswordSecretKey: "some-jks-password"
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: "some-jks-name"
+                key: "some-jks-password"
+  - it: test jenkinsHttpsJksSecretKey override
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+          jenkinsHttpsJksSecretKey: "some.jks"
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: "some.jks"
+                  path: some-file-name
   - it:
     template: jenkins-controller-statefulset.yaml
     set:
