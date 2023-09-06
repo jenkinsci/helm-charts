@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.6.2
 
-Update word from hundreds to over 1800 to align with blurb at https://github.com/jenkinsci
+Update word from hundreds to over 1800 to align with blurb at <https://github.com/jenkinsci/>.
 
 ## 4.6.1
 
