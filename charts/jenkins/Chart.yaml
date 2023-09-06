@@ -3,7 +3,7 @@ name: jenkins
 home: https://jenkins.io/
 version: 4.6.1
 appVersion: 2.414.1
-description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides thousands of plugins to support building, deploying and automating any project.
+description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides over 1800 plugins to support building, deploying and automating any project.
 sources:
   - https://github.com/jenkinsci/jenkins
   - https://github.com/jenkinsci/docker-inbound-agent
