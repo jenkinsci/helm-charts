@@ -69,6 +69,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.jenkinsUrl`           | Set Jenkins URL if you are not using the ingress definitions provided by the chart | Not set |
 | `controller.jenkinsUrlProtocol`   | Set protocol for Jenkins URL | Set to `https` if `controller.ingress.tls`, `http` otherwise |
 | `controller.jenkinsUriPrefix`     | Root Uri Jenkins will be served on   | Not set                                   |
+| `controller.jenkinsOpts`          | Append to `JENKINS_OPTS` env var     | Empty string                              |
+| `controller.javaOpts`             | Append to `JAVA_OPTS` env var        | Empty string                              |
 
 #### Jenkins In-Process Script Approval
 
