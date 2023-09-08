@@ -14,8 +14,8 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.6.3
 
-Add values to documentation
-Introducing TPL function on variables related to hostname in `./charts/jenkins/templates/jenkins-controller-ingress.yaml`
+* Add values to documentation
+* Introducing TPL function on variables related to hostname in `./charts/jenkins/templates/jenkins-controller-ingress.yaml`
 
 ## 4.6.2
 
