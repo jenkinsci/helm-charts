@@ -12,9 +12,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.6.3
+
+Add values to documentation
+Introducing TPL function on variables related to hostname in `./charts/jenkins/templates/jenkins-controller-ingress.yaml`
+
 ## 4.6.2
 
-Introducing TPL function on variables related to hostname in `./charts/jenkins/templates/jenkins-controller-ingress.yaml`
+Update word from hundreds to over 1800 to align with blurb at <https://github.com/jenkinsci/>.
 
 ## 4.6.1
 
