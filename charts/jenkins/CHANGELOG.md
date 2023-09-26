@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.6.5
 
-Update Jenkins image and appVersion to jenkins lts release version 2.425
+Update Jenkins image and appVersion to jenkins lts release version 2.414.2
 
 ## 4.6.4
 
