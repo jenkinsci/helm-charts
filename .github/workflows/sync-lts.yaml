@@ -21,7 +21,7 @@ jobs:
 
       - name: Jenkins LTS version
         id: lts
-        uses: jenkins-infra/jenkins-version@0.4.4
+        uses: jenkins-infra/jenkins-version@0.4.6
         with:
           version-identifier: lts
 
