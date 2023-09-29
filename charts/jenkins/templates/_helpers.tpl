@@ -165,6 +165,8 @@ jenkins:
       {{- end }}
       {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
+      retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
+      waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: "{{ .Values.controller.cloudName }}"
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       serverUrl: "{{ .Values.kubernetesURL }}"
