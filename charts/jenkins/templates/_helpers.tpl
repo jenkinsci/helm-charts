@@ -510,6 +510,12 @@ Create the HTTP port for interacting with the controller
     - name: METHOD
       value: "{{ $method }}"
 {{- end }}
+{{- if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
+    - name: METHOD
+      value: "SLEEP"
+    - name: SLEEP_TIME
+      value: "{{ $root.Values.controller.sidecars.configAutoReload.sleepTime }}"
+{{- end }}
     - name: REQ_URL
       value: "http://localhost:{{- include "controller.httpPort" $root -}}{{- $root.Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
     - name: REQ_METHOD
