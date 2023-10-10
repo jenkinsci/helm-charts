@@ -589,11 +589,21 @@ tests:
             name: special-config
       controller.sidecars.configAutoReload.envFrom:
         - configMapRef:
-            name: special-config
+            name: special-config-auto-reload
       controller.containerEnvFrom:
         - configMapRef:
             name: special-config
     asserts:
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG"
+            value: "test-env-var-config"
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+            value: "some-value"
       - contains:
           path: spec.template.spec.initContainers[1].env
           content:
@@ -625,6 +635,11 @@ tests:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
             value: "some-value"
       - contains:
+          path: spec.template.spec.initContainers[0].envFrom
+          content:
+            configMapRef:
+              name: special-config-auto-reload
+      - contains:
           path: spec.template.spec.initContainers[1].envFrom
           content:
             configMapRef:
@@ -638,7 +653,7 @@ tests:
           path: spec.template.spec.containers[1].envFrom
           content:
             configMapRef:
-              name: special-config
+              name: special-config-auto-reload
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
