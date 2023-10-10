@@ -16,10 +16,14 @@ Those entries include a reference to the git commit to be able to get more detai
 
 Runs `config-reload` as an init container, in addition to the sidecar container, to ensure that JCasC YAMLS are present before the main Jenkins container starts. This should fix some race conditions and crashes on startup.
 
+## 4.6.7
+
+Change jenkins-test image label to match the other jenkins images
+
+
 ## 4.6.5
 
 Update Jenkins image and appVersion to jenkins lts release version 2.414.2
-
 
 ## 4.6.4
 
