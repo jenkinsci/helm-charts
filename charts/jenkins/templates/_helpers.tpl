@@ -480,3 +480,47 @@ Create the HTTP port for interacting with the controller
     {{- .Values.controller.targetPort -}}
 {{- end -}}
 {{- end -}}
+
+{{- define "jenkins.configReloadContainer" -}}
+- name: config-reload
+  image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
+  imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
+  {{- if .Values.controller.sidecars.configAutoReload.containerSecurityContext }}
+  securityContext: {{- toYaml .Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 4 }}
+  {{- end }}
+  {{- if .Values.controller.sidecars.configAutoReload.envFrom }}
+  envFrom:
+{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.envFrom) .) | indent 4 }}
+  {{- end }}
+  env:
+    - name: POD_NAME
+      valueFrom:
+        fieldRef:
+          fieldPath: metadata.name
+    - name: LABEL
+      value: "{{ template "jenkins.fullname" . }}-jenkins-config"
+    - name: FOLDER
+      value: "{{ .Values.controller.sidecars.configAutoReload.folder }}"
+    - name: NAMESPACE
+      value: '{{ .Values.controller.sidecars.configAutoReload.searchNamespace | default (include "jenkins.namespace" .) }}'
+    - name: REQ_URL
+      value: "http://localhost:{{- include "controller.httpPort" . -}}{{- .Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
+    - name: REQ_METHOD
+      value: "POST"
+    - name: REQ_RETRY_CONNECT
+      value: "{{ .Values.controller.sidecars.configAutoReload.reqRetryConnect }}"
+    {{- if .Values.controller.sidecars.configAutoReload.env }}
+{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.env) .) | indent 4 }}
+    {{- end }}
+  resources:
+{{ toYaml .Values.controller.sidecars.configAutoReload.resources | indent 4 }}
+  volumeMounts:
+    - name: sc-config-volume
+      mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | quote }}
+    - name: jenkins-home
+      mountPath: {{ .Values.controller.jenkinsHome }}
+      {{- if .Values.persistence.subPath }}
+      subPath: {{ .Values.persistence.subPath }}
+      {{- end }}
+
+{{- end -}}
