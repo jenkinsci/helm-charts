@@ -161,7 +161,39 @@ tests:
                       - mountPath: /var/jenkins_home
                         name: jenkins-home
                 initContainers:
-                  - command:
+                  - name: config-reload-init
+                    env:
+                    - name: POD_NAME
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.name
+                    - name: LABEL
+                      value: my-release-jenkins-jenkins-config
+                    - name: FOLDER
+                      value: /var/jenkins_home/casc_configs
+                    - name: NAMESPACE
+                      value: my-namespace
+                    - name: METHOD
+                      value: LIST
+                    - name: REQ_URL
+                      value: http://localhost:8080/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)
+                    - name: REQ_METHOD
+                      value: POST
+                    - name: REQ_RETRY_CONNECT
+                      value: "10"
+                    image: kiwigrid/k8s-sidecar:1.24.4
+                    imagePullPolicy: IfNotPresent
+                    resources: {}
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: true
+                    volumeMounts:
+                    - mountPath: /var/jenkins_home/casc_configs
+                      name: sc-config-volume
+                    - mountPath: /var/jenkins_home
+                      name: jenkins-home
+                  - name: init
+                    command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
                     image: jenkins/jenkins:2.414.2-jdk11
@@ -171,7 +203,6 @@ tests:
                       runAsGroup: 1000
                       readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
-                    name: init
                     resources:
                       limits:
                         cpu: 2000m
@@ -564,12 +595,12 @@ tests:
             name: special-config
     asserts:
       - contains:
-          path: spec.template.spec.initContainers[0].env
+          path: spec.template.spec.initContainers[1].env
           content:
             name: "TEST_ENV_VAR_INIT"
             value: "test-env-var-init"
       - contains:
-          path: spec.template.spec.initContainers[0].env
+          path: spec.template.spec.initContainers[1].env
           content:
             name: "TEST_ENV_VAR_INIT_TEMPLATED"
             value: "some-value"
@@ -594,7 +625,7 @@ tests:
             name: "TEST_ENV_VAR__CONTAINER_TEMPLATED"
             value: "some-value"
       - contains:
-          path: spec.template.spec.initContainers[0].envFrom
+          path: spec.template.spec.initContainers[1].envFrom
           content:
             configMapRef:
               name: special-config
@@ -682,7 +713,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -721,7 +752,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - contains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -788,7 +819,7 @@ tests:
             name: plugins
             emptyDir: {}
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             name: plugins
   - it:

@@ -109,6 +109,11 @@ spec:
 {{- if .Values.controller.customInitContainers }}
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
+
+{{- if .Values.controller.sidecars.configAutoReload.enabled }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload-init" "LIST") | nindent 8 }}
+{{- end}}
+
         - name: "init"
           image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
@@ -301,7 +306,7 @@ spec:
               name: tmp-volume
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
-{{- include "jenkins.configReloadContainer" (list $ "config-reload") | nindent 8 }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload" nil) | nindent 8 }}
 {{- end}}
 
 
