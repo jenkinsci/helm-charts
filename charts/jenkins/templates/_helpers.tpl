@@ -509,8 +509,7 @@ Create the HTTP port for interacting with the controller
 {{- if $method }}
     - name: METHOD
       value: "{{ $method }}"
-{{- end }}
-{{- if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
+{{- else if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
     - name: METHOD
       value: "SLEEP"
     - name: SLEEP_TIME
