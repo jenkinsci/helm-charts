@@ -37,7 +37,7 @@ tests:
             - "{{ .Values.global.jenkinsHostname }}"
     asserts:
       - contains:
-          path: data.[jcasc-default-config.yaml]
+          path: data."jcasc-default-config.yaml"
           content:
             unclassified:
               location:
