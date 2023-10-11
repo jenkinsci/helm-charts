@@ -5,18 +5,18 @@ release:
 templates:
   - jenkins-controller-ingress.yaml
   - jcasc-config.yaml
-set:
-  global.jenkinsHostname: "jenkins.example.com"
-  controller.ingress:
-    enabled: true
-    hostName: "{{ .Values.global.jenkinsHostname }}"
-    resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
-    tls:
-      - hosts:
-        - "{{ .Values.global.jenkinsHostname }}"
 tests:
   - it: controller-ingress
     template: jenkins-controller-ingress.yaml
+    set:
+      global.jenkinsHostname: "jenkins.example.com"
+      controller.ingress:
+        enabled: true
+        hostName: "{{ .Values.global.jenkinsHostname }}"
+        resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
+        tls:
+          - hosts:
+            - "{{ .Values.global.jenkinsHostname }}"
     asserts:
       - equal:
           path: spec.rules[0].host
@@ -26,6 +26,15 @@ tests:
           value: "jenkins.example.com"
   - it: jcasc-config
     template: jcasc-config.yaml
+    set:
+      global.jenkinsHostname: "jenkins.example.com"
+      controller.ingress:
+        enabled: true
+        hostName: "{{ .Values.global.jenkinsHostname }}"
+        resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
+        tls:
+          - hosts:
+            - "{{ .Values.global.jenkinsHostname }}"
     asserts:
       - equal:
           path: data.[jcasc-default-config.yaml].unclassified.location.url
