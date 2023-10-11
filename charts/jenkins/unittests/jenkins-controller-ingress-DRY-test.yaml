@@ -36,8 +36,8 @@ tests:
           - hosts:
             - "{{ .Values.global.jenkinsHostname }}"
     asserts:
-      - exists:
-          path: data.[jcasc-default-config.yaml]
+#      - exists:
+#          path: data.[jcasc-default-config.yaml]
       - isNotNullOrEmpty:
           path: data.[jcasc-default-config.yaml]
       - matchRegex:
