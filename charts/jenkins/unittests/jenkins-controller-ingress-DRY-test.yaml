@@ -36,6 +36,9 @@ tests:
           - hosts:
             - "{{ .Values.global.jenkinsHostname }}"
     asserts:
-      - equal:
-          path: data.[jcasc-default-config.yaml].[unclassified].location.url
-          value: "https://jenkins.example.com"
+      - contains:
+          path: data.[jcasc-default-config.yaml]
+          content:
+            unclassified:
+              location:
+                url: "https://jenkins.example.com"
