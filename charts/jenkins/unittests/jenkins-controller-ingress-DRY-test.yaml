@@ -43,4 +43,4 @@ tests:
       - matchRegex:
           path: data.[jcasc-default-config.yaml]
           pattern: |
-              url: https://jenkins.example.com
+                url: https://jenkins.example.com
