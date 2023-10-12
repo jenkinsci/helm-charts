@@ -111,7 +111,7 @@ spec:
 {{- end }}
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
-{{- include "jenkins.configReloadContainer" (list $ "config-reload-init" "LIST") | nindent 8 }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload-init" "init") | nindent 8 }}
 {{- end}}
 
         - name: "init"
@@ -306,7 +306,7 @@ spec:
               name: tmp-volume
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
-{{- include "jenkins.configReloadContainer" (list $ "config-reload" nil) | nindent 8 }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload" "sidecar") | nindent 8 }}
 {{- end}}
 
 

@@ -484,7 +484,7 @@ Create the HTTP port for interacting with the controller
 {{- define "jenkins.configReloadContainer" -}}
 {{- $root := index . 0 -}}
 {{- $containerName := index . 1 -}}
-{{- $method := index . 2 -}}
+{{- $containerType := index . 2 -}}
 - name: {{ $containerName }}
   image: "{{ $root.Values.controller.sidecars.configAutoReload.image }}"
   imagePullPolicy: {{ $root.Values.controller.sidecars.configAutoReload.imagePullPolicy }}
@@ -506,9 +506,9 @@ Create the HTTP port for interacting with the controller
       value: "{{ $root.Values.controller.sidecars.configAutoReload.folder }}"
     - name: NAMESPACE
       value: '{{ $root.Values.controller.sidecars.configAutoReload.searchNamespace | default (include "jenkins.namespace" $root) }}'
-{{- if $method }}
+{{- if eq $containerType "init" }}
     - name: METHOD
-      value: "{{ $method }}"
+      value: "LIST"
 {{- else if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
     - name: METHOD
       value: "SLEEP"
