@@ -175,12 +175,6 @@ tests:
                       value: my-namespace
                     - name: METHOD
                       value: LIST
-                    - name: REQ_URL
-                      value: http://localhost:8080/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)
-                    - name: REQ_METHOD
-                      value: POST
-                    - name: REQ_RETRY_CONNECT
-                      value: "10"
                     image: kiwigrid/k8s-sidecar:1.24.4
                     imagePullPolicy: IfNotPresent
                     resources: {}
