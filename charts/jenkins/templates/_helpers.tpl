@@ -506,26 +506,32 @@ Create the HTTP port for interacting with the controller
       value: "{{ $root.Values.controller.sidecars.configAutoReload.folder }}"
     - name: NAMESPACE
       value: '{{ $root.Values.controller.sidecars.configAutoReload.searchNamespace | default (include "jenkins.namespace" $root) }}'
-{{- if eq $containerType "init" }}
+    {{- if eq $containerType "init" }}
     - name: METHOD
       value: "LIST"
-{{- else if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
+    {{- else if $root.Values.controller.sidecars.configAutoReload.sleepTime }}
     - name: METHOD
       value: "SLEEP"
     - name: SLEEP_TIME
       value: "{{ $root.Values.controller.sidecars.configAutoReload.sleepTime }}"
-{{- end }}
-{{- if eq $containerType "sidecar" }}
+    {{- end }}
+    {{- if eq $containerType "sidecar" }}
     - name: REQ_URL
       value: "http://localhost:{{- include "controller.httpPort" $root -}}{{- $root.Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
     - name: REQ_METHOD
       value: "POST"
     - name: REQ_RETRY_CONNECT
       value: "{{ $root.Values.controller.sidecars.configAutoReload.reqRetryConnect }}"
-{{- end }}
-    {{- if $root.Values.controller.sidecars.configAutoReload.env }}
-{{ (tpl (toYaml $root.Values.controller.sidecars.configAutoReload.env) $root) | indent 4 }}
     {{- end }}
+
+    {{- if $root.Values.controller.sidecars.configAutoReload.env }}
+    {{- range $envVarItem := $root.Values.controller.sidecars.configAutoReload.env -}}
+        {{- if or (ne $containerType "init") (ne .name "METHOD") }}
+    - {{- (tpl (toYaml $envVarItem) $root) | nindent 6 }}
+        {{- end -}}
+    {{- end -}}
+    {{- end }}
+
   resources:
 {{ toYaml $root.Values.controller.sidecars.configAutoReload.resources | indent 4 }}
   volumeMounts:

@@ -653,22 +653,46 @@ tests:
     set:
       controller.sidecars.configAutoReload.sleepTime: 60
     asserts:
-      - contains:
-          # METHOD remains LIST on the config-reload init container
-          path: spec.template.spec.initContainers[0].env
-          content:
-            name: "METHOD"
-            value: "LIST"
-      - contains:
-          path: spec.template.spec.containers[1].env
-          content:
-            name: "METHOD"
-            value: "SLEEP"
-      - contains:
-          path: spec.template.spec.containers[1].env
-          content:
-            name: "SLEEP_TIME"
-            value: "60"
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "SLEEP_TIME"
+          value: "60"
+  - it: test METHOD env var for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.env:
+      - name: "METHOD"
+        value: "SLEEP"
+    asserts:
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - notContains:
+        # only one METHOD on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
