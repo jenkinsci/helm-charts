@@ -24,26 +24,3 @@ tests:
       - equal:
           path: spec.tls[0].hosts[0]
           value: "jenkins.example.com"
-<<<<<<< HEAD
-=======
-  - it: jcasc-config
-    template: jcasc-config.yaml
-    set:
-      global.jenkinsHostname: "jenkins.example.com"
-      controller.ingress:
-        enabled: true
-        hostName: "{{ .Values.global.jenkinsHostname }}"
-        resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
-        tls:
-          - hosts:
-            - "{{ .Values.global.jenkinsHostname }}"
-    asserts:
-#      - exists:
-#          path: data.[jcasc-default-config.yaml]
-#      - isNotNullOrEmpty:
-#          path: data.[jcasc-default-config.yaml]
-      - matchRegex:
-          path: data.[jcasc-default-config.yaml]
-          pattern: |
-                url: https://jenkins.example.com
->>>>>>> 0a48945 (Reverting to 'matchRegex' in jenkins-controller-ingress-DRY-test.yaml)
