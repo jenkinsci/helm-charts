@@ -88,9 +88,9 @@ Returns the Jenkins URL
 {{- else }}
   {{- if .Values.controller.ingress.hostName }}
     {{- if .Values.controller.ingress.tls }}
-      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.ingress.hostName }}{{ default "" .Values.controller.jenkinsUriPrefix }}
+      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ tpl .Values.controller.ingress.hostName $ }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- else }}
-      {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.ingress.hostName }}{{ default "" .Values.controller.jenkinsUriPrefix }}
+      {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ tpl .Values.controller.ingress.hostName $ }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- end }}
   {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}
