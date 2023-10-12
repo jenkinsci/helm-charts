@@ -41,6 +41,6 @@ tests:
 #      - isNotNullOrEmpty:
 #          path: data.["jcasc-default-config.yaml"]
       - matchRegex:
-          path: data["jcasc-default-config.yaml"]
+          path: data.["jcasc-default-config.yaml"]
           pattern: |
               url: https://jenkins.example.com
