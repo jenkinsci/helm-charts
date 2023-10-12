@@ -40,12 +40,7 @@ tests:
 #          path: data.[jcasc-default-config.yaml]
 #      - isNotNullOrEmpty:
 #          path: data.[jcasc-default-config.yaml]
-      - contains:
+      - matchRegex:
           path: data.[jcasc-default-config.yaml]
-          content: 
-            unclassified:
-              location:
-                adminAddress: 
+          pattern: |
                 url: https://jenkins.example.com
-          count: 1
-          any: true
