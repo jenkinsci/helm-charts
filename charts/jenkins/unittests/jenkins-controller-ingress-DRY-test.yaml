@@ -39,7 +39,7 @@ tests:
 #      - exists:
 #          path: data["jcasc-default-config.yaml"]
 #      - isNotNullOrEmpty:
-#          path: data["jcasc-default-config.yaml"]
+#          path: data.["jcasc-default-config.yaml"]
       - matchRegex:
           path: data["jcasc-default-config.yaml"]
           pattern: |
