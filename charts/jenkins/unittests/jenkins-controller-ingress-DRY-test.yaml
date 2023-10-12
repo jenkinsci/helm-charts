@@ -37,10 +37,13 @@ tests:
             - "{{ .Values.global.jenkinsHostname }}"
     asserts:
 #      - exists:
-#          path: data["jcasc-default-config.yaml"]
+#          path: data.[jcasc-default-config.yaml]
 #      - isNotNullOrEmpty:
-#          path: data.["jcasc-default-config.yaml"]
+#          path: data.[jcasc-default-config.yaml]
       - matchRegex:
           path: data.[jcasc-default-config.yaml]
           pattern: |
-                url: https://jenkins.example.com
+            unclassified:
+              location:
+                adminAddress: 
+                url: https://{{ .Values.global.jenkinsHostName }}
