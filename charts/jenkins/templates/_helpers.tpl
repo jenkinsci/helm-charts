@@ -527,7 +527,7 @@ Create the HTTP port for interacting with the controller
     {{- if $root.Values.controller.sidecars.configAutoReload.env }}
     {{- range $envVarItem := $root.Values.controller.sidecars.configAutoReload.env -}}
         {{- if or (ne $containerType "init") (ne .name "METHOD") }}
-    - {{- (tpl (toYaml $envVarItem) $root) | nindent 6 }}
+{{- (tpl (toYaml (list $envVarItem)) $root) | nindent 4 }}
         {{- end -}}
     {{- end -}}
     {{- end }}
