@@ -5,6 +5,7 @@ release:
 templates:
   - jenkins-controller-statefulset.yaml
   - config.yaml
+  - config-init-scripts.yaml
 tests:
   - it: default values
     template: jenkins-controller-statefulset.yaml
@@ -832,3 +833,16 @@ tests:
           content:
             name: "CASC_JENKINS_CONFIG"
             value: "/var/jenkins_home/casc_configs"
+
+  - it: test checksum for config-init-script
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        initScripts:
+          test: |-
+            This is a test script
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            checksum/config-init-scripts: 2ee2c03a600a50a55cf62cbed3f1d558d5322eda7544b4047beeb4df66e8ec11
