@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.8.0
 
-Adds support for ephemeralStorage in CASC Templates
+Adds support for ephemeralStorage request and limit in Kubernetes plugin JCasC template
 
 ## 4.7.1
 
