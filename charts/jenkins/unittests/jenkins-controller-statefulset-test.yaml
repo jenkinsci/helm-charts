@@ -162,7 +162,33 @@ tests:
                       - mountPath: /var/jenkins_home
                         name: jenkins-home
                 initContainers:
-                  - command:
+                  - name: config-reload-init
+                    env:
+                    - name: POD_NAME
+                      valueFrom:
+                        fieldRef:
+                          fieldPath: metadata.name
+                    - name: LABEL
+                      value: my-release-jenkins-jenkins-config
+                    - name: FOLDER
+                      value: /var/jenkins_home/casc_configs
+                    - name: NAMESPACE
+                      value: my-namespace
+                    - name: METHOD
+                      value: LIST
+                    image: kiwigrid/k8s-sidecar:1.24.4
+                    imagePullPolicy: IfNotPresent
+                    resources: {}
+                    securityContext:
+                      allowPrivilegeEscalation: false
+                      readOnlyRootFilesystem: true
+                    volumeMounts:
+                    - mountPath: /var/jenkins_home/casc_configs
+                      name: sc-config-volume
+                    - mountPath: /var/jenkins_home
+                      name: jenkins-home
+                  - name: init
+                    command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
                     image: jenkins/jenkins:2.414.3-jdk11
@@ -172,7 +198,6 @@ tests:
                       runAsGroup: 1000
                       readOnlyRootFilesystem: true
                       allowPrivilegeEscalation: false
-                    name: init
                     resources:
                       limits:
                         cpu: 2000m
@@ -559,7 +584,7 @@ tests:
             name: special-config
       controller.sidecars.configAutoReload.envFrom:
         - configMapRef:
-            name: special-config
+            name: special-config-auto-reload
       controller.containerEnvFrom:
         - configMapRef:
             name: special-config
@@ -567,10 +592,20 @@ tests:
       - contains:
           path: spec.template.spec.initContainers[0].env
           content:
+            name: "TEST_ENV_VAR_CONFIG"
+            value: "test-env-var-config"
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+            value: "some-value"
+      - contains:
+          path: spec.template.spec.initContainers[1].env
+          content:
             name: "TEST_ENV_VAR_INIT"
             value: "test-env-var-init"
       - contains:
-          path: spec.template.spec.initContainers[0].env
+          path: spec.template.spec.initContainers[1].env
           content:
             name: "TEST_ENV_VAR_INIT_TEMPLATED"
             value: "some-value"
@@ -598,6 +633,11 @@ tests:
           path: spec.template.spec.initContainers[0].envFrom
           content:
             configMapRef:
+              name: special-config-auto-reload
+      - contains:
+          path: spec.template.spec.initContainers[1].envFrom
+          content:
+            configMapRef:
               name: special-config
       - contains:
           path: spec.template.spec.containers[0].envFrom
@@ -608,7 +648,52 @@ tests:
           path: spec.template.spec.containers[1].envFrom
           content:
             configMapRef:
-              name: special-config
+              name: special-config-auto-reload
+  - it: test sleep time for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.sleepTime: 60
+    asserts:
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "SLEEP_TIME"
+          value: "60"
+  - it: test METHOD env var for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.env:
+      - name: "METHOD"
+        value: "SLEEP"
+    asserts:
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - notContains:
+        # only one METHOD on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
@@ -683,7 +768,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -722,7 +807,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - contains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -789,7 +874,7 @@ tests:
             name: plugins
             emptyDir: {}
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             name: plugins
   - it:
