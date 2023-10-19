@@ -45,6 +45,9 @@ spec:
         {{- end}}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- if .Values.controller.initScripts }}
+        checksum/config-init-scripts: {{ include (print $.Template.BasePath "/config-init-scripts.yaml") . | sha256sum }}
+        {{- end }}
         {{- if .Values.controller.podAnnotations }}
 {{ tpl (toYaml .Values.controller.podAnnotations | indent 8) . }}
         {{- end }}
