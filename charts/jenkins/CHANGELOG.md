@@ -12,9 +12,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.7.3
+## 4.7.4
 
 Add the config-init-script checksum into the controller statefullset pod annotations to trigger restart of the pod in case of updated init scripts.
+
+## 4.7.3
+
+Update Jenkins image and appVersion to jenkins lts release version 2.414.3
 
 ## 4.7.1
 
