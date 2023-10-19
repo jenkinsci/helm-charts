@@ -655,7 +655,7 @@ agent:
     limits:
       cpu: "512m"
       memory: "512Mi"
-      ephemeralStorage: ""
+      # ephemeralStorage:
   livenessProbe: {}
 #    execArgs: "cat /tmp/healthy"
 #    failureThreshold: 3
