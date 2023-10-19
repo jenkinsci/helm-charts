@@ -651,7 +651,7 @@ agent:
     requests:
       cpu: "512m"
       memory: "512Mi"
-      ephemeralStorage: ""
+      # ephemeralStorage:
     limits:
       cpu: "512m"
       memory: "512Mi"
