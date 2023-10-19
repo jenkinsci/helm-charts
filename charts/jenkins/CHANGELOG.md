@@ -12,7 +12,7 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.7.5
+## 4.8.1
 
 Reintroduces changes from 4.7.0 (reverted in 4.7.1), with additional fixes:
 

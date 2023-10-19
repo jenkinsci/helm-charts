@@ -282,8 +282,14 @@ Returns kubernetes pod template configuration as code
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
     resourceLimitMemory: {{.Values.agent.resources.limits.memory}}
+    {{- if .Values.agent.resources.limits.ephemeralStorage }}
+    resourceLimitEphemeralStorage: {{.Values.agent.resources.limits.ephemeralStorage}}
+    {{- end }}
     resourceRequestCpu: {{.Values.agent.resources.requests.cpu}}
     resourceRequestMemory: {{.Values.agent.resources.requests.memory}}
+    {{- if .Values.agent.resources.requests.ephemeralStorage }}
+    resourceRequestEphemeralStorage: {{.Values.agent.resources.requests.ephemeralStorage}}
+    {{- end }}
     runAsUser: {{ .Values.agent.runAsUser }}
     runAsGroup: {{ .Values.agent.runAsGroup }}
     ttyEnabled: {{ .Values.agent.TTYEnabled }}
