@@ -19,6 +19,10 @@ Reintroduces changes from 4.7.0 (reverted in 4.7.1), with additional fixes:
 - METHOD is now allowed in `env` and is not duplicated anymore
 - No calls to JCasC reload endpoint from the init container
 
+## 4.8.0
+
+Adds support for ephemeralStorage request and limit in Kubernetes plugin JCasC template
+
 ## 4.7.4
 
 Add the config-init-script checksum into the controller statefullset pod annotations to trigger restart of the pod in case of updated init scripts.
