@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+
+## 4.8.0
+
+Adds support for ephemeralStorage request and limit in Kubernetes plugin JCasC template
+
 ## 4.7.4
 
 Add the config-init-script checksum into the controller statefullset pod annotations to trigger restart of the pod in case of updated init scripts.
