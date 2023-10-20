@@ -1,0 +1,26 @@
+suite: Controller Ingress - DRY Support
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-controller-ingress.yaml
+  - jcasc-config.yaml
+tests:
+  - it: controller-ingress
+    template: jenkins-controller-ingress.yaml
+    set:
+      global.jenkinsHostname: "jenkins.example.com"
+      controller.ingress:
+        enabled: true
+        hostName: "{{ .Values.global.jenkinsHostname }}"
+        resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
+        tls:
+          - hosts:
+            - "{{ .Values.global.jenkinsHostname }}"
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: "jenkins.example.com"
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: "jenkins.example.com"

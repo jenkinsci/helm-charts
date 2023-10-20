@@ -45,6 +45,9 @@ spec:
         {{- end}}
       annotations:
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- if .Values.controller.initScripts }}
+        checksum/config-init-scripts: {{ include (print $.Template.BasePath "/config-init-scripts.yaml") . | sha256sum }}
+        {{- end }}
         {{- if .Values.controller.podAnnotations }}
 {{ tpl (toYaml .Values.controller.podAnnotations | indent 8) . }}
         {{- end }}
@@ -109,6 +112,11 @@ spec:
 {{- if .Values.controller.customInitContainers }}
 {{ tpl (toYaml .Values.controller.customInitContainers) . | indent 8 }}
 {{- end }}
+
+{{- if .Values.controller.sidecars.configAutoReload.enabled }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload-init" "init") | nindent 8 }}
+{{- end}}
+
         - name: "init"
           image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
           imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
@@ -301,46 +309,7 @@ spec:
               name: tmp-volume
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
-        - name: config-reload
-          image: "{{ .Values.controller.sidecars.configAutoReload.image }}"
-          imagePullPolicy: {{ .Values.controller.sidecars.configAutoReload.imagePullPolicy }}
-          {{- if .Values.controller.sidecars.configAutoReload.containerSecurityContext }}
-          securityContext: {{- toYaml .Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 12 }}
-          {{- end }}
-          {{- if .Values.controller.sidecars.configAutoReload.envFrom }}
-          envFrom:
-{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.envFrom) .) | indent 12 }}
-          {{- end }}
-          env:
-            - name: POD_NAME
-              valueFrom:
-                fieldRef:
-                  fieldPath: metadata.name
-            - name: LABEL
-              value: "{{ template "jenkins.fullname" . }}-jenkins-config"
-            - name: FOLDER
-              value: "{{ .Values.controller.sidecars.configAutoReload.folder }}"
-            - name: NAMESPACE
-              value: '{{ .Values.controller.sidecars.configAutoReload.searchNamespace | default (include "jenkins.namespace" .) }}'
-            - name: REQ_URL
-              value: "http://localhost:{{- include "controller.httpPort" . -}}{{- .Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
-            - name: REQ_METHOD
-              value: "POST"
-            - name: REQ_RETRY_CONNECT
-              value: "{{ .Values.controller.sidecars.configAutoReload.reqRetryConnect }}"
-            {{- if .Values.controller.sidecars.configAutoReload.env }}
-{{ (tpl (toYaml .Values.controller.sidecars.configAutoReload.env) .) | indent 12 }}
-            {{- end }}
-          resources:
-{{ toYaml .Values.controller.sidecars.configAutoReload.resources | indent 12 }}
-          volumeMounts:
-            - name: sc-config-volume
-              mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | quote }}
-            - name: jenkins-home
-              mountPath: {{ .Values.controller.jenkinsHome }}
-              {{- if .Values.persistence.subPath }}
-              subPath: {{ .Values.persistence.subPath }}
-              {{- end }}
+{{- include "jenkins.configReloadContainer" (list $ "config-reload" "sidecar") | nindent 8 }}
 {{- end}}
 
 

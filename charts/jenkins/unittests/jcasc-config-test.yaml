@@ -134,8 +134,11 @@ tests:
                   privileged: true
                   resourceRequestCpu: "400m"
                   resourceRequestMemory: "512Mi"
+                  resourceRequestEphemeralStorage: "1Gi"
                   resourceLimitCpu: "1"
                   resourceLimitMemory: "1024Mi"
+                  resourceLimitEphemeralStorage: "2Gi"
+
     asserts:
       - equal:
           path: data.jcasc-default-config\.yaml
@@ -179,7 +182,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "jenkins-agents"
-                      id: 922254a78538f78cd39cffd771258043706e3c12f22090a61c38d30e138db55f
+                      id: 726aa5a84572fab5c050d3ecc2c83b8f10a59feb8aef451ff17b8196c4aad276
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -210,7 +213,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "maven"
                       namespace: "maven"
-                      id: 6deee16f78e1fa64784a429a054fd5e891a6f73641106d66c529a22c08e59060
+                      id: 14347b08e8e6c30fbc7083298f698b76af168d5a32173ee07f626d6be1736c99
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -241,7 +244,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "python"
                       namespace: "jenkins-agents"
-                      id: eab870c32faa625b6eaab76a7c59a4bf0ac75bb1e1db3d00170260e9b49f5285
+                      id: 7c12587d475b0223d8141320e8b2009d4c0651dcd3176ea2db0e088e8aae2757
                       containers:
                       - name: "python"
                         alwaysPullImage: false
@@ -282,8 +285,10 @@ tests:
                           privileged: true
                           resourceRequestCpu: "400m"
                           resourceRequestMemory: "512Mi"
+                          resourceRequestEphemeralStorage: "1Gi"
                           resourceLimitCpu: "1"
                           resourceLimitMemory: "1024Mi"
+                          resourceLimitEphemeralStorage: "2Gi"
 
               crumbIssuer:
                 standard:
@@ -339,9 +344,11 @@ tests:
           limits:
             cpu: 1024m
             memory: 1Gi
+            ephemeralStorage: 1Gi
           requests:
             cpu: 756m
             memory: 768Mi
+            ephemeralStorage: 512Mi
         runAsUser: 2000
         runAsGroup: 2000
         TTYEnabled: true
@@ -484,7 +491,7 @@ tests:
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
-                      id: 0026a7d26962cd3fb00022cf71631f62de3cfb86ce9cdc907ef7427421ca2b5f
+                      id: 8ab36960540d7aace9ae19345741f7b97b77e87a49f3543f48a7d868e711bebb
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -498,8 +505,10 @@ tests:
                         privileged: "true"
                         resourceLimitCpu: 1024m
                         resourceLimitMemory: 1Gi
+                        resourceLimitEphemeralStorage: 1Gi
                         resourceRequestCpu: 756m
                         resourceRequestMemory: 768Mi
+                        resourceRequestEphemeralStorage: 512Mi
                         runAsUser: 2000
                         runAsGroup: 2000
                         ttyEnabled: true
