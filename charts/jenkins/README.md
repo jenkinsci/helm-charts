@@ -297,6 +297,22 @@ agent:
 ```
 This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
 
+### Change container cleanup timeout API
+For tasks that use very large images, this timeout can be increased to avoid early termination of the task while the Kubernetes pod is still deploying.
+```yaml
+agent:
+  retentionTimeout: "32"
+```
+This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
+
+### Change seconds to wait for pod to be running
+This will change how long Jenkins will wait (seconds) for pod to be in running state.
+```yaml
+agent:
+  waitForPodSec: "32"
+```
+This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
+
 ### Mounting Volumes into Agent Pods
 
 Your Jenkins Agents will run as pods, and it's possible to inject volumes where needed:

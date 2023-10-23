@@ -46,6 +46,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -55,7 +57,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -169,6 +171,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "jenkins-agents"
                   serverUrl: "https://kubernetes.default"
@@ -178,7 +182,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "jenkins-agents"
-                      id: 726aa5a84572fab5c050d3ecc2c83b8f10a59feb8aef451ff17b8196c4aad276
+                      id: 186b2bbf658c751353ddfc48c46e44942c2886ad195e13f74ab45b3e9495ca9d
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -209,7 +213,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "maven"
                       namespace: "maven"
-                      id: 14347b08e8e6c30fbc7083298f698b76af168d5a32173ee07f626d6be1736c99
+                      id: 519c05520c082e7b03f4b618fc9e8b5596b85ed6db1fb608a3b7f8985a130b84
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -240,7 +244,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "python"
                       namespace: "jenkins-agents"
-                      id: 7c12587d475b0223d8141320e8b2009d4c0651dcd3176ea2db0e088e8aae2757
+                      id: 91cce14f8699291c0af8cf24e8761f2421aee625985fce2f874de0cb959c3294
                       containers:
                       - name: "python"
                         alwaysPullImage: false
@@ -473,6 +477,8 @@ tests:
                   jenkinsUrl: "http://my-release-jenkins.other.svc.cluster.local:8080"
                   jenkinsTunnel: "my-release-jenkins-agent.other.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -485,7 +491,7 @@ tests:
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
-                      id: 8ab36960540d7aace9ae19345741f7b97b77e87a49f3543f48a7d868e711bebb
+                      id: 6de9914dfb9678a4f580464e046eea7dabd8ade25357bdbe43447cf3be2264ae
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -617,6 +623,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -626,7 +634,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 4df569e5493facd66dbe50210ebcb8f60d11681b2d3dc4ab554f79e314e7f8d0
+                      id: 45b7fe5158a172b4005f91db5e6287b9aed3e93e12a2769b9af29e7643d14f99
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -721,6 +729,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -730,7 +740,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 671ee9545204c523873aa224dfdda6c29190159c13c19d7813c3a4fd9d4a3646
+                      id: d473935e87fe5cbb42fab54f56a563c01ee15dbeb9e48e8d47105165b6c302e0
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -823,6 +833,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -832,7 +844,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 8d5593e6a439fb30486e38901284a8a1c3c0ca19c1f65a760d6d1c6fe29bca9d
+                      id: 0983fad483bcd94cbd12ceac92ba7572c79dffdb313ac23013a2c189728a27d3
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -927,6 +939,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -936,7 +950,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 4853c60af89b8a2e31677c14ad427a89ea5e079352dbcd1f3e95e0fa97275d18
+                      id: 7794e8b1ffc547ef8131701584dd03bd2a56bc00f08974a43ec7e6d160f8c955
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1032,6 +1046,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1041,7 +1057,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 9802281306f437aae98a8597f93103312a82c1162f5d43e223cc540cee6df659
+                      id: 0c4cbe2dd2ae59fdf47908143a6dd42fff6412c9b17c33dc4f968e173dc03a23
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1136,6 +1152,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1145,7 +1163,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 4adc2da4d2378bb125d9a47129ef0ed953051f326f9819667aac8da40c43d853
+                      id: 32a9f67e339344ada0dbb53022c31c597f9de68884bbbbf5ea4dd96ff75b9684
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1239,6 +1257,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "controller-namespace"
                   serverUrl: "https://kubernetes.default"
@@ -1307,6 +1327,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1316,7 +1338,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1404,6 +1426,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.NAMESPACE.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "NAMESPACE"
                   serverUrl: "https://kubernetes.default"
@@ -1417,7 +1441,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "NAMESPACE"
-                      id: 5f9b9b55c58a0159e2b571ddfb6efabc60cff836b3ada69198bb41739c45c2e0
+                      id: 70792017be7696b4857b112ea4481cbfe657e919f30192463b23985f244943d3
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1505,6 +1529,8 @@ tests:
                 jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                 jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                 maxRequestsPerHostStr: "32"
+                retentionTimeout: "5"
+                waitForPodSec: "600"
                 name: "kubernetes"
                 namespace: "default"
                 serverUrl: "https://kubernetes.default"
@@ -1514,7 +1540,7 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                    id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
@@ -1604,6 +1630,8 @@ tests:
                 jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                 jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                 maxRequestsPerHostStr: "32"
+                retentionTimeout: "5"
+                waitForPodSec: "600"
                 name: "kubernetes"
                 namespace: "default"
                 serverUrl: "https://kubernetes.default"
@@ -1613,7 +1641,7 @@ tests:
                 templates:
                   - name: "default"
                     namespace: "default"
-                    id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                    id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                     containers:
                     - name: "jnlp"
                       alwaysPullImage: false
@@ -1691,6 +1719,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1700,7 +1730,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1785,6 +1815,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1794,7 +1826,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1876,6 +1908,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1885,7 +1919,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -1968,6 +2002,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -1977,7 +2013,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a6e410bbc54d23e84ac3f58bd1608da0e09b1ef712ce19292fc4c1ee6c8add69
+                      id: e4c9c2dfb0f00a1c4759b687084b28e89b79bf351943087cc8afd93c45d8748f
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2059,6 +2095,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2068,7 +2106,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 781b2a4b9b59beaf9639bda26bd27d9b356cf07ad5fa185e2755eab7c4fc225e
+                      id: 3853681aec1b8ff8555381b409633586eb512d5af46277ab15c516fdf7ed8394
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2180,6 +2218,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2189,7 +2229,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 781b2a4b9b59beaf9639bda26bd27d9b356cf07ad5fa185e2755eab7c4fc225e
+                      id: 3853681aec1b8ff8555381b409633586eb512d5af46277ab15c516fdf7ed8394
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2238,7 +2278,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: 749f84fb5168111eb0e614aab6a6d513786aaf6812d399109eca871940cf9ae4
+                      id: c6035fe36b1b6249706e5dd49bf52f5d2fec2ca087f59a93e1065c82d74df1c8
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2345,6 +2385,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2354,7 +2396,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 781b2a4b9b59beaf9639bda26bd27d9b356cf07ad5fa185e2755eab7c4fc225e
+                      id: 3853681aec1b8ff8555381b409633586eb512d5af46277ab15c516fdf7ed8394
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2403,7 +2445,7 @@ tests:
                       yamlMergeStrategy: override
                     - name: "additional-agent"
                       namespace: "default"
-                      id: cce77953e44b919a7f768ebe67612dd7e16dcf5912b2cf24c87b8055235be8e8
+                      id: 4b8b997f7cba014243d6d632aed5160b06d6b9f1033d2a23c79b6695e7afe8c3
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2482,6 +2524,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2491,7 +2535,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 12e767f83d50b6f41d80a1ddec9db8bacd106cd3d08cec05da9ce5c1bea41fb2
+                      id: 2048237b34082ff159b26dd060105c7ba457324a2bfb969d66fbf1efe3e2bf30
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2586,6 +2630,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2595,7 +2641,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: b3940f10bfbf55e56d1a68c6d5ffe459e1bd62afe75c427e2281de8527857e05
+                      id: 8af276287b26db243b896d1348a8e9d6be19c3b9437bdf805756cdb18bda1750
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2691,6 +2737,8 @@ tests:
                   readTimeout: "15"
                   directConnection: true
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2700,7 +2748,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 39d6ceda20a6309ca271f5fb440ef48060811197216ec057b81f29a6874057c3
+                      id: e1767e1268c2735cd367b6c774eb45051cf77e0fd2ad4e32814c0cc6e8592608
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2794,6 +2842,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2803,7 +2853,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: a2e8e4e4ee677bb2aa22de8189e8c64c98f3eb28729734f2b2e9972c01d9cb68
+                      id: e3208947ed99664372dabfc85ef04c19f37dc5a898dd51d268bfd194ed7ad37d
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
@@ -2910,6 +2960,8 @@ tests:
                   jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
                   jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
                   maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
                   name: "kubernetes"
                   namespace: "default"
                   serverUrl: "https://kubernetes.default"
@@ -2919,7 +2971,7 @@ tests:
                   templates:
                     - name: "default"
                       namespace: "default"
-                      id: 918616a26f37ee6710ffe487d6303ae8dd62760fc84ab34c8e2e889d9c010058
+                      id: 4e58f703c4b642cf0757775a101aee69cc7d65dc1374749a78bb181e9dcffe63
                       containers:
                       - name: "jnlp"
                         alwaysPullImage: false
