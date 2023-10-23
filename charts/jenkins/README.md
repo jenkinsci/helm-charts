@@ -297,7 +297,7 @@ agent:
 ```
 This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
 
-### Change container cleanup cimeout API
+### Change container cleanup timeout API
 For tasks that use very large images, this timeout can be increased to avoid early termination of the task while the Kubernetes pod is still deploying.
 ```yaml
 agent:
