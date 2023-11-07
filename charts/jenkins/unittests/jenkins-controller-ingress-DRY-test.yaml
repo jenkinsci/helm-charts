@@ -37,5 +37,5 @@ tests:
             - "{{ .Values.global.jenkinsHostname }}"
     asserts:
       - matchRegex:
-          path: data.[jcasc-default-config.yaml].unclassified.location.url
-          pattern: .*url\: https\://jenkins\.example\.com
+          path: data.[jcasc-default-config.yaml]
+          pattern: .*unclassified\:.*location\:.*url\: https\://jenkins\.example\.com
