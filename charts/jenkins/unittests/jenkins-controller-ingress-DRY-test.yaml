@@ -38,4 +38,4 @@ tests:
     asserts:
       - matchRegex:
           path: data.[jcasc-default-config.yaml]
-          pattern: \s+url\: https\://jenkins\.example\.com.*
+          pattern: "\s+url\: https\://jenkins\.example\.com.*"
