@@ -24,3 +24,18 @@ tests:
       - equal:
           path: spec.tls[0].hosts[0]
           value: "jenkins.example.com"
+  - it: jcasc-config
+    template: jcasc-config.yaml
+    set:
+      global.jenkinsHostname: "jenkins.example.com"
+      controller.ingress:
+        enabled: true
+        hostName: "{{ .Values.global.jenkinsHostname }}"
+        resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
+        tls:
+          - hosts:
+            - "{{ .Values.global.jenkinsHostname }}"
+    asserts:
+      - matchRegex:
+          path: data.[jcasc-default-config.yaml]
+          pattern: "url: https://jenkins.example.com"
