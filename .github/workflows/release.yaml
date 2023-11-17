@@ -25,6 +25,78 @@ jobs:
           version: v3.12.0
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
+        id: chart_releaser
+        uses: helm/chart-releaser-action@v1.6.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      # Retrieve last tag pushed by cr
+      - name: Checkout
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Last Tag
+        id: last_tag
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        run: echo "tag=$(git describe --abbrev=0 --tags)" >> "${GITHUB_OUTPUT}"
+
+      - name: Extract last tag changelog
+        id: last_tag_changelog
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        env:
+          LAST_TAG: ${{ steps.last_tag.outputs.tag }}
+        run: |
+          changelog=$(awk -v tag="${LAST_TAG#jenkins-}" '
+          /^(##|###) [0-9]+.[0-9]+.[0-9]+/ {
+              if (p) { exit };
+              if ($2 == tag) {
+                  p = 1; next
+              }
+          } p
+          ' charts/jenkins/CHANGELOG.md)
+
+          delimiter="$(openssl rand -hex 8)"
+          # shellcheck disable=SC2129
+          echo "changelog<<${delimiter}" >> "${GITHUB_OUTPUT}"
+          echo "${changelog}" >> "${GITHUB_OUTPUT}"
+          echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+
+      - name: Retrieve release info
+        id: release_info
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        env:
+          LAST_TAG: ${{ steps.last_tag.outputs.tag }}
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          release=$(curl -L "https://api.github.com/repos/${REPOSITORY}/releases/tags/${LAST_TAG}")
+
+          echo "id=$(echo "${release}" | jq '.id')" >> "${GITHUB_OUTPUT}"
+
+          delimiter="$(openssl rand -hex 8)"
+          # shellcheck disable=SC2129
+          echo "body<<${delimiter}" >> "${GITHUB_OUTPUT}"
+          echo "${release}" | jq '.body' >> "${GITHUB_OUTPUT}"
+          echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+
+      - name: Update release description
+        id: update_release
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        uses: actions/github-script@v6
+        env:
+          ID: ${{ steps.release_info.outputs.id }}
+          BODY: ${{steps.release_info.outputs.body}}
+          CHANGELOG: ${{steps.last_tag_changelog.outputs.changelog}}
+        with:
+          script: |
+            try {
+              await github.rest.repos.updateRelease({
+                release_id: process.env.ID,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: process.env.BODY.slice(1, -1) + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
+              });
+            } catch (error) {
+              core.setFailed(error.message);
+            }
