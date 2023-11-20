@@ -55,6 +55,7 @@ jobs:
           CHANGELOG: ${{steps.version_changelog.outputs.changelog}}
         run: |
           # Remove first line if empty and replace emojis by spaces (issue with yq/chart-releaser which break multiline)
+          # shellcheck disable=SC2016
           stripped_changelog=$(echo "$CHANGELOG" | sed -e '2,$b' -e '/^$/d' | iconv -c -f utf8 -t ascii)
           # Remove leading spaces
           stripped_changelog="${stripped_changelog#"${stripped_changelog%%[![:space:]]*}"}"
