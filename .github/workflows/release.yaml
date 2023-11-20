@@ -83,7 +83,7 @@ jobs:
       - name: Update release description
         id: update_release
         if: steps.chart_releaser.outputs.changed_charts != ''
-        uses: actions/github-script@v6
+        uses: actions/github-script@v7
         env:
           ID: ${{ steps.release_info.outputs.id }}
           BODY: ${{steps.release_info.outputs.body}}
