@@ -87,7 +87,7 @@ jobs:
           delimiter="$(openssl rand -hex 8)"
           # shellcheck disable=SC2129
           echo "body<<${delimiter}" >> "${GITHUB_OUTPUT}"
-          echo "${release}" | jq '.body' >> "${GITHUB_OUTPUT}"
+          echo "${release}" | jq --raw-output '.body' >> "${GITHUB_OUTPUT}"
           echo "${delimiter}" >> "${GITHUB_OUTPUT}"
 
       - name: Update release description
@@ -105,7 +105,7 @@ jobs:
                 release_id: process.env.ID,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: process.env.BODY.slice(1, -1) + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
+                body: process.env.BODY + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
               });
             } catch (error) {
               core.setFailed(error.message);
