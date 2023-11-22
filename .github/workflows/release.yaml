@@ -24,34 +24,20 @@ jobs:
         with:
           version: v3.12.0
 
-      - name: Run chart-releaser
-        id: chart_releaser
-        uses: helm/chart-releaser-action@v1.6.0
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-
-      # Retrieve last tag pushed by cr
-      - name: Checkout
-        if: steps.chart_releaser.outputs.changed_charts != ''
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      - name: Get Last Tag
-        id: last_tag
-        if: steps.chart_releaser.outputs.changed_charts != ''
-        run: echo "tag=$(git describe --abbrev=0 --tags)" >> "${GITHUB_OUTPUT}"
-
-      - name: Extract last tag changelog
-        id: last_tag_changelog
-        if: steps.chart_releaser.outputs.changed_charts != ''
-        env:
-          LAST_TAG: ${{ steps.last_tag.outputs.tag }}
+      - name: Retrieve version from Chart.yaml
+        id: chart_version
         run: |
-          changelog=$(awk -v tag="${LAST_TAG#jenkins-}" '
+          echo "version=$(yq '.version' charts/jenkins/Chart.yaml)" >> "${GITHUB_OUTPUT}"
+
+      - name: Extract version changelog
+        id: version_changelog
+        env:
+          VERSION: ${{ steps.chart_version.outputs.version }}
+        run: |
+          changelog=$(awk -v version="${VERSION}" '
           /^(##|###) [0-9]+.[0-9]+.[0-9]+/ {
               if (p) { exit };
-              if ($2 == tag) {
+              if ($2 == version) {
                   p = 1; next
               }
           } p
@@ -63,11 +49,35 @@ jobs:
           echo "${changelog}" >> "${GITHUB_OUTPUT}"
           echo "${delimiter}" >> "${GITHUB_OUTPUT}"
 
+      - name: Annotate Chart.yaml with version changelog
+        if: steps.version_changelog.outputs.changelog != ''
+        env:
+          CHANGELOG: ${{steps.version_changelog.outputs.changelog}}
+        run: |
+          # Remove first line if empty and replace emojis by spaces (issue with yq/chart-releaser which break multiline)
+          # shellcheck disable=SC2016
+          stripped_changelog=$(echo "$CHANGELOG" | sed -e '2,$b' -e '/^$/d' | iconv -c -f utf8 -t ascii)
+          # Remove leading spaces
+          stripped_changelog="${stripped_changelog#"${stripped_changelog%%[![:space:]]*}"}"
+
+          # Update chart annotations
+          yq --inplace ".annotations.\"artifacthub.io/changes\" = \"${stripped_changelog}\"" charts/jenkins/Chart.yaml
+
+      - name: Show updated Chart.yaml
+        run: |
+          yq charts/jenkins/Chart.yaml
+
+      - name: Run chart-releaser
+        id: chart_releaser
+        uses: helm/chart-releaser-action@v1.6.0
+        env:
+          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
       - name: Retrieve release info
         id: release_info
         if: steps.chart_releaser.outputs.changed_charts != ''
         env:
-          LAST_TAG: ${{ steps.last_tag.outputs.tag }}
+          LAST_TAG: "jenkins-${{ steps.chart_version.outputs.version }}"
           REPOSITORY: ${{ github.repository }}
         run: |
           release=$(curl -L "https://api.github.com/repos/${REPOSITORY}/releases/tags/${LAST_TAG}")
@@ -77,7 +87,7 @@ jobs:
           delimiter="$(openssl rand -hex 8)"
           # shellcheck disable=SC2129
           echo "body<<${delimiter}" >> "${GITHUB_OUTPUT}"
-          echo "${release}" | jq '.body' >> "${GITHUB_OUTPUT}"
+          echo "${release}" | jq --raw-output '.body' >> "${GITHUB_OUTPUT}"
           echo "${delimiter}" >> "${GITHUB_OUTPUT}"
 
       - name: Update release description
@@ -87,7 +97,7 @@ jobs:
         env:
           ID: ${{ steps.release_info.outputs.id }}
           BODY: ${{steps.release_info.outputs.body}}
-          CHANGELOG: ${{steps.last_tag_changelog.outputs.changelog}}
+          CHANGELOG: ${{steps.version_changelog.outputs.changelog}}
         with:
           script: |
             try {
@@ -95,7 +105,7 @@ jobs:
                 release_id: process.env.ID,
                 owner: context.repo.owner,
                 repo: context.repo.repo,
-                body: process.env.BODY.slice(1, -1) + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
+                body: process.env.BODY + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
               });
             } catch (error) {
               core.setFailed(error.message);
