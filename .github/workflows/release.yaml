@@ -56,12 +56,15 @@ jobs:
         run: |
           # Remove first line if empty and replace emojis by spaces (issue with yq/chart-releaser which break multiline)
           # shellcheck disable=SC2016
-          stripped_changelog=$(echo "$CHANGELOG" | sed -e '2,$b' -e '/^$/d' | iconv -c -f utf8 -t ascii)
+          stripped_changelog=$(echo "${CHANGELOG}" | sed -e '2,$b' -e '/^$/d' | iconv -c -f utf8 -t ascii)
           # Remove leading spaces
           stripped_changelog="${stripped_changelog#"${stripped_changelog%%[![:space:]]*}"}"
 
-          # Update chart annotations
-          yq --inplace ".annotations.\"artifacthub.io/changes\" = \"${stripped_changelog}\"" charts/jenkins/Chart.yaml
+          # Add new line to ensure scalar value in Chart.yaml
+          printf -v change '%s\n' "${stripped_changelog}"
+
+          # Update chart annotations using strenv operator (https://mikefarah.gitbook.io/yq/operators/string-operators#string-blocks-bash-and-newlines)
+          CHANGE="${change}" yq --inplace ".annotations.\"artifacthub.io/changes\" = strenv(CHANGE)" charts/jenkins/Chart.yaml
 
       - name: Show updated Chart.yaml
         run: |
