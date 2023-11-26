@@ -72,7 +72,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.426.1-jdk11
+                    image: jenkins/jenkins:2.426.1-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -191,7 +191,7 @@ tests:
                     command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.426.1-jdk11
+                    image: jenkins/jenkins:2.426.1-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
