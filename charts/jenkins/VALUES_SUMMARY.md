@@ -110,7 +110,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | Parameter                         | Description                          | Default                                   |
 | --------------------------------- | ------------------------------------ | ----------------------------------------- |
 | `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
-| `controller.tagLabel`                 | Controller image tag label                | `jdk11`                                   |
+| `controller.tagLabel`                 | Controller image tag label                | `jdk17`                                   |
 | `controller.tag`                      | Controller image tag override             | Not set                                   |
 | `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
 | `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
