@@ -11,10 +11,9 @@ jobs:
       matrix:
         kubernetes_version:
           # See https://kubernetes.io/releases/ for EOL dates
-          - "kindest/node:v1.27.2"
-          - "kindest/node:v1.26.4"
-          - "kindest/node:v1.25.9"
-          - "kindest/node:v1.24.13"
+          - "kindest/node:v1.28.4"
+          - "kindest/node:v1.27.8"
+          - "kindest/node:v1.26.11"
       fail-fast: false
 
     steps:
@@ -23,10 +22,8 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Set up Helm
+      - name: Setup Helm
         uses: azure/setup-helm@v3
-        with:
-          version: v3.12.0
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,8 +32,6 @@ jobs:
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@v2
-        with:
-          version: v3.8.0
 
       - name: Run chart-testing (list-changed)
         id: list-changed
