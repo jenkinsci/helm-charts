@@ -219,7 +219,7 @@ Update various GH actions, typo fixes, and miscellaneous chores.
 ## 4.3.13
 
 
-Bump helm-unittest from 0.2.8 to 0.2.11.
+Bump helm-unittest from 0.2.11 to 0.3.6.
 
 ## 4.3.12
 
