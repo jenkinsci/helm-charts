@@ -4,6 +4,66 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Update Jenkins image and appVersion to jenkins lts release version 2.426.2
+        - Notes about [Artifact Hub](https://artifacthub.io/packages/helm/jenkinsci/jenkins?modal=changelog) changelog processing:
+        - - Remove empty lines
+        - - Keep only ASCII characters (no emojis)
+        - - One change per line
+        - - Remove table(s) (lines starting by "|")
+        - - Backticks aren't rendered on artifacthub.io changelog
+      artifacthub.io/images: |
+        - name: jenkins
+          image: jenkins/jenkins:2.426.2-jdk17
+        - name: k8s-sidecar
+          image: kiwigrid/k8s-sidecar:1.24.4
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3107.v665000b_51092-15
+        - name: backup
+          image: maorfr/kube-tasks:0.2.0
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.426.2
+    created: "2023-12-13T19:55:58.438417241Z"
+    description: Jenkins - Build great things at any scale! The leading open source
+      automation server, Jenkins provides over 1800 plugins to support building, deploying
+      and automating any project.
+    digest: fb8e9e7f5c80a9c9918d319b6952c8312ec17404059ded7e4448846e119d258f
+    home: https://jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-4.9.2/jenkins-4.9.2.tgz
+    version: 4.9.2
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Restore artifact hub notes location in CHANGELOG.md
       artifacthub.io/images: |
         - name: jenkins
@@ -18193,4 +18253,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2023-11-27T11:01:35.353250347Z"
+generated: "2023-12-13T19:55:58.439571336Z"
