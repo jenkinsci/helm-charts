@@ -845,7 +845,7 @@ additionalAgents: {}
 # Here you can add additional clouds
 # They inherit all values from the default cloud (including the main agent), so
 # you only need to specify values which differ. If you want to override
-# default additionalAgents with the additionalClouds.additionalAgents set 
+# default additionalAgents with the additionalClouds.additionalAgents set
 # additionalAgentsOverride to `true`.
 additionalClouds: {}
 #  remote-cloud-1:
