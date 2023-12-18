@@ -11,10 +11,10 @@ jobs:
       matrix:
         kubernetes_version:
           # See https://kubernetes.io/releases/ for EOL dates
+          - "kindest/node:v1.29.0"
+          - "kindest/node:v1.28.0"
           - "kindest/node:v1.27.2"
           - "kindest/node:v1.26.4"
-          - "kindest/node:v1.25.9"
-          - "kindest/node:v1.24.13"
       fail-fast: false
 
     steps:

@@ -345,7 +345,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | -------------------------- | ----------------------------------------------- |--------------------------------------------------------------------------------|
 | `agent.sideContainerName`  | Side container name in agent                    | jnlp                                                                           |
 | `agent.image`              | Agent image name                                | `jenkins/inbound-agent`                                                        |
-| `agent.tag`                | Agent image tag                                 | `3107.v665000b_51092-5`                                                        |
+| `agent.tag`                | Agent image tag                                 | `3192.v713e3b_039fb_e-5`                                                        |
 | `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                                                                        |
 | `agent.privileged`         | Agent privileged container                      | `false`                                                                        |
 | `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}`   |

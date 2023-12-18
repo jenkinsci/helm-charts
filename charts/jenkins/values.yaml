@@ -639,7 +639,7 @@ agent:
   # private registry for agent image
   jnlpregistry:
   image: "jenkins/inbound-agent"
-  tag: "3107.v665000b_51092-15"
+  tag: "3192.v713e3b_039fb_e-5"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
