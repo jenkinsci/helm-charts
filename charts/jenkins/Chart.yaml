@@ -39,7 +39,7 @@ annotations:
     - name: k8s-sidecar
       image: kiwigrid/k8s-sidecar:1.24.4
     - name: inbound-agent
-      image: jenkins/inbound-agent:3107.v665000b_51092-15
+      image: jenkins/inbound-agent:3192.v713e3b_039fb_e-5
     - name: backup
       image: maorfr/kube-tasks:0.2.0
   artifacthub.io/category: "integration-delivery"
