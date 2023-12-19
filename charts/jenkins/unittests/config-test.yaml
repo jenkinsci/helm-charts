@@ -16,7 +16,7 @@ tests:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -38,7 +38,7 @@ tests:
             yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
             echo "finished initialization"
       - equal:
-          path: data.plugins\.txt
+          path: data["plugins.txt"]
           value: |-
             kubernetes:4029.v5712230ccb_f8
             workflow-aggregator:596.v8c21c963d92d
@@ -49,7 +49,7 @@ tests:
       controller.installPlugins: []
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -58,7 +58,7 @@ tests:
             echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
             echo "finished initialization"
       - equal:
-          path: data.plugins\.txt
+          path: data["plugins.txt"]
           value: ""
   - it: additional plugins config
     set:
@@ -67,7 +67,7 @@ tests:
               - kubernetes-credentials-provider
     asserts:
       - equal:
-          path: data.plugins\.txt
+          path: data["plugins.txt"]
           value: |-
             kubernetes:4029.v5712230ccb_f8
             workflow-aggregator:596.v8c21c963d92d
@@ -79,7 +79,7 @@ tests:
       controller.installLatestPlugins: false
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -105,7 +105,7 @@ tests:
       controller.installLatestSpecifiedPlugins: true
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"

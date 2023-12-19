@@ -11,12 +11,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -142,7 +142,7 @@ tests:
 
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -411,7 +411,7 @@ tests:
         isKind:
           of: ConfigMap
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - documentIndex: 0
         equal:
@@ -422,7 +422,7 @@ tests:
           path: metadata.namespace
           value: other
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - documentIndex: 1
         isKind:
@@ -452,7 +452,7 @@ tests:
                 systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
       - documentIndex: 1
         equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -591,12 +591,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -698,12 +698,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -803,12 +803,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -910,12 +910,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1018,12 +1018,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1125,12 +1125,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1236,7 +1236,7 @@ tests:
       agent.enabled: false
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1302,12 +1302,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1402,12 +1402,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1506,12 +1506,12 @@ tests:
     - hasDocuments:
         count: 1
     - isNotEmpty:
-        path: data.jcasc-default-config\.yaml
+        path: data["jcasc-default-config.yaml"]
     - matchRegex:
-        path: metadata.labels.helm\.sh/chart
+        path: metadata.labels["helm.sh/chart"]
         pattern: ^jenkins-
     - equal:
-        path: data.jcasc-default-config\.yaml
+        path: data["jcasc-default-config.yaml"]
         value: |-
           jenkins:
             authorizationStrategy:
@@ -1606,12 +1606,12 @@ tests:
     - hasDocuments:
         count: 1
     - isNotEmpty:
-        path: data.jcasc-default-config\.yaml
+        path: data["jcasc-default-config.yaml"]
     - matchRegex:
-        path: metadata.labels.helm\.sh/chart
+        path: metadata.labels["helm.sh/chart"]
         pattern: ^jenkins-
     - equal:
-        path: data.jcasc-default-config\.yaml
+        path: data["jcasc-default-config.yaml"]
         value: |-
           jenkins:
             authorizationStrategy:
@@ -1704,7 +1704,7 @@ tests:
         projectNamingStrategy:
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1797,7 +1797,7 @@ tests:
             mySetting2: something
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1894,7 +1894,7 @@ tests:
               sshHostKeyVerificationStrategy: "acceptFirstConnectionStrategy"
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -1989,7 +1989,7 @@ tests:
             apiToken: overridden
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2083,7 +2083,7 @@ tests:
             privileged: true
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2207,7 +2207,7 @@ tests:
               args: arg1 arg2
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2375,7 +2375,7 @@ tests:
           additionalContainers: []
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2515,7 +2515,7 @@ tests:
         hostNetworking: true
     asserts:
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2617,12 +2617,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2726,12 +2726,12 @@ tests:
       - hasDocuments:
           count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2831,12 +2831,12 @@ tests:
       - hasDocuments:
           count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -2950,12 +2950,12 @@ tests:
       - hasDocuments:
           count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -3077,12 +3077,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -3235,12 +3235,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:
@@ -3457,12 +3457,12 @@ tests:
       - hasDocuments:
          count: 1
       - isNotEmpty:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
-          path: data.jcasc-default-config\.yaml
+          path: data["jcasc-default-config.yaml"]
           value: |-
             jenkins:
               authorizationStrategy:

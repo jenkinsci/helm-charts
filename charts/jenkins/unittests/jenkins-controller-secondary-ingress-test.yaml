@@ -14,7 +14,7 @@ tests:
         count: 0
   - it: enabled
     set:
-      controller.secondaryingress:
+      "controller.secondaryingress":
         enabled: true
         hostName: jenkins.example.com
         ingressClassName: nginx
@@ -37,7 +37,7 @@ tests:
           path: metadata.namespace
           value: my-namespace
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
