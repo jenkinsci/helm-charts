@@ -4,6 +4,60 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Updated helm-unittest and made unittests compatible.
+      artifacthub.io/images: |
+        - name: jenkins
+          image: jenkins/jenkins:2.426.2-jdk17
+        - name: k8s-sidecar
+          image: kiwigrid/k8s-sidecar:1.24.4
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3192.v713e3b_039fb_e-5
+        - name: backup
+          image: maorfr/kube-tasks:0.2.0
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.426.2
+    created: "2023-12-20T09:17:45.870461394Z"
+    description: Jenkins - Build great things at any scale! The leading open source
+      automation server, Jenkins provides over 1800 plugins to support building, deploying
+      and automating any project.
+    digest: 1146e5760fc623fe4f89ee226a508403867fbbd9a1a04c6cf37869e1b814e843
+    home: https://jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-4.11.1/jenkins-4.11.1.tgz
+    version: 4.11.1
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Add multi-cloud support.
       artifacthub.io/images: |
         - name: jenkins
@@ -18361,4 +18415,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2023-12-18T15:06:49.284001863Z"
+generated: "2023-12-20T09:17:45.871651338Z"
