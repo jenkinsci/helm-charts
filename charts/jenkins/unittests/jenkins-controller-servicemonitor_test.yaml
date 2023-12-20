@@ -25,7 +25,7 @@ tests:
           path: metadata.namespace
           value: my-namespace
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - equal:
           path: spec
