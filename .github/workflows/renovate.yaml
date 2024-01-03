@@ -1,0 +1,26 @@
+name: Renovate
+on:
+  schedule:
+    - cron: "0 * * * 3"
+  workflow_dispatch:
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token
+        id: get_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_APP_ID }}
+          private_key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v39.2.4
+        with:
+          token: "${{ steps.get_token.outputs.token }}"
+        env:
+          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u"

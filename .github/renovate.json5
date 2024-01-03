@@ -1,0 +1,45 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  semanticCommits: "auto",
+  enabledManagers: [
+    "helm-values",
+    "github-actions",
+    "regex"
+  ],
+  packageRules: [
+    {
+      matchDepNames: ["jenkins/inbound-agent"],
+      versioning: "loose"
+    },
+    {
+      matchManagers: [
+        "github-actions",
+        "regex"
+      ],
+      schedule: ["every monday"]
+    },
+    {
+      matchManagers: ["helm-values"],
+      bumpVersion: "minor",
+      postUpgradeTasks: {
+        "commands": ["helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u"],
+        "fileFilters": ["charts/jenkins/**"],
+        "executionMode": "update"
+      }
+    }
+  ],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: [
+        "(^|/)\\.github/workflows/[^/]+\\.ya?ml$"
+      ],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( extractVersion=(?<extractVersion>.*?))?( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s"
+      ]
+    }
+  ],
+  allowedPostUpgradeCommands: [
+    "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u",
+  ],
+}
