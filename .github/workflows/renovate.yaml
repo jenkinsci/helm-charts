@@ -22,5 +22,3 @@ jobs:
         uses: renovatebot/github-action@v39.2.4
         with:
           token: "${{ steps.get_token.outputs.token }}"
-        env:
-          RENOVATE_ALLOWED_POST_UPGRADE_COMMANDS: "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u"
