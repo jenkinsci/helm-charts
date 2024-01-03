@@ -1,48 +1,1556 @@
 additional clouds:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"remote-cloud-1\"\n      namespace: \"default\"\n      serverUrl: \"https://api.remote-cloud.com\"\n      credentialsId: \"remote-cloud-token\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "remote-cloud-1"
+            namespace: "default"
+            serverUrl: "https://api.remote-cloud.com"
+            credentialsId: "remote-cloud-token"
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 additional clouds inheriting additional agents:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"maven\"\n          namespace: \"maven\"\n          id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/jnlp-agent-maven:latest\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent maven\"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"remote-cloud-1\"\n      namespace: \"default\"\n      serverUrl: \"https://api.remote-cloud.com\"\n      credentialsId: \"remote-cloud-token\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"maven\"\n          namespace: \"maven\"\n          id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/jnlp-agent-maven:latest\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent maven\"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "maven"
+                namespace: "maven"
+                id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/jnlp-agent-maven:latest"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent maven"
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "remote-cloud-1"
+            namespace: "default"
+            serverUrl: "https://api.remote-cloud.com"
+            credentialsId: "remote-cloud-token"
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "maven"
+                namespace: "maven"
+                id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/jnlp-agent-maven:latest"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent maven"
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 additional clouds overriding additional agents:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"maven\"\n          namespace: \"maven\"\n          id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/jnlp-agent-maven:latest\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent maven\"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"remote-cloud-1\"\n      namespace: \"default\"\n      serverUrl: \"https://api.remote-cloud.com\"\n      credentialsId: \"remote-cloud-token\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "maven"
+                namespace: "maven"
+                id: e1e33fdb50032908b6edd2bfff5986baf24673dae3e8f5be26bc33fe650b4eb9
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/jnlp-agent-maven:latest"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent maven"
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "remote-cloud-1"
+            namespace: "default"
+            serverUrl: "https://api.remote-cloud.com"
+            credentialsId: "remote-cloud-token"
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 adds custom labels on agent pods:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.NAMESPACE.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"NAMESPACE\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      - key: \"label-one\"\n        value: \"value-one\"\n      - key: \"label-two\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"NAMESPACE\"\n          id: f02e77721ce95294405b146db7b133cc84a48f80ac911e64bc50ec2155886038\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.NAMESPACE.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "NAMESPACE"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            - key: "label-one"
+              value: "value-one"
+            - key: "label-two"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "NAMESPACE"
+                id: f02e77721ce95294405b146db7b133cc84a48f80ac911e64bc50ec2155886038
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 agent namespace and templates:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"jenkins-agents\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"jenkins-agents\"\n          id: deff8510d1d47b6aa602e133b5ef048ad39fab8e3fd0cea1322f7cdaf6fab766\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"maven\"\n          namespace: \"maven\"\n          id: 66ddfbf9ef381827400a4a1a9629e76b7c8f80eec6f7b6cc8eac9ce7dc48102c\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/\"\n            image: \"jenkins/jnlp-agent-maven:latest\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent maven\"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"python\"\n          namespace: \"jenkins-agents\"\n          id: 55f7b2d20865c5df0dc48bbca81b46ee6443506e5d534084739fdbc3f192b54b\n          containers:\n          - name: \"python\"\n            alwaysPullImage: false\n            args: \"cat\"\n            command: /bin/sh -c\n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/\"\n            image: \"python:3\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: true\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent python\"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: python3\n          label: jenkins-python3\n          serviceAccount: jenkins\n          containers:\n            - name: python\n              image: python:3\n              command: \"/bin/sh -c\"\n              args: \"cat\"\n              ttyEnabled: true\n              privileged: true\n              resourceRequestCpu: \"400m\"\n              resourceRequestMemory: \"512Mi\"\n              resourceRequestEphemeralStorage: \"1Gi\"\n              resourceLimitCpu: \"1\"\n              resourceLimitMemory: \"1024Mi\"\n              resourceLimitEphemeralStorage: \"2Gi\"\n        \n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "jenkins-agents"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "jenkins-agents"
+                id: ca0fbc2c8caf078a964168b7c33cb1e802e46f9e50146f40a5d41f02ff31d48b
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "maven"
+                namespace: "maven"
+                id: 481a51d7ff99453f880444a3e1bfa419f4e51fcfb73c27976fd84b00404d8c96
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
+                  image: "jenkins/jnlp-agent-maven:latest"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent maven"
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "python"
+                namespace: "jenkins-agents"
+                id: 773cf093c15a9b4fcc6e2ff5470db96a5b0f20375fd83ef4c1d41b92247a8457
+                containers:
+                - name: "python"
+                  alwaysPullImage: false
+                  args: "cat"
+                  command: /bin/sh -c
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
+                  image: "python:3"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: true
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent python"
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: python3
+                label: jenkins-python3
+                serviceAccount: jenkins
+                containers:
+                  - name: python
+                    image: python:3
+                    command: "/bin/sh -c"
+                    args: "cat"
+                    ttyEnabled: true
+                    privileged: true
+                    resourceRequestCpu: "400m"
+                    resourceRequestMemory: "512Mi"
+                    resourceRequestEphemeralStorage: "1Gi"
+                    resourceLimitCpu: "1"
+                    resourceLimitMemory: "1024Mi"
+                    resourceLimitEphemeralStorage: "2Gi"
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 agent with liveness probe:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: b1cac02826df53b00c0580c6153d79176f57421ace95c992f8821022490a9554\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            livenessProbe:\n              execArgs: \"cat /tmp/healthy\"\n              failureThreshold: 3\n              initialDelaySeconds: 0\n              periodSeconds: 10\n              successThreshold: 1\n              timeoutSeconds: 1\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: b1cac02826df53b00c0580c6153d79176f57421ace95c992f8821022490a9554
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  livenessProbe:
+                    execArgs: "cat /tmp/healthy"
+                    failureThreshold: 3
+                    initialDelaySeconds: 0
+                    periodSeconds: 10
+                    successThreshold: 1
+                    timeoutSeconds: 1
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 agents with liveness probe:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: d0c6d5f3223c8ec16a9e9a9f6a74e7f76dfd5c4a598e0246fc4fd3a91daf11fa\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          - name: \"side-container\"\n            alwaysPullImage: false\n            args: \"\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"REPOSITORY:TAG\"\n            livenessProbe:\n              execArgs: \"cat /tmp/healthy\"\n              failureThreshold: 3\n              initialDelaySeconds: 0\n              periodSeconds: 10\n              successThreshold: 1\n              timeoutSeconds: 1\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: d0c6d5f3223c8ec16a9e9a9f6a74e7f76dfd5c4a598e0246fc4fd3a91daf11fa
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                - name: "side-container"
+                  alwaysPullImage: false
+                  args: ""
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "REPOSITORY:TAG"
+                  livenessProbe:
+                    execArgs: "cat /tmp/healthy"
+                    failureThreshold: 3
+                    initialDelaySeconds: 0
+                    periodSeconds: 10
+                    successThreshold: 1
+                    timeoutSeconds: 1
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 configure hostnetworking to agent:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f07215c3d91893fa06e39ca483273efd70eae68af0fc535a3409bc3bc1fb804b\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          hostNetwork: true\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f07215c3d91893fa06e39ca483273efd70eae68af0fc535a3409bc3bc1fb804b
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                hostNetwork: true
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom dynamic pvc workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 78e72bf2bbc02b4dd9f0d5f408d455b9d1e183609e651fc4a71d9ba5f0c65bdb\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            dynamicPVC:\n              accessModes: \"ReadWriteOnce\"\n              requestsSize: \"2Gi\"\n              storageClassName: \"gp2\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 78e72bf2bbc02b4dd9f0d5f408d455b9d1e183609e651fc4a71d9ba5f0c65bdb
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  dynamicPVC:
+                    accessModes: "ReadWriteOnce"
+                    requestsSize: "2Gi"
+                    storageClassName: "gp2"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom emptyDir workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: d22452c64c79eb5622bd603d7b248ebda657770d6b4fa49bfeeaf2c92bbe2144\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            emptyDirWorkspaceVolume:\n              memory: true\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: d22452c64c79eb5622bd603d7b248ebda657770d6b4fa49bfeeaf2c92bbe2144
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  emptyDirWorkspaceVolume:
+                    memory: true
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom hostPath workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: e957a67018c12c9319da91b23d6fec6bf83fc90125ae9088ec4838ca2299d9dc\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            hostPathWorkspaceVolume:\n              hostPath: \"/data\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: e957a67018c12c9319da91b23d6fec6bf83fc90125ae9088ec4838ca2299d9dc
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  hostPathWorkspaceVolume:
+                    hostPath: "/data"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom jenkins label:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"testlabel\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: "testlabel"
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom nfs workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 185d6d0f5560254bb7ed9180e79983947f35e7c1e7788d893118b49ecebe683b\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            nfsWorkspaceVolume:\n              readOnly: false\n              serverAddress: \"1.1.1.1\"\n              serverPath: \"/data\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 185d6d0f5560254bb7ed9180e79983947f35e7c1e7788d893118b49ecebe683b
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  nfsWorkspaceVolume:
+                    readOnly: false
+                    serverAddress: "1.1.1.1"
+                    serverPath: "/data"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom other workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: ee300383fbaf200c00e58da6203caef9960aaad8972ec422eaae8adf04455c85\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            persistentVolumeClaimWorkspaceVolume:\n              claimName: \"my-claim\"\n              readOnly: false\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: ee300383fbaf200c00e58da6203caef9960aaad8972ec422eaae8adf04455c85
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  persistentVolumeClaimWorkspaceVolume:
+                    claimName: "my-claim"
+                    readOnly: false
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 custom pvc workspace volume:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 2dd89444b6ba60a7525f19d71728f99ca28df0db3d85cf2c9cee52c825961cd7\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          workspaceVolume:\n            persistentVolumeClaimWorkspaceVolume:\n              claimName: \"my-claim\"\n              readOnly: false\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 2dd89444b6ba60a7525f19d71728f99ca28df0db3d85cf2c9cee52c825961cd7
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                workspaceVolume:
+                  persistentVolumeClaimWorkspaceVolume:
+                    claimName: "my-claim"
+                    readOnly: false
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 customized config:
   1: |
     |-
@@ -169,40 +1677,1140 @@ customized config:
           url: https://jenkins.example.com
 default config:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 disable agents:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"controller-namespace\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "controller-namespace"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 empty projectNamingStrategy:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 legacyRemotingSecurityEnabled = false:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 legacyRemotingSecurityEnabled = true:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  remotingSecurity:\n    enabled: true\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        remotingSecurity:
+          enabled: true
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 non-string projectNamingStrategy:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy:\n    myConfiguration:\n      mySetting1: true\n      mySetting2: something\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy:
+          myConfiguration:
+            mySetting1: true
+            mySetting2: something
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 set directConnection:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      directConnection: true\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: dfc43695e648388acdb3f1040aba5b87d2d8f255ef42921d028239ebc0ac9f0d\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_DIRECT_CONNECTION\"\n                  value: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            directConnection: true
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: dfc43695e648388acdb3f1040aba5b87d2d8f255ef42921d028239ebc0ac9f0d
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_DIRECT_CONNECTION"
+                        value: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 set secretEnvVars:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 4515dfaf3d6e3ffdda734b7e0392af901552c2739419bbb200d2e8a74d56a4bd\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          envVars:\n            - envVar:\n                key: UNITTEST_ENV\n                value: testvalue\n            - secretEnvVar:\n                key: UNITTEST_PATH\n                secretName: k8s-unittest-secret-name\n                secretKey: UNITTEST_K8S_PATH\n                optional: false\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 4515dfaf3d6e3ffdda734b7e0392af901552c2739419bbb200d2e8a74d56a4bd
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                envVars:
+                  - envVar:
+                      key: UNITTEST_ENV
+                      value: testvalue
+                  - secretEnvVar:
+                      key: UNITTEST_PATH
+                      secretName: k8s-unittest-secret-name
+                      secretKey: UNITTEST_K8S_PATH
+                      optional: false
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 specify additional container:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          - name: \"dind\"\n            alwaysPullImage: false\n            args: \"\"\n            command: dockerd-entrypoint.sh\n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"docker:dind\"\n            privileged: \"true\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                - name: "dind"
+                  alwaysPullImage: false
+                  args: ""
+                  command: dockerd-entrypoint.sh
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "docker:dind"
+                  privileged: "true"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 specify additional container and clear in additional agent:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          - name: \"dind\"\n            alwaysPullImage: false\n            args: \"\"\n            command: dockerd-entrypoint.sh\n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"docker:dind\"\n            privileged: \"true\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"additional-agent\"\n          namespace: \"default\"\n          id: 8cfdfaba21a5977113c804f1a6e9c1f9e1fe101eb6b4abb7cce3c1b7cf1be210\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                - name: "dind"
+                  alwaysPullImage: false
+                  args: ""
+                  command: dockerd-entrypoint.sh
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "docker:dind"
+                  privileged: "true"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "additional-agent"
+                namespace: "default"
+                id: 8cfdfaba21a5977113c804f1a6e9c1f9e1fe101eb6b4abb7cce3c1b7cf1be210
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 specify additional container and overwrite in additional agent:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          - name: \"dind\"\n            alwaysPullImage: false\n            args: \"\"\n            command: dockerd-entrypoint.sh\n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"docker:dind\"\n            privileged: \"true\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n        - name: \"additional-agent\"\n          namespace: \"default\"\n          id: d8c45dbc5c05f87ccf4e2f72cda75cb4b854d71c3c4a1739e035e7a1c661fde1\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          - name: \"additional\"\n            alwaysPullImage: false\n            args: \"arg1 arg2\"\n            command: entrypoint.sh\n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"my-additional-container-image:latest\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 1ee97fd90be21ec439a7f86642e6db0fcb4d9021f328928b46462963efa7ae97
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                - name: "dind"
+                  alwaysPullImage: false
+                  args: ""
+                  command: dockerd-entrypoint.sh
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "docker:dind"
+                  privileged: "true"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+              - name: "additional-agent"
+                namespace: "default"
+                id: d8c45dbc5c05f87ccf4e2f72cda75cb4b854d71c3c4a1739e035e7a1c661fde1
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                - name: "additional"
+                  alwaysPullImage: false
+                  args: "arg1 arg2"
+                  command: entrypoint.sh
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "my-additional-container-image:latest"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 specify security settings with apiToken override:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken: overridden\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken: overridden
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
 specify security settings without apiToken override:
   1: |
-    "jenkins:\n  authorizationStrategy:\n    loggedInUsersCanDoAnything:\n      allowAnonymousRead: false\n  securityRealm:\n    local:\n      allowsSignup: false\n      enableCaptcha: false\n      users:\n      - id: \"${chart-admin-username}\"\n        name: \"Jenkins Admin\"\n        password: \"${chart-admin-password}\"\n  disableRememberMe: false\n  mode: NORMAL\n  numExecutors: 0\n  labelString: \"\"\n  projectNamingStrategy: \"standard\"\n  markupFormatter:\n    plainText\n  clouds:\n  - kubernetes:\n      containerCapStr: \"10\"\n      defaultsProviderTemplate: \"\"\n      connectTimeout: \"5\"\n      readTimeout: \"15\"\n      jenkinsUrl: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080\"\n      jenkinsTunnel: \"RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000\"\n      maxRequestsPerHostStr: \"32\"\n      retentionTimeout: \"5\"\n      waitForPodSec: \"600\"\n      name: \"kubernetes\"\n      namespace: \"default\"\n      serverUrl: \"https://kubernetes.default\"\n      credentialsId: \"\"\n      podLabels:\n      - key: \"jenkins/RELEASE-NAME-jenkins-agent\"\n        value: \"true\"\n      templates:\n        - name: \"default\"\n          namespace: \"default\"\n          id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623\n          containers:\n          - name: \"jnlp\"\n            alwaysPullImage: false\n            args: \"^${computer.jnlpmac} ^${computer.name}\"\n            command: \n            envVars:\n              - envVar:\n                  key: \"JENKINS_URL\"\n                  value: \"http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/\"\n            image: \"jenkins/inbound-agent:3192.v713e3b_039fb_e-5\"\n            privileged: \"false\"\n            resourceLimitCpu: 512m\n            resourceLimitMemory: 512Mi\n            resourceRequestCpu: 512m\n            resourceRequestMemory: 512Mi\n            runAsUser: \n            runAsGroup: \n            ttyEnabled: false\n            workingDir: /home/jenkins/agent\n          idleMinutes: 0\n          instanceCap: 2147483647\n          label: \"RELEASE-NAME-jenkins-agent \"\n          nodeUsageMode: \"NORMAL\"\n          podRetention: Never\n          showRawYaml: true\n          serviceAccount: \"default\"\n          slaveConnectTimeoutStr: \"100\"\n          yamlMergeStrategy: override\n  crumbIssuer:\n    standard:\n      excludeClientIPFromCrumb: true\nsecurity:\n  apiToken:\n    creationOfLegacyTokenEnabled: false\n    tokenGenerationOnCreationEnabled: false\n    usageStatisticsEnabled: true\n  gitHostKeyVerificationConfiguration:\n    sshHostKeyVerificationStrategy: acceptFirstConnectionStrategy\nunclassified:\n  location:\n    adminAddress: \n    url: http://RELEASE-NAME-jenkins:8080"
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: f44268ff75c10f757598246e8523f7c65a9bcb7a9fcb6b2a5f847099dc35c623
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+        gitHostKeyVerificationConfiguration:
+          sshHostKeyVerificationStrategy: acceptFirstConnectionStrategy
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080

@@ -15,8 +15,7 @@ tests:
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - documentIndex: 0
-        matchSnapshot:
+      - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: agent namespace and templates
     release:
@@ -43,7 +42,7 @@ tests:
       agent:
         namespace: jenkins-agents
         podTemplates:
-          python3: |
+          python3: |-
             - name: python3
               label: jenkins-python3
               serviceAccount: jenkins

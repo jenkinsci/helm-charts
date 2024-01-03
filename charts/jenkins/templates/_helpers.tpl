@@ -180,10 +180,10 @@ jenkins:
         value: {{ $val | quote }}
       {{- end }}
       templates:
-    {{- if not .Values.agent.disableDefaultAgent }}
+      {{- if not .Values.agent.disableDefaultAgent }}
       {{- include "jenkins.casc.podTemplate" . | nindent 8 }}
-    {{- end }}
-    {{- if .Values.additionalAgents }}
+      {{- end }}
+      {{- if .Values.additionalAgents }}
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}
       {{- range $name, $additionalAgent := .Values.additionalAgents }}
@@ -200,11 +200,11 @@ jenkins:
       {{- end }}
       {{- /* restore .Values.agent */}}
       {{- $_ := set .Values "agent" $agent }}
-    {{- end }}
+      {{- end }}
       {{- if .Values.agent.podTemplates }}
-        {{- range $key, $val := .Values.agent.podTemplates }}
-          {{- tpl $val $ | nindent 8 }}
-        {{- end }}
+      {{- range $key, $val := .Values.agent.podTemplates }}
+        {{- tpl $val $ | nindent 8 }}
+      {{- end }}
       {{- end }}
       {{- end }}
     {{- if .Values.additionalClouds }}
@@ -284,8 +284,8 @@ jenkins:
        {{- /* restore .Values.agent */}}
        {{- $_ := set .Values "agent" $agent }}
      {{- end }}
-       {{- if .Values.agent.podTemplates }}
-         {{- range $key, $val := .Values.agent.podTemplates }}
+       {{- with .Values.agent.podTemplates }}
+         {{- range $key, $val := . }}
            {{- tpl $val $ | nindent 8 }}
          {{- end }}
        {{- end }}
@@ -301,16 +301,18 @@ jenkins:
       excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
   {{- end }}
 {{- include "jenkins.casc.security" . }}
-{{- if .Values.controller.scriptApproval }}
+{{- with .Values.controller.scriptApproval }}
   scriptApproval:
     approvedSignatures:
-{{- range $key, $val := .Values.controller.scriptApproval }}
+    {{- range $key, $val := . }}
     - "{{ $val }}"
-{{- end }}
+    {{- end }}
 {{- end }}
 unclassified:
   location:
-    adminAddress: {{ default "" .Values.controller.jenkinsAdminEmail }}
+    {{- with .Values.controller.jenkinsAdminEmail }}
+    adminAddress: {{ . }}
+    {{- end }}
     url: {{ template "jenkins.url" . }}
 {{- end -}}
 
@@ -342,7 +344,9 @@ Returns kubernetes pod template configuration as code
   - name: "{{ .Values.agent.sideContainerName }}"
     alwaysPullImage: {{ .Values.agent.alwaysPullImage }}
     args: "{{ .Values.agent.args | replace "$" "^$" }}"
-    command: {{ .Values.agent.command }}
+    {{- with .Values.agent.command }}
+    command: {{ . }}
+    {{- end }}
     envVars:
       - envVar:
         {{- if .Values.agent.directConnection }}
@@ -373,23 +377,29 @@ Returns kubernetes pod template configuration as code
     privileged: "{{- if .Values.agent.privileged }}true{{- else }}false{{- end }}"
     resourceLimitCpu: {{.Values.agent.resources.limits.cpu}}
     resourceLimitMemory: {{.Values.agent.resources.limits.memory}}
-    {{- if .Values.agent.resources.limits.ephemeralStorage }}
-    resourceLimitEphemeralStorage: {{.Values.agent.resources.limits.ephemeralStorage}}
+    {{- with .Values.agent.resources.limits.ephemeralStorage }}
+    resourceLimitEphemeralStorage: {{.}}
     {{- end }}
     resourceRequestCpu: {{.Values.agent.resources.requests.cpu}}
     resourceRequestMemory: {{.Values.agent.resources.requests.memory}}
-    {{- if .Values.agent.resources.requests.ephemeralStorage }}
-    resourceRequestEphemeralStorage: {{.Values.agent.resources.requests.ephemeralStorage}}
+    {{- with .Values.agent.resources.requests.ephemeralStorage }}
+    resourceRequestEphemeralStorage: {{.}}
     {{- end }}
-    runAsUser: {{ .Values.agent.runAsUser }}
-    runAsGroup: {{ .Values.agent.runAsGroup }}
+    {{- with .Values.agent.runAsUser }}
+    runAsUser: {{ . }}
+    {{- end }}
+    {{- with .Values.agent.runAsGroup }}
+    runAsGroup: {{ . }}
+    {{- end }}
     ttyEnabled: {{ .Values.agent.TTYEnabled }}
     workingDir: {{ .Values.agent.workingDir }}
 {{- range $additionalContainers := .Values.agent.additionalContainers }}
   - name: "{{ $additionalContainers.sideContainerName }}"
     alwaysPullImage: {{ $additionalContainers.alwaysPullImage | default $.Values.agent.alwaysPullImage }}
     args: "{{ $additionalContainers.args | replace "$" "^$" }}"
-    command: {{ $additionalContainers.command }}
+    {{- with $additionalContainers.command }}
+    command: {{ . }}
+    {{- end }}
     envVars:
       - envVar:
           key: "JENKINS_URL"
@@ -413,8 +423,12 @@ Returns kubernetes pod template configuration as code
     resourceLimitMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.limits.memory }}{{ else }}{{ $.Values.agent.resources.limits.memory }}{{ end }}
     resourceRequestCpu: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.cpu }}{{ else }}{{ $.Values.agent.resources.requests.cpu }}{{ end }}
     resourceRequestMemory: {{ if $additionalContainers.resources }}{{ $additionalContainers.resources.requests.memory }}{{ else }}{{ $.Values.agent.resources.requests.memory }}{{ end }}
+    {{- if or $additionalContainers.runAsUser $.Values.agent.runAsUser }}
     runAsUser: {{ $additionalContainers.runAsUser | default $.Values.agent.runAsUser }}
+    {{- end }}
+    {{- if or $additionalContainers.runAsGroup $.Values.agent.runAsGroup }}
     runAsGroup: {{ $additionalContainers.runAsGroup | default $.Values.agent.runAsGroup }}
+    {{- end }}
     ttyEnabled: {{ $additionalContainers.TTYEnabled | default $.Values.agent.TTYEnabled }}
     workingDir: {{ $additionalContainers.workingDir | default $.Values.agent.workingDir }}
 {{- end }}
