@@ -43,10 +43,10 @@ Tests can be executed like this:
 
 ```console
 # install the unittest plugin
-$ helm plugin install https://github.com/quintush/helm-unittest --version 0.2.11
+$ helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
 
 # run the unittests
-$ helm unittest --helm3 --strict -f 'unittests/*.yaml' charts/jenkins
+$ helm unittest --strict -f 'unittests/*.yaml' charts/jenkins
 
 ### Chart [ jenkins ] charts/jenkins
 
