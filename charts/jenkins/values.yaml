@@ -283,8 +283,8 @@ controller:
   #  - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
   #  - "new groovy.json.JsonSlurperClassic"
   # List of groovy init scripts to be executed during Jenkins controller start
-  initScripts: []
-  #  - |
+  initScripts: {}
+  #  test: |-
   #    print 'adding global pipeline libraries, register properties, bootstrap jobs...'
 
   # 'name' is a name of an existing secret in same namespace as jenkins,
