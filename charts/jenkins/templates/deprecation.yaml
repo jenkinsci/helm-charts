@@ -4,7 +4,7 @@
    {{- end }}
 
    {{- if .Values.controller.imageTag }}
-      {{ fail "`controller.imageTag` does no longer exist. Please use `controller.tag` instead" }}
+      {{ fail "`controller.imageTag` does no longer exist. Please use `controller.image.tag` instead" }}
    {{- end }}
 
    {{- if .Values.controller.slaveListenerPort }}

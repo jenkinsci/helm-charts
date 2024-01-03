@@ -31,7 +31,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.JCasC.authorizationStrategy`                        | Jenkins Config as Code for Authorization Strategy                                                                                 | `loggedInUsersCanDoAnything`                                      |
 | `controller.sidecars.configAutoReload`                          | Jenkins Config as Code auto-reload settings                                                                                       |                                                                   |
 | `controller.sidecars.configAutoReload.enabled`                  | Jenkins Config as Code auto-reload settings (Attention: rbac needs to be enabled otherwise the sidecar can't read the config map) | `true`                                                            |
-| `controller.sidecars.configAutoReload.image`                    | Image which triggers the reload                                                                                                   | `kiwigrid/k8s-sidecar:1.24.4`                                     |
+| `controller.sidecars.configAutoReload.image.registry`           | Registry for the image which triggers the reload                                                                                  | `docker.io`                                                       |
+| `controller.sidecars.configAutoReload.image.repository`         | Image which triggers the reload                                                                                                   | `kiwigrid/k8s-sidecar`                                            |
+| `controller.sidecars.configAutoReload.image.tag`                | Tag for the image which triggers the reload                                                                                       | `1.24.4`                                                          |
 | `controller.sidecars.configAutoReload.reqRetryConnect`          | How many connection-related errors to retry on                                                                                    | `10`                                                              |
 | `controller.sidecars.configAutoReload.sleepTime`                | How many seconds to wait before updating config-maps/secrets (sets METHOD=SLEEP on the sidecar)                                   | Not set                                                           |
 | `controller.sidecars.configAutoReload.envFrom`                  | Environment variable sources for the Jenkins Config as Code auto-reload container                                                 | Not set                                                           |
@@ -107,55 +109,56 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Kubernetes StatefulSet & Service
 
-| Parameter                         | Description                          | Default                                   |
-| --------------------------------- | ------------------------------------ | ----------------------------------------- |
-| `controller.image`                    | Controller image name                     | `jenkins/jenkins`                         |
-| `controller.tagLabel`                 | Controller image tag label                | `jdk17`                                   |
-| `controller.tag`                      | Controller image tag override             | Not set                                   |
-| `controller.imagePullPolicy`          | Controller image pull policy              | `Always`                                  |
-| `controller.imagePullSecretName`      | Controller image pull secret              | Not set                                   |
-| `controller.resources`                | Resources allocation (Requests and Limits) | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`|
-| `controller.initContainerResources`   | Resources allocation (Requests and Limits) for Init Container            | Not set |
-| `controller.initContainerEnvFrom`     | Environment variable sources for Init Container                          | Not set |
-| `controller.initContainerEnv`         | Environment variables for Init Container                                 | Not set |
-| `controller.containerEnvFrom`         | Environment variable sources for Jenkins Container                       | Not set |
-| `controller.containerEnv`             | Environment variables for Jenkins Container                              | Not set |
-| `controller.usePodSecurityContext`    | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set) | `true` |
-| `controller.runAsUser`                | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with. | `1000`                                    |
-| `controller.fsGroup`                  | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume. | `1000`                             |
-| `controller.podSecurityContextOverride` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set |
-| `controller.containerSecurityContext`    | Allow to control securityContext for the jenkins container. | `{runAsUser: 1000, runAsGroup: 1000, readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
-| `controller.hostAliases`              | Aliases for IPs in `/etc/hosts`      | `[]`                                      |
-| `controller.serviceAnnotations`       | Service annotations                  | `{}`                                      |
-| `controller.serviceType`              | k8s service type                     | `ClusterIP`                               |
-| `controller.clusterIP`                | k8s service clusterIP                | Not set                                   |
-| `controller.servicePort`              | k8s service port                     | `8080`                                    |
-| `controller.targetPort`               | k8s target port                      | `8080`                                    |
-| `controller.nodePort`                 | k8s node port                        | Not set                                   |
-| `controller.jmxPort`                  | Open a port, for JMX stats           | Not set                                   |
-| `controller.extraPorts`               | Open extra ports, for other uses     | `[]`                                      |
-| `controller.loadBalancerSourceRanges` | Allowed inbound IP addresses         | `0.0.0.0/0`                               |
-| `controller.loadBalancerIP`           | Optional fixed external IP           | Not set                                   |
-| `controller.statefulSetLabels`        | Custom StatefulSet labels            | Not set                                   |
-| `controller.serviceLabels`            | Custom Service labels                | Not set                                   |
-| `controller.podLabels`                | Custom Pod labels (an object with `label-key: label-value` pairs)                    | Not set                                   |
-| `controller.nodeSelector`             | Node labels for pod assignment       | `{}`                                      |
-| `controller.affinity`                 | Affinity settings                    | `{}`                                      |
-| `controller.schedulerName`            | Kubernetes scheduler name            | Not set                                   |
-| `controller.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds   | Not set                               |
-| `controller.terminationMessagePath` | Set the termination message path   | Not set                               |
-| `controller.terminationMessagePolicy` | Set the termination message policy   | Not set                               |
-| `controller.tolerations`              | Toleration labels for pod assignment | `[]`                                      |
-| `controller.podAnnotations`           | Annotations for controller pod           | `{}`                                      |
-| `controller.statefulSetAnnotations`   | Annotations for controller StatefulSet   | `{}`                                      |
-| `controller.updateStrategy`           | Update strategy for StatefulSet      | `{}`                                      |
-| `controller.lifecycle`                | Lifecycle specification for controller-container | Not set                           |
-| `controller.priorityClassName`        | The name of a `priorityClass` to apply to the controller pod | Not set               |
-| `controller.admin.existingSecret`     | The name of an existing secret containing the admin credentials. | `""`|
-| `controller.admin.userKey`            | The key in the existing admin secret containing the username. | `jenkins-admin-user` |
-| `controller.admin.passwordKey`        | The key in the existing admin secret containing the password. | `jenkins-admin-password` |
-| `controller.customInitContainers`     | Custom init-container specification in raw-yaml format | Not set                 |
-| `controller.sidecars.other`           | Configures additional sidecar container(s) for Jenkins controller | `[]`             |
+| Parameter                                  | Description                                                                                                                  | Default                                                                                              |
+|--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
+| `controller.image.registry`                | Controller image registry                                                                                                    | `docker.io`                                                                                          |
+| `controller.image.repository`              | Controller image name                                                                                                        | `jenkins/jenkins`                                                                                    |
+| `controller.image.tagLabel`                | Controller image tag label                                                                                                   | `jdk17`                                                                                              |
+| `controller.image.tag`                     | Controller image tag override                                                                                                | Not set                                                                                              |
+| `controller.image.pullPolicy`              | Controller image pull policy                                                                                                 | `Always`                                                                                             |
+| `controller.imagePullSecretName`           | Controller image pull secret                                                                                                 | Not set                                                                                              |
+| `controller.resources`                     | Resources allocation (Requests and Limits)                                                                                   | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`                        |
+| `controller.initContainerResources`        | Resources allocation (Requests and Limits) for Init Container                                                                | Not set                                                                                              |
+| `controller.initContainerEnvFrom`          | Environment variable sources for Init Container                                                                              | Not set                                                                                              |
+| `controller.initContainerEnv`              | Environment variables for Init Container                                                                                     | Not set                                                                                              |
+| `controller.containerEnvFrom`              | Environment variable sources for Jenkins Container                                                                           | Not set                                                                                              |
+| `controller.containerEnv`                  | Environment variables for Jenkins Container                                                                                  | Not set                                                                                              |
+| `controller.usePodSecurityContext`         | Enable pod security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set)              | `true`                                                                                               |
+| `controller.runAsUser`                     | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that jenkins runs with.                                 | `1000`                                                                                               |
+| `controller.fsGroup`                       | Deprecated in favor of `controller.podSecurityContextOverride`.  uid that will be used for persistent volume.                | `1000`                                                                                               |
+| `controller.podSecurityContextOverride`    | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set                                                                                              |
+| `controller.containerSecurityContext`      | Allow to control securityContext for the jenkins container.                                                                  | `{runAsUser: 1000, runAsGroup: 1000, readOnlyRootFilesystem: true, allowPrivilegeEscalation: false}` |
+| `controller.hostAliases`                   | Aliases for IPs in `/etc/hosts`                                                                                              | `[]`                                                                                                 |
+| `controller.serviceAnnotations`            | Service annotations                                                                                                          | `{}`                                                                                                 |
+| `controller.serviceType`                   | k8s service type                                                                                                             | `ClusterIP`                                                                                          |
+| `controller.clusterIP`                     | k8s service clusterIP                                                                                                        | Not set                                                                                              |
+| `controller.servicePort`                   | k8s service port                                                                                                             | `8080`                                                                                               |
+| `controller.targetPort`                    | k8s target port                                                                                                              | `8080`                                                                                               |
+| `controller.nodePort`                      | k8s node port                                                                                                                | Not set                                                                                              |
+| `controller.jmxPort`                       | Open a port, for JMX stats                                                                                                   | Not set                                                                                              |
+| `controller.extraPorts`                    | Open extra ports, for other uses                                                                                             | `[]`                                                                                                 |
+| `controller.loadBalancerSourceRanges`      | Allowed inbound IP addresses                                                                                                 | `0.0.0.0/0`                                                                                          |
+| `controller.loadBalancerIP`                | Optional fixed external IP                                                                                                   | Not set                                                                                              |
+| `controller.statefulSetLabels`             | Custom StatefulSet labels                                                                                                    | Not set                                                                                              |
+| `controller.serviceLabels`                 | Custom Service labels                                                                                                        | Not set                                                                                              |
+| `controller.podLabels`                     | Custom Pod labels (an object with `label-key: label-value` pairs)                                                            | Not set                                                                                              |
+| `controller.nodeSelector`                  | Node labels for pod assignment                                                                                               | `{}`                                                                                                 |
+| `controller.affinity`                      | Affinity settings                                                                                                            | `{}`                                                                                                 |
+| `controller.schedulerName`                 | Kubernetes scheduler name                                                                                                    | Not set                                                                                              |
+| `controller.terminationGracePeriodSeconds` | Set TerminationGracePeriodSeconds                                                                                            | Not set                                                                                              |
+| `controller.terminationMessagePath`        | Set the termination message path                                                                                             | Not set                                                                                              |
+| `controller.terminationMessagePolicy`      | Set the termination message policy                                                                                           | Not set                                                                                              |
+| `controller.tolerations`                   | Toleration labels for pod assignment                                                                                         | `[]`                                                                                                 |
+| `controller.podAnnotations`                | Annotations for controller pod                                                                                               | `{}`                                                                                                 |
+| `controller.statefulSetAnnotations`        | Annotations for controller StatefulSet                                                                                       | `{}`                                                                                                 |
+| `controller.updateStrategy`                | Update strategy for StatefulSet                                                                                              | `{}`                                                                                                 |
+| `controller.lifecycle`                     | Lifecycle specification for controller-container                                                                             | Not set                                                                                              |
+| `controller.priorityClassName`             | The name of a `priorityClass` to apply to the controller pod                                                                 | Not set                                                                                              |
+| `controller.admin.existingSecret`          | The name of an existing secret containing the admin credentials.                                                             | `""`                                                                                                 |
+| `controller.admin.userKey`                 | The key in the existing admin secret containing the username.                                                                | `jenkins-admin-user`                                                                                 |
+| `controller.admin.passwordKey`             | The key in the existing admin secret containing the password.                                                                | `jenkins-admin-password`                                                                             |
+| `controller.customInitContainers`          | Custom init-container specification in raw-yaml format                                                                       | Not set                                                                                              |
+| `controller.sidecars.other`                | Configures additional sidecar container(s) for Jenkins controller                                                            | `[]`                                                                                                 |
 
 #### Kubernetes Pod Disruption Budget
 
@@ -341,20 +344,20 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Side Container Configuration
 
-| Parameter                  | Description                                     | Default                                                                        |
-| -------------------------- | ----------------------------------------------- |--------------------------------------------------------------------------------|
-| `agent.sideContainerName`  | Side container name in agent                    | jnlp                                                                           |
-| `agent.image`              | Agent image name                                | `jenkins/inbound-agent`                                                        |
-| `agent.tag`                | Agent image tag                                 | `3192.v713e3b_039fb_e-5`                                                        |
-| `agent.alwaysPullImage`    | Always pull agent container image before build  | `false`                                                                        |
-| `agent.privileged`         | Agent privileged container                      | `false`                                                                        |
-| `agent.resources`          | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}`   |
-| `agent.runAsUser`          | Configure container user                        | Not set                                                                        |
-| `agent.runAsGroup`         | Configure container group                       | Not set                                                                        |
-| `agent.command`            | Executed command when side container starts     | Not set                                                                        |
-| `agent.args`               | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}`                                         |
-| `agent.TTYEnabled`         | Allocate pseudo tty to the side container       | false                                                                          |
-| `agent.workingDir`         | Configure working directory for default agent   | `/home/jenkins/agent`                                                          |
+| Parameter                 | Description                                     | Default                                                                        |
+|---------------------------| ----------------------------------------------- |--------------------------------------------------------------------------------|
+| `agent.sideContainerName` | Side container name in agent                    | jnlp                                                                           |
+| `agent.image.repository`  | Agent image name                                | `jenkins/inbound-agent`                                                        |
+| `agent.image.tag`         | Agent image tag                                 | `3192.v713e3b_039fb_e-5`                                                        |
+| `agent.alwaysPullImage`   | Always pull agent container image before build  | `false`                                                                        |
+| `agent.privileged`        | Agent privileged container                      | `false`                                                                        |
+| `agent.resources`         | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}`   |
+| `agent.runAsUser`         | Configure container user                        | Not set                                                                        |
+| `agent.runAsGroup`        | Configure container group                       | Not set                                                                        |
+| `agent.command`           | Executed command when side container starts     | Not set                                                                        |
+| `agent.args`              | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}`                                         |
+| `agent.TTYEnabled`        | Allocate pseudo tty to the side container       | false                                                                          |
+| `agent.workingDir`        | Configure working directory for default agent   | `/home/jenkins/agent`                                                          |
 
 #### Other
 
@@ -415,7 +418,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 ### Helm Tests
 
-| Parameter             | Description                       | Default         |
-| --------------------- | --------------------------------- | --------------- |
-| `helmtest.bats.image` | Image used to test the framework  | `bats/bats`     |
-| `helmtest.bats.tag`   | Test framework image tag override | `1.2.1`         |
+| Parameter                        | Description                         | Default     |
+|----------------------------------|-------------------------------------|-------------|
+| `helmtest.bats.image.registry`   | Registry used to test the framework | `docker.io` |
+| `helmtest.bats.image.repository` | Image used to test the framework    | `bats/bats` |
+| `helmtest.bats.image.tag`        | Test framework image tag override   | `1.2.1`     |

@@ -24,10 +24,12 @@ renderHelmLabels: true
 controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
-  image: "jenkins/jenkins"
-  # tag: "2.426.2-jdk17"
-  tagLabel: jdk17
-  imagePullPolicy: "Always"
+  image:
+    registry: "docker.io"
+    repository: "jenkins/jenkins"
+    # tag: "2.426.2-jdk17"
+    tagLabel: jdk17
+    pullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
   lifecycle:
@@ -359,7 +361,7 @@ controller:
   # Optionally specify additional init-containers
   customInitContainers: []
   # - name: custom-init
-  #   image: "alpine:3.7"
+  #   image: "alpine:3"
   #   imagePullPolicy: Always
   #   command: [ "uname", "-a" ]
 
@@ -369,7 +371,10 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:1.24.4
+      image:
+        registry: docker.io
+        repository: kiwigrid/k8s-sidecar
+        tag: 1.24.4
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -399,8 +404,8 @@ controller:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
 
-    # Allows you to inject additional/other sidecars
-    other: []
+    # Allows you to inject additional sidecars
+    additionalSidecarContainers: []
     ## The example below runs the client for https://smee.io as sidecar container next to Jenkins,
     ## that allows to trigger build behind a secure firewall.
     ## https://jenkins.io/blog/2019/01/07/webhook-firewalls/#triggering-builds-with-webhooks-behind-a-secure-firewall
@@ -638,8 +643,9 @@ agent:
   namespace:
   # private registry for agent image
   jnlpregistry:
-  image: "jenkins/inbound-agent"
-  tag: "3192.v713e3b_039fb_e-5"
+  image:
+    repository: "jenkins/inbound-agent"
+    tag: "3192.v713e3b_039fb_e-5"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -781,8 +787,9 @@ agent:
   # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
   additionalContainers: []
   #  - sideContainerName: dind
-  #    image: docker
-  #    tag: dind
+  #    image:
+  #      repository: docker
+  #      tag: dind
   #    command: dockerd-entrypoint.sh
   #    args: ""
   #    privileged: true
@@ -830,14 +837,16 @@ additionalAgents: {}
 #    customJenkinsLabels: maven
 #    # An example of overriding the jnlp container
 #    # sideContainerName: jnlp
-#    image: jenkins/jnlp-agent-maven
-#    tag: latest
+#    image:
+#      repository: jenkins/jnlp-agent-maven
+#      tag: latest
 #  python:
 #    podName: python
 #    customJenkinsLabels: python
 #    sideContainerName: python
-#    image: python
-#    tag: "3"
+#    image:
+#      repository: python
+#      tag: "3"
 #    command: "/bin/sh -c"
 #    args: "cat"
 #    TTYEnabled: true
@@ -857,8 +866,9 @@ additionalClouds: {}
 #        customJenkinsLabels: maven
 #        # An example of overriding the jnlp container
 #        # sideContainerName: jnlp
-#        image: jenkins/jnlp-agent-maven
-#        tag: latest
+#        image:
+#          repository: jenkins/jnlp-agent-maven
+#          tag: latest
 #        namespace: my-other-maven-namespace
 #  remote-cloud-2:
 #    kubernetesURL: https://api.remote-cloud.com
@@ -1019,5 +1029,7 @@ helmtest:
   # A testing framework for bash
   bats:
     # Bash Automated Testing System (BATS)
-    image: "bats/bats"
-    tag: "1.9.0"
+    image:
+      registry: "docker.io"
+      repository: "bats/bats"
+      tag: "1.9.0"

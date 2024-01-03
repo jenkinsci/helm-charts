@@ -118,8 +118,8 @@ spec:
 {{- end}}
 
         - name: "init"
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
-          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          image: "{{ .Values.controller.image.registry }}/{{ .Values.controller.image.repository }}:{{- include "controller.image.tag" . -}}"
+          imagePullPolicy: "{{ .Values.controller.image.pullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
           {{- end }}
@@ -170,8 +170,8 @@ spec:
             {{- end }}
       containers:
         - name: jenkins
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
-          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          image: "{{ .Values.controller.image.registry }}/{{ .Values.controller.image.repository }}:{{- include "controller.image.tag" . -}}"
+          imagePullPolicy: "{{ .Values.controller.image.pullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
           {{- end }}

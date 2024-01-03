@@ -61,7 +61,7 @@ Returns the admin password
 https://github.com/helm/charts/issues/5167#issuecomment-619137759
 */}}
 {{- define "jenkins.password" -}}
-  {{ if .Values.controller.adminPassword -}}
+  {{- if .Values.controller.adminPassword -}}
     {{- .Values.controller.adminPassword | b64enc | quote }}
   {{- else -}}
     {{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "jenkins.fullname" .)).data -}}
@@ -360,7 +360,7 @@ Returns kubernetes pod template configuration as code
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
         {{- end }}
-    image: "{{ .Values.agent.image }}:{{ .Values.agent.tag }}"
+    image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
     {{- if .Values.agent.livenessProbe }}
     livenessProbe:
       execArgs: {{.Values.agent.livenessProbe.execArgs | quote}}
@@ -398,7 +398,7 @@ Returns kubernetes pod template configuration as code
           {{- else }}
           value: "http://{{ template "jenkins.fullname" $ }}.{{ template "jenkins.namespace" $ }}.svc.{{ $.Values.clusterZone }}:{{ $.Values.controller.servicePort }}{{ default "/" $.Values.controller.jenkinsUriPrefix }}"
           {{- end }}
-    image: "{{ $additionalContainers.image }}:{{ $additionalContainers.tag }}"
+    image: "{{ $additionalContainers.image.repository }}:{{ $additionalContainers.image.tag }}"
     {{- if $additionalContainers.livenessProbe }}
     livenessProbe:
       execArgs: {{$additionalContainers.livenessProbe.execArgs | quote}}
@@ -506,7 +506,7 @@ Returns kubernetes pod template configuration as code
 {{- define "jenkins.kubernetes-version" -}}
   {{- if .Values.controller.installPlugins -}}
     {{- range .Values.controller.installPlugins -}}
-      {{ if hasPrefix "kubernetes:" . }}
+      {{- if hasPrefix "kubernetes:" . }}
         {{- $split := splitList ":" . }}
         {{- printf "%s" (index $split 1 ) -}}
       {{- end -}}
@@ -559,11 +559,11 @@ Create the name of the service account for Jenkins backup to use
 {{/*
 Create a full tag name for controller image
 */}}
-{{- define "controller.tag" -}}
-{{- if .Values.controller.tagLabel -}}
-    {{- default (printf "%s-%s" .Chart.AppVersion .Values.controller.tagLabel) .Values.controller.tag -}}
+{{- define "controller.image.tag" -}}
+{{- if .Values.controller.image.tagLabel -}}
+    {{- default (printf "%s-%s" .Chart.AppVersion .Values.controller.image.tagLabel) .Values.controller.image.tag -}}
 {{- else -}}
-    {{- default .Chart.AppVersion .Values.controller.tag -}}
+    {{- default .Chart.AppVersion .Values.controller.image.tag -}}
 {{- end -}}
 {{- end -}}
 
@@ -583,7 +583,7 @@ Create the HTTP port for interacting with the controller
 {{- $containerName := index . 1 -}}
 {{- $containerType := index . 2 -}}
 - name: {{ $containerName }}
-  image: "{{ $root.Values.controller.sidecars.configAutoReload.image }}"
+  image: "{{ $root.Values.controller.sidecars.configAutoReload.image.registry }}/{{ $root.Values.controller.sidecars.configAutoReload.image.repository }}:{{ $root.Values.controller.sidecars.configAutoReload.image.tag }}"
   imagePullPolicy: {{ $root.Values.controller.sidecars.configAutoReload.imagePullPolicy }}
   {{- if $root.Values.controller.sidecars.configAutoReload.containerSecurityContext }}
   securityContext: {{- toYaml $root.Values.controller.sidecars.configAutoReload.containerSecurityContext | nindent 4 }}
