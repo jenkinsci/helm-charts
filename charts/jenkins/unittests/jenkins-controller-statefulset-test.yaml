@@ -72,7 +72,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.426.2-jdk17
+                    image: docker.io/jenkins/jenkins:2.426.2-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -149,7 +149,7 @@ tests:
                         value: POST
                       - name: REQ_RETRY_CONNECT
                         value: "10"
-                    image: kiwigrid/k8s-sidecar:1.24.4
+                    image: docker.io/kiwigrid/k8s-sidecar:1.24.4
                     imagePullPolicy: IfNotPresent
                     securityContext:
                       readOnlyRootFilesystem: true
@@ -176,7 +176,7 @@ tests:
                       value: my-namespace
                     - name: METHOD
                       value: LIST
-                    image: kiwigrid/k8s-sidecar:1.24.4
+                    image: docker.io/kiwigrid/k8s-sidecar:1.24.4
                     imagePullPolicy: IfNotPresent
                     resources: {}
                     securityContext:
@@ -191,7 +191,7 @@ tests:
                     command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.426.2-jdk17
+                    image: docker.io/jenkins/jenkins:2.426.2-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -363,42 +363,43 @@ tests:
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tag: 2.426.2-slim
-      controller.imagePullPolicy: IfNotPresent
+      controller.image.tag: 2.426.2-slim
+      controller.image.pullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2-slim
+          value: docker.io/jenkins/jenkins:2.426.2-slim
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
   - it: configure image tag label
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tagLabel: alpine
+      controller.image.tagLabel: alpine
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2-alpine
+          value: docker.io/jenkins/jenkins:2.426.2-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tagLabel:
+      controller.image.tagLabel:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2
+          value: docker.io/jenkins/jenkins:2.426.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
       controller:
-        image: registry/image
-        tag: my-tag
+        image:
+          repository: registry/image
+          tag: my-tag
         javaOpts: -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: registry/image:my-tag
+          value: docker.io/registry/image:my-tag
       - contains:
           path: spec.template.spec.containers[0].env
           content:
