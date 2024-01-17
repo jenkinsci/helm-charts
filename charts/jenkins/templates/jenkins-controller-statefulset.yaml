@@ -25,6 +25,7 @@ metadata:
 spec:
   serviceName: {{ template "jenkins.fullname" . }}
   replicas: 1
+  podManagementPolicy: {{ .Values.controller.podManagementPolicy }}
   selector:
     matchLabels:
       "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
