@@ -388,6 +388,11 @@ tests:
           defaultMode: "600"
           mountPath: /var/myapp/mysecret
           secretName: mysecret
+        - type: EphemeralVolume
+          mountPath: /var/myapp/myephemeralvolume
+          accessModes: ReadWriteOnce
+          requestsSize: 2Gi
+          storageClassName: test-storageclass
         annotations:
           ci.jenkins-agent/test: "custom"
         yamlTemplate: |-
@@ -494,7 +499,7 @@ tests:
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
-                      id: 6de9914dfb9678a4f580464e046eea7dabd8ade25357bdbe43447cf3be2264ae
+                      id: 8d8b353b1f27b74148ea53bdafaa66c35d1f18a4d1f9bf7eb119fbcc3d0ae4f4
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -554,6 +559,11 @@ tests:
                             defaultMode: "600"
                             mountPath: "/var/myapp/mysecret"
                             secretName: "mysecret"
+                        - genericEphemeralVolume:
+                            accessModes: "ReadWriteOnce"
+                            mountPath: "/var/myapp/myephemeralvolume"
+                            requestsSize: "2Gi"
+                            storageClassName: "test-storageclass"
                       yaml: |-
                         apiVersion: v1
                         kind: Pod
@@ -575,6 +585,115 @@ tests:
               location:
                 adminAddress: admin@example.org
                 url: https://jenkins.example.com
+  - it: custom ephemeral storage workspace volume
+    set:
+      agent:
+        workspaceVolume:
+          type: "EphemeralVolume"
+          accessModes: "ReadWriteOnce"
+          requestsSize: "2Gi"
+          storageClassName: "test-storageclass"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - equal:
+          path: data["jcasc-default-config.yaml"]
+          value: |-
+            jenkins:
+              authorizationStrategy:
+                loggedInUsersCanDoAnything:
+                  allowAnonymousRead: false
+              securityRealm:
+                local:
+                  allowsSignup: false
+                  enableCaptcha: false
+                  users:
+                  - id: "${chart-admin-username}"
+                    name: "Jenkins Admin"
+                    password: "${chart-admin-password}"
+              disableRememberMe: false
+              mode: NORMAL
+              numExecutors: 0
+              labelString: ""
+              projectNamingStrategy: "standard"
+              markupFormatter:
+                plainText
+              clouds:
+              - kubernetes:
+                  containerCapStr: "10"
+                  defaultsProviderTemplate: ""
+                  connectTimeout: "5"
+                  readTimeout: "15"
+                  jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+                  jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                  maxRequestsPerHostStr: "32"
+                  retentionTimeout: "5"
+                  waitForPodSec: "600"
+                  name: "kubernetes"
+                  namespace: "default"
+                  serverUrl: "https://kubernetes.default"
+                  credentialsId: ""
+                  podLabels:
+                  - key: "jenkins/RELEASE-NAME-jenkins-agent"
+                    value: "true"
+                  templates:
+                    - name: "default"
+                      namespace: "default"
+                      id: ea5eb73a5f6e8914d92a87ba9567e3253aa768f60ec4cddb6a7d4c9189ba0889
+                      containers:
+                      - name: "jnlp"
+                        alwaysPullImage: false
+                        args: "^${computer.jnlpmac} ^${computer.name}"
+                        command:
+                        envVars:
+                          - envVar:
+                              key: "JENKINS_URL"
+                              value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                        image: "jenkins/inbound-agent:3192.v713e3b_039fb_e-5"
+                        privileged: "false"
+                        resourceLimitCpu: 512m
+                        resourceLimitMemory: 512Mi
+                        resourceRequestCpu: 512m
+                        resourceRequestMemory: 512Mi
+                        runAsUser:
+                        runAsGroup:
+                        ttyEnabled: false
+                        workingDir: /home/jenkins/agent
+                      idleMinutes: 0
+                      instanceCap: 2147483647
+                      label: "RELEASE-NAME-jenkins-agent "
+                      nodeUsageMode: "NORMAL"
+                      podRetention: Never
+                      showRawYaml: true
+                      serviceAccount: "default"
+                      slaveConnectTimeoutStr: "100"
+                      workspaceVolume:
+                        genericEphemeralVolume:
+                          accessModes: "ReadWriteOnce"
+                          requestsSize: "2Gi"
+                          storageClassName: "test-storageclass"
+                      yamlMergeStrategy: override
+              crumbIssuer:
+                standard:
+                  excludeClientIPFromCrumb: true
+            security:
+              apiToken:
+                creationOfLegacyTokenEnabled: false
+                tokenGenerationOnCreationEnabled: false
+                usageStatisticsEnabled: true
+            unclassified:
+              location:
+                adminAddress:
+                url: http://RELEASE-NAME-jenkins:8080
   - it: custom dynamic pvc workspace volume
     set:
       agent:
