@@ -482,6 +482,8 @@ Returns kubernetes pod template configuration as code
     dynamicPVC:
     {{- else if (eq .Values.agent.workspaceVolume.type "EmptyDir") }}
     emptyDirWorkspaceVolume:
+    {{- else if (eq .Values.agent.workspaceVolume.type "EphemeralVolume") }}
+    genericEphemeralVolume:
     {{- else if (eq .Values.agent.workspaceVolume.type "HostPath") }}
     hostPathWorkspaceVolume:
     {{- else if (eq .Values.agent.workspaceVolume.type "Nfs") }}

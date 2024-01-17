@@ -712,7 +712,7 @@ agent:
   # Pod-wide environment, these vars are visible to any container in the agent pod
 
   # You can define the workspaceVolume that you want to mount for this container
-  # Allowed types are: DynamicPVC, EmptyDir, HostPath, Nfs, PVC
+  # Allowed types are: DynamicPVC, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
   workspaceVolume: {}
@@ -722,6 +722,11 @@ agent:
   ## EmptyDir example
   # type: EmptyDir
   # memory: false
+  ## EphemeralVolume example
+  # type: EphemeralVolume
+  # accessModes: ReadWriteOnce
+  # requestsSize: 10Gi
+  # storageClassName: mystorageclass
   ## HostPath example
   # type: HostPath
   # hostPath: /var/lib/containers
