@@ -388,6 +388,11 @@ tests:
           defaultMode: "600"
           mountPath: /var/myapp/mysecret
           secretName: mysecret
+        - type: EphemeralVolume
+          mountPath: /var/myapp/myephemeralvolume
+          accessModes: ReadWriteOnce
+          requestsSize: 2Gi
+          storageClassName: test-storageclass
         annotations:
           ci.jenkins-agent/test: "custom"
         yamlTemplate: |-
@@ -494,7 +499,7 @@ tests:
                       annotations:
                       - key: ci.jenkins-agent/test
                         value: "custom"
-                      id: 6de9914dfb9678a4f580464e046eea7dabd8ade25357bdbe43447cf3be2264ae
+                      id: 8d8b353b1f27b74148ea53bdafaa66c35d1f18a4d1f9bf7eb119fbcc3d0ae4f4
                       containers:
                       - name: "sideContainer"
                         alwaysPullImage: true
@@ -554,6 +559,11 @@ tests:
                             defaultMode: "600"
                             mountPath: "/var/myapp/mysecret"
                             secretName: "mysecret"
+                        - genericEphemeralVolume:
+                            accessModes: "ReadWriteOnce"
+                            mountPath: "/var/myapp/myephemeralvolume"
+                            requestsSize: "2Gi"
+                            storageClassName: "test-storageclass"
                       yaml: |-
                         apiVersion: v1
                         kind: Pod

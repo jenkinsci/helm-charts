@@ -14,6 +14,8 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 4.12.0
 
+Add support for setting [generic ephemeral storage](https://github.com/jenkinsci/kubernetes-plugin/pull/1489) in `agent.volumes`.
+
 | plugin     | old version         | new version        |
 |------------|---------------------|--------------------|
 | kubernetes | 4029.v5712230ccb_f8 | 4174.v4230d0ccd951 |

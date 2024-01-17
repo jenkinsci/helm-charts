@@ -462,6 +462,7 @@ Returns kubernetes pod template configuration as code
   {{- range $index, $volume := .Values.agent.volumes }}
     -{{- if (eq $volume.type "ConfigMap") }} configMapVolume:
      {{- else if (eq $volume.type "EmptyDir") }} emptyDirVolume:
+     {{- else if (eq $volume.type "EphemeralVolume") }} genericEphemeralVolume:
      {{- else if (eq $volume.type "HostPath") }} hostPathVolume:
      {{- else if (eq $volume.type "Nfs") }} nfsVolume:
      {{- else if (eq $volume.type "PVC") }} persistentVolumeClaim:
