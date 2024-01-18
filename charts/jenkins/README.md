@@ -1015,20 +1015,20 @@ Chart release versions follow [SemVer](../../CONTRIBUTING.md#versioning), where 
 ### To 5.0.0
 
 - `controller.image` has been split up and is now:
-    - `controller.image.registry`
-    - `controller.image.repository`
-    - `controller.image.tag`
-    - `controller.image.tagLabel`
+  - `controller.image.registry`
+  - `controller.image.repository`
+  - `controller.image.tag`
+  - `controller.image.tagLabel`
 - `controller.imagePullPolicy` has been renamed to `controller.image.pullPolicy`.
 - `controller.sidecars.configAutoReload.image` has been split up and is now:
-    - `controller.sidecars.configAutoReload.image.registry`
-    - `controller.sidecars.configAutoReload.image.repository`
-    - `controller.sidecars.configAutoReload.image.tag`
+  - `controller.sidecars.configAutoReload.image.registry`
+  - `controller.sidecars.configAutoReload.image.repository`
+  - `controller.sidecars.configAutoReload.image.tag`
 - `controller.sidecars.other` has been renamed to `controller.sidecars.additionalSidecarContainers`.
 - `agent.image` has been split up and is now:
-    - `agent.image.repository`
-    - `agent.image.tag`
-    - The registry can still be overwritten by `agent.jnlpregistry`
+  - `agent.image.repository`
+  - `agent.image.tag`
+  - The registry can still be overwritten by `agent.jnlpregistry`
 - `agent.additionalContainers[*].image` has been renamed to `agent.additionalContainers[*].image.repository`
 - `agent.additionalContainers[*].tag` has been renamed to `agent.additionalContainers[*].image.tag`
 - `additionalAgents.*.image` has been renamed to `additionalAgents.*.image.repository`
@@ -1036,9 +1036,9 @@ Chart release versions follow [SemVer](../../CONTRIBUTING.md#versioning), where 
 - `additionalClouds.*.additionalAgents.*.image` has been renamed to `additionalClouds.*.additionalAgents.*.image.repository`
 - `additionalClouds.*.additionalAgents.*.tag` has been renamed to `additionalClouds.*.additionalAgents.*.image.tag`
 - `helmtest.bats.image` has been split up and is now:
-    - `helmtest.bats.image.registry`
-    - `helmtest.bats.image.repository`
-    - `helmtest.bats.image.tag`
+  - `helmtest.bats.image.registry`
+  - `helmtest.bats.image.repository`
+  - `helmtest.bats.image.tag`
 
 ### To 3.0.0
 
