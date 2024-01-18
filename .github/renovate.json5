@@ -1,5 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  dependencyDashboard: true,
   semanticCommits: "enabled",
   enabledManagers: ["helm-values", "github-actions", "regex"],
   packageRules: [
