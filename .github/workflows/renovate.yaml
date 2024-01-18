@@ -43,8 +43,8 @@ jobs:
           token: "${{ steps.get_token.outputs.token }}"
           docker-volumes: |
             /tmp:/tmp ;
-            ${{ steps.helm.outputs.helm-path }}:/bin/helm ;
-            ${{ env.HELM_PLUGINS }}/helm-unittest:/bin/helm-plugins/helm-unittest ;
+            ${{ steps.helm.outputs.helm-path }}:/usr/bin/helm ;
+            ${{ env.HELM_PLUGINS }}/helm-unittest:/usr/bin/helm-plugins/helm-unittest ;
           env-regex: "^(?:RENOVATE_\\w+|LOG_LEVEL|GITHUB_COM_TOKEN|NODE_OPTIONS|HELM_PLUGINS)$"
         env:
           HELM_PLUGINS: "/bin/helm-plugins"
