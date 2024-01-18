@@ -1594,7 +1594,7 @@ customized config:
                 annotations:
                 - key: ci.jenkins-agent/test
                   value: "custom"
-                id: 8ba5a0e2dd6b8818d35e85e129a583f866de95aa322595bfdf24c61e9831009c
+                id: bd55f3780fa955cad283f2dcfcd00d0443125771f7b888be585e1b8846feece7
                 containers:
                 - name: "sideContainer"
                   alwaysPullImage: true
@@ -1654,6 +1654,11 @@ customized config:
                       defaultMode: "600"
                       mountPath: "/var/myapp/mysecret"
                       secretName: "mysecret"
+                  - genericEphemeralVolume:
+                      accessModes: "ReadWriteOnce"
+                      mountPath: "/var/myapp/myephemeralvolume"
+                      requestsSize: "2Gi"
+                      storageClassName: "test-storageclass"
                 yaml: |-
                   apiVersion: v1
                   kind: Pod
