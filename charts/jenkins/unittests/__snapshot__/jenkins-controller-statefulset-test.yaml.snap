@@ -1,3 +1,9 @@
+configure empty image tag label:
+  1: |
+    docker.io/jenkins/jenkins:2.426.2
+configure image tag label:
+  1: |
+    docker.io/jenkins/jenkins:2.426.2-alpine
 default values:
   1: |
     replicas: 1
