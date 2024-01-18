@@ -4,29 +4,32 @@
   enabledManagers: [
     "helm-values",
     "github-actions",
-    "regex"
+    "regex",
   ],
   packageRules: [
     {
       matchDepNames: ["jenkins/inbound-agent"],
-      versioning: "loose"
+      versioning: "loose",
     },
     {
       matchManagers: [
         "github-actions",
         "regex"
       ],
-      schedule: ["every monday"]
+      schedule: ["every monday"],
     },
     {
       matchManagers: ["helm-values"],
       bumpVersion: "minor",
       postUpgradeTasks: {
-        "commands": ["helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u"],
+        "commands": [
+          "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u",
+          "nextVersion=$(sed -n 's/^version:[[:space:]]*\\(.*\\)/\\1/p' \"charts/jenkins/Chart.yaml\") sed -i '/git commit to be able to get more details./a \\\\n## ${nextVersion}\\n\\nUpdate {{{depName}}} to version {{{newVersion}}}\\n' charts/jenkins/CHANGELOG.md\n"
+        ],
         "fileFilters": ["charts/jenkins/**"],
-        "executionMode": "update"
-      }
-    }
+        "executionMode": "update",
+      },
+    },
   ],
   customManagers: [
     {
@@ -36,10 +39,21 @@
       ],
       matchStrings: [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( extractVersion=(?<extractVersion>.*?))?( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s"
-      ]
+      ],
+    },
+    {
+      customType: "regex",
+      fileMatch: [
+        ".github/workflows/.+\\.ya?ml$"
+      ],
+      matchStrings: [
+        "helm plugin install https://github.com/(?<depName>.*?) --version (?<currentValue>.*)\\s"
+      ],
+      datasourceTemplate: "github-tags"
     }
   ],
   allowedPostUpgradeCommands: [
-    "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u",
+    "^helm unittest .*",
+    "^nextVersion .*",
   ],
 }
