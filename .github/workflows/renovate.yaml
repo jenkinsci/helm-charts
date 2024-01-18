@@ -35,7 +35,6 @@ jobs:
           version: v3.12.0
 
       - name: install helm unittests
-        if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm env
           helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
