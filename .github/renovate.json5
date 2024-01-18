@@ -1,59 +1,63 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
-  semanticCommits: "auto",
-  enabledManagers: [
-    "helm-values",
-    "github-actions",
-    "regex",
-  ],
+  semanticCommits: "enabled",
+  enabledManagers: ["helm-values", "github-actions", "regex"],
   packageRules: [
     {
       matchDepNames: ["jenkins/inbound-agent"],
-      versioning: "loose",
+      versioning: "loose"
     },
     {
-      matchManagers: [
-        "github-actions",
-        "regex"
-      ],
-      schedule: ["every monday"],
+      matchManagers: ["github-actions", "regex"],
+      schedule: ["every monday"]
     },
     {
-      matchManagers: ["helm-values"],
-      bumpVersion: "minor",
+      matchFileNames: ["charts/jenkins/**"],
       postUpgradeTasks: {
-        "commands": [
+        commands: [
           "helm unittest --strict -f 'unittests/*.yaml' charts/jenkins -u",
-          "nextVersion=$(sed -n 's/^version:[[:space:]]*\\(.*\\)/\\1/p' \"charts/jenkins/Chart.yaml\") sed -i '/git commit to be able to get more details./a \\\\n## ${nextVersion}\\n\\nUpdate {{{depName}}} to version {{{newVersion}}}\\n' charts/jenkins/CHANGELOG.md\n"
+          "yq eval '.version = \"${NEXT_VERSION}\"' -i charts/jenkins/Chart.yaml",
+          "sed -i '/git commit to be able to get more details./a \\\\n## ${NEXT_VERSION}\\n\\nUpdate {{{depName}}} to version {{{newVersion}}}\\n' charts/jenkins/CHANGELOG.md\n"
         ],
-        "fileFilters": ["charts/jenkins/**"],
-        "executionMode": "update",
-      },
-    },
+        fileFilters: ["charts/jenkins/**"],
+        executionMode: "update"
+      }
+    }
   ],
   customManagers: [
     {
       customType: "regex",
-      fileMatch: [
-        "(^|/)\\.github/workflows/[^/]+\\.ya?ml$"
-      ],
+      fileMatch: ["(^|/)\\.github/workflows/[^/]+\\.ya?ml$"],
       matchStrings: [
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( extractVersion=(?<extractVersion>.*?))?( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s"
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( extractVersion=(?<extractVersion>.*?))?( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version: (?<currentValue>.*)\\s",
+        "helm plugin install https://github.com/(?<depName>.*?) --version (?<currentValue>.*?)\\s"
       ],
+      datasourceTemplate: "github-tags"
     },
     {
       customType: "regex",
       fileMatch: [
-        ".github/workflows/.+\\.ya?ml$"
+        "^charts/jenkins/Chart.yaml$",
+        "^charts/jenkins/values.yaml$"
       ],
       matchStrings: [
-        "helm plugin install https://github.com/(?<depName>.*?) --version (?<currentValue>.*)\\s"
+        "appVersion: (?<currentValue>.*?)\\s",
+        'repository: \\"jenkins/jenkins\\"\\s*?# tag: \\"(?<currentValue>.*?)-.*\\"'
       ],
-      datasourceTemplate: "github-tags"
+      depNameTemplate: "jenkins/jenkins",
+      datasourceTemplate: "docker",
+      versioningTemplate: "regex:^(?<major>\\d+)\\.(?<minor>\\d+)\\.(?<patch>\\d+)-lts"
+    },
+    {
+      customType: "regex",
+      fileMatch: ["^charts/jenkins/values.yaml$"],
+      matchStringsStrategy: "recursive",
+      matchStrings: [
+        "installPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
+        "- (?<depName>.*?):(?<currentValue>.*?)\\s"
+      ],
+      datasourceTemplate: "jenkins-plugins"
     }
   ],
-  allowedPostUpgradeCommands: [
-    "^helm unittest .*",
-    "^nextVersion .*",
-  ],
+  allowedPostUpgradeCommands: ["^helm unittest .*", "^sed .*", "^yq .*"]
 }

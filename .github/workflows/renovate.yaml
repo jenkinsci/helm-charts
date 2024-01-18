@@ -18,11 +18,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Update version in Chart.yaml
-        uses: mikefarah/yq@v4.40.5
-        if: ${{ steps.update.outputs.available == 'true' }}
+      - name: 🏗 Set up yq
+        uses: frenck/action-setup-yq@v1.0.2
+
+      - name: next release version
+        id: nextversion
+        uses: jenkins-x-plugins/jx-release-version@v2.7.1
         with:
-          cmd: yq eval '.version = "${{ steps.nextversion.outputs.version }}"' -i charts/jenkins/Chart.yaml
+          previous-version: from-file:charts/jenkins/Chart.yaml
 
       - name: Set up Helm
         id: helm
@@ -45,6 +48,8 @@ jobs:
             /tmp:/tmp ;
             ${{ steps.helm.outputs.helm-path }}:/usr/bin/helm ;
             ${{ env.HELM_PLUGINS }}/helm-unittest:/usr/bin/helm-plugins/helm-unittest ;
-          env-regex: "^(?:RENOVATE_\\w+|LOG_LEVEL|GITHUB_COM_TOKEN|NODE_OPTIONS|HELM_PLUGINS)$"
+            ${{ env.RUNNER_TEMP }}/yq/yq:/usr/bin/yq ;
+          env-regex: "^(?:RENOVATE_\\w+|LOG_LEVEL|GITHUB_COM_TOKEN|NODE_OPTIONS|HELM_PLUGINS|NEXT_VERSION)$"
         env:
           HELM_PLUGINS: "/bin/helm-plugins"
+          NEXT_VERSION: ${{ steps.nextversion.outputs.version }}
