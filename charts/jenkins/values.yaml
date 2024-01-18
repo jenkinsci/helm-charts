@@ -249,7 +249,7 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:4029.v5712230ccb_f8
+    - kubernetes:4174.v4230d0ccd951
     - workflow-aggregator:596.v8c21c963d92d
     - git:5.1.0
     - configuration-as-code:1670.v564dc8b_982d0
@@ -684,7 +684,7 @@ agent:
   # or simply to clean up the output to make it easier to read.
   showRawYaml: true
   # You can define the volumes that you want to mount for this container
-  # Allowed types are: ConfigMap, EmptyDir, HostPath, Nfs, PVC, Secret
+  # Allowed types are: ConfigMap, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
   volumes: []
@@ -694,6 +694,11 @@ agent:
   # - type: EmptyDir
   #   mountPath: /var/myapp/myemptydir
   #   memory: false
+  # - type: EphemeralVolume
+  #   mountPath: /var/myapp/myephemeralvolume
+  #   accessModes: ReadWriteOnce
+  #   requestsSize: 10Gi
+  #   storageClassName: mystorageclass
   # - type: HostPath
   #   hostPath: /var/lib/containers
   #   mountPath: /var/myapp/myhostpath
@@ -713,7 +718,7 @@ agent:
   # Pod-wide environment, these vars are visible to any container in the agent pod
 
   # You can define the workspaceVolume that you want to mount for this container
-  # Allowed types are: DynamicPVC, EmptyDir, HostPath, Nfs, PVC
+  # Allowed types are: DynamicPVC, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
   workspaceVolume: {}
@@ -723,6 +728,11 @@ agent:
   ## EmptyDir example
   # type: EmptyDir
   # memory: false
+  ## EphemeralVolume example
+  # type: EphemeralVolume
+  # accessModes: ReadWriteOnce
+  # requestsSize: 10Gi
+  # storageClassName: mystorageclass
   ## HostPath example
   # type: HostPath
   # hostPath: /var/lib/containers

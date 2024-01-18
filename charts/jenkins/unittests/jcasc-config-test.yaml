@@ -147,6 +147,11 @@ tests:
           defaultMode: "600"
           mountPath: /var/myapp/mysecret
           secretName: mysecret
+        - type: EphemeralVolume
+          mountPath: /var/myapp/myephemeralvolume
+          accessModes: ReadWriteOnce
+          requestsSize: 2Gi
+          storageClassName: test-storageclass
         annotations:
           ci.jenkins-agent/test: "custom"
         yamlTemplate: |-

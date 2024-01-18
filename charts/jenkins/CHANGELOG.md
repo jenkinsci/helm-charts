@@ -12,6 +12,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 4.12.0
+
+Add support for [generic ephemeral storage](https://github.com/jenkinsci/kubernetes-plugin/pull/1489) in `agent.volumes` and `agents.workspaceVolume`.
+
+| plugin     | old version         | new version        |
+|------------|---------------------|--------------------|
+| kubernetes | 4029.v5712230ccb_f8 | 4174.v4230d0ccd951 |
+
 ## 4.11.2
 
 Fixed documentation for controller.initScripts.
