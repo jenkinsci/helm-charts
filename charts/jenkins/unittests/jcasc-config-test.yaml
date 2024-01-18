@@ -575,7 +575,6 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
   - it: set directConnection
     set:
       agent:
@@ -619,7 +618,6 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
   - it: agents with liveness probe
     set:
       agent:
@@ -651,7 +649,6 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
   - it: additional clouds
     set:
       additionalClouds:
@@ -672,7 +669,6 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
   - it: additional clouds inheriting additional agents
     set:
       additionalAgents:
@@ -701,7 +697,6 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
   - it: additional clouds overriding additional agents
     set:
       additionalAgents:
