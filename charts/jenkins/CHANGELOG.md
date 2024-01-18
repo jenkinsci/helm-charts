@@ -12,6 +12,35 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.0.0
+
+*Breaking changes:*
+- `controller.image` has been removed. If you want to overwrite the image you now need to configure any or all of:
+    - `controller.image.registry`
+    - `controller.image.repository`
+    - `controller.image.tag`
+    - `controller.image.tagLabel`
+- `controller.imagePullPolicy` has been removed. If you want to overwrite the pull policy you now need to configure `controller.image.pullPolicy`.
+- `controller.sidecars.configAutoReload.image` has been removed. If you want to overwrite the configAutoReload image you now need to configure any or all of:
+    - `controller.sidecars.configAutoReload.image.registry`
+    - `controller.sidecars.configAutoReload.image.repository`
+    - `controller.sidecars.configAutoReload.image.tag`
+- `controller.sidecars.other` has been renamed to `controller.sidecars.additionalSidecarContainers`.
+- `agent.image` has been removed. If you want to overwrite the agent image you now need to configure any or all of:
+    - `agent.image.repository`
+    - `agent.image.tag`
+    - The registry can still be overwritten by `agent.jnlpregistry`
+- `agent.additionalContainers[*].image` has been renamed to `agent.additionalContainers[*].image.repository`
+- `agent.additionalContainers[*].tag` has been renamed to `agent.additionalContainers[*].image.tag`
+- `additionalAgents.*.image` has been renamed to `additionalAgents.*.image.repository`
+- `additionalAgents.*.tag` has been renamed to `additionalAgents.*.image.tag`
+- `additionalClouds.*.additionalAgents.*.image` has been renamed to `additionalClouds.*.additionalAgents.*.image.repository`
+- `additionalClouds.*.additionalAgents.*.tag` has been renamed to `additionalClouds.*.additionalAgents.*.image.tag`
+- `helmtest.bats.image` has been split up to:
+    - `helmtest.bats.image.registry`
+    - `helmtest.bats.image.repository`
+    - `helmtest.bats.image.tag`
+
 ## 4.12.0
 
 Add support for [generic ephemeral storage](https://github.com/jenkinsci/kubernetes-plugin/pull/1489) in `agent.volumes` and `agents.workspaceVolume`.
