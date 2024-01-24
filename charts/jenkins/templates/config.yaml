@@ -28,6 +28,9 @@ data:
     # remove all plugins from shared volume
     rm -rf {{ .Values.controller.jenkinsHome }}/plugins/*
 {{- end }}
+{{- if .Values.controller.JCasC.overwriteConfiguration }}
+    rm -rf {{ .Values.controller.jenkinsHome }}/config.xml
+{{- end }}
 {{- if .Values.controller.installPlugins }}
     echo "download plugins"
     # Install missing plugins
