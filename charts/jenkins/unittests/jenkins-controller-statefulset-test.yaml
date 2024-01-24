@@ -72,7 +72,7 @@ tests:
                         value: "50000"
                       - name: CASC_JENKINS_CONFIG
                         value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.426.2-jdk17
+                    image: jenkins/jenkins:2.426.3-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -191,7 +191,7 @@ tests:
                     command:
                       - sh
                       - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.426.2-jdk17
+                    image: jenkins/jenkins:2.426.3-jdk17
                     imagePullPolicy: Always
                     securityContext:
                       runAsUser: 1000
@@ -363,12 +363,12 @@ tests:
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tag: 2.426.2-slim
+      controller.tag: 2.426.3-slim
       controller.imagePullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2-slim
+          value: jenkins/jenkins:2.426.3-slim
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
@@ -379,7 +379,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2-alpine
+          value: jenkins/jenkins:2.426.3-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
@@ -387,7 +387,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.2
+          value: jenkins/jenkins:2.426.3
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
