@@ -29,7 +29,10 @@ data:
     rm -rf {{ .Values.controller.jenkinsHome }}/plugins/*
 {{- end }}
 {{- if .Values.controller.JCasC.overwriteConfiguration }}
-    rm -rf {{ .Values.controller.jenkinsHome }}/config.xml
+    echo "deleting all XML config files"
+    rm -f {{ .Values.controller.jenkinsHome }}/config.xml
+    rm -f {{ .Values.controller.jenkinsHome }}/*plugins*.xml
+    find {{ .Values.controller.jenkinsHome }} -maxdepth 1 -type f -iname '*configuration*.xml' -exec rm -f {} \;
 {{- end }}
 {{- if .Values.controller.installPlugins }}
     echo "download plugins"

@@ -25,7 +25,7 @@ controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
   image: "jenkins/jenkins"
-  # tag: "2.426.2-jdk17"
+  # tag: "2.426.3-jdk17"
   tagLabel: jdk17
   imagePullPolicy: "Always"
   imagePullSecretName:
@@ -330,7 +330,7 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
-    # Jenkins Config as Code overwrites any existing configuration
+    # If true, the init container deletes all the plugin config files and Jenkins Config as Code overwrites any existing configuration
     overwriteConfiguration: false
     configUrls: []
     # - https://acme.org/jenkins.yaml
