@@ -40,6 +40,8 @@ Those entries include a reference to the git commit to be able to get more detai
   - `helmtest.bats.image.registry`
   - `helmtest.bats.image.repository`
   - `helmtest.bats.image.tag`
+- `controller.adminUsername` and `controller.adminPassword` have been renamed to `controller.admin.username` and `controller.admin.password` respectively
+- `controller.adminSecret` has been renamed to `controller.admin.createSecret`
 
 ## 4.12.1
 

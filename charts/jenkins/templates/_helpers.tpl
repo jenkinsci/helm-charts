@@ -61,8 +61,8 @@ Returns the admin password
 https://github.com/helm/charts/issues/5167#issuecomment-619137759
 */}}
 {{- define "jenkins.password" -}}
-  {{- if .Values.controller.adminPassword -}}
-    {{- .Values.controller.adminPassword | b64enc | quote }}
+  {{- if .Values.controller.admin.password -}}
+    {{- .Values.controller.admin.password | b64enc | quote }}
   {{- else -}}
     {{- $secret := (lookup "v1" "Secret" .Release.Namespace (include "jenkins.fullname" .)).data -}}
     {{- if $secret -}}

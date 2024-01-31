@@ -45,20 +45,23 @@ controller:
   # This is ignored if enableRawHtmlMarkupFormatter is true
   markupFormatter: plainText
   customJenkinsLabels: []
-  # The default configuration uses this secret to configure an admin user
-  # If you don't need that user or use a different security realm then you can disable it
-  adminSecret: true
 
   hostNetworking: false
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
-  # you should revert controller.adminUser to your preferred admin user:
-  adminUser: "admin"
-  # adminPassword: <defaults to random>
+  # you should revert controller.admin.username to your preferred admin user:
   admin:
-    existingSecret: ""
+    username: "admin"
+    # password: <defaults to random>
+
     userKey: jenkins-admin-user
     passwordKey: jenkins-admin-password
+
+    # The default configuration uses this secret to configure an admin user
+    # If you don't need that user or use a different security realm then you can disable it
+    createSecret: true
+    existingSecret: ""
+
   # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use
   # Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
   jenkinsHome: "/var/jenkins_home"

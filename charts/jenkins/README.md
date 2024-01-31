@@ -1039,6 +1039,8 @@ Chart release versions follow [SemVer](../../CONTRIBUTING.md#versioning), where 
   - `helmtest.bats.image.registry`
   - `helmtest.bats.image.repository`
   - `helmtest.bats.image.tag`
+- `controller.adminUsername` and `controller.adminPassword` have been renamed to `controller.admin.username` and `controller.admin.password` respectively
+- `controller.adminSecret` has been renamed to `controller.admin.createSecret`
 
 ### To 3.0.0
 
