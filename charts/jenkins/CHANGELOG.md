@@ -41,6 +41,10 @@ Those entries include a reference to the git commit to be able to get more detai
   - `helmtest.bats.image.repository`
   - `helmtest.bats.image.tag`
 
+## 4.12.1
+
+Update Jenkins image and appVersion to jenkins lts release version 2.426.3
+
 ## 4.12.0
 
 Add support for [generic ephemeral storage](https://github.com/jenkinsci/kubernetes-plugin/pull/1489) in `agent.volumes` and `agents.workspaceVolume`.
