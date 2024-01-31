@@ -13,7 +13,7 @@ The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
 ## 5.0.0
-### Breaking changes
+### Breaking changes - 5.0.0
 
 - `controller.image` has been removed. If you want to overwrite the image you now need to configure any or all of:
   - `controller.image.registry`
@@ -43,7 +43,7 @@ Those entries include a reference to the git commit to be able to get more detai
 - `controller.adminUsername` and `controller.adminPassword` have been renamed to `controller.admin.username` and `controller.admin.password` respectively
 - `controller.adminSecret` has been renamed to `controller.admin.createSecret`
 
-### Enhancements
+### Enhancements - 5.0.0
 
 The Helm Chart is now updated automatically via [Renovate](https://docs.renovatebot.com/)
 
