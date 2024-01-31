@@ -53,7 +53,8 @@ jobs:
         if: steps.list-changed.outputs.changed == 'true'
         run: |
           helm env
-          helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
+          # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
+          helm plugin install https://github.com/helm-unittest/helm-unittest --version v0.3.6
 
       - name: Run chart-testing (lint)
         run: ct lint --config ct.yaml

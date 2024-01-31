@@ -152,12 +152,12 @@ tests:
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.image.tag: 2.426.3-slim
+      controller.image.tag: slim
       controller.image.pullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.426.3-slim
+          value: docker.io/jenkins/jenkins:slim
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
@@ -186,7 +186,7 @@ tests:
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: registry/image:my-tag
+          value: docker.io/registry/image:my-tag
       - contains:
           path: spec.template.spec.containers[0].env
           content:

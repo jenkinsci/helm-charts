@@ -1,7 +1,7 @@
 name: Renovate
 on:
   schedule:
-    - cron: "0 * * * 3"
+    - cron: "0/15 * * * *"
   workflow_dispatch:
 
 jobs:
@@ -18,37 +18,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: 🏗 Set up yq
-        uses: frenck/action-setup-yq@v1.0.2
-
-      - name: next release version
-        id: nextversion
-        uses: jenkins-x-plugins/jx-release-version@v2.7.1
-        with:
-          previous-version: from-file:charts/jenkins/Chart.yaml
-
-      - name: Set up Helm
-        id: helm
-        uses: azure/setup-helm@v3
-        with:
-          # renovate: datasource=github-tags depName=helm/helm
-          version: v3.12.0
-
-      - name: install helm unittests
-        run: |
-          helm env
-          helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
-
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v39.2.4
+        uses: renovatebot/github-action@v40.0.0
         with:
           token: "${{ steps.get_token.outputs.token }}"
-          docker-volumes: |
-            /tmp:/tmp ;
-            ${{ steps.helm.outputs.helm-path }}:/usr/bin/helm ;
-            ${{ env.HELM_PLUGINS }}/helm-unittest:/usr/bin/helm-plugins/helm-unittest ;
-            ${{ env.RUNNER_TEMP }}/yq/yq:/usr/bin/yq ;
-          env-regex: "^(?:RENOVATE_\\w+|LOG_LEVEL|GITHUB_COM_TOKEN|NODE_OPTIONS|HELM_PLUGINS|NEXT_VERSION)$"
+          docker-cmd-file: .github/renovate-entrypoint.sh
+          docker-user: root
+          configurationFile: .github/renovate-config.json5
         env:
-          HELM_PLUGINS: "/bin/helm-plugins"
-          NEXT_VERSION: ${{ steps.nextversion.outputs.version }}
+          LOG_LEVEL: 'debug'
