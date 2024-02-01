@@ -31,7 +31,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.JCasC.authorizationStrategy`                        | Jenkins Config as Code for Authorization Strategy                                                                                 | `loggedInUsersCanDoAnything`                                      |
 | `controller.sidecars.configAutoReload`                          | Jenkins Config as Code auto-reload settings                                                                                       |                                                                   |
 | `controller.sidecars.configAutoReload.enabled`                  | Jenkins Config as Code auto-reload settings (Attention: rbac needs to be enabled otherwise the sidecar can't read the config map) | `true`                                                            |
-| `controller.sidecars.configAutoReload.image`                    | Image which triggers the reload                                                                                                   | `kiwigrid/k8s-sidecar:1.24.4`                                     |
+| `controller.sidecars.configAutoReload.image.registry`           | Registry for the image which triggers the reload                                                                                  | `docker.io`                                                       |
+| `controller.sidecars.configAutoReload.image.repository`         | Image which triggers the reload                                                                                                   | `kiwigrid/k8s-sidecar`                                            |
+| `controller.sidecars.configAutoReload.image.tag`                | Tag for the image which triggers the reload                                                                                       | `1.24.4`                                                          |
 | `controller.sidecars.configAutoReload.reqRetryConnect`          | How many connection-related errors to retry on                                                                                    | `10`                                                              |
 | `controller.sidecars.configAutoReload.sleepTime`                | How many seconds to wait before updating config-maps/secrets (sets METHOD=SLEEP on the sidecar)                                   | Not set                                                           |
 | `controller.sidecars.configAutoReload.envFrom`                  | Environment variable sources for the Jenkins Config as Code auto-reload container                                                 | Not set                                                           |
@@ -109,10 +111,11 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                                  | Description                                                                                                                  | Default                                                                                              |
 |--------------------------------------------|------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------|
-| `controller.image`                         | Controller image name                                                                                                        | `jenkins/jenkins`                                                                                    |
-| `controller.tagLabel`                      | Controller image tag label                                                                                                   | `jdk17`                                                                                              |
-| `controller.tag`                           | Controller image tag override                                                                                                | Not set                                                                                              |
-| `controller.imagePullPolicy`               | Controller image pull policy                                                                                                 | `Always`                                                                                             |
+| `controller.image.registry`                | Controller image registry                                                                                                    | `docker.io`                                                                                          |
+| `controller.image.repository`              | Controller image name                                                                                                        | `jenkins/jenkins`                                                                                    |
+| `controller.image.tagLabel`                | Controller image tag label                                                                                                   | `jdk17`                                                                                              |
+| `controller.image.tag`                     | Controller image tag override                                                                                                | Not set                                                                                              |
+| `controller.image.pullPolicy`              | Controller image pull policy                                                                                                 | `Always`                                                                                             |
 | `controller.imagePullSecretName`           | Controller image pull secret                                                                                                 | Not set                                                                                              |
 | `controller.resources`                     | Resources allocation (Requests and Limits)                                                                                   | `{requests: {cpu: 50m, memory: 256Mi}, limits: {cpu: 2000m, memory: 4096Mi}}`                        |
 | `controller.initContainerResources`        | Resources allocation (Requests and Limits) for Init Container                                                                | Not set                                                                                              |
@@ -255,9 +258,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Parameter                              | Description                                                                                                                                                                                   | Default      |
 |----------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------|
-| `controller.adminUser`                 | Admin username (and password) created as a secret if adminSecret is true                                                                                                                      | `admin`      |
-| `controller.adminPassword`             | Admin password (and user) created as a secret if adminSecret is true                                                                                                                          | Random value |
-| `controller.existingSecret`            | The name of an existing secret containing keys credentials.                                                                                                                                   | `""`         |
+| `controller.admin.username`            | Admin username (and password) created as a secret if `controller.admin.createSecret` is true                                                                                                  | `admin`      |
+| `controller.admin.password`            | Admin password (and user) created as a secret if `controller.admin.createSecret` is true                                                                                                      | Random value |
+| `controller.admin.existingSecret`      | The name of an existing secret containing keys credentials.                                                                                                                                   | `""`         |
 | `controller.additionalSecrets`         | List of additional secrets to create and mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets) | `[]`         |
 | `controller.additionalExistingSecrets` | List of additional existing secrets to mount according to [JCasC docs](https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets)   | `[]`         |
 | `controller.secretClaims`              | List of `SecretClaim` resources to create                                                                                                                                                     | `[]`         |
@@ -341,20 +344,21 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 #### Side Container Configuration
 
-| Parameter                 | Description                                    | Default                                                                      |
-|---------------------------|------------------------------------------------|------------------------------------------------------------------------------|
-| `agent.sideContainerName` | Side container name in agent                   | jnlp                                                                         |
-| `agent.image`             | Agent image name                               | `jenkins/inbound-agent`                                                      |
-| `agent.tag`               | Agent image tag                                | `3192.v713e3b_039fb_e-5`                                                     |
-| `agent.alwaysPullImage`   | Always pull agent container image before build | `false`                                                                      |
-| `agent.privileged`        | Agent privileged container                     | `false`                                                                      |
-| `agent.resources`         | Resources allocation (Requests and Limits)     | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}` |
-| `agent.runAsUser`         | Configure container user                       | Not set                                                                      |
-| `agent.runAsGroup`        | Configure container group                      | Not set                                                                      |
-| `agent.command`           | Executed command when side container starts    | Not set                                                                      |
-| `agent.args`              | Arguments passed to executed command           | `${computer.jnlpmac} ${computer.name}`                                       |
-| `agent.TTYEnabled`        | Allocate pseudo tty to the side container      | false                                                                        |
-| `agent.workingDir`        | Configure working directory for default agent  | `/home/jenkins/agent`                                                        |
+| Parameter                 | Description                                     | Default                                                                        |
+|---------------------------| ----------------------------------------------- |--------------------------------------------------------------------------------|
+| `agent.sideContainerName` | Side container name in agent                    | jnlp                                                                           |
+| `agent.image.repository`  | Agent image name                                | `jenkins/inbound-agent`                                                        |
+| `agent.image.tag`         | Agent image tag                                 | `3192.v713e3b_039fb_e-5`                                                       |
+| `agent.alwaysPullImage`   | Always pull agent container image before build  | `false`                                                                        |
+| `agent.privileged`        | Agent privileged container                      | `false`                                                                        |
+| `agent.resources`         | Resources allocation (Requests and Limits)      | `{requests: {cpu: 512m, memory: 512Mi}, limits: {cpu: 512m, memory: 512Mi}}`   |
+| `agent.runAsUser`         | Configure container user                        | Not set                                                                        |
+| `agent.runAsGroup`        | Configure container group                       | Not set                                                                        |
+| `agent.command`           | Executed command when side container starts     | Not set                                                                        |
+| `agent.args`              | Arguments passed to executed command            | `${computer.jnlpmac} ${computer.name}`                                         |
+| `agent.TTYEnabled`        | Allocate pseudo tty to the side container       | false                                                                          |
+| `agent.workingDir`        | Configure working directory for default agent   | `/home/jenkins/agent`                                                          |
+
 
 #### Other
 
@@ -380,42 +384,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `persistence.volumes`       | Additional volumes                     | `nil`           |
 | `persistence.mounts`        | Additional mounts                      | `nil`           |
 
-### Backup
-
-| Parameter                                  | Description                                                                                                                           | Default                    |
-|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|----------------------------|
-| `backup.enabled`                           | Enable the use of a backup CronJob                                                                                                    | `false`                    |
-| `backup.schedule`                          | Schedule to run jobs                                                                                                                  | `0 2 * * *`                |
-| `backup.labels`                            | Backup pod labels                                                                                                                     | `{}`                       |
-| `backup.serviceAccount.create`             | Specifies whether a ServiceAccount should be created                                                                                  | `true`                     |
-| `backup.serviceAccount.name`               | name of the backup ServiceAccount                                                                                                     | autogenerated              |
-| `backup.serviceAccount.annotations`        | Backup pod annotations                                                                                                                | `{}`                       |
-| `backup.image.repo`                        | Backup image repository                                                                                                               | `maorfr/kube-tasks`        |
-| `backup.image.tag`                         | Backup image tag                                                                                                                      | `0.2.0`                    |
-| `backup.image.imagePullSecretName`         | Backup image pull secret                                                                                                              | Not set                    |
-| `backup.extraArgs`                         | Additional arguments for kube-tasks                                                                                                   | `[]`                       |
-| `backup.existingSecret`                    | Environment variables to add to the cronjob container                                                                                 | `{}`                       |
-| `backup.existingSecret.*`                  | Specify the secret name containing the AWS or GCP credentials                                                                         | `jenkinsaws`               |
-| `backup.existingSecret.*.awsaccesskey`     | `secretKeyRef.key` used for `AWS_ACCESS_KEY_ID`                                                                                       | `jenkins_aws_access_key`   |
-| `backup.existingSecret.*.awssecretkey`     | `secretKeyRef.key` used for `AWS_SECRET_ACCESS_KEY`                                                                                   | `jenkins_aws_secret_key`   |
-| `backup.existingSecret.*.azstorageaccount` | `secretKeyRef.key` used for `AZURE_STORAGE_ACCOUNT`                                                                                   | `""`                       |
-| `backup.existingSecret.*.azstoragekey`     | `secretKeyRef.key` used for `AZURE_STORAGE_ACCESS_KEY`                                                                                | `""`                       |
-| `backup.existingSecret.*.gcpcredentials`   | Mounts secret as volume and sets `GOOGLE_APPLICATION_CREDENTIALS`                                                                     | `credentials.json`         |
-| `backup.env`                               | Backup environment variables                                                                                                          | `[]`                       |
-| `backup.resources`                         | Backup CPU/Memory resource requests/limits                                                                                            | Memory: `1Gi`, CPU: `1`    |
-| `backup.destination`                       | Destination to store backup artifacts                                                                                                 | `s3://jenkins-data/backup` |
-| `backup.onlyJobs`                          | Only backup the job folder                                                                                                            | `false`                    |
-| `backup.usePodSecurityContext`             | Enable backup pod's security context (must be `true` if `runAsUser`, `fsGroup`, or `podSecurityContextOverride` are set)              | `true`                     |
-| `backup.runAsUser`                         | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that jenkins runs with.                                              | `1000`                     |
-| `backup.fsGroup`                           | Deprecated in favor of `backup.podSecurityContextOverride`.  uid that will be used for persistent volume.                             | `1000`                     |
-| `backup.podSecurityContextOverride`        | Completely overwrites the contents of the backup pod's security context, ignoring the values provided for `runAsUser`, and `fsGroup`. | Not set                    |
-| `cronJob.apiVersion`                       | CronJob API version                                                                                                                   | 'batch/v1'                 |
-| `awsSecurityGroupPolicies.enabled`         | Enable the creation of SecurityGroupPolicy resources                                                                                  | `false`                    |
-| `awsSecurityGroupPolicies.policies`        | Security Group Policy definitions. `awsSecurityGroupPolicies.enabled` must be `true`                                                  | Not set                    |
-
 ### Helm Tests
 
-| Parameter             | Description                       | Default     |
-|-----------------------|-----------------------------------|-------------|
-| `helmtest.bats.image` | Image used to test the framework  | `bats/bats` |
-| `helmtest.bats.tag`   | Test framework image tag override | `1.2.1`     |
+| Parameter                        | Description                         | Default     |
+|----------------------------------|-------------------------------------|-------------|
+| `helmtest.bats.image.registry`   | Registry used to test the framework | `docker.io` |
+| `helmtest.bats.image.repository` | Image used to test the framework    | `bats/bats` |
+| `helmtest.bats.image.tag`        | Test framework image tag override   | `1.2.1`     |

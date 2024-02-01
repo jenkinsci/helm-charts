@@ -37,13 +37,8 @@ tests:
             # Copy plugins to shared volume
             yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
             echo "finished initialization"
-      - equal:
+      - matchSnapshot:
           path: data["plugins.txt"]
-          value: |-
-            kubernetes:4174.v4230d0ccd951
-            workflow-aggregator:596.v8c21c963d92d
-            git:5.1.0
-            configuration-as-code:1670.v564dc8b_982d0
   - it: no plugins
     set:
       controller.installPlugins: []
@@ -66,14 +61,8 @@ tests:
         additionalPlugins:
               - kubernetes-credentials-provider
     asserts:
-      - equal:
+      - matchSnapshot:
           path: data["plugins.txt"]
-          value: |-
-            kubernetes:4174.v4230d0ccd951
-            workflow-aggregator:596.v8c21c963d92d
-            git:5.1.0
-            configuration-as-code:1670.v564dc8b_982d0
-            kubernetes-credentials-provider
   - it: install latest plugins
     set:
       controller.installLatestPlugins: false

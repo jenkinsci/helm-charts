@@ -4,7 +4,7 @@
    {{- end }}
 
    {{- if .Values.controller.imageTag }}
-      {{ fail "`controller.imageTag` does no longer exist. Please use `controller.tag` instead" }}
+      {{ fail "`controller.imageTag` does no longer exist. Please use `controller.image.tag` instead" }}
    {{- end }}
 
    {{- if .Values.controller.slaveListenerPort }}
@@ -111,5 +111,41 @@
 
    {{- if .Values.controller.rollingUpdate }}
    {{ fail "`controller.rollingUpdate` does no longer exist. It is no longer relevant, since a StatefulSet is used for the Jenkins controller" }}
+   {{- end }}
+
+   {{- if .Values.controller.tag }}
+   {{ fail "`controller.tag` no longer exists. It has been renamed to `controller.image.tag'" }}
+   {{- end }}
+
+   {{- if .Values.controller.tagLabel }}
+   {{ fail "`controller.tagLabel` no longer exists. It has been renamed to `controller.image.tagLabel`" }}
+   {{- end }}
+
+   {{- if .Values.controller.adminSecret }}
+   {{ fail "`controller.adminSecret` no longer exists. It has been renamed to `controller.admin.createSecret`" }}
+   {{- end }}
+
+   {{- if .Values.controller.adminUser }}
+   {{ fail "`controller.adminUser` no longer exists. It has been renamed to `controller.admin.username`" }}
+   {{- end }}
+
+   {{- if .Values.controller.adminPassword }}
+   {{ fail "`controller.adminPassword` no longer exists. It has been renamed to `controller.admin.password`" }}
+   {{- end }}
+
+   {{- if .Values.controller.sidecars.other }}
+   {{ fail "`controller.sidecars.other` no longer exists. It has been renamed to `controller.sidecars.additionalSidecarContainers`" }}
+   {{- end }}
+
+   {{- if .Values.agent.tag }}
+   {{ fail "`controller.agent.tag` no longer exists. It has been renamed to `controller.agent.image.tag`" }}
+   {{- end }}
+
+   {{- if .Values.backup }}
+   {{ fail "`controller.backup` no longer exists." }}
+   {{- end }}
+
+   {{- if .Values.helmtest.bats.tag }}
+   {{ fail "`helmtest.bats.tag` no longer exists. It has been renamed to `helmtest.bats.image.tag`" }}
    {{- end }}
 {{- end }}

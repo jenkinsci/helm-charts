@@ -56,7 +56,6 @@ $ helm unittest --strict -f 'unittests/*.yaml' charts/jenkins
  PASS  PersistentVolumeClaim                   charts/jenkins/unittests/home-pvc-test.yaml
  PASS  Configuration as Code                   charts/jenkins/unittests/jcasc-config-test.yaml
  PASS  Jenkins Agent Service                   charts/jenkins/unittests/jenkins-agent-svc-test.yaml
- PASS  Jenkins Backup Cronjob                  charts/jenkins/unittests/jenkins-backup-cronjob-test.yaml
  PASS  Controller Prometheus PrometheusRule    charts/jenkins/unittests/jenkins-controller-alerting-rules-test.yaml
  PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-1.19-test.yaml
  PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-test.yaml
