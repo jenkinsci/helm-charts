@@ -2,20 +2,20 @@
 
 ## To 5.0.0
 - `controller.image`, `controller.tag`, and `controller.tagLabel` have been removed. If you want to overwrite the image you now need to configure any or all of:
-    - `controller.image.registry`
-    - `controller.image.repository`
-    - `controller.image.tag`
-    - `controller.image.tagLabel`
+  - `controller.image.registry`
+  - `controller.image.repository`
+  - `controller.image.tag`
+  - `controller.image.tagLabel`
 - `controller.imagePullPolicy` has been removed. If you want to overwrite the pull policy you now need to configure `controller.image.pullPolicy`.
 - `controller.sidecars.configAutoReload.image` has been removed. If you want to overwrite the configAutoReload image you now need to configure any or all of:
-    - `controller.sidecars.configAutoReload.image.registry`
-    - `controller.sidecars.configAutoReload.image.repository`
-    - `controller.sidecars.configAutoReload.image.tag`
+  - `controller.sidecars.configAutoReload.image.registry`
+  - `controller.sidecars.configAutoReload.image.repository`
+  - `controller.sidecars.configAutoReload.image.tag`
 - `controller.sidecars.other` has been renamed to `controller.sidecars.additionalSidecarContainers`.
 - `agent.image` and `agent.tag` have been removed. If you want to overwrite the agent image you now need to configure any or all of:
-    - `agent.image.repository`
-    - `agent.image.tag`
-    - The registry can still be overwritten by `agent.jnlpregistry`
+  - `agent.image.repository`
+  - `agent.image.tag`
+  - The registry can still be overwritten by `agent.jnlpregistry`
 - `agent.additionalContainers[*].image` has been renamed to `agent.additionalContainers[*].image.repository`
 - `agent.additionalContainers[*].tag` has been renamed to `agent.additionalContainers[*].image.tag`
 - `additionalAgents.*.image` has been renamed to `additionalAgents.*.image.repository`
@@ -23,15 +23,15 @@
 - `additionalClouds.*.additionalAgents.*.image` has been renamed to `additionalClouds.*.additionalAgents.*.image.repository`
 - `additionalClouds.*.additionalAgents.*.tag` has been renamed to `additionalClouds.*.additionalAgents.*.image.tag`
 - `helmtest.bats.image` has been split up to:
-    - `helmtest.bats.image.registry`
-    - `helmtest.bats.image.repository`
-    - `helmtest.bats.image.tag`
+  - `helmtest.bats.image.registry`
+  - `helmtest.bats.image.repository`
+  - `helmtest.bats.image.tag`
 - `controller.adminUsername` and `controller.adminPassword` have been renamed to `controller.admin.username` and `controller.admin.password` respectively
 - `controller.adminSecret` has been renamed to `controller.admin.createSecret`
-- `backup.*` was unmaintained and has thus been removed. See the following page for alternatives: https://nubenetes.com/kubernetes-backup-migrations/.
+- `backup.*` was unmaintained and has thus been removed. See the following page for alternatives: [Kubernetes Backup and Migrations](https://nubenetes.com/kubernetes-backup-migrations/).
 
 ## To 4.0.0
-Removes automatic `remotingSecurity` setting when using a container tag older than `2.326` (introduced in [`3.11.7`](#3117)). If you're using a version older than `2.326`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`.
+Removes automatic `remotingSecurity` setting when using a container tag older than `2.326` (introduced in [`3.11.7`](./CHANGELOG.md#3117)). If you're using a version older than `2.326`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`.
 
 ## To 3.0.0
 
@@ -145,4 +145,4 @@ Those are immutable so trying an updated will cause an error like:
 Error: Deployment.apps "jenkins" is invalid: spec.selector: Invalid value: v1.LabelSelector{MatchLabels:map[string]string{"app.kubernetes.io/component":"jenkins-controller", "app.kubernetes.io/instance":"jenkins"}, MatchExpressions:[]v1.LabelSelectorRequirement(nil)}: field is immutable
 ```
 
-In order to upgrade, [uninstall](#uninstall-chart) the Jenkins Deployment before upgrading:
+In order to upgrade, [uninstall](./README.md#uninstall-chart) the Jenkins Deployment before upgrading:
