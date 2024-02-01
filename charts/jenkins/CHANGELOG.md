@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.0.4
+
+Updated super-linter to v6. Updated README.md and CHANGELOG.md to fix linting issues.
+
 ## 5.0.2
 
 Update `git` to version `5.2.1`
@@ -1460,13 +1464,13 @@ Make `agent.slaveConnectTimeout` configurable: by increasing this value Jenkins 
 
 ## 1.9.7 Update plugin versions
 
-plugin                | old version | new version
---------------------- | ----------- | ----------
-kubernetes            | 1.18.2      | 1.21.2
-workflow-job          | 2.33        | 2.36
-credentials-binding   | 1.19        | 1.20
-git                   | 3.11.0      | 4.0.0
-configuration-as-code | 1.27        | 1.32
+| plugin                | old version | new version |
+|-----------------------|-------------|-------------|
+| kubernetes            | 1.18.2      | 1.21.2      |
+| workflow-job          | 2.33        | 2.36        |
+| credentials-binding   | 1.19        | 1.20        |
+| git                   | 3.11.0      | 4.0.0       |
+| configuration-as-code | 1.27        | 1.32        |
 
 ## 1.9.6
 
@@ -1592,7 +1596,7 @@ JCasC default configuration includes:
   - maxRequestsPerHostStr: "32"
   - name: "kubernetes"
   - namespace
-  - serverUrl: "https://kubernetes.default"
+  - serverUrl: `"https://kubernetes.default"`
   - template
     - containers
       - alwaysPullImage: `agent.alwaysPullImage`
