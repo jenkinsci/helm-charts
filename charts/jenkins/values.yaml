@@ -648,7 +648,7 @@ agent:
   jnlpregistry:
   image:
     repository: "jenkins/inbound-agent"
-    tag: "3192.v713e3b_039fb_e-5"
+    tag: "3206.vb_15dcf73f6a_9-3"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
