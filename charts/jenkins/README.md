@@ -645,10 +645,10 @@ controller:
 
 ### HTTPS Keystore Configuration
 
-[This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve https.
+[This configuration](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777) enables jenkins to use keystore in order to serve HTTPS.
 Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777#RunningJenkinswithnativeSSL/HTTPS-ConfigureJenkinstouseHTTPSandtheJKSkeystore) related to keystore configuration.
 Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
-After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve https.
+After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve HTTPS.
 Do not set `controller.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
 If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` (or override the key name using `jenkinsHttpsJksSecretKey`)
 and `https-jks-password` (or override the key name using `jenkinsHttpsJksPasswordSecretKey`; additionally you can make it get the password from a different secret using `jenkinsHttpsJksPasswordSecretName`). Example:
