@@ -975,4 +975,4 @@ helmtest:
     image:
       registry: "docker.io"
       repository: "bats/bats"
-      tag: "1.9.0"
+      tag: "v1.10.0"
