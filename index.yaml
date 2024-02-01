@@ -4,6 +4,58 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Update `git` to version `5.2.1`
+      artifacthub.io/images: |
+        - name: jenkins
+          image: jenkins/jenkins:2.426.3-jdk17
+        - name: k8s-sidecar
+          image: kiwigrid/k8s-sidecar:1.24.4
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3192.v713e3b_039fb_e-5
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.426.3
+    created: "2024-02-01T11:09:11.443063608Z"
+    description: Jenkins - Build great things at any scale! The leading open source
+      automation server, Jenkins provides over 1800 plugins to support building, deploying
+      and automating any project.
+    digest: 87644dfe3f2de960f746ba62b93325784ea35b9bedecbad7e7f49bb2c5225f4e
+    home: https://jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-5.0.2/jenkins-5.0.2.tgz
+    version: 5.0.2
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Update `docker.io/bats/bats` to version `v1.10.0`
       artifacthub.io/images: |
         - name: jenkins
@@ -18683,4 +18735,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2024-02-01T11:03:55.224537292Z"
+generated: "2024-02-01T11:09:11.444225946Z"
