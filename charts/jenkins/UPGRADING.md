@@ -1,7 +1,7 @@
 # Upgrade Notes
 
 ## To 5.0.0
-- `controller.image` has been removed. If you want to overwrite the image you now need to configure any or all of:
+- `controller.image`, `controller.tag`, and `controller.tagLabel` have been removed. If you want to overwrite the image you now need to configure any or all of:
     - `controller.image.registry`
     - `controller.image.repository`
     - `controller.image.tag`
@@ -12,7 +12,7 @@
     - `controller.sidecars.configAutoReload.image.repository`
     - `controller.sidecars.configAutoReload.image.tag`
 - `controller.sidecars.other` has been renamed to `controller.sidecars.additionalSidecarContainers`.
-- `agent.image` has been removed. If you want to overwrite the agent image you now need to configure any or all of:
+- `agent.image` and `agent.tag` have been removed. If you want to overwrite the agent image you now need to configure any or all of:
     - `agent.image.repository`
     - `agent.image.tag`
     - The registry can still be overwritten by `agent.jnlpregistry`
