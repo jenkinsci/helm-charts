@@ -3,6 +3,9 @@ name: Lint and Test Charts
 
 on: pull_request
 
+permissions:
+  contents: read
+
 jobs:
   lint-test:
     runs-on: ubuntu-latest
