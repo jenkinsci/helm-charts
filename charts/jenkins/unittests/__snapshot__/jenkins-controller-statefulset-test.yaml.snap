@@ -117,7 +117,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:1.24.4
+            image: docker.io/kiwigrid/k8s-sidecar:1.25.3
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -143,7 +143,7 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:1.24.4
+            image: docker.io/kiwigrid/k8s-sidecar:1.25.3
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
