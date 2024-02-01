@@ -563,17 +563,6 @@ Create the name of the service account for Jenkins agents to use
 {{- end -}}
 
 {{/*
-Create the name of the service account for Jenkins backup to use
-*/}}
-{{- define "backup.serviceAccountBackupName" -}}
-{{- if .Values.backup.serviceAccount.create -}}
-    {{ default (printf "%s-%s" (include "jenkins.fullname" .) "backup") .Values.backup.serviceAccount.name }}
-{{- else -}}
-    {{ default "default" .Values.backup.serviceAccount.name }}
-{{- end -}}
-{{- end -}}
-
-{{/*
 Create a full tag name for controller image
 */}}
 {{- define "controller.image.tag" -}}
