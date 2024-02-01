@@ -4,7 +4,7 @@ additional plugins config:
       kubernetes:4174.v4230d0ccd951
       workflow-aggregator:596.v8c21c963d92d
       git:5.2.1
-      configuration-as-code:1670.v564dc8b_982d0
+      configuration-as-code:1775.v810dc950b_514
       kubernetes-credentials-provider
 default config:
   1: |
@@ -12,4 +12,4 @@ default config:
       kubernetes:4174.v4230d0ccd951
       workflow-aggregator:596.v8c21c963d92d
       git:5.2.1
-      configuration-as-code:1670.v564dc8b_982d0
+      configuration-as-code:1775.v810dc950b_514
