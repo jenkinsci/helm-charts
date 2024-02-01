@@ -45,24 +45,24 @@ Removes automatic `remotingSecurity` setting when using a container tag older th
 * terminology has been adjusted that's also reflected in values.yaml
   The following values from `values.yaml` have been renamed:
 
-    * `master` => `controller`
-    * `master.useSecurity` => `controller.adminSecret`
-    * `master.slaveListenerPort` => `controller.agentListenerPort`
-    * `master.slaveHostPort` => `controller.agentListenerHostPort`
-    * `master.slaveKubernetesNamespace` => `agent.namespace`
-    * `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
-    * `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
-    * `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
-    * `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
-    * `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
-    * `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
-    * `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
-    * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
-    * `agent.slaveConnectTimeout` => `agent.connectTimeout`
+  * `master` => `controller`
+  * `master.useSecurity` => `controller.adminSecret`
+  * `master.slaveListenerPort` => `controller.agentListenerPort`
+  * `master.slaveHostPort` => `controller.agentListenerHostPort`
+  * `master.slaveKubernetesNamespace` => `agent.namespace`
+  * `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
+  * `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
+  * `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
+  * `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
+  * `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
+  * `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
+  * `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
+  * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
+  * `agent.slaveConnectTimeout` => `agent.connectTimeout`
 * Removed values:
 
-    * `master.imageTag`: use `controller.image` and `controller.tag` instead
-    * `slave.imageTag`: use `agent.image` and `agent.tag` instead
+  * `master.imageTag`: use `controller.image` and `controller.tag` instead
+  * `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
 ## To 2.0.0
 
