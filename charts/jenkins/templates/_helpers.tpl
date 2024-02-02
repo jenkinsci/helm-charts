@@ -620,7 +620,7 @@ Create the HTTP port for interacting with the controller
     {{- end }}
     {{- if eq $containerType "sidecar" }}
     - name: REQ_URL
-      value: "{{- default "http" $root.Values.controller.sidecars.configAutoReload.scheme }} ://localhost:{{- include "controller.httpPort" $root -}}{{- $root.Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
+      value: "{{- default "http" $root.Values.controller.sidecars.configAutoReload.scheme }}://localhost:{{- include "controller.httpPort" $root -}}{{- $root.Values.controller.jenkinsUriPrefix -}}/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)"
     - name: REQ_METHOD
       value: "POST"
     - name: REQ_RETRY_CONNECT
