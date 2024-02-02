@@ -482,6 +482,23 @@ tests:
         content:
           name: "METHOD"
           value: "SLEEP"
+  - it: test scheme for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.scheme: "https"
+    asserts:
+      - matchSnapshot:
+          path: spec
+  - it: test skip tls verify for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.skipTlsVerify: true
+    asserts:
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "REQ_SKIP_TLS_VERIFY"
+          value: "true"
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
