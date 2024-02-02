@@ -15,7 +15,7 @@ Those entries include a reference to the git commit to be able to get more detai
 ## 5.0.11
 
 * Add controller.sidecars.configAutoReload.scheme to specify protocol scheme when connecting Jenkins configuration-as-code reload endpoint
-* Add controller.sidecars.configAutoReload.skipTlsVerify to force the k8s-sidecar container to skip TLS verification when connecting to an https Jenkins configuration-as-code reload endpoint
+* Add controller.sidecars.configAutoReload.skipTlsVerify to force the k8s-sidecar container to skip TLS verification when connecting to an HTTPS Jenkins configuration-as-code reload endpoint
 
 ## 5.0.10
 
