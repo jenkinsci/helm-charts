@@ -251,6 +251,36 @@ tests:
             runAsUser: 4444
             supplementalGroups:
               - 5555
+  - it: test controller.sidecars.additionalSidecarContainers
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        sidecars:
+          additionalSidecarContainers:
+            - name: otel-collector
+              image: opentelemetry-collector:0.93.0
+              imagePullPolicy: IfNotPresent
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[2]
+          value:
+            name: otel-collector
+            image: opentelemetry-collector:0.93.0
+            imagePullPolicy: IfNotPresent
+            resources:
+              limits:
+                cpu: 200m
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
   - it: test 2 additional secrets
     template: jenkins-controller-statefulset.yaml
     set:
