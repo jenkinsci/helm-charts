@@ -160,7 +160,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | `controller.admin.userKey`                 | The key in the existing admin secret containing the username.                                                                | `jenkins-admin-user`                                                                                 |
 | `controller.admin.passwordKey`             | The key in the existing admin secret containing the password.                                                                | `jenkins-admin-password`                                                                             |
 | `controller.customInitContainers`          | Custom init-container specification in raw-yaml format                                                                       | Not set                                                                                              |
-| `controller.sidecars.other`                | Configures additional sidecar container(s) for Jenkins controller                                                            | `[]`                                                                                                 |
+| `controller.sidecars.additionalSidecarContainers`| Configures additional sidecar container(s) for Jenkins controller                                                            | `[]`                                                                                                 |
 
 #### Kubernetes Pod Disruption Budget
 
