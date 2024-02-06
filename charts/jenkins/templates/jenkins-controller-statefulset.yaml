@@ -313,8 +313,8 @@ spec:
 {{- end}}
 
 
-{{- if .Values.controller.sidecars.other}}
-{{ tpl (toYaml .Values.controller.sidecars.other | indent 8) .}}
+{{- if .Values.controller.sidecars.customInitContainers}}
+{{ tpl (toYaml .Values.controller.sidecars.customInitContainers | indent 8) .}}
 {{- end }}
 
       volumes:
