@@ -7,6 +7,7 @@
   // eslint-disable-next-line
   allowedPostUpgradeCommands: ["^\.github\/renovate-postupgrade\.sh {{{depName}}} {{{newVersion}}}$"],
   prConcurrentLimit: 0,
+  prHourlyLimit: 5,
   semanticCommits: "enabled",
   enabledManagers: [
     "helm-values",
@@ -15,11 +16,11 @@
   ],
   packageRules: [
     {
-      matchDepNames: ["jenkins/inbound-agent"],
+      matchPackageNames: ["jenkins/inbound-agent"],
       versioning: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?_(?<patch>\\w+)?-(?<build>\\d+)?$",
     },
     {
-      matchDepNames: ["jenkins/jenkins"],
+      matchPackageNames: ["jenkins/jenkins"],
       versioning: "regex:^(?<major>\\d+?)\\.(?<minor>\\d+?)\\.(?<patch>\\d+?)(-(?<compatibility>\\w+))?$",
     },
     {
@@ -31,6 +32,11 @@
         fileFilters: ["charts/jenkins/**"],
         executionMode: "branch",
       },
+    },
+    {
+      matchPackagePatterns: [".*"],
+      excludePackagePatterns: ["jenkins/jenkins"],
+      minimumReleaseAge: "12 hours",
     },
   ],
   customManagers: [
