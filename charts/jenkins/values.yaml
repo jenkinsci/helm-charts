@@ -27,7 +27,7 @@ controller:
   image:
     registry: "docker.io"
     repository: "jenkins/jenkins"
-    # tag: "2.426.3-jdk17"
+    # tag: "2.440.1-jdk17"
     tagLabel: jdk17
     pullPolicy: "Always"
   imagePullSecretName:
