@@ -118,8 +118,8 @@ spec:
 {{- end}}
 
         - name: "init"
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
-          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          image: "{{ .Values.controller.image.registry }}/{{ .Values.controller.image.repository }}:{{- include "controller.image.tag" . -}}"
+          imagePullPolicy: "{{ .Values.controller.image.pullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
           {{- end }}
@@ -170,8 +170,8 @@ spec:
             {{- end }}
       containers:
         - name: jenkins
-          image: "{{ .Values.controller.image }}:{{- include "controller.tag" . -}}"
-          imagePullPolicy: "{{ .Values.controller.imagePullPolicy }}"
+          image: "{{ .Values.controller.image.registry }}/{{ .Values.controller.image.repository }}:{{- include "controller.image.tag" . -}}"
+          imagePullPolicy: "{{ .Values.controller.image.pullPolicy }}"
           {{- if .Values.controller.containerSecurityContext }}
           securityContext: {{- toYaml .Values.controller.containerSecurityContext | nindent 12 }}
           {{- end }}
@@ -205,7 +205,7 @@ spec:
             {{- if .Values.controller.containerEnv }}
 {{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
             - name: SECRETS
               value: /run/secrets/additional
             {{- end }}
@@ -298,7 +298,7 @@ spec:
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
             - name: jenkins-secrets
               mountPath: /run/secrets/additional
               readOnly: true
@@ -313,8 +313,8 @@ spec:
 {{- end}}
 
 
-{{- if .Values.controller.sidecars.other}}
-{{ tpl (toYaml .Values.controller.sidecars.other | indent 8) .}}
+{{- if .Values.controller.sidecars.additionalSidecarContainers}}
+{{ tpl (toYaml .Values.controller.sidecars.additionalSidecarContainers | indent 8) .}}
 {{- end }}
 
       volumes:
@@ -351,7 +351,7 @@ spec:
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
-      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.adminSecret }}
+      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
       - name: jenkins-secrets
         projected:
           sources:
@@ -368,7 +368,7 @@ spec:
                   path: {{ tpl $value.name $ }}-{{ tpl $value.keyName $ }}
           {{- end }}
           {{- end }}
-          {{- if .Values.controller.adminSecret }}
+          {{- if .Values.controller.admin.createSecret }}
           - secret:
               name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
               items:

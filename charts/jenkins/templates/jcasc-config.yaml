@@ -40,6 +40,6 @@ metadata:
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 data:
   jcasc-default-config.yaml: |-
-    {{- include "jenkins.casc.defaults" . |nindent 4 }}
+    {{- include "jenkins.casc.defaults" . | nindent 4 }}
 {{- end}}
 {{- end }}

@@ -24,10 +24,12 @@ renderHelmLabels: true
 controller:
   # Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
-  image: "jenkins/jenkins"
-  # tag: "2.426.3-jdk17"
-  tagLabel: jdk17
-  imagePullPolicy: "Always"
+  image:
+    registry: "docker.io"
+    repository: "jenkins/jenkins"
+    # tag: "2.440.1-jdk17"
+    tagLabel: jdk17
+    pullPolicy: "Always"
   imagePullSecretName:
   # Optionally configure lifetime for controller-container
   lifecycle:
@@ -43,20 +45,23 @@ controller:
   # This is ignored if enableRawHtmlMarkupFormatter is true
   markupFormatter: plainText
   customJenkinsLabels: []
-  # The default configuration uses this secret to configure an admin user
-  # If you don't need that user or use a different security realm then you can disable it
-  adminSecret: true
 
   hostNetworking: false
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
-  # you should revert controller.adminUser to your preferred admin user:
-  adminUser: "admin"
-  # adminPassword: <defaults to random>
+  # you should revert controller.admin.username to your preferred admin user:
   admin:
-    existingSecret: ""
+    username: "admin"
+    # password: <defaults to random>
+
     userKey: jenkins-admin-user
     passwordKey: jenkins-admin-password
+
+    # The default configuration uses this secret to configure an admin user
+    # If you don't need that user or use a different security realm then you can disable it
+    createSecret: true
+    existingSecret: ""
+
   # This values should not be changed unless you use your custom image of jenkins or any devired from. If you want to use
   # Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
   jenkinsHome: "/var/jenkins_home"
@@ -247,10 +252,10 @@ controller:
 
   # List of plugins to be install during Jenkins controller start
   installPlugins:
-    - kubernetes:4174.v4230d0ccd951
+    - kubernetes:4186.v1d804571d5d4
     - workflow-aggregator:596.v8c21c963d92d
-    - git:5.1.0
-    - configuration-as-code:1670.v564dc8b_982d0
+    - git:5.2.1
+    - configuration-as-code:1775.v810dc950b_514
 
   # Set to false to download the minimum required version of all dependencies.
   installLatestPlugins: true
@@ -361,7 +366,7 @@ controller:
   # Optionally specify additional init-containers
   customInitContainers: []
   # - name: custom-init
-  #   image: "alpine:3.7"
+  #   image: "alpine:3"
   #   imagePullPolicy: Always
   #   command: [ "uname", "-a" ]
 
@@ -371,7 +376,10 @@ controller:
       # jcasc changes will cause a reboot and will only be applied at the subsequent start-up.  Auto-reload uses the
       # http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected.
       enabled: true
-      image: kiwigrid/k8s-sidecar:1.24.4
+      image:
+        registry: docker.io
+        repository: kiwigrid/k8s-sidecar
+        tag: 1.25.4
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -401,8 +409,8 @@ controller:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
 
-    # Allows you to inject additional/other sidecars
-    other: []
+    # Allows you to inject additional sidecars
+    additionalSidecarContainers: []
     ## The example below runs the client for https://smee.io as sidecar container next to Jenkins,
     ## that allows to trigger build behind a secure firewall.
     ## https://jenkins.io/blog/2019/01/07/webhook-firewalls/#triggering-builds-with-webhooks-behind-a-secure-firewall
@@ -640,8 +648,9 @@ agent:
   namespace:
   # private registry for agent image
   jnlpregistry:
-  image: "jenkins/inbound-agent"
-  tag: "3192.v713e3b_039fb_e-5"
+  image:
+    repository: "jenkins/inbound-agent"
+    tag: "3206.vb_15dcf73f6a_9-3"
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
   customJenkinsLabels: []
@@ -793,8 +802,9 @@ agent:
   # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
   additionalContainers: []
   #  - sideContainerName: dind
-  #    image: docker
-  #    tag: dind
+  #    image:
+  #      repository: docker
+  #      tag: dind
   #    command: dockerd-entrypoint.sh
   #    args: ""
   #    privileged: true
@@ -842,14 +852,16 @@ additionalAgents: {}
 #    customJenkinsLabels: maven
 #    # An example of overriding the jnlp container
 #    # sideContainerName: jnlp
-#    image: jenkins/jnlp-agent-maven
-#    tag: latest
+#    image:
+#      repository: jenkins/jnlp-agent-maven
+#      tag: latest
 #  python:
 #    podName: python
 #    customJenkinsLabels: python
 #    sideContainerName: python
-#    image: python
-#    tag: "3"
+#    image:
+#      repository: python
+#      tag: "3"
 #    command: "/bin/sh -c"
 #    args: "cat"
 #    TTYEnabled: true
@@ -869,8 +881,9 @@ additionalClouds: {}
 #        customJenkinsLabels: maven
 #        # An example of overriding the jnlp container
 #        # sideContainerName: jnlp
-#        image: jenkins/jnlp-agent-maven
-#        tag: latest
+#        image:
+#          repository: jenkins/jnlp-agent-maven
+#          tag: latest
 #        namespace: my-other-maven-namespace
 #  remote-cloud-2:
 #    kubernetesURL: https://api.remote-cloud.com
@@ -947,76 +960,6 @@ serviceAccountAgent:
   extraLabels: {}
   imagePullSecretName:
 
-## Backup cronjob configuration
-## Ref: https://github.com/maorfr/kube-tasks
-backup:
-  # Backup must use RBAC
-  # So by enabling backup you are enabling RBAC specific for backup
-  enabled: false
-  # Used for label app.kubernetes.io/component
-  componentName: "backup"
-  # Schedule to run jobs. Must be in cron time format
-  # Ref: https://crontab.guru/
-  schedule: "0 2 * * *"
-  labels: {}
-  serviceAccount:
-    create: true
-    name:
-    annotations: {}
-    # Example for authorization to AWS S3 using kube2iam or IRSA
-    # Can also be done using environment variables
-    # iam.amazonaws.com/role: "jenkins"
-    # "eks.amazonaws.com/role-arn": "arn:aws:iam::123456789012:role/jenkins-backup"
-  # Set this to terminate the job that is running/failing continously and set the job status to "Failed"
-  activeDeadlineSeconds: ""
-  image:
-    repository: "maorfr/kube-tasks"
-    tag: "0.2.0"
-  imagePullSecretName:
-  # Additional arguments for kube-tasks
-  # Ref: https://github.com/maorfr/kube-tasks#simple-backup
-  extraArgs: []
-  # Add existingSecret for AWS credentials
-  existingSecret: {}
-  ## Example for using an existing secret
-   # jenkinsaws:
-  ## Use this key for AWS access key ID
-     # awsaccesskey: jenkins_aws_access_key
-  ## Use this key for AWS secret access key
-     # awssecretkey: jenkins_aws_secret_key
-  # Add additional environment variables
-   # jenkinsgcp:
-  ## Use this key for GCP credentials
-     # gcpcredentials: credentials.json
-  env: []
-  # Example environment variable required for AWS credentials chain
-  # - name: "AWS_REGION"
-  #   value: "us-east-1"
-  resources:
-    requests:
-      memory: 1Gi
-      cpu: 1
-    limits:
-      memory: 1Gi
-      cpu: 1
-  # Destination to store the backup artifacts
-  # Supported cloud storage services: AWS S3, Minio S3, Azure Blob Storage, Google Cloud Storage
-  # Additional support can added. Visit this repository for details
-  # Ref: https://github.com/maorfr/skbn
-  destination: "s3://jenkins-data/backup"
-  # By enabling only the jenkins_home/jobs folder gets backed up, not the whole jenkins instance
-  onlyJobs: false
-  # Enable backup pod security context (must be `true` if runAsUser or fsGroup are set)
-  usePodSecurityContext: true
-  # When setting runAsUser to a different value than 0 also set fsGroup to the same value:
-  runAsUser: 1000
-  fsGroup: 1000
-  securityContextCapabilities: {}
-  #  drop:
-  #    - NET_RAW
-cronJob:
-  apiVersion: batch/v1
-
 checkDeprecation: true
 
 awsSecurityGroupPolicies:
@@ -1031,5 +974,7 @@ helmtest:
   # A testing framework for bash
   bats:
     # Bash Automated Testing System (BATS)
-    image: "bats/bats"
-    tag: "1.9.0"
+    image:
+      registry: "docker.io"
+      repository: "bats/bats"
+      tag: "v1.10.0"

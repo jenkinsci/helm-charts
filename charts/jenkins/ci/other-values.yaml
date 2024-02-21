@@ -56,14 +56,16 @@ agent:
       customJenkinsLabels: maven
       # An example of overriding the jnlp container
       # sideContainerName: jnlp
-      image: jenkins/jnlp-agent-maven
-      tag: latest
+      image:
+        repository: jenkins/jnlp-agent-maven
+        tag: latest
     python:
       podName: python
       customJenkinsLabels: python
       sideContainerName: python
-      image: python
-      tag: "3"
+      image:
+        repository: python
+        tag: "3"
       command: "/bin/sh -c"
       args: "cat"
       TTYEnabled: true

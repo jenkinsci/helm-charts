@@ -12,9 +12,70 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 4.12.2
+
+## 5.0.15
 
 Enable support for deleting plugin configuration files at startup.
+
+## 5.0.14
+
+Update `jenkins/jenkins` to version `jenkins/jenkins`
+
+## 5.0.13
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `docker.io/kiwigrid/k8s-sidecar`
+
+## 5.0.12
+
+Fix controller.sidecars.additionalSidecarContainers renaming and add tests
+
+## 5.0.11
+
+* Add controller.sidecars.configAutoReload.scheme to specify protocol scheme when connecting Jenkins configuration-as-code reload endpoint
+* Add controller.sidecars.configAutoReload.skipTlsVerify to force the k8s-sidecar container to skip TLS verification when connecting to an HTTPS Jenkins configuration-as-code reload endpoint
+
+## 5.0.10
+
+Update `jenkins/inbound-agent` to version `jenkins/inbound-agent`
+
+## 5.0.9
+
+Update `kubernetes` to version `4186.v1d804571d5d4`
+
+## 5.0.8
+
+Update `configuration-as-code` to version `1775.v810dc950b_514`
+
+## 5.0.7
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `docker.io/kiwigrid/k8s-sidecar`
+
+## 5.0.6
+
+Removed `docker.io` prefix from inbound-agent image
+
+## 5.0.5
+
+Prefixed artifacthub.io/images with `docker.io`
+
+## 5.0.4
+
+Updated super-linter to v6. Updated README.md and CHANGELOG.md to fix linting issues.
+
+## 5.0.2
+
+Update `git` to version `5.2.1`
+
+## 5.0.1
+
+Update `docker.io/bats/bats` to version `v1.10.0`
+
+## 5.0.0
+
+  > [!CAUTION]
+  > Several fields have been renamed or removed. See [UPGRADING.md](./UPGRADING.md#to-500)
+
+The Helm Chart is now updated automatically via [Renovate](https://docs.renovatebot.com/)
 
 ## 4.12.1
 
@@ -1449,13 +1510,13 @@ Make `agent.slaveConnectTimeout` configurable: by increasing this value Jenkins 
 
 ## 1.9.7 Update plugin versions
 
-plugin                | old version | new version
---------------------- | ----------- | ----------
-kubernetes            | 1.18.2      | 1.21.2
-workflow-job          | 2.33        | 2.36
-credentials-binding   | 1.19        | 1.20
-git                   | 3.11.0      | 4.0.0
-configuration-as-code | 1.27        | 1.32
+| plugin                | old version | new version |
+|-----------------------|-------------|-------------|
+| kubernetes            | 1.18.2      | 1.21.2      |
+| workflow-job          | 2.33        | 2.36        |
+| credentials-binding   | 1.19        | 1.20        |
+| git                   | 3.11.0      | 4.0.0       |
+| configuration-as-code | 1.27        | 1.32        |
 
 ## 1.9.6
 
@@ -1581,7 +1642,7 @@ JCasC default configuration includes:
   - maxRequestsPerHostStr: "32"
   - name: "kubernetes"
   - namespace
-  - serverUrl: "https://kubernetes.default"
+  - serverUrl: `"https://kubernetes.default"`
   - template
     - containers
       - alwaysPullImage: `agent.alwaysPullImage`
