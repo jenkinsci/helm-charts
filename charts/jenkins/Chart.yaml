@@ -35,7 +35,7 @@ annotations:
       url: https://github.com/jenkinsci/helm-charts/issues
   artifacthub.io/images: |
     - name: jenkins
-      image: docker.io/jenkins/jenkins:2.426.3-jdk17
+      image: docker.io/jenkins/jenkins:2.440.1-jdk17
     - name: k8s-sidecar
       image: docker.io/kiwigrid/k8s-sidecar:1.25.4
     - name: inbound-agent
