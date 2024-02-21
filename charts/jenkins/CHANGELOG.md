@@ -14,11 +14,11 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.0.14
 
-Update `jenkins/jenkins` to version `jenkins/jenkins`
+Update `jenkins/jenkins` to version `2.440.1-jdk17`
 
 ## 5.0.13
 
-Update `docker.io/kiwigrid/k8s-sidecar` to version `docker.io/kiwigrid/k8s-sidecar`
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.25.4`
 
 ## 5.0.12
 
@@ -31,7 +31,7 @@ Fix controller.sidecars.additionalSidecarContainers renaming and add tests
 
 ## 5.0.10
 
-Update `jenkins/inbound-agent` to version `jenkins/inbound-agent`
+Update `jenkins/inbound-agent` to version `3206.vb_15dcf73f6a_9-3`
 
 ## 5.0.9
 
