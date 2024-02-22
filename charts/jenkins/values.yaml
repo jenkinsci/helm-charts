@@ -335,6 +335,8 @@ controller:
   # etc.  Best reference is https://<jenkins_url>/configuration-as-code/reference.  The example below creates a welcome message:
   JCasC:
     defaultConfig: true
+    # If true, the init container deletes all the plugin config files and Jenkins Config as Code overwrites any existing configuration
+    overwriteConfiguration: false
     configUrls: []
     # - https://acme.org/jenkins.yaml
     # Remote URL:s for configuration files.

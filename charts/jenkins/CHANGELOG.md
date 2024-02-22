@@ -12,9 +12,14 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.0.16
+
+Enable support for deleting plugin configuration files at startup.
+
 ## 5.0.15
 
 Fixed changelog entries for previous version bumps
+
 
 ## 5.0.14
 
