@@ -5,7 +5,7 @@
   platform: "github",
   repositories: ["jenkinsci/helm-charts"],
   // eslint-disable-next-line
-  allowedPostUpgradeCommands: ["^\.github\/renovate-postupgrade\.sh {{{depName}}} {{{newVersion}}}$"],
+  allowedPostUpgradeCommands: ['^\.github\/renovate-postupgrade\.sh "{{{depName}}}" "{{{newVersion}}}"$'],
   prConcurrentLimit: 0,
   prHourlyLimit: 5,
   semanticCommits: "enabled",
@@ -27,7 +27,7 @@
       matchFileNames: ["charts/jenkins/**"],
       postUpgradeTasks: {
         commands: [
-          ".github/renovate-postupgrade.sh {{{depName}}} {{{newVersion}}}",
+          '.github/renovate-postupgrade.sh "{{{depName}}}" "{{{newVersion}}}"',
         ],
         fileFilters: ["charts/jenkins/**"],
         executionMode: "branch",
