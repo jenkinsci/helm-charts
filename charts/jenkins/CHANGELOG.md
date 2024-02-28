@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.0.17
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.26.0`
+
 ## 5.0.16
 
 Enable support for deleting plugin configuration files at startup.
