@@ -174,7 +174,7 @@ controller:
   # -- Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities`
   # In the case of mounting an ext4 filesystem, it might be desirable to use `supplementalGroups` instead of `fsGroup` in
   # the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496
-  podSecurityContextOverride: {}
+  podSecurityContextOverride: ~
   #   runAsUser: 1000
   #   runAsNonRoot: true
   #   supplementalGroups: [1000]
@@ -248,7 +248,7 @@ controller:
       # -- Set the initial delay for the liveness probe in seconds
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial liveness probe while Jenkins is starting
-      initialDelaySeconds:
+      initialDelaySeconds: 0
     readinessProbe:
       # -- Set the failure threshold for the readiness probe
       failureThreshold: 3
@@ -264,7 +264,7 @@ controller:
       # -- Set the initial delay for the readiness probe in seconds
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial readiness probe while Jenkins is starting
-      initialDelaySeconds:
+      initialDelaySeconds: 0
 
   # PodDisruptionBudget config
   podDisruptionBudget:
@@ -1158,7 +1158,7 @@ networkPolicy:
   # You can allow agents to connect from both within the cluster (from within specific/all namespaces) AND/OR from a given external IP range
   internalAgents:
     # -- Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels
-    allowed:
+    allowed: true
     # -- A map of labels (keys/values) that agent pods must have to be able to connect to controller
     podLabels: {}
     # -- A map of labels (keys/values) that agents namespaces must have to be able to connect to controller

@@ -78,7 +78,7 @@ spec:
       {{- end }}
 {{- if .Values.controller.usePodSecurityContext }}
       securityContext:
-  {{- if hasKey .Values.controller "podSecurityContextOverride" }}
+  {{- if kindIs "map" .Values.controller.podSecurityContextOverride }}
     {{- tpl (toYaml .Values.controller.podSecurityContextOverride | nindent 8) . -}}
   {{- else }}
     {{/* The rest of this section should be replaced with the contents of this comment one the runAsUser, fsGroup, and securityContextCapabilities Helm chart values have been removed:
