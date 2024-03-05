@@ -30,15 +30,17 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Install helm-docs
+      - name: Install and run helm-docs
         run: |-
+          mkdir ./.bin
+          export PATH="./.bin:$PATH"
           # renovate: datasource=github-releases depName=helm-docs packageName=norwoodj/helm-docs
           HELM_DOCS_VERSION=1.13.1
 
           # install helm-docs
           curl --silent --show-error --fail --location --output /tmp/helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v"${HELM_DOCS_VERSION}"/helm-docs_"${HELM_DOCS_VERSION}"_Linux_x86_64.tar.gz
           tar -C .bin/ -xf /tmp/helm-docs.tar.gz helm-docs
-      - name: Run helm-docs
-        run: .github/helm-docs.sh
+
+          .github/helm-docs.sh
       - name: Check dirty state
         run: git diff --exit-code

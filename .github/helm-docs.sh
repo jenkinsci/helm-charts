@@ -1,8 +1,5 @@
 #!/bin/bash
 
-mkdir ./.bin
-export PATH="./.bin:$PATH"
-
 set -euxo pipefail
 
 # validate docs
