@@ -14,6 +14,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.0.17
 
+Introduced helm-docs to automatically generate `values.yaml` documentation.
+
+## 5.0.17
+
 Update `docker.io/kiwigrid/k8s-sidecar` to version `1.26.0`
 
 ## 5.0.16

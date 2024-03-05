@@ -2,8 +2,8 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   onboarding: false,
   requireConfig: "ignored",
-  platform: "github",
-  repositories: ["jenkinsci/helm-charts"],
+//  platform: "github",
+//  repositories: ["jenkinsci/helm-charts"],
   // eslint-disable-next-line
   allowedPostUpgradeCommands: ['^\.github\/renovate-postupgrade\.sh "{{{depName}}}" "{{{newVersion}}}"$'],
   prConcurrentLimit: 0,
@@ -45,7 +45,7 @@
       fileMatch: ["(^|/)\\.github/workflows/[^/]+\\.ya?ml$", "(^|/)\\.github/[^/]+\\.sh$"],
       matchStrings: [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version:? (?<currentValue>.*)\\s",
-        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\sENV .*?_VERSION=(?<currentValue>.*)\\s",
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?_VERSION=(?<currentValue>.*)\\s",
       ],
     },
     {
