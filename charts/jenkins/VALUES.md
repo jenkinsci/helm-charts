@@ -178,7 +178,7 @@
 | controller.podDisruptionBudget.labels | object | `{}` |  |
 | controller.podDisruptionBudget.maxUnavailable | string | `"0"` | Number of pods that can be unavailable. Either an absolute number or a percentage |
 | controller.podLabels | object | `{}` | Custom Pod labels (an object with `label-key: label-value` pairs) Put labels on Jenkins controller pod |
-| controller.podSecurityContextOverride | object | `{}` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities` In the case of mounting an ext4 filesystem, it might be desirable to use `supplementalGroups` instead of `fsGroup` in the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496 |
+| controller.podSecurityContextOverride | string | `nil` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities` In the case of mounting an ext4 filesystem, it might be desirable to use `supplementalGroups` instead of `fsGroup` in the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496 |
 | controller.priorityClassName | string | `nil` | The name of a `priorityClass` to apply to the controller pod Leverage a priorityClass to ensure your pods survive resource shortages ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/ |
 | controller.probes.livenessProbe.failureThreshold | int | `5` | Set the failure threshold for the liveness probe |
 | controller.probes.livenessProbe.httpGet.path | string | `"{{ default \"\" .Values.controller.jenkinsUriPrefix }}/login"` | Set the Pod's HTTP path for the liveness probe |
@@ -269,7 +269,7 @@
 | networkPolicy.enabled | bool | `false` | Enable the creation of NetworkPolicy resources |
 | networkPolicy.externalAgents.except | list | `[]` | A list of IP sub-ranges to be excluded from the allowlisted IP range |
 | networkPolicy.externalAgents.ipCIDR | string | `nil` | The IP range from which external agents are allowed to connect to controller I.e., 172.17.0.0/16 |
-| networkPolicy.internalAgents.allowed | string | `nil` | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels |
+| networkPolicy.internalAgents.allowed | bool | `true` | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels |
 | networkPolicy.internalAgents.namespaceLabels | object | `{}` | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller |
 | networkPolicy.internalAgents.podLabels | object | `{}` | A map of labels (keys/values) that agent pods must have to be able to connect to controller |
 | persistence.accessMode | string | `"ReadWriteOnce"` | The PVC access mode |

@@ -248,7 +248,7 @@ controller:
       # -- Set the initial delay for the liveness probe in seconds
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial liveness probe while Jenkins is starting
-      initialDelaySeconds: 0
+      initialDelaySeconds:
     readinessProbe:
       # -- Set the failure threshold for the readiness probe
       failureThreshold: 3
@@ -264,7 +264,7 @@ controller:
       # -- Set the initial delay for the readiness probe in seconds
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial readiness probe while Jenkins is starting
-      initialDelaySeconds: 0
+      initialDelaySeconds:
 
   # PodDisruptionBudget config
   podDisruptionBudget:

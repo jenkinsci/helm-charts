@@ -47,7 +47,7 @@ default values:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: 0
+              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             name: jenkins
@@ -61,7 +61,7 @@ default values:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: 0
+              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             resources:
@@ -266,7 +266,7 @@ test scheme for config-reload:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: 0
+              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             name: jenkins
@@ -280,7 +280,7 @@ test scheme for config-reload:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: 0
+              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             resources:
