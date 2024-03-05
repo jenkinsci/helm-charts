@@ -79,7 +79,7 @@
 | controller.admin.username | string | `"admin"` | Admin username created as a secret if `controller.admin.createSecret` is true |
 | controller.affinity | object | `{}` | Affinity settings |
 | controller.agentListenerEnabled | bool | `true` | Create Agent listener service |
-| controller.agentListenerExternalTrafficPolicy | string | `nil` | Traffic Policy of for the agentListener service ref: https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies |
+| controller.agentListenerExternalTrafficPolicy | string | `nil` | Traffic Policy of for the agentListener service |
 | controller.agentListenerHostPort | string | `nil` | Host port to listen for agents |
 | controller.agentListenerLoadBalancerIP | string | `nil` | Static IP for the agentListener LoadBalancer |
 | controller.agentListenerLoadBalancerSourceRanges | list | `["0.0.0.0/0"]` | Allowed inbound IP for the agentListener service |

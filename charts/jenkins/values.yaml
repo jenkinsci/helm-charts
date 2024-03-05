@@ -322,8 +322,9 @@ controller:
   agentListenerHostPort:
   # -- Node port to listen for agents
   agentListenerNodePort:
-  # -- Traffic Policy of for the agentListener service
+
   # ref: https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies
+  # -- Traffic Policy of for the agentListener service
   agentListenerExternalTrafficPolicy:
   # -- Allowed inbound IP for the agentListener service
   agentListenerLoadBalancerSourceRanges:
