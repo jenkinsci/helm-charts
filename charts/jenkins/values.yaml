@@ -23,7 +23,7 @@ clusterZone: "cluster.local"
 # -- The URL of the Kubernetes API server
 kubernetesURL: "https://kubernetes.default"
 
-# The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed.
+# -- The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed.
 credentialsId:
 
 # -- Enables rendering of the helm.sh/chart label to the annotations
@@ -37,9 +37,10 @@ controller:
     registry: "docker.io"
     # -- Controller image repository
     repository: "jenkins/jenkins"
-    # -- Controller image tag override
-    # I.e., tag: "2.440.1-jdk17"
+
+    # -- Controller image tag override; i.e., tag: "2.440.1-jdk17"
     tag:
+
     # -- Controller image tag label
     tagLabel: jdk17
     # -- Controller image pull policy
@@ -67,10 +68,12 @@ controller:
   customJenkinsLabels: []
 
   hostNetworking: false
+
   # When enabling LDAP or another non-Jenkins identity source, the built-in admin account will no longer exist.
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert controller.admin.username to your preferred admin user:
   admin:
+
     # -- Admin username created as a secret if `controller.admin.createSecret` is true
     username: "admin"
     # -- Admin password created as a secret if `controller.admin.createSecret` is true
@@ -82,29 +85,33 @@ controller:
     # -- The key in the existing admin secret containing the password
     passwordKey: jenkins-admin-password
 
-    # -- Create secret for admin user
     # The default configuration uses this secret to configure an admin user
     # If you don't need that user or use a different security realm, then you can disable it
+    # -- Create secret for admin user
     createSecret: true
+
     # -- The name of an existing secret containing the admin credentials
     existingSecret: ""
   # -- Email address for the administrator of the Jenkins instance
   jenkinsAdminEmail:
 
-  # -- Custom Jenkins home path
   # This value should not be changed unless you use your custom image of jenkins or any derived from.
   # If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution"
+  # -- Custom Jenkins home path
   jenkinsHome: "/var/jenkins_home"
-  # -- Custom Jenkins reference path
+
   # This value should not be changed unless you use your custom image of jenkins or any derived from.
   # If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsRef: "/usr/share/cloudbees-jenkins-distribution/ref"
+  # -- Custom Jenkins reference path
   jenkinsRef: "/usr/share/jenkins/ref"
+
   # Path to the jenkins war file which is used by jenkins-plugin-cli.
   jenkinsWar: "/usr/share/jenkins/jenkins.war"
   # Override the default arguments passed to the war
   # overrideArgs:
   #   - --httpPort=8080
-  # -- Resources allocation (Requests and Limits)
+
+  # -- Resource allocation (Requests and Limits)
   resources:
     requests:
       cpu: "50m"
@@ -112,12 +119,14 @@ controller:
     limits:
       cpu: "2000m"
       memory: "4096Mi"
+
   # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
   shareProcessNamespace: false
 
-  # -- Resources allocation (Requests and Limits) for Init Container
   # Overrides the init container default values
+  # -- Resources allocation (Requests and Limits) for Init Container
   initContainerResources: {}
+  # initContainerResources:
   #   requests:
   #     cpu: "50m"
   #     memory: "256Mi"
@@ -126,59 +135,71 @@ controller:
   #     memory: "4096Mi"
   # -- Environment variable sources for Init Container
   initContainerEnvFrom: []
-  # -- Environment variables for Init Container
+
   # useful for i.e., http_proxy
+  # -- Environment variables for Init Container
   initContainerEnv: []
+  # initContainerEnv:
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
+
   # -- Environment variable sources for Jenkins Container
   containerEnvFrom: []
+
   # -- Environment variables for Jenkins Container
   containerEnv: []
   #   - name: http_proxy
   #     value: "http://192.168.64.1:3128"
 
-  # -- Append to `JAVA_OPTS` env var
   # Set min/max heap here if needed with "-Xms512m -Xmx512m"
+  # -- Append to `JAVA_OPTS` env var
   javaOpts:
   # -- Append to `JENKINS_OPTS` env var
   jenkinsOpts:
 
-  # -- Set protocol for Jenkins URL; `https` if `controller.ingress.tls`, `http` otherwise
-  # If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
+  # If you are using the ingress definitions provided by this chart via the `controller.ingress` block,
+  # the configured hostname will be the ingress hostname starting with `https://`
+  # or `http://` depending on the `tls` configuration.
   # The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`.
+  # -- Set protocol for Jenkins URL; `https` if `controller.ingress.tls`, `http` otherwise
   jenkinsUrlProtocol:
 
   # -- Set Jenkins URL if you are not using the ingress definitions provided by the chart
   jenkinsUrl:
-  # -- Root URI Jenkins will be served on
-  # I.e., "/jenkins"
+
   # If you set this prefix and use ingress controller, then you might want to set the ingress path below
+  # I.e., "/jenkins"
+  # -- Root URI Jenkins will be served on
   jenkinsUriPrefix:
 
   # -- Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set)
   usePodSecurityContext: true
-  # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with.
+
   # Note that `runAsUser`, `fsGroup`, and `securityContextCapabilities` are
   # being deprecated and replaced by `podSecurityContextOverride`.
   # Set runAsUser to 1000 to let Jenkins run as non-root user 'jenkins', which exists in 'jenkins/jenkins' docker image.
   # When configuring runAsUser to a different value than 0 also set fsGroup to the same value:
+  # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with.
   runAsUser: 1000
+
   # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that will be used for persistent volume.
   fsGroup: 1000
+
   # If you have PodSecurityPolicies that require dropping of capabilities as suggested by CIS K8s benchmark, put them here
-  securityContextCapabilities: {}
+  # securityContextCapabilities:
   #  drop:
   #    - NET_RAW
+  securityContextCapabilities: {}
 
-  # -- Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities`
   # In the case of mounting an ext4 filesystem, it might be desirable to use `supplementalGroups` instead of `fsGroup` in
   # the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496
-  podSecurityContextOverride: ~
+  # podSecurityContextOverride:
   #   runAsUser: 1000
   #   runAsNonRoot: true
   #   supplementalGroups: [1000]
   #   capabilities: {}
+  # -- Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities`
+  podSecurityContextOverride: ~
 
   # -- Allow controlling the securityContext for the jenkins container
   containerSecurityContext:
@@ -186,10 +207,12 @@ controller:
     runAsGroup: 1000
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
-  # -- k8s service type
+
   # For minikube, set this to NodePort, elsewhere uses LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
+  # -- k8s service type
   serviceType: ClusterIP
+
   # -- k8s service clusterIP. Only used if serviceType is ClusterIP
   clusterIp:
   # -- k8s service port
@@ -198,9 +221,11 @@ controller:
   targetPort: 8080
   # -- k8s node port. Only used if serviceType is NodePort
   nodePort:
+
   # Use Local to preserve the client source IP and avoids a second hop for LoadBalancer and NodePort type services,
   # but risks potentially imbalanced traffic spreading.
   serviceExternalTrafficPolicy:
+
   # -- Jenkins controller service annotations
   serviceAnnotations: {}
   # -- Jenkins controller custom labels for the StatefulSet
@@ -210,16 +235,18 @@ controller:
   # -- Labels for the Jenkins controller-service
   serviceLabels: {}
   #   service.beta.kubernetes.io/aws-load-balancer-backend-protocol: https
-  # -- Custom Pod labels (an object with `label-key: label-value` pairs)
+
   # Put labels on Jenkins controller pod
+  # -- Custom Pod labels (an object with `label-key: label-value` pairs)
   podLabels: {}
 
-  # -- Enable Kubernetes Probes configuration configured in `controller.probes`
   # Enable Kubernetes Startup, Liveness and Readiness Probes
   # if Startup Probe is supported, enable it too
   # ~ 2 minutes to allow Jenkins to restart when upgrading plugins. Set ReadinessTimeout to be shorter than LivenessTimeout.
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes
+  # -- Enable Kubernetes Probes configuration configured in `controller.probes`
   healthProbes: true
+
   probes:
     startupProbe:
       # -- Set the failure threshold for the startup probe
@@ -233,6 +260,7 @@ controller:
       periodSeconds: 10
       # -- Set the timeout for the startup probe in seconds
       timeoutSeconds: 5
+
     livenessProbe:
       # -- Set the failure threshold for the liveness probe
       failureThreshold: 5
@@ -245,10 +273,12 @@ controller:
       periodSeconds: 10
       # -- Set the timeout for the liveness probe in seconds
       timeoutSeconds: 5
-      # -- Set the initial delay for the liveness probe in seconds
+
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial liveness probe while Jenkins is starting
+      # -- Set the initial delay for the liveness probe in seconds
       initialDelaySeconds:
+
     readinessProbe:
       # -- Set the failure threshold for the readiness probe
       failureThreshold: 3
@@ -261,20 +291,24 @@ controller:
       periodSeconds: 10
       # -- Set the timeout for the readiness probe in seconds
       timeoutSeconds: 5
-      # -- Set the initial delay for the readiness probe in seconds
+
       # If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead.
       # It delays the initial readiness probe while Jenkins is starting
+      # -- Set the initial delay for the readiness probe in seconds
       initialDelaySeconds:
 
   # PodDisruptionBudget config
   podDisruptionBudget:
-    # -- Enable Kubernetes Pod Disruption Budget configuration
     # ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/
+
+    # -- Enable Kubernetes Pod Disruption Budget configuration
     enabled: false
-    # -- Policy API version
+
     # For Kubernetes v1.5+, use 'policy/v1beta1'
     # For Kubernetes v1.21+, use 'policy/v1'
+    # -- Policy API version
     apiVersion: "policy/v1beta1"
+
     annotations: {}
     labels: {}
     # -- Number of pods that can be unavailable. Either an absolute number or a percentage
@@ -305,19 +339,21 @@ controller:
       # -- Enable proxy compatibility
       proxyCompatability: true
 
-  # -- Defines how to expose the agentListener service
   # Kubernetes service type for the JNLP agent service
   # agentListenerServiceType is the Kubernetes Service type for the JNLP agent service,
   # either 'LoadBalancer', 'NodePort', or 'ClusterIP'
   # Note if you set this to 'LoadBalancer', you *must* define annotations to secure it. By default,
   # this will be an external load balancer and allowing inbound 0.0.0.0/0, a HUGE
   # security risk: https://github.com/kubernetes/charts/issues/1341
+  # -- Defines how to expose the agentListener service
   agentListenerServiceType: "ClusterIP"
+
   # -- Annotations for the agentListener service
   agentListenerServiceAnnotations: {}
-  # -- Static IP for the agentListener LoadBalancer
+
   # Optionally, assign an IP to the LoadBalancer agentListenerService LoadBalancer
   # GKE users: only regional static IPs will work for Service Load balancer.
+  # -- Static IP for the agentListener LoadBalancer
   agentListenerLoadBalancerIP:
 
   # -- Whether legacy remoting security should be enabled
@@ -329,21 +365,22 @@ controller:
   #   service.beta.kubernetes.io/aws-load-balancer-internal: "True"
   #   service.beta.kubernetes.io/load-balancer-source-ranges: "172.0.0.0/8, 10.0.0.0/8"
 
-  # -- Allowed inbound IP addresses
   # LoadBalancerSourcesRange is a list of allowed CIDR values, which are combined with ServicePort to
   # set allowed inbound rules on the security group assigned to the controller load balancer
+  # -- Allowed inbound IP addresses
   loadBalancerSourceRanges:
   - 0.0.0.0/0
+
   # -- Optionally assign a known public LB IP
   loadBalancerIP:
 
-  # -- Open a port, for JMX stats
   # Optionally configure a JMX port. This requires additional javaOpts, for example,
   # javaOpts: >
   #   -Dcom.sun.management.jmxremote.port=4000
   #   -Dcom.sun.management.jmxremote.authenticate=false
   #   -Dcom.sun.management.jmxremote.ssl=false
   # jmxPort: 4000
+  # -- Open a port, for JMX stats
   jmxPort:
 
   # -- Optionally configure other ports to expose in the controller container
@@ -352,16 +389,16 @@ controller:
   #   port: 9000
   #   targetPort: 9010 (Optional: Use to explicitly set targetPort if different from port)
 
-  # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   # Plugins will be installed during Jenkins controller start
+  # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
     - kubernetes:4186.v1d804571d5d4
     - workflow-aggregator:596.v8c21c963d92d
     - git:5.2.1
     - configuration-as-code:1775.v810dc950b_514
 
-  # -- Download the minimum required version or latest version of all dependencies
   # If set to false, Jenkins will download the minimum required version of all dependencies.
+  # -- Download the minimum required version or latest version of all dependencies
   installLatestPlugins: true
 
   # -- Set to true to download the latest version of any plugin that is requested to have the latest version
@@ -370,31 +407,32 @@ controller:
   # -- List of plugins to install in addition to those listed in controller.installPlugins
   additionalPlugins: []
 
-  # -- Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`
-  # Without this, whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
+  # Without this; whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage.
   # Note that for this to work, `persistence.enabled` needs to be set to `true`
+  # -- Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true`
   initializeOnce: false
 
-  # -- Overwrite installed plugins on start
   # Enable to always override the installed plugins with the values of 'controller.installPlugins' on upgrade or redeployment.
+  # -- Overwrite installed plugins on start
   overwritePlugins: false
 
-  # -- Overwrite plugins that are already installed in the controller image
   # Configures if plugins bundled with `controller.image` should be overwritten with the values of 'controller.installPlugins' on upgrade or redeployment.
+  # -- Overwrite plugins that are already installed in the controller image
   overwritePluginsFromImage: true
 
   # Configures the restrictions for naming projects. Set this key to null or empty to skip it in the default config.
   projectNamingStrategy: standard
 
-  # -- Enable HTML parsing using OWASP Markup Formatter Plugin (antisamy-markup-formatter)
   # Useful with ghprb plugin. The OWASP plugin is not installed by default, please update controller.installPlugins.
+  # -- Enable HTML parsing using OWASP Markup Formatter Plugin (antisamy-markup-formatter)
   enableRawHtmlMarkupFormatter: false
-  # -- Yaml of the markup formatter to use
+
   # This is ignored if enableRawHtmlMarkupFormatter is true
+  # -- Yaml of the markup formatter to use
   markupFormatter: plainText
 
-  # -- List of groovy functions to approve
   # Used to approve a list of groovy functions in pipelines used the script-security plugin. Can be viewed under /scriptApproval
+  # -- List of groovy functions to approve
   scriptApproval: []
   #  - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
   #  - "new groovy.json.JsonSlurperClassic"
@@ -417,25 +455,27 @@ controller:
   existingSecret:
 
   # -- List of additional existing secrets to mount
-  # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
   additionalExistingSecrets: []
+  # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
+  # additionalExistingSecrets:
   #  - name: secret-name-1
   #    keyName: username
   #  - name: secret-name-1
   #    keyName: password
 
   # -- List of additional secrets to create and mount
-  # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
   additionalSecrets: []
+  # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
+  # additionalSecrets:
   #  - name: nameOfSecret
   #    value: secretText
 
-  # -- List of `SecretClaim` resources to create
   # Generate SecretClaim resources to create Kubernetes secrets from HashiCorp Vault using kube-vault-controller.
   # 'name' is the name of the secret that will be created in Kubernetes. The Jenkins fullname is prepended to this value.
   # 'path' is the fully qualified path to the secret in Vault
   # 'type' is an optional Kubernetes secret type. The default is 'Opaque'
   # 'renew' is an optional secret renewal time in seconds
+  # -- List of `SecretClaim` resources to create
   secretClaims: []
   # - name: secretName        # required
   #   path: testPath          # required
@@ -455,8 +495,9 @@ controller:
   JCasC:
     # -- Enables default Jenkins configuration via configuration as code plugin
     defaultConfig: true
-    # -- Whether Jenkins Config as Code should overwrite any existing configuration
+
     # If true, the init container deletes all the plugin config files and Jenkins Config as Code overwrites any existing configuration
+    # -- Whether Jenkins Config as Code should overwrite any existing configuration
     overwriteConfiguration: false
     # -- Remote URLs for configuration files.
     configUrls: []
@@ -466,15 +507,17 @@ controller:
     #  welcome-message: |
     #    jenkins:
     #      systemMessage: Welcome to our CI\CD server. This Jenkins is configured and managed 'as code'.
-    # -- Jenkins Config as Code security-section
+
     # Allows adding to the top-level security JCasC section. For legacy purposes, by default, the chart includes apiToken configurations
+    # -- Jenkins Config as Code security-section
     security:
       apiToken:
         creationOfLegacyTokenEnabled: false
         tokenGenerationOnCreationEnabled: false
         usageStatisticsEnabled: true
-    # -- Jenkins Config as Code Security Realm-section
+
     # Ignored if securityRealm is defined in controller.JCasC.configScripts
+    # -- Jenkins Config as Code Security Realm-section
     securityRealm: |-
       local:
         allowsSignup: false
@@ -483,8 +526,9 @@ controller:
         - id: "${chart-admin-username}"
           name: "Jenkins Admin"
           password: "${chart-admin-password}"
-    # -- Jenkins Config as Code Authorization Strategy-section
+
     # Ignored if authorizationStrategy is defined in controller.JCasC.configScripts
+    # -- Jenkins Config as Code Authorization Strategy-section
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: false
@@ -497,11 +541,11 @@ controller:
 
   sidecars:
     configAutoReload:
-      # -- Enables Jenkins Config as Code auto-reload
       # If enabled: true, Jenkins Configuration as Code will be reloaded on-the-fly without a reboot.
       # If false or not-specified, JCasC changes will cause a reboot and will only be applied at the subsequent start-up.
       # Auto-reload uses the http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to
       # the configScripts are detected.
+      # -- Enables Jenkins Config as Code auto-reload
       enabled: true
       image:
         # -- Registry for the image that triggers the reload
@@ -545,11 +589,11 @@ controller:
       # folder in the pod that should hold the collected dashboards:
       folder: "/var/jenkins_home/casc_configs"
 
-      # -- Enable container security context
       # If specified, the sidecar will search for JCasC config-maps inside this namespace.
       # Otherwise, the namespace in which the sidecar is running will be used.
       # It's also possible to specify ALL to search in all namespaces:
       # searchNamespace:
+      # -- Enable container security context
       containerSecurityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
@@ -574,23 +618,27 @@ controller:
 
   # -- Name of the Kubernetes scheduler to use
   schedulerName: ""
-  # -- Node labels for pod assignment
+
   # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector
+  # -- Node labels for pod assignment
   nodeSelector: {}
+
+  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
+  # -- Toleration labels for pod assignment
+  tolerations: []
   # -- Set TerminationGracePeriodSeconds
   terminationGracePeriodSeconds:
   # -- Set the termination message path
   terminationMessagePath:
   # -- Set the termination message policy
   terminationMessagePolicy:
-  # -- Toleration labels for pod assignment
-  # ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature
-  tolerations: []
+
   # -- Affinity settings
   affinity: {}
-  # -- The name of a `priorityClass` to apply to the controller pod
+
   # Leverage a priorityClass to ensure your pods survive resource shortages
   # ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/
+  # -- The name of a `priorityClass` to apply to the controller pod
   priorityClassName:
 
   # -- Annotations for controller pod
@@ -598,15 +646,16 @@ controller:
   # -- Annotations for controller StatefulSet
   statefulSetAnnotations: {}
 
-  # -- Update strategy for StatefulSet
   # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
+  # -- Update strategy for StatefulSet
   updateStrategy: {}
 
   ingress:
     # -- Enables ingress
     enabled: false
-    # -- Override for the default Ingress paths
+
     # Override for the default paths that map requests to the backend
+    # -- Override for the default Ingress paths
     paths: []
     # - backend:
     #     serviceName: ssl-redirect
@@ -617,9 +666,9 @@ controller:
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
 
-    # -- Ingress API version
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
+    # -- Ingress API version
     apiVersion: "extensions/v1beta1"
     # -- Ingress labels
     labels: {}
@@ -631,11 +680,12 @@ controller:
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
     # ingressClassName: nginx
 
-    # -- Ingress path
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
+    # -- Ingress path
     path:
-    # -- Ingress hostname
+
     # configures the hostname e.g. jenkins.example.com
+    # -- Ingress hostname
     hostName:
     # -- Hostname to serve assets from
     resourceRootUrl:
@@ -700,8 +750,9 @@ controller:
     path:
 
   # -- Allows for adding entries to Pod /etc/hosts
-  # ref: https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
   hostAliases: []
+  # ref: https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
+  # hostAliases:
   # - ip: 192.168.50.50
   #   hostnames:
   #     - something.local
@@ -711,9 +762,10 @@ controller:
 
   # Expose Prometheus metrics
   prometheus:
-    # -- Enables prometheus service monitor
     # If enabled, add the prometheus plugin to the list of plugins to install
     # https://plugins.jenkins.io/prometheus
+
+    # -- Enables prometheus service monitor
     enabled: false
     # -- Additional labels to add to the service monitor object
     serviceMonitorAdditionalLabels: {}
@@ -721,12 +773,14 @@ controller:
     serviceMonitorNamespace:
     # -- How often prometheus should scrape metrics
     scrapeInterval: 60s
-    # -- The endpoint prometheus should get metrics from
+
     # Defaults to the default endpoint used by the prometheus plugin
+    # -- The endpoint prometheus should get metrics from
     scrapeEndpoint: /prometheus
-    # -- Array of prometheus alerting rules
+
     # See here: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/
     # The `groups` root object is added by default, add the rule entries
+    # -- Array of prometheus alerting rules
     alertingrules: []
     # -- Additional labels to add to the PrometheusRule object
     alertingRulesAdditionalLabels: {}
@@ -765,8 +819,9 @@ controller:
     # -- Name of the key in the secret that contains the JKS password
     jenkinsHttpsJksPasswordSecretKey: "https-jks-password"
     disableSecretMount: false
-    # -- HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port.
+
     # When HTTPS keystore is enabled, servicePort and targetPort will be used as HTTPS port
+    # -- HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port.
     httpPort: 8081
     # -- Path of HTTPS keystore file
     path: "/var/jenkins_keystore"
@@ -774,9 +829,10 @@ controller:
     fileName: "keystore.jks"
     # -- Jenkins keystore password
     password: "password"
+
     # -- Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here
-    # Convert keystore.jks files content to base64 > $ cat keystore.jks | base64
     jenkinsKeyStoreBase64Encoded:
+    # Convert keystore.jks files content to base64 > $ cat keystore.jks | base64
 #        /u3+7QAAAAIAAAABAAAAAQANamVua2luc2NpLmNvbQAAAW2r/b1ZAAAFATCCBP0wDgYKKwYBBAEq
 #        AhEBAQUABIIE6QbCqasvoHS0pSwYqSvdydMCB9t+VNfwhFIiiuAelJfO5sSe2SebJbtwHgLcRz1Z
 #        gMtWgOSFdl3bWSzA7vrW2LED52h+jXLYSWvZzuDuh8hYO85m10ikF6QR+dTi4jra0whIFDvq3pxe
@@ -823,11 +879,13 @@ agent:
   enabled: true
   # -- The name of the pod template to use for providing default values
   defaultsProviderTemplate: ""
-  # -- Overrides the Kubernetes Jenkins URL
+
   # For connecting to the Jenkins controller
+  # -- Overrides the Kubernetes Jenkins URL
   jenkinsUrl:
-  # -- Overrides the Kubernetes Jenkins tunnel
+
   # connects to the specified host and port, instead of connecting directly to the Jenkins controller
+  # -- Overrides the Kubernetes Jenkins tunnel
   jenkinsTunnel:
   # -- The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5
   kubernetesConnectTimeout: 5
@@ -886,8 +944,9 @@ agent:
 #    periodSeconds: 10
 #    successThreshold: 1
 #    timeoutSeconds: 1
-  # -- Always pull agent container image before build
+
   # You may want to change this to true while testing a new image
+  # -- Always pull agent container image before build
   alwaysPullImage: false
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
@@ -897,11 +956,11 @@ agent:
   # or simply to clean up the output to make it easier to read.
   showRawYaml: true
 
-  # -- Additional volumes
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC, Secret
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes
+  # -- Additional volumes
   volumes: []
   # - type: ConfigMap
   #   configMapName: myconfigmap
@@ -932,11 +991,11 @@ agent:
   #   secretName: mysecret
   # Pod-wide environment, these vars are visible to any container in the agent pod
 
-  # -- Workspace volume (defaults to EmptyDir)
   # You can define the workspaceVolume that you want to mount for this container
   # Allowed types are: DynamicPVC, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC
   # Configure the attributes as they appear in the corresponding Java class for that type
   # https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace
+  # -- Workspace volume (defaults to EmptyDir)
   workspaceVolume: {}
   ## DynamicPVC example
   # - type: DynamicPVC
@@ -962,8 +1021,8 @@ agent:
   #   claimName: mypvc
   #   readOnly: false
 
-  # -- Environment variables for the agent Pod
   # Pod-wide environment, these vars are visible to any container in the agent pod
+  # -- Environment variables for the agent Pod
   envVars: []
   # - name: PATH
   #   value: /usr/local/bin
@@ -986,8 +1045,9 @@ agent:
   args: "${computer.jnlpmac} ${computer.name}"
   # -- Side container name
   sideContainerName: "jnlp"
-  # -- Allocate pseudo tty to the side container
+
   # Doesn't allocate pseudo TTY by default
+  # -- Allocate pseudo tty to the side container
   TTYEnabled: false
   # -- Max number of agents to launch
   containerCap: 10
@@ -997,10 +1057,11 @@ agent:
   # -- Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it
   idleMinutes: 0
 
-  # -- The raw yaml of a Pod API Object to merge into the agent spec
-  # For example, this allows usage of toleration for agent pods.
+
+  # The raw yaml of a Pod API Object, for example, this allows usage of toleration for agent pods.
   # https://github.com/jenkinsci/kubernetes-plugin#using-yaml-to-define-pod-templates
   # https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+  # -- The raw yaml of a Pod API Object to merge into the agent spec
   yamlTemplate: ""
   # yamlTemplate: |-
   #   apiVersion: v1
@@ -1010,6 +1071,7 @@ agent:
   #     - key: "key"
   #       operator: "Equal"
   #       value: "value"
+
   # -- Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override"
   yamlMergeStrategy: "override"
   # -- Timeout in seconds for an agent to be online
@@ -1017,8 +1079,8 @@ agent:
   # -- Annotations to apply to the pod
   annotations: {}
 
-  # -- Add additional containers to the agents
   # Containers specified here are added to all agents. Set key empty to remove container from additional agents.
+  # -- Add additional containers to the agents
   additionalContainers: []
   #  - sideContainerName: dind
   #    image:
@@ -1035,11 +1097,10 @@ agent:
   #        cpu: 1
   #        memory: 2Gi
 
-  # -- Disable the default Jenkins Agent configuration
   # Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template.
+  # -- Disable the default Jenkins Agent configuration
   disableDefaultAgent: false
 
-  # -- Configures extra pod templates for the default kubernetes cloud
   # Below is the implementation of custom pod templates for the default configured kubernetes cloud.
   # Add a key under podTemplates for each pod template. Each key (prior to | character) is just a label, and can be any value.
   # Keys are only used to give the pod template a meaningful name. The only restriction is they may only contain RFC 1123 \ DNS label
@@ -1047,6 +1108,7 @@ agent:
   # For this pod templates configuration to be loaded, the following values must be set:
   # controller.JCasC.defaultConfig: true
   # Best reference is https://<jenkins_url>/configuration-as-code/reference#Cloud-kubernetes. The example below creates a python pod template.
+  # -- Configures extra pod templates for the default kubernetes cloud
   podTemplates: {}
   #  python: |
   #    - name: python
@@ -1064,8 +1126,8 @@ agent:
   #          resourceLimitCpu: "1"
   #          resourceLimitMemory: "1024Mi"
 
-# -- Configure additional
 # Inherits all values from `agent` so you only need to specify values which differ
+# -- Configure additional
 additionalAgents: {}
 #  maven:
 #    podName: maven
@@ -1111,11 +1173,13 @@ additionalClouds: {}
 persistence:
   # -- Enable the use of a Jenkins PVC
   enabled: true
-  # -- Provide the name of a PVC
+
   # A manually managed Persistent Volume and Claim
   # Requires persistence.enabled: true
   # If defined, PVC must be created manually before volume will be bound
+  # -- Provide the name of a PVC
   existingClaim:
+
   # jenkins data Persistent Volume Storage Class
   # If defined, storageClassName: <storageClass>
   # If set to "-", storageClassName: "", which disables dynamic provisioning
@@ -1131,17 +1195,20 @@ persistence:
   accessMode: "ReadWriteOnce"
   # -- The size of the PVC
   size: "8Gi"
-  # -- Existing data source to clone PVC from
+
   # ref: https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/
+  # -- Existing data source to clone PVC from
   dataSource: {}
   #   name: PVC-NAME
   #   kind: PersistentVolumeClaim
+
   # -- SubPath for jenkins-home mount
   subPath:
   # -- Additional volumes
   volumes: []
   #  - name: nothing
   #    emptyDir: {}
+
   # -- Additional mounts
   mounts: []
   #  - mountPath: /var/nothing
@@ -1151,9 +1218,10 @@ persistence:
 networkPolicy:
   # -- Enable the creation of NetworkPolicy resources
   enabled: false
-  # -- NetworkPolicy ApiVersion
+
   # For Kubernetes v1.4, v1.5 and v1.6, use 'extensions/v1beta1'
   # For Kubernetes v1.7, use 'networking.k8s.io/v1'
+  # -- NetworkPolicy ApiVersion
   apiVersion: networking.k8s.io/v1
   # You can allow agents to connect from both within the cluster (from within specific/all namespaces) AND/OR from a given external IP range
   internalAgents:
@@ -1165,8 +1233,7 @@ networkPolicy:
     namespaceLabels: {}
       # project: myproject
   externalAgents:
-    # -- The IP range from which external agents are allowed to connect to controller
-    # I.e., 172.17.0.0/16
+    # -- The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16
     ipCIDR:
     # -- A list of IP sub-ranges to be excluded from the allowlisted IP range
     except: []
@@ -1182,8 +1249,9 @@ rbac:
 serviceAccount:
   # -- Configures if a ServiceAccount with this name should be created
   create: true
-  # -- Name of the ServiceAccount to be used by access-controlled resources
+
   # The name of the ServiceAccount is autogenerated by default
+  #  -- The name of the ServiceAccount to be used by access-controlled resources
   name:
   # -- Configures annotations for the ServiceAccount
   annotations: {}
@@ -1196,8 +1264,9 @@ serviceAccount:
 serviceAccountAgent:
   # -- Configures if an agent ServiceAccount should be created
   create: false
-  # -- Name of the agent ServiceAccount to be used by access-controlled resources
+
   # If not set and create is true, a name is generated using the fullname template
+  # -- The name of the agent ServiceAccount to be used by access-controlled resources
   name:
   # -- Configures annotations for the agent ServiceAccount
   annotations: {}

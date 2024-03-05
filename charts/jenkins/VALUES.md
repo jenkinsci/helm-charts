@@ -4,11 +4,11 @@
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| additionalAgents | object | `{}` | Configure additional Inherits all values from `agent` so you only need to specify values which differ |
+| additionalAgents | object | `{}` | Configure additional |
 | additionalClouds | object | `{}` |  |
-| agent.TTYEnabled | bool | `false` | Allocate pseudo tty to the side container Doesn't allocate pseudo TTY by default |
-| agent.additionalContainers | list | `[]` | Add additional containers to the agents Containers specified here are added to all agents. Set key empty to remove container from additional agents. |
-| agent.alwaysPullImage | bool | `false` | Always pull agent container image before build You may want to change this to true while testing a new image |
+| agent.TTYEnabled | bool | `false` | Allocate pseudo tty to the side container |
+| agent.additionalContainers | list | `[]` | Add additional containers to the agents |
+| agent.alwaysPullImage | bool | `false` | Always pull agent container image before build |
 | agent.annotations | object | `{}` | Annotations to apply to the pod |
 | agent.args | string | `"${computer.jnlpmac} ${computer.name}"` | Arguments passed to command to execute |
 | agent.command | string | `nil` | Command to execute when side container starts |
@@ -18,16 +18,16 @@
 | agent.customJenkinsLabels | list | `[]` | Append Jenkins labels to the agent |
 | agent.defaultsProviderTemplate | string | `""` | The name of the pod template to use for providing default values |
 | agent.directConnection | bool | `false` |  |
-| agent.disableDefaultAgent | bool | `false` | Disable the default Jenkins Agent configuration Useful when configuring agents only with the podTemplates value, since the default podTemplate populated by values mentioned above will be excluded in the rendered template. |
+| agent.disableDefaultAgent | bool | `false` | Disable the default Jenkins Agent configuration |
 | agent.enabled | bool | `true` | Enable Kubernetes plugin jnlp-agent podTemplate |
-| agent.envVars | list | `[]` | Environment variables for the agent Pod Pod-wide environment, these vars are visible to any container in the agent pod |
+| agent.envVars | list | `[]` | Environment variables for the agent Pod |
 | agent.hostNetworking | bool | `false` | Enables the agent to use the host network |
 | agent.idleMinutes | int | `0` | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it |
 | agent.image.repository | string | `"jenkins/inbound-agent"` | Repository to pull the agent jnlp image from |
 | agent.image.tag | string | `"3206.vb_15dcf73f6a_9-3"` | Tag of the image to pull |
 | agent.imagePullSecretName | string | `nil` | Name of the secret to be used to pull the image |
-| agent.jenkinsTunnel | string | `nil` | Overrides the Kubernetes Jenkins tunnel connects to the specified host and port, instead of connecting directly to the Jenkins controller |
-| agent.jenkinsUrl | string | `nil` | Overrides the Kubernetes Jenkins URL For connecting to the Jenkins controller |
+| agent.jenkinsTunnel | string | `nil` | Overrides the Kubernetes Jenkins tunnel |
+| agent.jenkinsUrl | string | `nil` | Overrides the Kubernetes Jenkins URL |
 | agent.jnlpregistry | string | `nil` | Custom registry used to pull the agent jnlp image from |
 | agent.kubernetesConnectTimeout | int | `5` | The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5 |
 | agent.kubernetesReadTimeout | int | `15` | The read timeout in seconds for connections to Kubernetes API. The minimum value is 15 |
@@ -39,7 +39,7 @@
 | agent.podLabels | object | `{}` | Custom Pod labels (an object with `label-key: label-value` pairs) |
 | agent.podName | string | `"default"` | Agent Pod base name |
 | agent.podRetention | string | `"Never"` |  |
-| agent.podTemplates | object | `{}` | Configures extra pod templates for the default kubernetes cloud Below is the implementation of custom pod templates for the default configured kubernetes cloud. Add a key under podTemplates for each pod template. Each key (prior to | character) is just a label, and can be any value. Keys are only used to give the pod template a meaningful name. The only restriction is they may only contain RFC 1123 \ DNS label characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers. For this pod templates configuration to be loaded, the following values must be set: controller.JCasC.defaultConfig: true Best reference is https://<jenkins_url>/configuration-as-code/reference#Cloud-kubernetes. The example below creates a python pod template. |
+| agent.podTemplates | object | `{}` | Configures extra pod templates for the default kubernetes cloud |
 | agent.privileged | bool | `false` | Agent privileged container |
 | agent.resources | object | `{"limits":{"cpu":"512m","memory":"512Mi"},"requests":{"cpu":"512m","memory":"512Mi"}}` | Resources allocation (Requests and Limits) |
 | agent.retentionTimeout | int | `5` | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated |
@@ -48,30 +48,30 @@
 | agent.secretEnvVars | list | `[]` | Mount a secret as environment variable |
 | agent.showRawYaml | bool | `true` |  |
 | agent.sideContainerName | string | `"jnlp"` | Side container name |
-| agent.volumes | list | `[]` | Additional volumes You can define the volumes that you want to mount for this container Allowed types are: ConfigMap, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC, Secret Configure the attributes as they appear in the corresponding Java class for that type https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes |
+| agent.volumes | list | `[]` | Additional volumes |
 | agent.waitForPodSec | int | `600` | Seconds to wait for pod to be running |
 | agent.websocket | bool | `false` | Enables agent communication via websockets |
 | agent.workingDir | string | `"/home/jenkins/agent"` | Configure working directory for default agent |
-| agent.workspaceVolume | object | `{}` | Workspace volume (defaults to EmptyDir) You can define the workspaceVolume that you want to mount for this container Allowed types are: DynamicPVC, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC Configure the attributes as they appear in the corresponding Java class for that type https://github.com/jenkinsci/kubernetes-plugin/tree/master/src/main/java/org/csanchez/jenkins/plugins/kubernetes/volumes/workspace |
+| agent.workspaceVolume | object | `{}` | Workspace volume (defaults to EmptyDir) |
 | agent.yamlMergeStrategy | string | `"override"` | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override" |
-| agent.yamlTemplate | string | `""` | The raw yaml of a Pod API Object to merge into the agent spec For example, this allows usage of toleration for agent pods. https://github.com/jenkinsci/kubernetes-plugin#using-yaml-to-define-pod-templates https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/ |
+| agent.yamlTemplate | string | `""` | The raw yaml of a Pod API Object to merge into the agent spec |
 | awsSecurityGroupPolicies.enabled | bool | `false` |  |
 | awsSecurityGroupPolicies.policies[0].name | string | `""` |  |
 | awsSecurityGroupPolicies.policies[0].podSelector | object | `{}` |  |
 | awsSecurityGroupPolicies.policies[0].securityGroupIds | list | `[]` |  |
 | checkDeprecation | bool | `true` | Checks if any deprecated values are used |
 | clusterZone | string | `"cluster.local"` | Override the cluster name for FQDN resolving |
-| controller.JCasC.authorizationStrategy | string | `"loggedInUsersCanDoAnything:\n  allowAnonymousRead: false"` | Jenkins Config as Code Authorization Strategy-section Ignored if authorizationStrategy is defined in controller.JCasC.configScripts |
+| controller.JCasC.authorizationStrategy | string | `"loggedInUsersCanDoAnything:\n  allowAnonymousRead: false"` | Jenkins Config as Code Authorization Strategy-section |
 | controller.JCasC.configScripts | object | `{}` | List of Jenkins Config as Code scripts |
 | controller.JCasC.configUrls | list | `[]` | Remote URLs for configuration files. |
 | controller.JCasC.defaultConfig | bool | `true` | Enables default Jenkins configuration via configuration as code plugin |
-| controller.JCasC.overwriteConfiguration | bool | `false` | Whether Jenkins Config as Code should overwrite any existing configuration If true, the init container deletes all the plugin config files and Jenkins Config as Code overwrites any existing configuration |
-| controller.JCasC.security | object | `{"apiToken":{"creationOfLegacyTokenEnabled":false,"tokenGenerationOnCreationEnabled":false,"usageStatisticsEnabled":true}}` | Jenkins Config as Code security-section Allows adding to the top-level security JCasC section. For legacy purposes, by default, the chart includes apiToken configurations |
-| controller.JCasC.securityRealm | string | `"local:\n  allowsSignup: false\n  enableCaptcha: false\n  users:\n  - id: \"${chart-admin-username}\"\n    name: \"Jenkins Admin\"\n    password: \"${chart-admin-password}\""` | Jenkins Config as Code Security Realm-section Ignored if securityRealm is defined in controller.JCasC.configScripts |
-| controller.additionalExistingSecrets | list | `[]` | List of additional existing secrets to mount ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets |
+| controller.JCasC.overwriteConfiguration | bool | `false` | Whether Jenkins Config as Code should overwrite any existing configuration |
+| controller.JCasC.security | object | `{"apiToken":{"creationOfLegacyTokenEnabled":false,"tokenGenerationOnCreationEnabled":false,"usageStatisticsEnabled":true}}` | Jenkins Config as Code security-section |
+| controller.JCasC.securityRealm | string | `"local:\n  allowsSignup: false\n  enableCaptcha: false\n  users:\n  - id: \"${chart-admin-username}\"\n    name: \"Jenkins Admin\"\n    password: \"${chart-admin-password}\""` | Jenkins Config as Code Security Realm-section |
+| controller.additionalExistingSecrets | list | `[]` | List of additional existing secrets to mount |
 | controller.additionalPlugins | list | `[]` | List of plugins to install in addition to those listed in controller.installPlugins |
-| controller.additionalSecrets | list | `[]` | List of additional secrets to create and mount ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets |
-| controller.admin.createSecret | bool | `true` | Create secret for admin user The default configuration uses this secret to configure an admin user If you don't need that user or use a different security realm, then you can disable it |
+| controller.additionalSecrets | list | `[]` | List of additional secrets to create and mount |
+| controller.admin.createSecret | bool | `true` | Create secret for admin user |
 | controller.admin.existingSecret | string | `""` | The name of an existing secret containing the admin credentials |
 | controller.admin.password | string | <random password> | Admin password created as a secret if `controller.admin.createSecret` is true |
 | controller.admin.passwordKey | string | `"jenkins-admin-password"` | The key in the existing admin secret containing the password |
@@ -81,12 +81,12 @@
 | controller.agentListenerEnabled | bool | `true` | Create Agent listener service |
 | controller.agentListenerExternalTrafficPolicy | string | `nil` | Traffic Policy of for the agentListener service ref: https://kubernetes.io/docs/concepts/services-networking/service/#traffic-policies |
 | controller.agentListenerHostPort | string | `nil` | Host port to listen for agents |
-| controller.agentListenerLoadBalancerIP | string | `nil` | Static IP for the agentListener LoadBalancer Optionally, assign an IP to the LoadBalancer agentListenerService LoadBalancer GKE users: only regional static IPs will work for Service Load balancer. |
+| controller.agentListenerLoadBalancerIP | string | `nil` | Static IP for the agentListener LoadBalancer |
 | controller.agentListenerLoadBalancerSourceRanges | list | `["0.0.0.0/0"]` | Allowed inbound IP for the agentListener service |
 | controller.agentListenerNodePort | string | `nil` | Node port to listen for agents |
 | controller.agentListenerPort | int | `50000` | Listening port for agents |
 | controller.agentListenerServiceAnnotations | object | `{}` | Annotations for the agentListener service |
-| controller.agentListenerServiceType | string | `"ClusterIP"` | Defines how to expose the agentListener service Kubernetes service type for the JNLP agent service agentListenerServiceType is the Kubernetes Service type for the JNLP agent service, either 'LoadBalancer', 'NodePort', or 'ClusterIP' Note if you set this to 'LoadBalancer', you *must* define annotations to secure it. By default, this will be an external load balancer and allowing inbound 0.0.0.0/0, a HUGE security risk: https://github.com/kubernetes/charts/issues/1341 |
+| controller.agentListenerServiceType | string | `"ClusterIP"` | Defines how to expose the agentListener service |
 | controller.backendconfig.annotations | object | `{}` | backendconfig annotations |
 | controller.backendconfig.apiVersion | string | `"extensions/v1beta1"` | backendconfig API version |
 | controller.backendconfig.enabled | bool | `false` | Enables backendconfig |
@@ -105,7 +105,7 @@
 | controller.customJenkinsLabels | list | `[]` | Append Jenkins labels to the controller |
 | controller.disableRememberMe | bool | `false` | Disable use of remember me |
 | controller.disabledAgentProtocols | list | `["JNLP-connect","JNLP2-connect"]` | Disabled agent protocols |
-| controller.enableRawHtmlMarkupFormatter | bool | `false` | Enable HTML parsing using OWASP Markup Formatter Plugin (antisamy-markup-formatter) Useful with ghprb plugin. The OWASP plugin is not installed by default, please update controller.installPlugins. |
+| controller.enableRawHtmlMarkupFormatter | bool | `false` | Enable HTML parsing using OWASP Markup Formatter Plugin (antisamy-markup-formatter) |
 | controller.executorMode | string | `"NORMAL"` | Sets the executor mode of the Jenkins node. Possible values are "NORMAL" or "EXCLUSIVE" |
 | controller.existingSecret | string | `nil` |  |
 | controller.extraPorts | list | `[]` | Optionally configure other ports to expose in the controller container |
@@ -113,83 +113,83 @@
 | controller.googlePodMonitor.enabled | bool | `false` |  |
 | controller.googlePodMonitor.scrapeEndpoint | string | `"/prometheus"` |  |
 | controller.googlePodMonitor.scrapeInterval | string | `"60s"` |  |
-| controller.healthProbes | bool | `true` | Enable Kubernetes Probes configuration configured in `controller.probes` Enable Kubernetes Startup, Liveness and Readiness Probes if Startup Probe is supported, enable it too ~ 2 minutes to allow Jenkins to restart when upgrading plugins. Set ReadinessTimeout to be shorter than LivenessTimeout. ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes |
-| controller.hostAliases | list | `[]` | Allows for adding entries to Pod /etc/hosts ref: https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/ |
+| controller.healthProbes | bool | `true` | Enable Kubernetes Probes configuration configured in `controller.probes` |
+| controller.hostAliases | list | `[]` | Allows for adding entries to Pod /etc/hosts |
 | controller.hostNetworking | bool | `false` |  |
 | controller.httpsKeyStore.disableSecretMount | bool | `false` |  |
 | controller.httpsKeyStore.enable | bool | `false` | Enables HTTPS keystore on jenkins controller |
 | controller.httpsKeyStore.fileName | string | `"keystore.jks"` | Jenkins keystore filename which will appear under controller.httpsKeyStore.path |
-| controller.httpsKeyStore.httpPort | int | `8081` | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. When HTTPS keystore is enabled, servicePort and targetPort will be used as HTTPS port |
+| controller.httpsKeyStore.httpPort | int | `8081` | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. |
 | controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey | string | `"https-jks-password"` | Name of the key in the secret that contains the JKS password |
 | controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName | string | `""` | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file |
 | controller.httpsKeyStore.jenkinsHttpsJksSecretKey | string | `"jenkins-jks-file"` | Name of the key in the secret that already has ssl keystore |
 | controller.httpsKeyStore.jenkinsHttpsJksSecretName | string | `""` | Name of the secret that already has ssl keystore |
-| controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded | string | `nil` | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here Convert keystore.jks files content to base64 > $ cat keystore.jks | base64 |
+| controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded | string | `nil` | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here |
 | controller.httpsKeyStore.password | string | `"password"` | Jenkins keystore password |
 | controller.httpsKeyStore.path | string | `"/var/jenkins_keystore"` | Path of HTTPS keystore file |
 | controller.image.pullPolicy | string | `"Always"` | Controller image pull policy |
 | controller.image.registry | string | `"docker.io"` | Controller image registry |
 | controller.image.repository | string | `"jenkins/jenkins"` | Controller image repository |
-| controller.image.tag | string | `nil` | Controller image tag override I.e., tag: "2.440.1-jdk17" |
+| controller.image.tag | string | `nil` | Controller image tag override; i.e., tag: "2.440.1-jdk17" |
 | controller.image.tagLabel | string | `"jdk17"` | Controller image tag label |
 | controller.imagePullSecretName | string | `nil` | Controller image pull secret |
 | controller.ingress.annotations | object | `{}` | Ingress annotations |
-| controller.ingress.apiVersion | string | `"extensions/v1beta1"` | Ingress API version For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1' For Kubernetes v1.19+, use 'networking.k8s.io/v1' |
+| controller.ingress.apiVersion | string | `"extensions/v1beta1"` | Ingress API version |
 | controller.ingress.enabled | bool | `false` | Enables ingress |
-| controller.ingress.hostName | string | `nil` | Ingress hostname configures the hostname e.g. jenkins.example.com |
+| controller.ingress.hostName | string | `nil` | Ingress hostname |
 | controller.ingress.labels | object | `{}` | Ingress labels |
-| controller.ingress.path | string | `nil` | Ingress path Set this path to jenkinsUriPrefix above or use annotations to rewrite path |
-| controller.ingress.paths | list | `[]` | Override for the default Ingress paths Override for the default paths that map requests to the backend |
+| controller.ingress.path | string | `nil` | Ingress path |
+| controller.ingress.paths | list | `[]` | Override for the default Ingress paths |
 | controller.ingress.resourceRootUrl | string | `nil` | Hostname to serve assets from |
 | controller.ingress.tls | list | `[]` | Ingress TLS configuration |
 | controller.initConfigMap | string | `nil` | Name of the existing ConfigMap that contains init scripts |
-| controller.initContainerEnv | list | `[]` | Environment variables for Init Container useful for i.e., http_proxy |
+| controller.initContainerEnv | list | `[]` | Environment variables for Init Container |
 | controller.initContainerEnvFrom | list | `[]` | Environment variable sources for Init Container |
-| controller.initContainerResources | object | `{}` | Resources allocation (Requests and Limits) for Init Container Overrides the init container default values |
+| controller.initContainerResources | object | `{}` | Resources allocation (Requests and Limits) for Init Container |
 | controller.initScripts | object | `{}` | Map of groovy init scripts to be executed during Jenkins controller start |
-| controller.initializeOnce | bool | `false` | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` Without this, whenever the controller gets restarted (Evicted, etc.) it will fetch plugin updates that have the potential to cause breakage. Note that for this to work, `persistence.enabled` needs to be set to `true` |
-| controller.installLatestPlugins | bool | `true` | Download the minimum required version or latest version of all dependencies If set to false, Jenkins will download the minimum required version of all dependencies. |
+| controller.initializeOnce | bool | `false` | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` |
+| controller.installLatestPlugins | bool | `true` | Download the minimum required version or latest version of all dependencies |
 | controller.installLatestSpecifiedPlugins | bool | `false` | Set to true to download the latest version of any plugin that is requested to have the latest version |
-| controller.installPlugins | list | `["kubernetes:4186.v1d804571d5d4","workflow-aggregator:596.v8c21c963d92d","git:5.2.1","configuration-as-code:1775.v810dc950b_514"]` | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` Plugins will be installed during Jenkins controller start |
-| controller.javaOpts | string | `nil` | Append to `JAVA_OPTS` env var Set min/max heap here if needed with "-Xms512m -Xmx512m" |
+| controller.installPlugins | list | `["kubernetes:4186.v1d804571d5d4","workflow-aggregator:596.v8c21c963d92d","git:5.2.1","configuration-as-code:1775.v810dc950b_514"]` | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` |
+| controller.javaOpts | string | `nil` | Append to `JAVA_OPTS` env var |
 | controller.jenkinsAdminEmail | string | `nil` | Email address for the administrator of the Jenkins instance |
-| controller.jenkinsHome | string | `"/var/jenkins_home"` | Custom Jenkins home path This value should not be changed unless you use your custom image of jenkins or any derived from. If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsHome: "/var/cloudbees-jenkins-distribution" |
+| controller.jenkinsHome | string | `"/var/jenkins_home"` | Custom Jenkins home path |
 | controller.jenkinsOpts | string | `nil` | Append to `JENKINS_OPTS` env var |
-| controller.jenkinsRef | string | `"/usr/share/jenkins/ref"` | Custom Jenkins reference path This value should not be changed unless you use your custom image of jenkins or any derived from. If you want to use Cloudbees Jenkins Distribution docker, you should set jenkinsRef: "/usr/share/cloudbees-jenkins-distribution/ref" |
-| controller.jenkinsUriPrefix | string | `nil` | Root URI Jenkins will be served on I.e., "/jenkins" If you set this prefix and use ingress controller, then you might want to set the ingress path below |
+| controller.jenkinsRef | string | `"/usr/share/jenkins/ref"` | Custom Jenkins reference path |
+| controller.jenkinsUriPrefix | string | `nil` | Root URI Jenkins will be served on |
 | controller.jenkinsUrl | string | `nil` | Set Jenkins URL if you are not using the ingress definitions provided by the chart |
-| controller.jenkinsUrlProtocol | string | `nil` | Set protocol for Jenkins URL; `https` if `controller.ingress.tls`, `http` otherwise If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration. The Protocol can be overwritten by specifying `controller.jenkinsUrlProtocol`. |
+| controller.jenkinsUrlProtocol | string | `nil` | Set protocol for Jenkins URL; `https` if `controller.ingress.tls`, `http` otherwise |
 | controller.jenkinsWar | string | `"/usr/share/jenkins/jenkins.war"` |  |
-| controller.jmxPort | string | `nil` | Open a port, for JMX stats Optionally configure a JMX port. This requires additional javaOpts, for example, javaOpts: >   -Dcom.sun.management.jmxremote.port=4000   -Dcom.sun.management.jmxremote.authenticate=false   -Dcom.sun.management.jmxremote.ssl=false jmxPort: 4000 |
+| controller.jmxPort | string | `nil` | Open a port, for JMX stats |
 | controller.legacyRemotingSecurityEnabled | bool | `false` | Whether legacy remoting security should be enabled |
 | controller.lifecycle | object | `{}` | Lifecycle specification for controller-container |
 | controller.loadBalancerIP | string | `nil` | Optionally assign a known public LB IP |
-| controller.loadBalancerSourceRanges | list | `["0.0.0.0/0"]` | Allowed inbound IP addresses LoadBalancerSourcesRange is a list of allowed CIDR values, which are combined with ServicePort to set allowed inbound rules on the security group assigned to the controller load balancer |
-| controller.markupFormatter | string | `"plainText"` | Yaml of the markup formatter to use This is ignored if enableRawHtmlMarkupFormatter is true |
+| controller.loadBalancerSourceRanges | list | `["0.0.0.0/0"]` | Allowed inbound IP addresses |
+| controller.markupFormatter | string | `"plainText"` | Yaml of the markup formatter to use |
 | controller.nodePort | string | `nil` | k8s node port. Only used if serviceType is NodePort |
-| controller.nodeSelector | object | `{}` | Node labels for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector |
+| controller.nodeSelector | object | `{}` | Node labels for pod assignment |
 | controller.numExecutors | int | `0` | Set Number of executors |
-| controller.overwritePlugins | bool | `false` | Overwrite installed plugins on start Enable to always override the installed plugins with the values of 'controller.installPlugins' on upgrade or redeployment. |
-| controller.overwritePluginsFromImage | bool | `true` | Overwrite plugins that are already installed in the controller image Configures if plugins bundled with `controller.image` should be overwritten with the values of 'controller.installPlugins' on upgrade or redeployment. |
+| controller.overwritePlugins | bool | `false` | Overwrite installed plugins on start |
+| controller.overwritePluginsFromImage | bool | `true` | Overwrite plugins that are already installed in the controller image |
 | controller.podAnnotations | object | `{}` | Annotations for controller pod |
 | controller.podDisruptionBudget.annotations | object | `{}` |  |
-| controller.podDisruptionBudget.apiVersion | string | `"policy/v1beta1"` | Policy API version For Kubernetes v1.5+, use 'policy/v1beta1' For Kubernetes v1.21+, use 'policy/v1' |
-| controller.podDisruptionBudget.enabled | bool | `false` | Enable Kubernetes Pod Disruption Budget configuration ref: https://kubernetes.io/docs/tasks/run-application/configure-pdb/ |
+| controller.podDisruptionBudget.apiVersion | string | `"policy/v1beta1"` | Policy API version |
+| controller.podDisruptionBudget.enabled | bool | `false` | Enable Kubernetes Pod Disruption Budget configuration |
 | controller.podDisruptionBudget.labels | object | `{}` |  |
 | controller.podDisruptionBudget.maxUnavailable | string | `"0"` | Number of pods that can be unavailable. Either an absolute number or a percentage |
-| controller.podLabels | object | `{}` | Custom Pod labels (an object with `label-key: label-value` pairs) Put labels on Jenkins controller pod |
-| controller.podSecurityContextOverride | string | `nil` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities` In the case of mounting an ext4 filesystem, it might be desirable to use `supplementalGroups` instead of `fsGroup` in the `securityContext` block: https://github.com/kubernetes/kubernetes/issues/67014#issuecomment-589915496 |
-| controller.priorityClassName | string | `nil` | The name of a `priorityClass` to apply to the controller pod Leverage a priorityClass to ensure your pods survive resource shortages ref: https://kubernetes.io/docs/concepts/configuration/pod-priority-preemption/ |
+| controller.podLabels | object | `{}` | Custom Pod labels (an object with `label-key: label-value` pairs) |
+| controller.podSecurityContextOverride | string | `nil` | Completely overwrites the contents of the pod security context, ignoring the values provided for `runAsUser`, `fsGroup`, and `securityContextCapabilities` |
+| controller.priorityClassName | string | `nil` | The name of a `priorityClass` to apply to the controller pod |
 | controller.probes.livenessProbe.failureThreshold | int | `5` | Set the failure threshold for the liveness probe |
 | controller.probes.livenessProbe.httpGet.path | string | `"{{ default \"\" .Values.controller.jenkinsUriPrefix }}/login"` | Set the Pod's HTTP path for the liveness probe |
 | controller.probes.livenessProbe.httpGet.port | string | `"http"` | Set the Pod's HTTP port to use for the liveness probe |
-| controller.probes.livenessProbe.initialDelaySeconds | string | `nil` | Set the initial delay for the liveness probe in seconds If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead. It delays the initial liveness probe while Jenkins is starting |
+| controller.probes.livenessProbe.initialDelaySeconds | string | `nil` | Set the initial delay for the liveness probe in seconds |
 | controller.probes.livenessProbe.periodSeconds | int | `10` | Set the time interval between two liveness probes executions in seconds |
 | controller.probes.livenessProbe.timeoutSeconds | int | `5` | Set the timeout for the liveness probe in seconds |
 | controller.probes.readinessProbe.failureThreshold | int | `3` | Set the failure threshold for the readiness probe |
 | controller.probes.readinessProbe.httpGet.path | string | `"{{ default \"\" .Values.controller.jenkinsUriPrefix }}/login"` | Set the Pod's HTTP path for the liveness probe |
 | controller.probes.readinessProbe.httpGet.port | string | `"http"` | Set the Pod's HTTP port to use for the readiness probe |
-| controller.probes.readinessProbe.initialDelaySeconds | string | `nil` | Set the initial delay for the readiness probe in seconds If Startup Probe is not supported on your Kubernetes cluster, you might want to use "initialDelaySeconds" instead. It delays the initial readiness probe while Jenkins is starting |
+| controller.probes.readinessProbe.initialDelaySeconds | string | `nil` | Set the initial delay for the readiness probe in seconds |
 | controller.probes.readinessProbe.periodSeconds | int | `10` | Set the time interval between two readiness probes executions in seconds |
 | controller.probes.readinessProbe.timeoutSeconds | int | `5` | Set the timeout for the readiness probe in seconds |
 | controller.probes.startupProbe.failureThreshold | int | `12` | Set the failure threshold for the startup probe |
@@ -199,23 +199,23 @@
 | controller.probes.startupProbe.timeoutSeconds | int | `5` | Set the timeout for the startup probe in seconds |
 | controller.projectNamingStrategy | string | `"standard"` |  |
 | controller.prometheus.alertingRulesAdditionalLabels | object | `{}` | Additional labels to add to the PrometheusRule object |
-| controller.prometheus.alertingrules | list | `[]` | Array of prometheus alerting rules See here: https://prometheus.io/docs/prometheus/latest/configuration/alerting_rules/ The `groups` root object is added by default, add the rule entries |
-| controller.prometheus.enabled | bool | `false` | Enables prometheus service monitor If enabled, add the prometheus plugin to the list of plugins to install https://plugins.jenkins.io/prometheus |
+| controller.prometheus.alertingrules | list | `[]` | Array of prometheus alerting rules |
+| controller.prometheus.enabled | bool | `false` | Enables prometheus service monitor |
 | controller.prometheus.metricRelabelings | list | `[]` |  |
 | controller.prometheus.prometheusRuleNamespace | string | `""` | Set a custom namespace where to deploy PrometheusRule resource |
 | controller.prometheus.relabelings | list | `[]` |  |
-| controller.prometheus.scrapeEndpoint | string | `"/prometheus"` | The endpoint prometheus should get metrics from Defaults to the default endpoint used by the prometheus plugin |
+| controller.prometheus.scrapeEndpoint | string | `"/prometheus"` | The endpoint prometheus should get metrics from |
 | controller.prometheus.scrapeInterval | string | `"60s"` | How often prometheus should scrape metrics |
 | controller.prometheus.serviceMonitorAdditionalLabels | object | `{}` | Additional labels to add to the service monitor object |
 | controller.prometheus.serviceMonitorNamespace | string | `nil` | Set a custom namespace where to deploy ServiceMonitor resource |
-| controller.resources | object | `{"limits":{"cpu":"2000m","memory":"4096Mi"},"requests":{"cpu":"50m","memory":"256Mi"}}` | Resources allocation (Requests and Limits) |
+| controller.resources | object | `{"limits":{"cpu":"2000m","memory":"4096Mi"},"requests":{"cpu":"50m","memory":"256Mi"}}` | Resource allocation (Requests and Limits) |
 | controller.route.annotations | object | `{}` | Route annotations |
 | controller.route.enabled | bool | `false` | Enables openshift route |
 | controller.route.labels | object | `{}` | Route labels |
 | controller.route.path | string | `nil` | Route path |
-| controller.runAsUser | int | `1000` | Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with. Note that `runAsUser`, `fsGroup`, and `securityContextCapabilities` are being deprecated and replaced by `podSecurityContextOverride`. Set runAsUser to 1000 to let Jenkins run as non-root user 'jenkins', which exists in 'jenkins/jenkins' docker image. When configuring runAsUser to a different value than 0 also set fsGroup to the same value: |
+| controller.runAsUser | int | `1000` | Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with. |
 | controller.schedulerName | string | `""` | Name of the Kubernetes scheduler to use |
-| controller.scriptApproval | list | `[]` | List of groovy functions to approve Used to approve a list of groovy functions in pipelines used the script-security plugin. Can be viewed under /scriptApproval |
+| controller.scriptApproval | list | `[]` | List of groovy functions to approve |
 | controller.secondaryingress.annotations | object | `{}` |  |
 | controller.secondaryingress.apiVersion | string | `"extensions/v1beta1"` |  |
 | controller.secondaryingress.enabled | bool | `false` |  |
@@ -223,17 +223,17 @@
 | controller.secondaryingress.labels | object | `{}` |  |
 | controller.secondaryingress.paths | list | `[]` |  |
 | controller.secondaryingress.tls | string | `nil` |  |
-| controller.secretClaims | list | `[]` | List of `SecretClaim` resources to create Generate SecretClaim resources to create Kubernetes secrets from HashiCorp Vault using kube-vault-controller. 'name' is the name of the secret that will be created in Kubernetes. The Jenkins fullname is prepended to this value. 'path' is the fully qualified path to the secret in Vault 'type' is an optional Kubernetes secret type. The default is 'Opaque' 'renew' is an optional secret renewal time in seconds |
+| controller.secretClaims | list | `[]` | List of `SecretClaim` resources to create |
 | controller.securityContextCapabilities | object | `{}` |  |
 | controller.serviceAnnotations | object | `{}` | Jenkins controller service annotations |
 | controller.serviceExternalTrafficPolicy | string | `nil` |  |
 | controller.serviceLabels | object | `{}` | Labels for the Jenkins controller-service |
 | controller.servicePort | int | `8080` | k8s service port |
-| controller.serviceType | string | `"ClusterIP"` | k8s service type For minikube, set this to NodePort, elsewhere uses LoadBalancer Use ClusterIP if your setup includes ingress controller |
+| controller.serviceType | string | `"ClusterIP"` | k8s service type |
 | controller.shareProcessNamespace | bool | `false` |  |
 | controller.sidecars.additionalSidecarContainers | list | `[]` | Configures additional sidecar container(s) for the Jenkins controller |
-| controller.sidecars.configAutoReload.containerSecurityContext | object | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true}` | Enable container security context If specified, the sidecar will search for JCasC config-maps inside this namespace. Otherwise, the namespace in which the sidecar is running will be used. It's also possible to specify ALL to search in all namespaces: searchNamespace: |
-| controller.sidecars.configAutoReload.enabled | bool | `true` | Enables Jenkins Config as Code auto-reload If enabled: true, Jenkins Configuration as Code will be reloaded on-the-fly without a reboot. If false or not-specified, JCasC changes will cause a reboot and will only be applied at the subsequent start-up. Auto-reload uses the http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to the configScripts are detected. |
+| controller.sidecars.configAutoReload.containerSecurityContext | object | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true}` | Enable container security context |
+| controller.sidecars.configAutoReload.enabled | bool | `true` | Enables Jenkins Config as Code auto-reload |
 | controller.sidecars.configAutoReload.env | object | `{}` | Environment variables for the Jenkins Config as Code auto-reload container |
 | controller.sidecars.configAutoReload.envFrom | list | `[]` | Environment variable sources for the Jenkins Config as Code auto-reload container |
 | controller.sidecars.configAutoReload.folder | string | `"/var/jenkins_home/casc_configs"` |  |
@@ -254,10 +254,10 @@
 | controller.terminationMessagePath | string | `nil` | Set the termination message path |
 | controller.terminationMessagePolicy | string | `nil` | Set the termination message policy |
 | controller.testEnabled | bool | `true` | Can be used to disable rendering controller test resources when using helm template |
-| controller.tolerations | list | `[]` | Toleration labels for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature |
-| controller.updateStrategy | object | `{}` | Update strategy for StatefulSet ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies |
+| controller.tolerations | list | `[]` | Toleration labels for pod assignment |
+| controller.updateStrategy | object | `{}` | Update strategy for StatefulSet |
 | controller.usePodSecurityContext | bool | `true` | Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set) |
-| credentialsId | string | `nil` |  |
+| credentialsId | string | `nil` | The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed. |
 | fullnameOverride | string | `jenkins-(release-name)` or `jenkins` if the release-name is `jenkins` | Override the full resource names |
 | helmtest.bats.image.registry | string | `"docker.io"` | Registry of the image used to test the framework |
 | helmtest.bats.image.repository | string | `"bats/bats"` | Repository of the image used to test the framework |
@@ -265,18 +265,18 @@
 | kubernetesURL | string | `"https://kubernetes.default"` | The URL of the Kubernetes API server |
 | nameOverride | string | `Chart.Name` | Override the resource name prefix |
 | namespaceOverride | string | `Release.Namespace` | Override the deployment namespace |
-| networkPolicy.apiVersion | string | `"networking.k8s.io/v1"` | NetworkPolicy ApiVersion For Kubernetes v1.4, v1.5 and v1.6, use 'extensions/v1beta1' For Kubernetes v1.7, use 'networking.k8s.io/v1' |
+| networkPolicy.apiVersion | string | `"networking.k8s.io/v1"` | NetworkPolicy ApiVersion |
 | networkPolicy.enabled | bool | `false` | Enable the creation of NetworkPolicy resources |
 | networkPolicy.externalAgents.except | list | `[]` | A list of IP sub-ranges to be excluded from the allowlisted IP range |
-| networkPolicy.externalAgents.ipCIDR | string | `nil` | The IP range from which external agents are allowed to connect to controller I.e., 172.17.0.0/16 |
+| networkPolicy.externalAgents.ipCIDR | string | `nil` | The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16 |
 | networkPolicy.internalAgents.allowed | bool | `true` | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels |
 | networkPolicy.internalAgents.namespaceLabels | object | `{}` | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller |
 | networkPolicy.internalAgents.podLabels | object | `{}` | A map of labels (keys/values) that agent pods must have to be able to connect to controller |
 | persistence.accessMode | string | `"ReadWriteOnce"` | The PVC access mode |
 | persistence.annotations | object | `{}` | Annotations for the PVC |
-| persistence.dataSource | object | `{}` | Existing data source to clone PVC from ref: https://kubernetes.io/docs/concepts/storage/volume-pvc-datasource/ |
+| persistence.dataSource | object | `{}` | Existing data source to clone PVC from |
 | persistence.enabled | bool | `true` | Enable the use of a Jenkins PVC |
-| persistence.existingClaim | string | `nil` | Provide the name of a PVC A manually managed Persistent Volume and Claim Requires persistence.enabled: true If defined, PVC must be created manually before volume will be bound |
+| persistence.existingClaim | string | `nil` | Provide the name of a PVC |
 | persistence.labels | object | `{}` | Labels for the PVC |
 | persistence.mounts | list | `[]` | Additional mounts |
 | persistence.size | string | `"8Gi"` | The size of the PVC |
@@ -290,9 +290,9 @@
 | serviceAccount.create | bool | `true` | Configures if a ServiceAccount with this name should be created |
 | serviceAccount.extraLabels | object | `{}` | Configures extra labels for the ServiceAccount |
 | serviceAccount.imagePullSecretName | string | `nil` | Controller ServiceAccount image pull secret |
-| serviceAccount.name | string | `nil` | Name of the ServiceAccount to be used by access-controlled resources The name of the ServiceAccount is autogenerated by default |
+| serviceAccount.name | string | `nil` |  |
 | serviceAccountAgent.annotations | object | `{}` | Configures annotations for the agent ServiceAccount |
 | serviceAccountAgent.create | bool | `false` | Configures if an agent ServiceAccount should be created |
 | serviceAccountAgent.extraLabels | object | `{}` | Configures extra labels for the agent ServiceAccount |
 | serviceAccountAgent.imagePullSecretName | string | `nil` | Agent ServiceAccount image pull secret |
-| serviceAccountAgent.name | string | `nil` | Name of the agent ServiceAccount to be used by access-controlled resources If not set and create is true, a name is generated using the fullname template |
+| serviceAccountAgent.name | string | `nil` | The name of the agent ServiceAccount to be used by access-controlled resources |
