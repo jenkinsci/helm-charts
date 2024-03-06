@@ -2,8 +2,8 @@
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
   onboarding: false,
   requireConfig: "ignored",
-//  platform: "github",
-//  repositories: ["jenkinsci/helm-charts"],
+  platform: "github",
+  repositories: ["jenkinsci/helm-charts"],
   // eslint-disable-next-line
   allowedPostUpgradeCommands: ['^\.github\/renovate-postupgrade\.sh "{{{depName}}}" "{{{newVersion}}}"$'],
   prConcurrentLimit: 0,
