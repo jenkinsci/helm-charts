@@ -10,15 +10,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 {{- end -}}
 
 {{- define "chart.typeColumnRender" -}}
-    {{- if (eq .Type "string/email") }}
-        <a href="#stringemail" title="{{- template "chart.valuetypes.email" -}}">{{- .Type -}}</a>
-    {{- else if (eq .Type "k8s/storage/persistent-volume/access-modes" )}}
-        <a target="_blank"
-           href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/#access-modes"
-        >{{- .Type -}}</a>
-    {{- else }}
-        {{- .Type -}}
-    {{- end }}
+{{- .Type -}}
 {{- end -}}
 
 {{- define "chart.valueDescription" -}}
