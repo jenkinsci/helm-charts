@@ -953,6 +953,7 @@ agent:
   # the jnlp container cannot be scheduled without overriding its container definition with a securityContext.
   # This option allows to automatically inject in the jnlp container a securityContext
   # that is suitable for the use of the restricted Pod Security Standard.
+  # -- Set a restricted securityContext on jnlp containers
   restrictedPssSecurityContext: false
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
