@@ -424,7 +424,7 @@ controller:
   # the 'name' and 'keyName' are concatenated with a '-' in between, so for example:
   # an existing secret "secret-credentials" and a key inside it named "github-password" should be used in Jcasc as ${secret-credentials-github-password}
   # 'name' and 'keyName' must be lowercase RFC 1123 label must consist of lower case alphanumeric characters or '-',
-  # and must start and end with an alphanumeric character (e.g. 'my-name',  or '123-abc')
+  # and must start and end with an alphanumeric character (e.g. 'my-name', or '123-abc')
   # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in Jcasc as ${github-username}
   # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
   existingSecret: secret-credentials
@@ -494,7 +494,7 @@ RBAC is enabled by default. If you want to disable it you will need to set `rbac
 
 It is possible to add custom pod templates for the default configured kubernetes cloud.
 Add a key under `agent.podTemplates` for each pod template. Each key (prior to `|` character) is just a label, and can be any value.
-Keys are only used to give the pod template a meaningful name.  The only restriction is they may only contain RFC 1123 \ DNS label characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers.
+Keys are only used to give the pod template a meaningful name. The only restriction is they may only contain RFC 1123 \ DNS label characters: lowercase letters, numbers, and hyphens. Each pod template can contain multiple containers.
 There's no need to add the _jnlp_ container since the kubernetes plugin will automatically inject it into the pod.
 For this pod templates configuration to be loaded the following values must be set:
 

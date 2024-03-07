@@ -1,0 +1,28 @@
+# Jenkins
+
+## Configuration
+
+The following tables list the configurable parameters of the Jenkins chart and their default values.
+
+{{- define "chart.valueDefaultColumnRender" -}}
+{{- $defaultValue := (trimAll "`" (default .Default .AutoDefault) | replace "\n" "") -}}
+`{{- $defaultValue | replace "\n" "" -}}`
+{{- end -}}
+
+{{- define "chart.typeColumnRender" -}}
+{{- .Type -}}
+{{- end -}}
+
+{{- define "chart.valueDescription" -}}
+{{- default .Description .AutoDescription }}
+{{- end -}}
+
+{{- define "chart.valuesTable" -}}
+| Key | Type | Description | Default |
+|:----|:-----|:---------|:------------|
+{{- range .Values }}
+| [{{ .Key }}](./values.yaml#L{{ .LineNumber }}) | {{ template "chart.typeColumnRender" . }} | {{ template "chart.valueDescription" . }} | {{ template "chart.valueDefaultColumnRender" . }} |
+{{- end }}
+{{- end }}
+
+{{ template "chart.valuesSection" . }}
