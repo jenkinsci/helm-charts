@@ -3,7 +3,6 @@
 ## Configuration
 
 The following tables list the configurable parameters of the Jenkins chart and their default values.
-<div>
 
 ## Values
 
@@ -301,4 +300,3 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [serviceAccountAgent.extraLabels](./values.yaml#L1275) | object | Configures extra labels for the agent ServiceAccount | `{}` |
 | [serviceAccountAgent.imagePullSecretName](./values.yaml#L1277) | string | Agent ServiceAccount image pull secret | `nil` |
 | [serviceAccountAgent.name](./values.yaml#L1271) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
-</div>
