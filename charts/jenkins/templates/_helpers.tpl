@@ -169,6 +169,7 @@ jenkins:
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: "{{ .Values.controller.cloudName }}"
       namespace: "{{ template "jenkins.agent.namespace" . }}"
+      restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
       credentialsId: "{{ .Values.credentialsId }}"
       {{- if .Values.agent.enabled }}
@@ -252,6 +253,7 @@ jenkins:
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: {{ $name | quote }}
       namespace: "{{ template "jenkins.agent.namespace" . }}"
+      restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
       credentialsId: "{{ .Values.credentialsId }}"
       {{- if .Values.agent.enabled }}

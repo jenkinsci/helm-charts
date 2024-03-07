@@ -309,21 +309,22 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 ### Jenkins Agent(s)
 
-| Parameter                        | Description                                                                                                          | Default |
-|----------------------------------|----------------------------------------------------------------------------------------------------------------------|---------|
-| `agent.enabled`                  | Enable Kubernetes plugin jnlp-agent podTemplate                                                                      | `true`  |
-| `agent.namespace`                | Namespace in which the Kubernetes agents should be launched                                                          | Not set |
-| `agent.containerCap`             | Maximum number of agent                                                                                              | 10      |
-| `agent.defaultsProviderTemplate` | The name of the pod template to use for providing default values                                                     | Not set |
-| `agent.jenkinsUrl`               | Overrides the Kubernetes Jenkins URL                                                                                 | Not set |
-| `agent.jenkinsTunnel`            | Overrides the Kubernetes Jenkins tunnel                                                                              | Not set |
-| `agent.kubernetesConnectTimeout` | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5.                             | 5       |
-| `agent.kubernetesReadTimeout`    | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15.                                  | 15      |
-| `agent.maxRequestsPerHostStr`    | The maximum concurrent connections to Kubernetes API                                                                 | 32      |
-| `agent.retentionTimeout`         | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated | 5       |
-| `agent.waitForPodSec`            | Seconds to wait for pod to be running                                                                                | 600     |
-| `agent.podLabels`                | Custom Pod labels (an object with `label-key: label-value` pairs)                                                    | Not set |
-| `agent.jnlpregistry`             | Custom docker registry used for to get agent jnlp image                                                              | Not set |
+| Parameter                            | Description                                                                                                                       | Default |
+|--------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------|---------|
+| `agent.enabled`                      | Enable Kubernetes plugin jnlp-agent podTemplate                                                                                   | `true`  |
+| `agent.namespace`                    | Namespace in which the Kubernetes agents should be launched                                                                       | Not set |
+| `agent.containerCap`                 | Maximum number of agent                                                                                                           | 10      |
+| `agent.defaultsProviderTemplate`     | The name of the pod template to use for providing default values                                                                  | Not set |
+| `agent.jenkinsUrl`                   | Overrides the Kubernetes Jenkins URL                                                                                              | Not set |
+| `agent.jenkinsTunnel`                | Overrides the Kubernetes Jenkins tunnel                                                                                           | Not set |
+| `agent.kubernetesConnectTimeout`     | The connection timeout in seconds for connections to Kubernetes API. Minimum value is 5.                                          | 5       |
+| `agent.kubernetesReadTimeout`        | The read timeout in seconds for connections to Kubernetes API. Minimum value is 15.                                               | 15      |
+| `agent.maxRequestsPerHostStr`        | The maximum concurrent connections to Kubernetes API                                                                              | 32      |
+| `agent.retentionTimeout`             | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated              | 5       |
+| `agent.waitForPodSec`                | Seconds to wait for pod to be running                                                                                             | 600     |
+| `agent.podLabels`                    | Custom Pod labels (an object with `label-key: label-value` pairs)                                                                 | Not set |
+| `agent.jnlpregistry`                 | Custom docker registry used for to get agent jnlp image                                                                           | Not set |
+| `agent.restrictedPssSecurityContext` | Automatically inject in the jnlp container a securityContext that is suitable for the use of the restricted Pod Security Standard | `false` |
 
 #### Pod Configuration
 

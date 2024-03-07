@@ -681,6 +681,11 @@ agent:
 #    timeoutSeconds: 1
   # You may want to change this to true while testing a new image
   alwaysPullImage: false
+  # When using Pod Security Admission in the Agents namespace with the restricted Pod Security Standard,
+  # the jnlp container cannot be scheduled without overriding its container definition with a securityContext.
+  # This option allows to automatically inject in the jnlp container a securityContext
+  # that is suitable for the use of the restricted Pod Security Standard.
+  restrictedPssSecurityContext: false
   # Controls how agent pods are retained after the Jenkins build completes
   # Possible values: Always, Never, OnFailure
   podRetention: "Never"
