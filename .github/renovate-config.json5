@@ -82,6 +82,7 @@
       ],
       datasourceTemplate: "docker",
       versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(_|\\.)(?<patch>\\w+)?(-(?<build>\\d+))?.*",
+      depNameTemplate: "{{#if (equals depName 'docker.io/jenkins/jenkins')}}jenkins/jenkins{{else}}{{{depName}}}{{/if}}"
     },
   ],
 }
