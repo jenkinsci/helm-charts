@@ -2,7 +2,7 @@ apiVersion: v2
 name: jenkins
 type: application
 home: https://www.jenkins.io/
-version: 5.0.18
+version: 5.0.19
 appVersion: 2.440.1
 description: >
   Jenkins - Build great things at any scale!
