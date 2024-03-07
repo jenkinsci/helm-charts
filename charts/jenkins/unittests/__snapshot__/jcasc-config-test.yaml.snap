@@ -33,6 +33,7 @@ additional clouds:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -41,7 +42,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -79,6 +80,7 @@ additional clouds:
             waitForPodSec: "600"
             name: "remote-cloud-1"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://api.remote-cloud.com"
             credentialsId: "remote-cloud-token"
             podLabels:
@@ -87,7 +89,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -159,6 +161,7 @@ additional clouds inheriting additional agents:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -167,7 +170,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -195,7 +198,7 @@ additional clouds inheriting additional agents:
                 yamlMergeStrategy: override
               - name: "maven"
                 namespace: "maven"
-                id: 4e9aa214198f892200c72c56e19066a611d69b4e32b74e5ac59c3983599d6097
+                id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -233,6 +236,7 @@ additional clouds inheriting additional agents:
             waitForPodSec: "600"
             name: "remote-cloud-1"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://api.remote-cloud.com"
             credentialsId: "remote-cloud-token"
             podLabels:
@@ -241,7 +245,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -269,7 +273,7 @@ additional clouds inheriting additional agents:
                 yamlMergeStrategy: override
               - name: "maven"
                 namespace: "maven"
-                id: 4e9aa214198f892200c72c56e19066a611d69b4e32b74e5ac59c3983599d6097
+                id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -341,6 +345,7 @@ additional clouds overriding additional agents:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -349,7 +354,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -377,7 +382,7 @@ additional clouds overriding additional agents:
                 yamlMergeStrategy: override
               - name: "maven"
                 namespace: "maven"
-                id: 4e9aa214198f892200c72c56e19066a611d69b4e32b74e5ac59c3983599d6097
+                id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -415,6 +420,7 @@ additional clouds overriding additional agents:
             waitForPodSec: "600"
             name: "remote-cloud-1"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://api.remote-cloud.com"
             credentialsId: "remote-cloud-token"
             podLabels:
@@ -423,7 +429,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -495,6 +501,7 @@ adds custom labels on agent pods:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "NAMESPACE"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -507,7 +514,7 @@ adds custom labels on agent pods:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 93bc73895d4e2da0ee24b20fc661d7e29472be99eb2bcf1dfab0c93072f14e32
+                id: e5c0506ba96ba7e96a0e4e974b0689ad9c8f18203b017a0ffb88454a3b532655
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -579,6 +586,7 @@ agent namespace and templates:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "jenkins-agents"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -587,7 +595,7 @@ agent namespace and templates:
             templates:
               - name: "default"
                 namespace: "jenkins-agents"
-                id: 737442f0a3ca54a9f993126447173dbdd21f650748e43f388985ff98cb2ee37d
+                id: 9249bd0bca4be6e2b79ca1546cc30bad6c97dd598c48ad90b9610fa08b44b467
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -615,7 +623,7 @@ agent namespace and templates:
                 yamlMergeStrategy: override
               - name: "maven"
                 namespace: "maven"
-                id: 9d8403a13e971a53844dcf28d6874d886ae15909c642bac7ab797981b44b3296
+                id: 31452256c3147d4e880a3f254271bc958177b62440912e24d33ac4bbce3368ce
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -643,7 +651,7 @@ agent namespace and templates:
                 yamlMergeStrategy: override
               - name: "python"
                 namespace: "jenkins-agents"
-                id: 136de807cced23c07850bb381c4e1b0da792396fc355f97dacab1ce0daa90373
+                id: 19d3d9a9feaa55daa63e6d28f716c725b03e7b11ac663caaf25ac9cb312e1a82
                 containers:
                 - name: "python"
                   alwaysPullImage: false
@@ -732,6 +740,7 @@ agent with liveness probe:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -740,7 +749,7 @@ agent with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 09bedcd08a91d096278bf5a9e0d08fe2a5e0d65253c394aa5ba55ce94129cc95
+                id: b308df7bcd6673b1bf038a63fcf09d629acf8cfcde976e8cbffd34a53f4d2bbc
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -819,6 +828,7 @@ agents with liveness probe:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -827,7 +837,7 @@ agents with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 7492ab534821628bb06bba4c668bf4778edf0e3ee1867231e6ca7072bd151861
+                id: 9fc40322c65c733e72502d9acfd0a7f50d86e0abcfc617dfd5edbbd52bb6d3bd
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -921,6 +931,7 @@ configure hostnetworking to agent:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -929,7 +940,7 @@ configure hostnetworking to agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e7ac67863d994cbbe4cf25ba1eb1604a0f345cfa4b00fc2d3b218af8d611ddd7
+                id: 5bfcb24683e68f59b96a93fefe13b9b15e900cd793d3336115d8adcee7c938b4
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1002,6 +1013,7 @@ custom dynamic pvc workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1010,7 +1022,7 @@ custom dynamic pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 7457dd6f29f613fd30b31ce2b986b7bd811c2dcaba4bb3b4b5a51478f78138bc
+                id: 166c1886f3bda2a1f530096ad29061ed4b92f25e68245e4cf6fe449a135e31d3
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1087,6 +1099,7 @@ custom emptyDir workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1095,7 +1108,7 @@ custom emptyDir workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 897bd4f1a646620ddb00628b26ab82cc749da4fa0fd4fc0a4252895a3cb72754
+                id: a2c571646e56b765cf0883877970deb6b314e5158741bce52cc58b2c03bff75c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1170,6 +1183,7 @@ custom hostPath workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1178,7 +1192,7 @@ custom hostPath workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 37c76524718c3c637a14a1341f03cd2258904a826736a1bd422d9dcd024dfae2
+                id: c0db1be1dfb14204fa76d8d0401b5f01e8902703b4d8b8b8e229c48e45418562
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1253,6 +1267,7 @@ custom jenkins label:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1261,7 +1276,7 @@ custom jenkins label:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1333,6 +1348,7 @@ custom nfs workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1341,7 +1357,7 @@ custom nfs workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 7b8bf456fbfa7b2c1ae7eb80bd34c5603d88be9052c750747578d865365f5fff
+                id: c1ee34b08eee5a61639d61fcb24e084e7a240c4d56b1ace2ab599c9d610b63c2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1418,6 +1434,7 @@ custom other workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1426,7 +1443,7 @@ custom other workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: cbc1388fc6ee53abdcdb2705bb63c55fd13a2926dd8498423869e04cf41050c2
+                id: 90b42adcdc923d34f1748c963e35710ac774aea656e3b19e91bb29600a3f8f71
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1502,6 +1519,7 @@ custom pvc workspace volume:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1510,7 +1528,7 @@ custom pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 02712327d043b3f2265f503d476accfc853e07dce053d77b99157769e72654b5
+                id: b2a0dcd9e24ed72d976cc194889e4db7916f6bebb39884b8fe2c91392207f2e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1583,6 +1601,7 @@ customized config:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1594,7 +1613,7 @@ customized config:
                 annotations:
                 - key: ci.jenkins-agent/test
                   value: "custom"
-                id: b8b82884c33dddc1882c6c856047c9b6ab1c7302fe3a05729787c1a694e77740
+                id: a7cd0cca1d5f06a7330de7aad512bdc3363a2e1841995cef1a446f1705efdcbb
                 containers:
                 - name: "sideContainer"
                   alwaysPullImage: true
@@ -1715,6 +1734,7 @@ default config:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1723,7 +1743,7 @@ default config:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1795,6 +1815,7 @@ disable agents:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "controller-namespace"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
         crumbIssuer:
@@ -1842,6 +1863,7 @@ empty projectNamingStrategy:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1850,7 +1872,7 @@ empty projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1922,6 +1944,7 @@ legacyRemotingSecurityEnabled = false:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -1930,7 +1953,7 @@ legacyRemotingSecurityEnabled = false:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2004,6 +2027,7 @@ legacyRemotingSecurityEnabled = true:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2012,7 +2036,7 @@ legacyRemotingSecurityEnabled = true:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2087,6 +2111,7 @@ non-string projectNamingStrategy:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2095,7 +2120,7 @@ non-string projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2166,6 +2191,7 @@ set directConnection:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2174,7 +2200,7 @@ set directConnection:
             templates:
               - name: "default"
                 namespace: "default"
-                id: a701821d69dda994cb96a0718ed276915c833fcb9889d876b074bfc3a5675470
+                id: f916707f4674a1cb54f50e0d4b201a5136db6e0748ad3de0024a57c28e17f194
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2183,6 +2209,87 @@ set directConnection:
                     - envVar:
                         key: "JENKINS_DIRECT_CONNECTION"
                         value: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+                  image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
+set restrictedPssSecurityContext:
+  1: |
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            restrictedPssSecurityContext: true
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 768c26df7eec9c5b31d2cb0fdb02a48b87832834f5921835a571e11d56f99305
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
                   image: "jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3"
                   privileged: "false"
                   resourceLimitCpu: 512m
@@ -2246,6 +2353,7 @@ set secretEnvVars:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2254,7 +2362,7 @@ set secretEnvVars:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 689fb8e7a2c310c080d0eaee652738889badeef29ead47464c58da8e5288ce8e
+                id: a5c20b9defa56334de978deea67d6a92d066d8b9d6a10f70b2d4341d410ecfdf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2335,6 +2443,7 @@ specify additional container:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2343,7 +2452,7 @@ specify additional container:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 12f2e338530976396072f6e6e243097b3563b0aa94513f0d125e015b1de38d1a
+                id: 532fc0af03f9a819d753821f43ce9398f0ea9af8c5631df9e26d2b70b0f853cf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2431,6 +2540,7 @@ specify additional container and clear in additional agent:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2439,7 +2549,7 @@ specify additional container and clear in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 12f2e338530976396072f6e6e243097b3563b0aa94513f0d125e015b1de38d1a
+                id: 532fc0af03f9a819d753821f43ce9398f0ea9af8c5631df9e26d2b70b0f853cf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2483,7 +2593,7 @@ specify additional container and clear in additional agent:
                 yamlMergeStrategy: override
               - name: "additional-agent"
                 namespace: "default"
-                id: a413bd7ad1408908a6f341bda36419c46d59e7e2d178ec535a36e0ba6be9e34a
+                id: 076864cb77d987078e3f2068c45e817aa16f28ecc6caffb9845145203d2e86b6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2555,6 +2665,7 @@ specify additional container and overwrite in additional agent:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2563,7 +2674,7 @@ specify additional container and overwrite in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 12f2e338530976396072f6e6e243097b3563b0aa94513f0d125e015b1de38d1a
+                id: 532fc0af03f9a819d753821f43ce9398f0ea9af8c5631df9e26d2b70b0f853cf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2607,7 +2718,7 @@ specify additional container and overwrite in additional agent:
                 yamlMergeStrategy: override
               - name: "additional-agent"
                 namespace: "default"
-                id: 7f375b99b64a4b96a19016042763a641ccef7bfafbdbf2415122cb3066dc7b43
+                id: 3a1f758df0aab364c1103e12168846691d0b4082fd42c0cc37329ec989a40840
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2695,6 +2806,7 @@ specify security settings with apiToken override:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2703,7 +2815,7 @@ specify security settings with apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2772,6 +2884,7 @@ specify security settings without apiToken override:
             waitForPodSec: "600"
             name: "kubernetes"
             namespace: "default"
+            restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
             podLabels:
@@ -2780,7 +2893,7 @@ specify security settings without apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e8727a0fa02bfb1f08a55ebf98bbb3e991ee3e17dd69a90148a6819987558e0c
+                id: 14bc718b11f9a4cea39e9531ec6db3e728e1a56afb6cae41fdbcc4455bb0e611
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false

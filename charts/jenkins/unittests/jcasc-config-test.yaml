@@ -598,7 +598,24 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-
+  - it: set restrictedPssSecurityContext
+    set:
+      agent:
+        restrictedPssSecurityContext: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
   - it: agent with liveness probe
     set:
       agent:
