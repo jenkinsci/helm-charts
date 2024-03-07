@@ -239,18 +239,14 @@ tests:
     template: jenkins-controller-statefulset.yaml
     set:
       controller:
-        podSecurityContextOverride:
+        podSecurityContextOverride: &expected
           runAsNonRoot: true
           runAsUser: 4444
           supplementalGroups: [5555]
     asserts:
       - equal:
           path: spec.template.spec.securityContext
-          value:
-            runAsNonRoot: true
-            runAsUser: 4444
-            supplementalGroups:
-              - 5555
+          value: *expected
   - it: test controller.sidecars.additionalSidecarContainers
     template: jenkins-controller-statefulset.yaml
     set:

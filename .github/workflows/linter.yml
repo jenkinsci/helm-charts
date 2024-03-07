@@ -23,3 +23,24 @@ jobs:
           VALIDATE_YAML: false
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  # copied from https://github.com/renovatebot/helm-charts
+  lint-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install and run helm-docs
+        run: |-
+          # renovate: datasource=github-releases depName=helm-docs packageName=norwoodj/helm-docs
+          HELM_DOCS_VERSION=1.13.1
+
+          # install helm-docs
+          curl -fsSL -o /tmp/helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v"${HELM_DOCS_VERSION}"/helm-docs_"${HELM_DOCS_VERSION}"_Linux_x86_64.tar.gz
+          mkdir -p /tmp/helm-docs && tar -xf /tmp/helm-docs.tar.gz -C /tmp/helm-docs
+          mv /tmp/helm-docs/helm-docs /usr/local/bin/helm-docs
+          chmod a+x /usr/local/bin/helm-docs
+
+          .github/helm-docs.sh
+      - name: Check dirty state
+        run: git diff --exit-code
