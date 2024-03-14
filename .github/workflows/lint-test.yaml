@@ -30,7 +30,7 @@ jobs:
         uses: azure/setup-helm@v4
         with:
           # renovate: datasource=github-tags depName=helm/helm
-          version: v3.14.2
+          version: v3.14.3
 
       - name: Set up Python
         uses: actions/setup-python@v5
