@@ -35,7 +35,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          # renovate: datasource=docker depName=python
+          # renovate: datasource=custom.python_actions depName=python
           python-version: 3.12.2
 
       - name: Set up chart-testing
