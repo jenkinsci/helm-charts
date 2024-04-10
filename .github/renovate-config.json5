@@ -39,6 +39,14 @@
       minimumReleaseAge: "12 hours",
     },
   ],
+  customDatasources: {
+    "python_actions": {
+      defaultRegistryUrlTemplate: "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
+      transformTemplates: [
+        "{\"releases\": $$[stable=true].files[arch=\"x64\" and platform=\"linux\"].{\"version\":%.version,\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"},\"homepage\":\"https://python.org/\",\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"}",
+      ],
+    },
+  },
   customManagers: [
     {
       customType: "regex",
@@ -82,7 +90,7 @@
       ],
       datasourceTemplate: "docker",
       versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(_|\\.)(?<patch>\\w+)?(-(?<build>\\d+))?.*",
-      depNameTemplate: "{{#if (equals depName 'docker.io/jenkins/jenkins')}}jenkins/jenkins{{else}}{{{depName}}}{{/if}}"
+      depNameTemplate: "{{#if (equals depName 'docker.io/jenkins/jenkins')}}jenkins/jenkins{{else}}{{{depName}}}{{/if}}",
     },
   ],
 }
