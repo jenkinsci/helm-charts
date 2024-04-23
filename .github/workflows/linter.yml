@@ -19,6 +19,7 @@ jobs:
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_KUBERNETES_KUBECONFORM: false
+          VALIDATE_JSCPD: false
           VALIDATE_GITLEAKS: false
           VALIDATE_YAML: false
           DEFAULT_BRANCH: main
