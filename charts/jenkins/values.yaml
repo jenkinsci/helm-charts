@@ -440,7 +440,7 @@ controller:
 
   # -- Map of groovy init scripts to be executed during Jenkins controller start
 
-  # Enable or Disable checksum if you dont wnat to auto run configmaps
+  # Enable or Disable checksum if we don't want to auto run configmaps
   checksum: true
     
   initScripts: {}
