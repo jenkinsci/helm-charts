@@ -44,7 +44,9 @@ spec:
         {{ $key }}: {{ $val | quote }}
         {{- end}}
       annotations:
+        {{- if .Values.controller.checksum }}
         checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        {{- end }}
         {{- if .Values.controller.initScripts }}
         checksum/config-init-scripts: {{ include (print $.Template.BasePath "/config-init-scripts.yaml") . | sha256sum }}
         {{- end }}
