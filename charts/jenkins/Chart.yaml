@@ -2,7 +2,7 @@ apiVersion: v2
 name: jenkins
 type: application
 home: https://www.jenkins.io/
-version: 5.1.8
+version: 5.1.9
 appVersion: 2.440.3
 description: >
   Jenkins - Build great things at any scale! As the leading open source automation server, Jenkins provides over 1800 plugins to support building, deploying and automating any project.
@@ -40,7 +40,7 @@ annotations:
     - name: jenkins
       image: docker.io/jenkins/jenkins:2.440.3-jdk17
     - name: k8s-sidecar
-      image: docker.io/kiwigrid/k8s-sidecar:1.26.1
+      image: docker.io/kiwigrid/k8s-sidecar:1.26.2
     - name: inbound-agent
       image: jenkins/inbound-agent:3206.vb_15dcf73f6a_9-3
   artifacthub.io/category: "integration-delivery"
