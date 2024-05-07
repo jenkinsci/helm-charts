@@ -15,7 +15,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: 4262137b847e0bdec75a0cba1a4914ac0819401374fdabc1c6199ec6d0f864ab
+          checksum/config: 8c05e496d33ad7c9142f7ab893435b7a596e427ad9052c6d152f31a6526b2a5e
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -220,7 +220,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 4262137b847e0bdec75a0cba1a4914ac0819401374fdabc1c6199ec6d0f864ab
+    checksum/config: 8c05e496d33ad7c9142f7ab893435b7a596e427ad9052c6d152f31a6526b2a5e
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -234,7 +234,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: 4262137b847e0bdec75a0cba1a4914ac0819401374fdabc1c6199ec6d0f864ab
+          checksum/config: 8c05e496d33ad7c9142f7ab893435b7a596e427ad9052c6d152f31a6526b2a5e
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
