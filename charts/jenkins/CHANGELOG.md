@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.1.16
+
+Update `configuration-as-code` to version `1805.v1455f39c04cf`
+
 ## 5.1.15
 
 Update `jenkins/jenkins` to version `2.452.1-jdk17`
