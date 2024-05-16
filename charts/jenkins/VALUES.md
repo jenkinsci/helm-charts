@@ -28,7 +28,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.hostNetworking](./values.yaml#L930) | bool | Enables the agent to use the host network | `false` |
 | [agent.idleMinutes](./values.yaml#L1065) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.repository](./values.yaml#L909) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L911) | string | Tag of the image to pull | `"3206.vb_15dcf73f6a_9-3"` |
+| [agent.image.tag](./values.yaml#L911) | string | Tag of the image to pull | `"3248.v65ecb_254c298-1"` |
 | [agent.imagePullSecretName](./values.yaml#L918) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.jenkinsTunnel](./values.yaml#L890) | string | Overrides the Kubernetes Jenkins tunnel | `nil` |
 | [agent.jenkinsUrl](./values.yaml#L886) | string | Overrides the Kubernetes Jenkins URL | `nil` |
