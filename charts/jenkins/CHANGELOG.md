@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.1.21
+
+Update `kubernetes` to version `4231.vb_a_6b_8936497d`
+
 ## 5.1.20
 
 Update `kubernetes` to version `4230.vceef11cb_ca_37`
