@@ -244,7 +244,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L591) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L553) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L555) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L557) | string | Tag for the image that triggers the reload | `"1.27.1"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L557) | string | Tag for the image that triggers the reload | `"1.27.2"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L558) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.reqRetryConnect](./values.yaml#L573) | int | How many connection-related errors to retry on | `10` |
 | [controller.sidecars.configAutoReload.resources](./values.yaml#L559) | object |  | `{}` |
