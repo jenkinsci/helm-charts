@@ -533,6 +533,10 @@ controller:
     authorizationStrategy: |-
       loggedInUsersCanDoAnything:
         allowAnonymousRead: false
+
+    # -- Annotations for the JCasC ConfigMap
+    configMapAnnotations: {}
+
   # -- Custom init-container specification in raw-yaml format
   customInitContainers: []
   # - name: custom-init

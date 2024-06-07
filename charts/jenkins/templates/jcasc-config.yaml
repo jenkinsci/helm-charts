@@ -17,6 +17,10 @@ metadata:
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
     "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
+{{- if $root.Values.controller.JCasC.configMapAnnotations }}
+  annotations:
+{{ toYaml $root.Values.controller.JCasC.configMapAnnotations | indent 4 }}
+{{- end }}
 data:
   {{ $key }}.yaml: |-
 {{ tpl $val $| indent 4 }}
@@ -38,6 +42,10 @@ metadata:
     "app.kubernetes.io/instance": "{{ $.Release.Name }}"
     "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
+{{- if $root.Values.controller.JCasC.configMapAnnotations }}
+  annotations:
+{{ toYaml $root.Values.controller.JCasC.configMapAnnotations | indent 4 }}
+{{- end }}
 data:
   jcasc-default-config.yaml: |-
     {{- include "jenkins.casc.defaults" . | nindent 4 }}
