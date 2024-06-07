@@ -748,3 +748,20 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: custom configmap annotations
+    set:
+      controller:
+        JCasC:
+          configMapAnnotations:
+            jenkins.example.com/anno1: "custom-annotation"
+            jenkins.example.com/anno2: "another-annotation"
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - equal:
+          path: metadata.annotations
+          value:
+            jenkins.example.com/anno1: "custom-annotation"
+            jenkins.example.com/anno2: "another-annotation"
