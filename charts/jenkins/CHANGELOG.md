@@ -16,6 +16,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 Add `agent.inheritYamlMergeStrategy` to allow configuring this setting on the default agent pod template.
 
+## 5.1.31
+
+Update `kubernetes` to version `4245.vf5b_83f1fee6e`
+
 ## 5.1.30
 
 Add `controller.JCasC.configMapAnnotations` to allow setting annotations on the JCasC ConfigMaps.
