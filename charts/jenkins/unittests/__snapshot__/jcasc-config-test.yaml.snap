@@ -68,6 +68,7 @@ additional clouds:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -115,6 +116,7 @@ additional clouds:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -196,6 +198,7 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
@@ -224,6 +227,7 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -271,6 +275,7 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
@@ -299,6 +304,7 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -380,6 +386,7 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: c55bbaa8d121ac9b4d750ebf3a7a6959cae6bd7a3761cfeae267dd95572161e6
@@ -408,6 +415,7 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -455,6 +463,7 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -540,6 +549,7 @@ adds custom labels on agent pods:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -621,6 +631,7 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: 31452256c3147d4e880a3f254271bc958177b62440912e24d33ac4bbce3368ce
@@ -649,6 +660,7 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "python"
                 namespace: "jenkins-agents"
                 id: 19d3d9a9feaa55daa63e6d28f716c725b03e7b11ac663caaf25ac9cb312e1a82
@@ -678,6 +690,7 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: python3
                 label: jenkins-python3
                 serviceAccount: jenkins
@@ -782,6 +795,7 @@ agent with liveness probe:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -885,6 +899,7 @@ agents with liveness probe:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -967,6 +982,7 @@ configure hostnetworking to agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1053,6 +1069,7 @@ custom dynamic pvc workspace volume:
                     requestsSize: "2Gi"
                     storageClassName: "gp2"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1137,6 +1154,7 @@ custom emptyDir workspace volume:
                   emptyDirWorkspaceVolume:
                     memory: true
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1221,6 +1239,7 @@ custom hostPath workspace volume:
                   hostPathWorkspaceVolume:
                     hostPath: "/data"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1302,6 +1321,7 @@ custom jenkins label:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1388,6 +1408,7 @@ custom nfs workspace volume:
                     serverAddress: "1.1.1.1"
                     serverPath: "/data"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1473,6 +1494,7 @@ custom other workspace volume:
                     claimName: "my-claim"
                     readOnly: false
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1558,6 +1580,7 @@ custom pvc workspace volume:
                     claimName: "my-claim"
                     readOnly: false
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1769,6 +1792,7 @@ default config:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1898,6 +1922,7 @@ empty projectNamingStrategy:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -1979,6 +2004,7 @@ legacyRemotingSecurityEnabled = false:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2062,6 +2088,7 @@ legacyRemotingSecurityEnabled = true:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2146,6 +2173,7 @@ non-string projectNamingStrategy:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2226,6 +2254,7 @@ set directConnection:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2307,6 +2336,7 @@ set restrictedPssSecurityContext:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2397,6 +2427,7 @@ set secretEnvVars:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2494,6 +2525,7 @@ specify additional container:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2591,6 +2623,7 @@ specify additional container and clear in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
                 id: c078dfa2d6d61ac696bae8d72eabe89baa3cd1aec30d75fe6b1aaacf31a95edd
@@ -2619,6 +2652,7 @@ specify additional container and clear in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2716,6 +2750,7 @@ specify additional container and overwrite in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
                 id: c53ea2695edf71fe73a0bdcf0daba85e433094671c1c152f8e183ffc9ab05855
@@ -2760,6 +2795,7 @@ specify additional container and overwrite in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2841,6 +2877,7 @@ specify security settings with apiToken override:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
@@ -2919,6 +2956,7 @@ specify security settings without apiToken override:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
         crumbIssuer:
           standard:
             excludeClientIPFromCrumb: true
