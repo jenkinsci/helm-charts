@@ -1085,6 +1085,8 @@ agent:
 
   # -- Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override"
   yamlMergeStrategy: "override"
+  # -- Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one 
+  inheritYamlMergeStrategy: false
   # -- Timeout in seconds for an agent to be online
   connectTimeout: 100
   # -- Annotations to apply to the pod
