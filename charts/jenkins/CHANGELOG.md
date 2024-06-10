@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.2.0
+
+Add `agent.inheritYamlMergeStrategy` to allow configuring this setting on the default agent pod template.
+
 ## 5.1.30
 
 Add `controller.JCasC.configMapAnnotations` to allow setting annotations on the JCasC ConfigMaps.
