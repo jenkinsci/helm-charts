@@ -63,6 +63,13 @@ tests:
                     values:
                       - S1
               topologyKey: failure-domain.beta.kubernetes.io/zone
+        topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: "topology.kubernetes.io/zone"
+            whenUnsatisfiable: ScheduleAnyway
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/component: jenkins-controller
         terminationGracePeriodSeconds: 120
         priorityClassName: important
         runAsUser: 2000
@@ -110,6 +117,15 @@ tests:
                       values:
                         - S1
                 topologyKey: failure-domain.beta.kubernetes.io/zone
+      - equal:
+          path: spec.template.spec.topologySpreadConstraints
+          value:
+            - maxSkew: 1
+              topologyKey: "topology.kubernetes.io/zone"
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: jenkins-controller
       - equal:
           path: spec.template.spec.terminationGracePeriodSeconds
           value: 120
