@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.3.0
 
-Add controller.topologySpreadConstraints
+Add `controller.topologySpreadConstraints`
 
 ## 5.2.2
 
