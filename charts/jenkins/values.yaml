@@ -655,6 +655,9 @@ controller:
   # -- Update strategy for StatefulSet
   updateStrategy: {}
 
+  # -- Topology spread constraints
+  topologySpreadConstraints: {}
+
   ingress:
     # -- Enables ingress
     enabled: false
