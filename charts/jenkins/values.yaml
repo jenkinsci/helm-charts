@@ -567,6 +567,24 @@ controller:
         #   requests:
         #     cpu: 50m
         #     memory: 50Mi
+      # -- Enables additional volume mounts for the config auto-reload container
+      additionalVolumeMounts: []
+        #   - name: auto-reload-config
+        #     mountPath: /var/config/logger
+        #   - name: auto-reload-logs
+        #     mountPath: /var/log/auto_reload
+      # -- Config auto-reload logging settings
+      logging:
+        configuration:
+          # -- Enables custom log config utilizing using the settings below.
+          # See default settings https://github.com/kiwigrid/k8s-sidecar/blob/master/src/logger.py
+          override: false
+          logLevel: INFO
+          formatter: JSON
+          logToConsole: true
+          logToFile: false
+          maxBytes: 1024
+          backupCount: 3
 
       # -- The scheme to use when connecting to the Jenkins configuration as code endpoint
       scheme: http
