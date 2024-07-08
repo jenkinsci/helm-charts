@@ -34,7 +34,7 @@ jobs:
       - name: Install and run helm-docs
         run: |-
           # renovate: datasource=github-releases depName=norwoodj/helm-docs
-          HELM_DOCS_VERSION=1.13.1
+          HELM_DOCS_VERSION=1.14.2
 
           # install helm-docs
           curl -fsSL -o /tmp/helm-docs.tar.gz https://github.com/norwoodj/helm-docs/releases/download/v"${HELM_DOCS_VERSION}"/helm-docs_"${HELM_DOCS_VERSION}"_Linux_x86_64.tar.gz
