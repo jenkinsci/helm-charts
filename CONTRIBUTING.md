@@ -93,7 +93,7 @@ The chart `version` should follow [SemVer](https://semver.org/).
 Charts should start at `1.0.0`. Any breaking (backwards incompatible) changes to a chart should:
 
 1. Bump the MAJOR version
-2. In the README, under a section called "Upgrading", describe the manual steps necessary to upgrade to the new (specified) MAJOR version
+2. In the readme, under a section called "Upgrading", describe the manual steps necessary to upgrade to the new (specified) MAJOR version
 
 ### Community Requirements
 

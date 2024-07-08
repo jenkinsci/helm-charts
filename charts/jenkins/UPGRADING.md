@@ -122,7 +122,7 @@ So think of the list below more as a general guideline of what should be done.
 - Test drive those setting on a separate installation
 - Put Jenkins to Quiet Down mode so that it does not accept new jobs
   `<JENKINS_URL>/quietDown`
-- Change permissions of all files and folders to the new user and group id:
+- Change permissions of all files and folders to the new user and group ID:
 
   ```console
   kubectl exec -it <jenkins_pod> -c jenkins /bin/bash
