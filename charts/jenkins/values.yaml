@@ -394,7 +394,7 @@ controller:
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
     - kubernetes:4253.v7700d91739e5
-    - workflow-aggregator:596.v8c21c963d92d
+    - workflow-aggregator:600.vb_57cdd26fdd7
     - git:5.2.2
     - configuration-as-code:1810.v9b_c30a_249a_4c
 
