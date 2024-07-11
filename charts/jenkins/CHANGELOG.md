@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.4.1
+
+Update `jenkins/jenkins` to version `2.452.3`
+
 ## 5.4.0
 
 Introduce capability of additional mountPaths and logging file paths for config reload container
