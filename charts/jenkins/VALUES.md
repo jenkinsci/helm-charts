@@ -157,7 +157,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L414) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L403) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L406) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L395) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4248.vfa_9517757b_b_a_","workflow-aggregator:596.v8c21c963d92d","git:5.2.2","configuration-as-code:1810.v9b_c30a_249a_4c"]` |
+| [controller.installPlugins](./values.yaml#L395) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4253.v7700d91739e5","workflow-aggregator:600.vb_57cdd26fdd7","git:5.2.2","configuration-as-code:1810.v9b_c30a_249a_4c"]` |
 | [controller.javaOpts](./values.yaml#L156) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L96) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L101) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -250,7 +250,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.image.tag](./values.yaml#L561) | string | Tag for the image that triggers the reload | `"1.27.4"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L562) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L577) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
-| [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L581) | bool | Enables custom log config utilizing using the settings below. See default settings https://github.com/kiwigrid/k8s-sidecar/blob/master/src/logger.py | `false` |
+| [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L581) | bool | Enables custom log config utilizing using the settings below. | `false` |
 | [controller.sidecars.configAutoReload.reqRetryConnect](./values.yaml#L595) | int | How many connection-related errors to retry on | `10` |
 | [controller.sidecars.configAutoReload.resources](./values.yaml#L563) | object |  | `{}` |
 | [controller.sidecars.configAutoReload.scheme](./values.yaml#L590) | string | The scheme to use when connecting to the Jenkins configuration as code endpoint | `"http"` |

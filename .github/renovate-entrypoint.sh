@@ -4,7 +4,7 @@
 export YQ_VERSION=v4.44.2
 
 # renovate: datasource=github-tags depName=helm/helm
-export HELM_VERSION=v3.15.2
+export HELM_VERSION=v3.15.3
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
 export HELM_UNITTEST_VERSION=v0.5.1
@@ -13,7 +13,7 @@ export HELM_UNITTEST_VERSION=v0.5.1
 export JENKINS_JX_VERSION=v2.7.3
 
 # renovate: datasource=github-releases depName=norwoodj/helm-docs
-export HELM_DOCS_VERSION=1.13.1
+export HELM_DOCS_VERSION=1.14.2
 
 apt update
 
