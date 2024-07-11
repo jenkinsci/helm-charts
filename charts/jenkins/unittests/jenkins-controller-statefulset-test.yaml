@@ -6,6 +6,7 @@ templates:
   - jenkins-controller-statefulset.yaml
   - config.yaml
   - config-init-scripts.yaml
+  - auto-reload-config.yaml
 tests:
   - it: default values
     template: jenkins-controller-statefulset.yaml
@@ -293,6 +294,36 @@ tests:
               requests:
                 cpu: 100m
                 memory: 128Mi
+  - it: test controller.sidecars.configAutoReload.logging.configuration.override (Part 1)
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.enabled: true
+      controller.sidecars.configAutoReload.logging.configuration.override: true
+    asserts:
+      - equal:
+          path: spec.template.spec.volumes[0]
+          value:
+            name: auto-reload-config
+            configMap:
+              name: my-release-jenkins-auto-reload-config
+      - equal:
+          path: spec.template.spec.initContainers[0].env[5]
+          value:
+            name: LOG_CONFIG
+            value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
+      - equal:
+          path: spec.template.spec.containers[1].env[7]
+          value:
+            name: LOG_CONFIG
+            value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
+  - it: test controller.sidecars.configAutoReload.logging.configuration.override (Part 2)
+    template: auto-reload-config.yaml
+    set:
+      controller.sidecars.configAutoReload.enabled: true
+      controller.sidecars.configAutoReload.logging.configuration.override: true
+    asserts:
+      - isKind:
+          of: ConfigMap
   - it: test 2 additional secrets
     template: jenkins-controller-statefulset.yaml
     set:

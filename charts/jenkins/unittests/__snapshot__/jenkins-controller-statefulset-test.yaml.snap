@@ -131,10 +131,6 @@ default values:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
-              - mountPath: /var/config/logger
-                name: auto-reload-config
-              - mountPath: /var/log/auto_reload
-                name: auto-reload-logs
         initContainers:
           - env:
               - name: POD_NAME
@@ -161,10 +157,6 @@ default values:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
-              - mountPath: /var/config/logger
-                name: auto-reload-config
-              - mountPath: /var/log/auto_reload
-                name: auto-reload-logs
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
@@ -358,10 +350,6 @@ test scheme for config-reload:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
-              - mountPath: /var/config/logger
-                name: auto-reload-config
-              - mountPath: /var/log/auto_reload
-                name: auto-reload-logs
         initContainers:
           - env:
               - name: POD_NAME
@@ -388,10 +376,6 @@ test scheme for config-reload:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
-              - mountPath: /var/config/logger
-                name: auto-reload-config
-              - mountPath: /var/log/auto_reload
-                name: auto-reload-logs
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh

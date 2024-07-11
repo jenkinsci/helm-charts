@@ -575,9 +575,9 @@ controller:
         #     mountPath: /var/log/auto_reload
       # -- Config auto-reload logging settings
       logging:
+        # See default settings https://github.com/kiwigrid/k8s-sidecar/blob/master/src/logger.py
         configuration:
           # -- Enables custom log config utilizing using the settings below.
-          # See default settings https://github.com/kiwigrid/k8s-sidecar/blob/master/src/logger.py
           override: false
           logLevel: INFO
           formatter: JSON
