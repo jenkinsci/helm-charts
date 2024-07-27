@@ -438,11 +438,10 @@ controller:
   #  - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
   #  - "new groovy.json.JsonSlurperClassic"
 
-  # -- Map of groovy init scripts to be executed during Jenkins controller start
-
-  # Enable or Disable checksum if we don't want to auto run configmaps
+  # -- Enable or Disable checksum if we don't want to auto run configmaps
   checksum: true
-    
+
+  # -- Map of groovy init scripts to be executed during Jenkins controller start
   initScripts: {}
   #  test: |-
   #    print 'adding global pipeline libraries, register properties, bootstrap jobs...'
