@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.4.4
+
+Update CHANGELOG.md, README.md, and UPGRADING.md for linting
+
 ## 5.4.3
 
 Update `configuration-as-code` to version `1836.vccda_4a_122a_a_e`
@@ -39,7 +43,6 @@ Update `kubernetes` to version `4253.v7700d91739e5`
 ## 5.3.4
 
 Update `jenkins/jenkins` to version `2.452.3-jdk17`
-
 ## 5.3.3
 
 Update `jenkins/inbound-agent` to version `3256.v88a_f6e922152-1`
@@ -374,7 +377,7 @@ Changes in 4.7.0 were reverted.
 
 ## 4.7.0
 
-Runs `config-reload` as an init container, in addition to the sidecar container, to ensure that JCasC YAMLS are present before the main Jenkins container starts. This should fix some race conditions and crashes on startup.
+Runs `config-reload` as an init container, in addition to the sidecar container, to ensure that JCasC YAMLs are present before the main Jenkins container starts. This should fix some race conditions and crashes on startup.
 
 ## 4.6.7
 
@@ -540,7 +543,7 @@ Disable volume mount if disableSecretMount enabled
 
 ## 4.3.9
 
-Document `.Values.agent.directConnection` in README.
+Document `.Values.agent.directConnection` in readme.
 Add default value for `.Values.agent.directConnection` to `values.yaml`
 
 ## 4.3.8
@@ -732,7 +735,7 @@ Fix path of projected secrets from `additionalExistingSecrets`.
 
 ## 4.1.7
 
-Update README with explanation on the required environmental variable `AWS_REGION` in case of using an S3 bucket.
+Update readme with explanation on the required environmental variable `AWS_REGION` in case of using an S3 bucket.
 
 ## 4.1.6
 
@@ -740,7 +743,7 @@ project adminSecret, additionalSecrets and additionalExistingSecrets instead of 
 
 ## 4.1.5
 
-Update README to fix `JAVA_OPTS` name.
+Update readme to fix `JAVA_OPTS` name.
 
 ## 4.1.4
 Update plugins
@@ -855,7 +858,7 @@ Update default plugin versions
 
 ## 3.9.4
 
-Add JAVA_OPTIONS to the README so proxy settings get picked by jenkins-plugin-cli
+Add JAVA_OPTIONS to the readme so proxy settings get picked by jenkins-plugin-cli
 
 ## 3.9.3
 
@@ -1148,7 +1151,7 @@ Update Jenkins image and appVersion to jenkins lts release version 2.263.4
 
 ## 3.1.12
 
-Added GitHub action to automate the updating of LTS releases.
+Added GitHub Action to automate the updating of LTS releases.
 
 ## 3.1.11
 
@@ -1352,7 +1355,7 @@ Added unit tests for most resources in the Helm chart.
 
 ## 2.12.1
 
-Helm chart README update
+Helm chart readme update
 
 ## 2.12.0
 
@@ -1414,7 +1417,7 @@ Fixes #19
 
 ## 2.6.0 First release in jenkinsci GitHub org
 
-Updated README for new location
+Updated readme for new location
 
 ## 2.5.2
 
@@ -1430,7 +1433,7 @@ Add an option to specify that Jenkins master should be initialized only once, du
 
 ## 2.4.1
 
-Reorder README parameters into sections to facilitate chart usage and maintenance
+Reorder readme parameters into sections to facilitate chart usage and maintenance
 
 ## 2.4.0 Update default agent image
 
@@ -1464,7 +1467,7 @@ Configure `REQ_RETRY_CONNECT` to `10` to give Jenkins more time to start up.
 
 Value can be configured via `master.sidecars.configAutoReload.reqRetryConnect`
 
-## 2.1.2 updated README
+## 2.1.2 updated readme
 
 ## 2.1.1 update credentials-binding plugin to 1.23
 
@@ -1478,7 +1481,7 @@ Only render authorizationStrategy and securityRealm when values are set.
 
 ## 2.0.0 Configuration as Code now default + container does not run as root anymore
 
-The README contains more details for this update.
+The readme contains more details for this update.
 Please note that the updated values contain breaking changes.
 
 ## 1.27.0 Update plugin versions & sidecar container
@@ -1643,7 +1646,7 @@ In recent version of configuration-as-code-plugin this is no longer necessary.
 
 ## 1.9.24
 
-Update JCasC auto-reload docs and remove stale ssh key references from version "1.8.0 JCasC auto reload works without ssh keys"
+Update JCasC auto-reload docs and remove stale SSH key references from version "1.8.0 JCasC auto reload works without SSH keys"
 
 ## 1.9.23 Support jenkinsUriPrefix when JCasC is enabled
 
@@ -1768,7 +1771,7 @@ Revert fix in `1.7.10` since direct connection is now disabled by default.
 
 Add `master.schedulerName` to allow setting a Kubernetes custom scheduler
 
-## 1.8.0 JCasC auto reload works without ssh keys
+## 1.8.0 JCasC auto reload works without SSH keys
 
 We make use of the fact that the Jenkins Configuration as Code Plugin can be triggered via http `POST` to `JENKINS_URL/configuration-as-code/reload`and a pre-shared key.
 The sidecar container responsible for reloading config changes is now `kiwigrid/k8s-sidecar:0.1.20` instead of it's fork `shadwell/k8s-sidecar`.
@@ -2296,7 +2299,7 @@ commit: 9de96faa0
 
 ## 0.32.7
 
-Fix Markdown syntax in README (#11496)
+Fix Markdown syntax in readme (#11496)
 commit: a32221a95
 
 ## 0.32.6
@@ -2526,7 +2529,7 @@ commit: e0a20b0b9
 
 ## 0.16.22
 
-avoid lint errors when adding Values.Ingress.Annotations (#7425)
+avoid linting errors when adding Values.Ingress.Annotations (#7425)
 commit: 99eacc854
 
 ## 0.16.21
@@ -2551,7 +2554,7 @@ commit: bf8180018
 
 ## 0.16.17
 
-Add Master.AdminPassword in README (#6987)
+Add Master.AdminPassword in readme (#6987)
 commit: 13e754ad7
 
 ## 0.16.16
@@ -2621,7 +2624,7 @@ commit: fc6100c38
 
 ## 0.16.1
 
-fix typo in jenkins README (#5228)
+fix typo in jenkins readme (#5228)
 commit: 3cd3f4b8b
 
 ## 0.16.0
@@ -2742,7 +2745,7 @@ commit: 9a230a6b1
 Double retry count for Jenkins test
 commit: 129c8e824
 
-Jenkins: Update README | Master.ServiceAnnotations (#2757)
+Jenkins: Update readme | Master.ServiceAnnotations (#2757)
 commit: 6571810bc
 
 ## 0.10.0
@@ -2814,7 +2817,7 @@ commit: 4af5810ff
 
 ## 0.8.4
 
-Add support for supplying JENKINS_OPTS and/or uri prefix (#1405)
+Add support for supplying JENKINS_OPTS and/or URI prefix (#1405)
 commit: 6a331901a
 
 ## 0.8.3
@@ -3024,7 +3027,7 @@ commit: 3cbd3ced6
 Remove 'Getting Started:' from various NOTES.txt. (#181)
 commit: 2f63fd524
 
-docs(\*): update READMEs to reference chart repos (#119)
+docs(\*): update readmes to reference chart repos (#119)
 commit: c7d1bff05
 
 ## 0.1.0
