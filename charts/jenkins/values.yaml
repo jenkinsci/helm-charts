@@ -393,10 +393,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4248.vfa_9517757b_b_a_
-    - workflow-aggregator:596.v8c21c963d92d
+    - kubernetes:4253.v7700d91739e5
+    - workflow-aggregator:600.vb_57cdd26fdd7
     - git:5.2.2
-    - configuration-as-code:1810.v9b_c30a_249a_4c
+    - configuration-as-code:1836.vccda_4a_122a_a_e
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -558,7 +558,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 1.27.4
+        tag: 1.27.5
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -567,6 +567,24 @@ controller:
         #   requests:
         #     cpu: 50m
         #     memory: 50Mi
+      # -- Enables additional volume mounts for the config auto-reload container
+      additionalVolumeMounts: []
+        #   - name: auto-reload-config
+        #     mountPath: /var/config/logger
+        #   - name: auto-reload-logs
+        #     mountPath: /var/log/auto_reload
+      # -- Config auto-reload logging settings
+      logging:
+        # See default settings https://github.com/kiwigrid/k8s-sidecar/blob/master/src/logger.py
+        configuration:
+          # -- Enables custom log config utilizing using the settings below.
+          override: false
+          logLevel: INFO
+          formatter: JSON
+          logToConsole: true
+          logToFile: false
+          maxBytes: 1024
+          backupCount: 3
 
       # -- The scheme to use when connecting to the Jenkins configuration as code endpoint
       scheme: http

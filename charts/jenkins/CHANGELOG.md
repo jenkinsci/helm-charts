@@ -12,10 +12,37 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 5.3.4
+## 5.4.4
 
 Update CHANGELOG.md, README.md, and UPGRADING.md for linting
 
+## 5.4.3
+
+Update `configuration-as-code` to version `1836.vccda_4a_122a_a_e`
+
+## 5.4.2
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.27.5`
+
+## 5.4.1
+
+Update `jenkins/jenkins` to version `2.452.3`
+
+## 5.4.0
+
+Introduce capability of additional mountPaths and logging file paths for config reload container
+
+## 5.3.6
+
+Update `workflow-aggregator` to version `600.vb_57cdd26fdd7`
+
+## 5.3.5
+
+Update `kubernetes` to version `4253.v7700d91739e5`
+
+## 5.3.4
+
+Update `jenkins/jenkins` to version `2.452.3-jdk17`
 ## 5.3.3
 
 Update `jenkins/inbound-agent` to version `3256.v88a_f6e922152-1`

@@ -1,0 +1,60 @@
+{{- if .Values.controller.sidecars.configAutoReload.logging.configuration.override }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "jenkins.fullname" . }}-auto-reload-config
+  namespace: {{ template "jenkins.namespace" . }}
+  labels:
+    "app.kubernetes.io/name": {{ template "jenkins.name" . }}
+    {{- if .Values.renderHelmLabels }}
+    "helm.sh/chart": "{{ .Chart.Name }}-{{ .Chart.Version }}"
+    {{- end }}
+    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
+    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
+    "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
+data:
+  auto-reload-config.yaml: |-
+    version: 1
+    disable_existing_loggers: false
+    root:
+      level: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.logLevel }}
+      handlers:
+        {{- if .Values.controller.sidecars.configAutoReload.logging.configuration.logToConsole}}
+        - console
+        {{- end }}
+        {{- if .Values.controller.sidecars.configAutoReload.logging.configuration.logToFile }}
+        - file
+        {{- end }}
+    handlers:
+      {{- if .Values.controller.sidecars.configAutoReload.logging.configuration.logToConsole}}
+      console:
+        class: logging.StreamHandler
+        level: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.logLevel }}
+        formatter: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.formatter }}
+      {{- end }}
+      {{- if .Values.controller.sidecars.configAutoReload.logging.configuration.logToFile }}
+      file:
+        class : logging.handlers.RotatingFileHandler
+        formatter: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.formatter }}
+        filename: {{ .Values.controller.jenkinsHome }}/auto-reload-logs/file.log
+        maxBytes: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.maxBytes }}
+        backupCount: {{ .Values.controller.sidecars.configAutoReload.logging.configuration.backupCount }}
+      {{- end }}
+    formatters:
+      JSON:
+        "()": logger.JsonFormatter
+        format: "%(levelname)s %(message)s"
+        rename_fields:
+          message: msg
+          levelname: level
+      LOGFMT:
+        "()": logger.LogfmtFormatter
+        keys:
+          - time
+          - level
+          - msg
+        mapping:
+          time: asctime
+          level: levelname
+          msg: message
+  {{- end }}
