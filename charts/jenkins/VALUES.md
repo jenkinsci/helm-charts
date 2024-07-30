@@ -54,7 +54,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.secretEnvVars](./values.yaml#L1066) | list | Mount a secret as environment variable | `[]` |
 | [agent.showRawYaml](./values.yaml#L993) | bool |  | `true` |
 | [agent.sideContainerName](./values.yaml#L1083) | string | Side container name | `"jnlp"` |
-| [agent.skipTlsVerify](./values.yaml#L917) | bool | Disables the verification of the master certificate on remote connection. This flag correspond to the "Disable https certificate check" flag in kubernetes plugin UI | `false` |
+| [agent.skipTlsVerify](./values.yaml#L917) | bool | Disables the verification of the controller certificate on remote connection. This flag correspond to the "Disable https certificate check" flag in kubernetes plugin UI | `false` |
 | [agent.usageRestricted](./values.yaml#L919) | bool | Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI | `false` |
 | [agent.volumes](./values.yaml#L1000) | list | Additional volumes | `[]` |
 | [agent.waitForPodSec](./values.yaml#L929) | int | Seconds to wait for pod to be running | `600` |
