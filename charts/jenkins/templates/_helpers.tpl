@@ -164,6 +164,8 @@ jenkins:
       webSocket: true
       {{- end }}
       {{- end }}
+      skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
+      usageRestricted: {{ .Values.agent.usageRestricted | default false}}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
@@ -248,6 +250,8 @@ jenkins:
       webSocket: true
       {{- end }}
       {{- end }}
+      skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
+      usageRestricted: {{ .Values.agent.usageRestricted | default false}}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}

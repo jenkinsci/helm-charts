@@ -913,6 +913,10 @@ agent:
   # connects to the specified host and port, instead of connecting directly to the Jenkins controller
   # -- Overrides the Kubernetes Jenkins tunnel
   jenkinsTunnel:
+  # -- Disables the verification of the controller certificate on remote connection. This flag correspond to the "Disable https certificate check" flag in kubernetes plugin UI
+  skipTlsVerify: false
+  # -- Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI
+  usageRestricted: false
   # -- The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5
   kubernetesConnectTimeout: 5
   # -- The read timeout in seconds for connections to Kubernetes API. The minimum value is 15
