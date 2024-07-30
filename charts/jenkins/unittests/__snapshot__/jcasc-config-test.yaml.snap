@@ -28,6 +28,8 @@ additional clouds:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -76,6 +78,8 @@ additional clouds:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -158,6 +162,8 @@ additional clouds inheriting additional agents:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -235,6 +241,8 @@ additional clouds inheriting additional agents:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -346,6 +354,8 @@ additional clouds overriding additional agents:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -423,6 +433,8 @@ additional clouds overriding additional agents:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -505,6 +517,8 @@ adds custom labels on agent pods:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.NAMESPACE.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -591,6 +605,8 @@ agent namespace and templates:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -748,6 +764,8 @@ agent with liveness probe:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -837,6 +855,8 @@ agents with liveness probe:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -941,6 +961,8 @@ configure hostnetworking to agent:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1024,6 +1046,8 @@ custom dynamic pvc workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1111,6 +1135,8 @@ custom emptyDir workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1196,6 +1222,8 @@ custom hostPath workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1281,6 +1309,8 @@ custom jenkins label:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1363,6 +1393,8 @@ custom nfs workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1450,6 +1482,8 @@ custom other workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1536,6 +1570,8 @@ custom pvc workspace volume:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1619,6 +1655,8 @@ customized config:
             readTimeout: "12"
             jenkinsUrl: "http://my-release-jenkins.other.svc.cluster.local:8080"
             jenkinsTunnel: "my-release-jenkins-agent.other.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1753,6 +1791,8 @@ default config:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1835,6 +1875,8 @@ disable agents:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.controller-namespace.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1883,6 +1925,8 @@ empty projectNamingStrategy:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -1965,6 +2009,8 @@ legacyRemotingSecurityEnabled = false:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2049,6 +2095,8 @@ legacyRemotingSecurityEnabled = true:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2134,6 +2182,8 @@ non-string projectNamingStrategy:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2215,6 +2265,8 @@ set directConnection:
             connectTimeout: "5"
             readTimeout: "15"
             directConnection: true
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2297,6 +2349,8 @@ set restrictedPssSecurityContext:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2379,6 +2433,8 @@ set secretEnvVars:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2470,6 +2526,8 @@ specify additional container:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2568,6 +2626,8 @@ specify additional container and clear in additional agent:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2695,6 +2755,8 @@ specify additional container and overwrite in additional agent:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2838,6 +2900,8 @@ specify security settings with apiToken override:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2917,6 +2981,8 @@ specify security settings without apiToken override:
             readTimeout: "15"
             jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
             jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
             maxRequestsPerHostStr: "32"
             retentionTimeout: "5"
             waitForPodSec: "600"
@@ -2968,6 +3034,274 @@ specify security settings without apiToken override:
           usageStatisticsEnabled: true
         gitHostKeyVerificationConfiguration:
           sshHostKeyVerificationStrategy: acceptFirstConnectionStrategy
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
+additional clouds set skipTlsVerify:
+  1: |
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            restrictedPssSecurityContext: false
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: a014df243ebc5419b6b774f8b7680e65b67f64d149c3b8af606530a054c550df
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3256.v88a_f6e922152-1"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: true
+            usageRestricted: false
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "remote-cloud-1"
+            namespace: "default"
+            restrictedPssSecurityContext: false
+            serverUrl: "https://api.remote-cloud.com"
+            credentialsId: "remote-cloud-token"
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: caec83b8eaf62687d39d9b23e7d8e02183e4ad3b6a8ecc61aca210c697698ebd
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3256.v88a_f6e922152-1"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
+additional clouds set usageRestricted:
+  1: |
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            restrictedPssSecurityContext: false
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: a014df243ebc5419b6b774f8b7680e65b67f64d149c3b8af606530a054c550df
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3256.v88a_f6e922152-1"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: true
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "remote-cloud-1"
+            namespace: "default"
+            restrictedPssSecurityContext: false
+            serverUrl: "https://api.remote-cloud.com"
+            credentialsId: "remote-cloud-token"
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: 2e3153b1b586b9ad4c180c64ee90b6bb7b99b23cf2a992dd4dd7e940ab867195
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3256.v88a_f6e922152-1"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
       unclassified:
         location:
           url: http://RELEASE-NAME-jenkins:8080
