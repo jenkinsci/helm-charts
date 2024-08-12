@@ -15,6 +15,7 @@ Those entries include a reference to the git commit to be able to get more detai
 ## 5.5.6
 
 Add `agent.useDefaultServiceAccount` to support omitting setting `serviceAccount` in the default pod template from `serviceAgentAccount.name`.
+Add `agent.serviceAccount` to support setting the default pod template value.
 
 ## 5.5.5
 
