@@ -906,6 +906,14 @@ agent:
   # -- The name of the pod template to use for providing default values
   defaultsProviderTemplate: ""
 
+  # Useful for not including a serviceAccount in the template if `false`
+  # -- Use `serviceAccountAgent.name` as the default value for defaults template `serviceAccount`
+  useDefaultServiceAccount: true
+
+  # -- Override the default service account
+  # @default -- `serviceAccountAgent.name` if `agent.useDefaultServiceAccount` is `true`
+  serviceAccount:
+
   # For connecting to the Jenkins controller
   # -- Overrides the Kubernetes Jenkins URL
   jenkinsUrl:
