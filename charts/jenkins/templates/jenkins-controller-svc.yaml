@@ -32,6 +32,14 @@ spec:
       {{- if (and (eq .Values.controller.serviceType "NodePort") (not (empty .Values.controller.nodePort))) }}
       nodePort: {{.Values.controller.nodePort}}
       {{- end }}
+{{- if .Values.controller.agentListenerEnabled }}
+    - port: {{.Values.controller.agentListenerPort }}
+      name: agent-listener
+      targetPort: {{ .Values.controller.agentListenerPort }}
+      {{- if (and (eq .Values.controller.serviceType "NodePort") (not (empty .Values.controller.agentListenerNodePort))) }}
+      nodePort: {{.Values.controller.agentListenerNodePort}}
+      {{- end }}
+{{- end }}
 {{- range $index, $port := .Values.controller.extraPorts }}
     - port: {{ $port.port }}
       name: {{ $port.name }}
