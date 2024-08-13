@@ -8,66 +8,68 @@ The following tables list the configurable parameters of the Jenkins chart and t
 
 | Key | Type | Description | Default |
 |:----|:-----|:---------|:------------|
-| [additionalAgents](./values.yaml#L1169) | object | Configure additional | `{}` |
-| [additionalClouds](./values.yaml#L1194) | object |  | `{}` |
-| [agent.TTYEnabled](./values.yaml#L1087) | bool | Allocate pseudo tty to the side container | `false` |
-| [agent.additionalContainers](./values.yaml#L1122) | list | Add additional containers to the agents | `[]` |
-| [agent.alwaysPullImage](./values.yaml#L980) | bool | Always pull agent container image before build | `false` |
-| [agent.annotations](./values.yaml#L1118) | object | Annotations to apply to the pod | `{}` |
-| [agent.args](./values.yaml#L1081) | string | Arguments passed to command to execute | `"${computer.jnlpmac} ${computer.name}"` |
-| [agent.command](./values.yaml#L1079) | string | Command to execute when side container starts | `nil` |
-| [agent.componentName](./values.yaml#L948) | string |  | `"jenkins-agent"` |
-| [agent.connectTimeout](./values.yaml#L1116) | int | Timeout in seconds for an agent to be online | `100` |
-| [agent.containerCap](./values.yaml#L1089) | int | Max number of agents to launch | `10` |
-| [agent.customJenkinsLabels](./values.yaml#L945) | list | Append Jenkins labels to the agent | `[]` |
+| [additionalAgents](./values.yaml#L1177) | object | Configure additional | `{}` |
+| [additionalClouds](./values.yaml#L1202) | object |  | `{}` |
+| [agent.TTYEnabled](./values.yaml#L1095) | bool | Allocate pseudo tty to the side container | `false` |
+| [agent.additionalContainers](./values.yaml#L1130) | list | Add additional containers to the agents | `[]` |
+| [agent.alwaysPullImage](./values.yaml#L988) | bool | Always pull agent container image before build | `false` |
+| [agent.annotations](./values.yaml#L1126) | object | Annotations to apply to the pod | `{}` |
+| [agent.args](./values.yaml#L1089) | string | Arguments passed to command to execute | `"${computer.jnlpmac} ${computer.name}"` |
+| [agent.command](./values.yaml#L1087) | string | Command to execute when side container starts | `nil` |
+| [agent.componentName](./values.yaml#L956) | string |  | `"jenkins-agent"` |
+| [agent.connectTimeout](./values.yaml#L1124) | int | Timeout in seconds for an agent to be online | `100` |
+| [agent.containerCap](./values.yaml#L1097) | int | Max number of agents to launch | `10` |
+| [agent.customJenkinsLabels](./values.yaml#L953) | list | Append Jenkins labels to the agent | `[]` |
 | [agent.defaultsProviderTemplate](./values.yaml#L907) | string | The name of the pod template to use for providing default values | `""` |
-| [agent.directConnection](./values.yaml#L951) | bool |  | `false` |
-| [agent.disableDefaultAgent](./values.yaml#L1140) | bool | Disable the default Jenkins Agent configuration | `false` |
+| [agent.directConnection](./values.yaml#L959) | bool |  | `false` |
+| [agent.disableDefaultAgent](./values.yaml#L1148) | bool | Disable the default Jenkins Agent configuration | `false` |
 | [agent.enabled](./values.yaml#L905) | bool | Enable Kubernetes plugin jnlp-agent podTemplate | `true` |
-| [agent.envVars](./values.yaml#L1062) | list | Environment variables for the agent Pod | `[]` |
-| [agent.hostNetworking](./values.yaml#L959) | bool | Enables the agent to use the host network | `false` |
-| [agent.idleMinutes](./values.yaml#L1094) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
-| [agent.image.repository](./values.yaml#L938) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L940) | string | Tag of the image to pull | `"3261.v9c670a_4748a_9-1"` |
-| [agent.imagePullSecretName](./values.yaml#L947) | string | Name of the secret to be used to pull the image | `nil` |
-| [agent.inheritYamlMergeStrategy](./values.yaml#L1114) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
-| [agent.jenkinsTunnel](./values.yaml#L915) | string | Overrides the Kubernetes Jenkins tunnel | `nil` |
-| [agent.jenkinsUrl](./values.yaml#L911) | string | Overrides the Kubernetes Jenkins URL | `nil` |
-| [agent.jnlpregistry](./values.yaml#L935) | string | Custom registry used to pull the agent jnlp image from | `nil` |
-| [agent.kubernetesConnectTimeout](./values.yaml#L921) | int | The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5 | `5` |
-| [agent.kubernetesReadTimeout](./values.yaml#L923) | int | The read timeout in seconds for connections to Kubernetes API. The minimum value is 15 | `15` |
-| [agent.livenessProbe](./values.yaml#L970) | object |  | `{}` |
-| [agent.maxRequestsPerHostStr](./values.yaml#L925) | string | The maximum concurrent connections to Kubernetes API | `"32"` |
-| [agent.namespace](./values.yaml#L931) | string | Namespace in which the Kubernetes agents should be launched | `nil` |
-| [agent.nodeSelector](./values.yaml#L1073) | object | Node labels for pod assignment | `{}` |
-| [agent.nodeUsageMode](./values.yaml#L943) | string |  | `"NORMAL"` |
-| [agent.podLabels](./values.yaml#L933) | object | Custom Pod labels (an object with `label-key: label-value` pairs) | `{}` |
-| [agent.podName](./values.yaml#L1091) | string | Agent Pod base name | `"default"` |
-| [agent.podRetention](./values.yaml#L989) | string |  | `"Never"` |
-| [agent.podTemplates](./values.yaml#L1150) | object | Configures extra pod templates for the default kubernetes cloud | `{}` |
-| [agent.privileged](./values.yaml#L953) | bool | Agent privileged container | `false` |
-| [agent.resources](./values.yaml#L961) | object | Resources allocation (Requests and Limits) | `{"limits":{"cpu":"512m","memory":"512Mi"},"requests":{"cpu":"512m","memory":"512Mi"}}` |
-| [agent.restrictedPssSecurityContext](./values.yaml#L986) | bool | Set a restricted securityContext on jnlp containers | `false` |
-| [agent.retentionTimeout](./values.yaml#L927) | int | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated | `5` |
-| [agent.runAsGroup](./values.yaml#L957) | string | Configure container group | `nil` |
-| [agent.runAsUser](./values.yaml#L955) | string | Configure container user | `nil` |
-| [agent.secretEnvVars](./values.yaml#L1066) | list | Mount a secret as environment variable | `[]` |
-| [agent.showRawYaml](./values.yaml#L993) | bool |  | `true` |
-| [agent.sideContainerName](./values.yaml#L1083) | string | Side container name | `"jnlp"` |
-| [agent.skipTlsVerify](./values.yaml#L917) | bool | Disables the verification of the controller certificate on remote connection. This flag correspond to the "Disable https certificate check" flag in kubernetes plugin UI | `false` |
-| [agent.usageRestricted](./values.yaml#L919) | bool | Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI | `false` |
-| [agent.volumes](./values.yaml#L1000) | list | Additional volumes | `[]` |
-| [agent.waitForPodSec](./values.yaml#L929) | int | Seconds to wait for pod to be running | `600` |
-| [agent.websocket](./values.yaml#L950) | bool | Enables agent communication via websockets | `false` |
-| [agent.workingDir](./values.yaml#L942) | string | Configure working directory for default agent | `"/home/jenkins/agent"` |
-| [agent.workspaceVolume](./values.yaml#L1035) | object | Workspace volume (defaults to EmptyDir) | `{}` |
-| [agent.yamlMergeStrategy](./values.yaml#L1112) | string | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override" | `"override"` |
-| [agent.yamlTemplate](./values.yaml#L1101) | string | The raw yaml of a Pod API Object to merge into the agent spec | `""` |
-| [awsSecurityGroupPolicies.enabled](./values.yaml#L1320) | bool |  | `false` |
-| [awsSecurityGroupPolicies.policies[0].name](./values.yaml#L1322) | string |  | `""` |
-| [awsSecurityGroupPolicies.policies[0].podSelector](./values.yaml#L1324) | object |  | `{}` |
-| [awsSecurityGroupPolicies.policies[0].securityGroupIds](./values.yaml#L1323) | list |  | `[]` |
-| [checkDeprecation](./values.yaml#L1317) | bool | Checks if any deprecated values are used | `true` |
+| [agent.envVars](./values.yaml#L1070) | list | Environment variables for the agent Pod | `[]` |
+| [agent.hostNetworking](./values.yaml#L967) | bool | Enables the agent to use the host network | `false` |
+| [agent.idleMinutes](./values.yaml#L1102) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
+| [agent.image.repository](./values.yaml#L946) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
+| [agent.image.tag](./values.yaml#L948) | string | Tag of the image to pull | `"3261.v9c670a_4748a_9-1"` |
+| [agent.imagePullSecretName](./values.yaml#L955) | string | Name of the secret to be used to pull the image | `nil` |
+| [agent.inheritYamlMergeStrategy](./values.yaml#L1122) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
+| [agent.jenkinsTunnel](./values.yaml#L923) | string | Overrides the Kubernetes Jenkins tunnel | `nil` |
+| [agent.jenkinsUrl](./values.yaml#L919) | string | Overrides the Kubernetes Jenkins URL | `nil` |
+| [agent.jnlpregistry](./values.yaml#L943) | string | Custom registry used to pull the agent jnlp image from | `nil` |
+| [agent.kubernetesConnectTimeout](./values.yaml#L929) | int | The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5 | `5` |
+| [agent.kubernetesReadTimeout](./values.yaml#L931) | int | The read timeout in seconds for connections to Kubernetes API. The minimum value is 15 | `15` |
+| [agent.livenessProbe](./values.yaml#L978) | object |  | `{}` |
+| [agent.maxRequestsPerHostStr](./values.yaml#L933) | string | The maximum concurrent connections to Kubernetes API | `"32"` |
+| [agent.namespace](./values.yaml#L939) | string | Namespace in which the Kubernetes agents should be launched | `nil` |
+| [agent.nodeSelector](./values.yaml#L1081) | object | Node labels for pod assignment | `{}` |
+| [agent.nodeUsageMode](./values.yaml#L951) | string |  | `"NORMAL"` |
+| [agent.podLabels](./values.yaml#L941) | object | Custom Pod labels (an object with `label-key: label-value` pairs) | `{}` |
+| [agent.podName](./values.yaml#L1099) | string | Agent Pod base name | `"default"` |
+| [agent.podRetention](./values.yaml#L997) | string |  | `"Never"` |
+| [agent.podTemplates](./values.yaml#L1158) | object | Configures extra pod templates for the default kubernetes cloud | `{}` |
+| [agent.privileged](./values.yaml#L961) | bool | Agent privileged container | `false` |
+| [agent.resources](./values.yaml#L969) | object | Resources allocation (Requests and Limits) | `{"limits":{"cpu":"512m","memory":"512Mi"},"requests":{"cpu":"512m","memory":"512Mi"}}` |
+| [agent.restrictedPssSecurityContext](./values.yaml#L994) | bool | Set a restricted securityContext on jnlp containers | `false` |
+| [agent.retentionTimeout](./values.yaml#L935) | int | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated | `5` |
+| [agent.runAsGroup](./values.yaml#L965) | string | Configure container group | `nil` |
+| [agent.runAsUser](./values.yaml#L963) | string | Configure container user | `nil` |
+| [agent.secretEnvVars](./values.yaml#L1074) | list | Mount a secret as environment variable | `[]` |
+| [agent.serviceAccount](./values.yaml#L915) | string | Override the default service account | `serviceAccountAgent.name` if `agent.useDefaultServiceAccount` is `true` |
+| [agent.showRawYaml](./values.yaml#L1001) | bool |  | `true` |
+| [agent.sideContainerName](./values.yaml#L1091) | string | Side container name | `"jnlp"` |
+| [agent.skipTlsVerify](./values.yaml#L925) | bool | Disables the verification of the controller certificate on remote connection. This flag correspond to the "Disable https certificate check" flag in kubernetes plugin UI | `false` |
+| [agent.usageRestricted](./values.yaml#L927) | bool | Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI | `false` |
+| [agent.useDefaultServiceAccount](./values.yaml#L911) | bool | Use `serviceAccountAgent.name` as the default value for defaults template `serviceAccount` | `true` |
+| [agent.volumes](./values.yaml#L1008) | list | Additional volumes | `[]` |
+| [agent.waitForPodSec](./values.yaml#L937) | int | Seconds to wait for pod to be running | `600` |
+| [agent.websocket](./values.yaml#L958) | bool | Enables agent communication via websockets | `false` |
+| [agent.workingDir](./values.yaml#L950) | string | Configure working directory for default agent | `"/home/jenkins/agent"` |
+| [agent.workspaceVolume](./values.yaml#L1043) | object | Workspace volume (defaults to EmptyDir) | `{}` |
+| [agent.yamlMergeStrategy](./values.yaml#L1120) | string | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override" | `"override"` |
+| [agent.yamlTemplate](./values.yaml#L1109) | string | The raw yaml of a Pod API Object to merge into the agent spec | `""` |
+| [awsSecurityGroupPolicies.enabled](./values.yaml#L1328) | bool |  | `false` |
+| [awsSecurityGroupPolicies.policies[0].name](./values.yaml#L1330) | string |  | `""` |
+| [awsSecurityGroupPolicies.policies[0].podSelector](./values.yaml#L1332) | object |  | `{}` |
+| [awsSecurityGroupPolicies.policies[0].securityGroupIds](./values.yaml#L1331) | list |  | `[]` |
+| [checkDeprecation](./values.yaml#L1325) | bool | Checks if any deprecated values are used | `true` |
 | [clusterZone](./values.yaml#L21) | string | Override the cluster name for FQDN resolving | `"cluster.local"` |
 | [controller.JCasC.authorizationStrategy](./values.yaml#L533) | string | Jenkins Config as Code Authorization Strategy-section | `"loggedInUsersCanDoAnything:\n  allowAnonymousRead: false"` |
 | [controller.JCasC.configMapAnnotations](./values.yaml#L538) | object | Annotations for the JCasC ConfigMap | `{}` |
@@ -159,7 +161,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L414) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L403) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L406) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L395) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4280.vd919fa_528c7e","workflow-aggregator:600.vb_57cdd26fdd7","git:5.3.0","configuration-as-code:1836.vccda_4a_122a_a_e"]` |
+| [controller.installPlugins](./values.yaml#L395) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4285.v50ed5f624918","workflow-aggregator:600.vb_57cdd26fdd7","git:5.3.0","configuration-as-code:1836.vccda_4a_122a_a_e"]` |
 | [controller.javaOpts](./values.yaml#L156) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L96) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L101) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -272,40 +274,40 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.usePodSecurityContext](./values.yaml#L176) | bool | Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set) | `true` |
 | [credentialsId](./values.yaml#L27) | string | The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed. | `nil` |
 | [fullnameOverride](./values.yaml#L13) | string | Override the full resource names | `jenkins-(release-name)` or `jenkins` if the release-name is `jenkins` |
-| [helmtest.bats.image.registry](./values.yaml#L1333) | string | Registry of the image used to test the framework | `"docker.io"` |
-| [helmtest.bats.image.repository](./values.yaml#L1335) | string | Repository of the image used to test the framework | `"bats/bats"` |
-| [helmtest.bats.image.tag](./values.yaml#L1337) | string | Tag of the image to test the framework | `"1.11.0"` |
+| [helmtest.bats.image.registry](./values.yaml#L1341) | string | Registry of the image used to test the framework | `"docker.io"` |
+| [helmtest.bats.image.repository](./values.yaml#L1343) | string | Repository of the image used to test the framework | `"bats/bats"` |
+| [helmtest.bats.image.tag](./values.yaml#L1345) | string | Tag of the image to test the framework | `"1.11.0"` |
 | [kubernetesURL](./values.yaml#L24) | string | The URL of the Kubernetes API server | `"https://kubernetes.default"` |
 | [nameOverride](./values.yaml#L10) | string | Override the resource name prefix | `Chart.Name` |
 | [namespaceOverride](./values.yaml#L16) | string | Override the deployment namespace | `Release.Namespace` |
-| [networkPolicy.apiVersion](./values.yaml#L1263) | string | NetworkPolicy ApiVersion | `"networking.k8s.io/v1"` |
-| [networkPolicy.enabled](./values.yaml#L1258) | bool | Enable the creation of NetworkPolicy resources | `false` |
-| [networkPolicy.externalAgents.except](./values.yaml#L1277) | list | A list of IP sub-ranges to be excluded from the allowlisted IP range | `[]` |
-| [networkPolicy.externalAgents.ipCIDR](./values.yaml#L1275) | string | The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16 | `nil` |
-| [networkPolicy.internalAgents.allowed](./values.yaml#L1267) | bool | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels | `true` |
-| [networkPolicy.internalAgents.namespaceLabels](./values.yaml#L1271) | object | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller | `{}` |
-| [networkPolicy.internalAgents.podLabels](./values.yaml#L1269) | object | A map of labels (keys/values) that agent pods must have to be able to connect to controller | `{}` |
-| [persistence.accessMode](./values.yaml#L1233) | string | The PVC access mode | `"ReadWriteOnce"` |
-| [persistence.annotations](./values.yaml#L1229) | object | Annotations for the PVC | `{}` |
-| [persistence.dataSource](./values.yaml#L1239) | object | Existing data source to clone PVC from | `{}` |
-| [persistence.enabled](./values.yaml#L1213) | bool | Enable the use of a Jenkins PVC | `true` |
-| [persistence.existingClaim](./values.yaml#L1219) | string | Provide the name of a PVC | `nil` |
-| [persistence.labels](./values.yaml#L1231) | object | Labels for the PVC | `{}` |
-| [persistence.mounts](./values.yaml#L1251) | list | Additional mounts | `[]` |
-| [persistence.size](./values.yaml#L1235) | string | The size of the PVC | `"8Gi"` |
-| [persistence.storageClass](./values.yaml#L1227) | string | Storage class for the PVC | `nil` |
-| [persistence.subPath](./values.yaml#L1244) | string | SubPath for jenkins-home mount | `nil` |
-| [persistence.volumes](./values.yaml#L1246) | list | Additional volumes | `[]` |
-| [rbac.create](./values.yaml#L1283) | bool | Whether RBAC resources are created | `true` |
-| [rbac.readSecrets](./values.yaml#L1285) | bool | Whether the Jenkins service account should be able to read Kubernetes secrets | `false` |
+| [networkPolicy.apiVersion](./values.yaml#L1271) | string | NetworkPolicy ApiVersion | `"networking.k8s.io/v1"` |
+| [networkPolicy.enabled](./values.yaml#L1266) | bool | Enable the creation of NetworkPolicy resources | `false` |
+| [networkPolicy.externalAgents.except](./values.yaml#L1285) | list | A list of IP sub-ranges to be excluded from the allowlisted IP range | `[]` |
+| [networkPolicy.externalAgents.ipCIDR](./values.yaml#L1283) | string | The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16 | `nil` |
+| [networkPolicy.internalAgents.allowed](./values.yaml#L1275) | bool | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels | `true` |
+| [networkPolicy.internalAgents.namespaceLabels](./values.yaml#L1279) | object | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller | `{}` |
+| [networkPolicy.internalAgents.podLabels](./values.yaml#L1277) | object | A map of labels (keys/values) that agent pods must have to be able to connect to controller | `{}` |
+| [persistence.accessMode](./values.yaml#L1241) | string | The PVC access mode | `"ReadWriteOnce"` |
+| [persistence.annotations](./values.yaml#L1237) | object | Annotations for the PVC | `{}` |
+| [persistence.dataSource](./values.yaml#L1247) | object | Existing data source to clone PVC from | `{}` |
+| [persistence.enabled](./values.yaml#L1221) | bool | Enable the use of a Jenkins PVC | `true` |
+| [persistence.existingClaim](./values.yaml#L1227) | string | Provide the name of a PVC | `nil` |
+| [persistence.labels](./values.yaml#L1239) | object | Labels for the PVC | `{}` |
+| [persistence.mounts](./values.yaml#L1259) | list | Additional mounts | `[]` |
+| [persistence.size](./values.yaml#L1243) | string | The size of the PVC | `"8Gi"` |
+| [persistence.storageClass](./values.yaml#L1235) | string | Storage class for the PVC | `nil` |
+| [persistence.subPath](./values.yaml#L1252) | string | SubPath for jenkins-home mount | `nil` |
+| [persistence.volumes](./values.yaml#L1254) | list | Additional volumes | `[]` |
+| [rbac.create](./values.yaml#L1291) | bool | Whether RBAC resources are created | `true` |
+| [rbac.readSecrets](./values.yaml#L1293) | bool | Whether the Jenkins service account should be able to read Kubernetes secrets | `false` |
 | [renderHelmLabels](./values.yaml#L30) | bool | Enables rendering of the helm.sh/chart label to the annotations | `true` |
-| [serviceAccount.annotations](./values.yaml#L1295) | object | Configures annotations for the ServiceAccount | `{}` |
-| [serviceAccount.create](./values.yaml#L1289) | bool | Configures if a ServiceAccount with this name should be created | `true` |
-| [serviceAccount.extraLabels](./values.yaml#L1297) | object | Configures extra labels for the ServiceAccount | `{}` |
-| [serviceAccount.imagePullSecretName](./values.yaml#L1299) | string | Controller ServiceAccount image pull secret | `nil` |
-| [serviceAccount.name](./values.yaml#L1293) | string |  | `nil` |
-| [serviceAccountAgent.annotations](./values.yaml#L1310) | object | Configures annotations for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.create](./values.yaml#L1304) | bool | Configures if an agent ServiceAccount should be created | `false` |
-| [serviceAccountAgent.extraLabels](./values.yaml#L1312) | object | Configures extra labels for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1314) | string | Agent ServiceAccount image pull secret | `nil` |
-| [serviceAccountAgent.name](./values.yaml#L1308) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
+| [serviceAccount.annotations](./values.yaml#L1303) | object | Configures annotations for the ServiceAccount | `{}` |
+| [serviceAccount.create](./values.yaml#L1297) | bool | Configures if a ServiceAccount with this name should be created | `true` |
+| [serviceAccount.extraLabels](./values.yaml#L1305) | object | Configures extra labels for the ServiceAccount | `{}` |
+| [serviceAccount.imagePullSecretName](./values.yaml#L1307) | string | Controller ServiceAccount image pull secret | `nil` |
+| [serviceAccount.name](./values.yaml#L1301) | string |  | `nil` |
+| [serviceAccountAgent.annotations](./values.yaml#L1318) | object | Configures annotations for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.create](./values.yaml#L1312) | bool | Configures if an agent ServiceAccount should be created | `false` |
+| [serviceAccountAgent.extraLabels](./values.yaml#L1320) | object | Configures extra labels for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1322) | string | Agent ServiceAccount image pull secret | `nil` |
+| [serviceAccountAgent.name](./values.yaml#L1316) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
