@@ -6,6 +6,9 @@ templates:
   - jenkins-controller-svc.yaml
 tests:
   - it: default tests
+    set:
+      controller:
+        agentListenerEnabled: false
     asserts:
       - isKind:
           of: Service
@@ -47,6 +50,7 @@ tests:
         extraPorts:
           - name: BuildInfoProxy
             port: 9000
+        agentListenerEnabled: false
     asserts:
       - equal:
           path: metadata.labels.label
@@ -84,6 +88,7 @@ tests:
           - name: https
             port: 443
             targetPort: 8080
+        agentListenerEnabled: false
     asserts:
       - equal:
           path: metadata.labels.label
@@ -112,6 +117,7 @@ tests:
       controller:
         serviceType: NodePort
         nodePort: 11111
+        agentListenerEnabled: false
     asserts:
        - equal:
           path: spec
@@ -125,11 +131,37 @@ tests:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
             type: NodePort
+  - it: node port with agentListenerEnabled
+    set:
+      controller:
+        serviceType: NodePort
+        nodePort: 11111
+        agentListenerEnabled: true
+        agentListenerPort: 50000
+        agentListenerNodePort: 55555
+    asserts:
+       - equal:
+          path: spec
+          value:
+            ports:
+            - name: http
+              port: 8080
+              targetPort: 8080
+              nodePort: 11111
+            - name: agent-listener
+              port: 50000
+              targetPort: 50000
+              nodePort: 55555
+            selector:
+              app.kubernetes.io/component: jenkins-controller
+              app.kubernetes.io/instance: my-release
+            type: NodePort
   - it: load balancer
     set:
       controller:
         serviceType: LoadBalancer
         loadBalancerIP: 10.10.10.10
+        agentListenerEnabled: false
     asserts:
        - equal:
           path: spec
@@ -141,6 +173,31 @@ tests:
             - name: http
               port: 8080
               targetPort: 8080
+            selector:
+              app.kubernetes.io/component: jenkins-controller
+              app.kubernetes.io/instance: my-release
+            type: LoadBalancer
+  - it: load balancer with agentListenerEnabled
+    set:
+      controller:
+        serviceType: LoadBalancer
+        loadBalancerIP: 10.10.10.10
+        agentListenerEnabled: true
+        agentListenerPort: 50000
+    asserts:
+       - equal:
+          path: spec
+          value:
+            loadBalancerIP: 10.10.10.10
+            loadBalancerSourceRanges:
+              - 0.0.0.0/0
+            ports:
+            - name: http
+              port: 8080
+              targetPort: 8080
+            - name: agent-listener
+              port: 50000
+              targetPort: 50000
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
