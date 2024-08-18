@@ -140,6 +140,13 @@ jenkins:
   clouds:
   - kubernetes:
       containerCapStr: "{{ .Values.agent.containerCap }}"
+      {{- if .Values.agent.garbageCollection.enabled }}
+      garbageCollection:
+        {{- if .Values.agent.garbageCollection.namespaces }}
+        namespaces: "{{ .Values.agent.garbageCollection.namespaces }}"
+        {{- end }}
+        timeout: "{{ .Values.agent.garbageCollection.timeout }}"
+      {{- end }}
       {{- if .Values.agent.jnlpregistry }}
       jnlpregistry: "{{ .Values.agent.jnlpregistry }}"
       {{- end }}
