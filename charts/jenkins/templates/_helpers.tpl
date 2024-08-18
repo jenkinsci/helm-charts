@@ -143,7 +143,8 @@ jenkins:
       {{- if .Values.agent.garbageCollection.enabled }}
       garbageCollection:
         {{- if .Values.agent.garbageCollection.namespaces }}
-        namespaces: "{{ .Values.agent.garbageCollection.namespaces }}"
+        namespaces: |-
+          {{- .Values.agent.garbageCollection.namespaces | nindent 10 }}
         {{- end }}
         timeout: "{{ .Values.agent.garbageCollection.timeout }}"
       {{- end }}
