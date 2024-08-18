@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.5.8
+
+Add `agent.garbageCollection` to support setting [kubernetes plugin garbage collection](https://plugins.jenkins.io/kubernetes/#plugin-content-garbage-collection-beta).
+
 ## 5.5.7
 
 Update `kubernetes` to version `4285.v50ed5f624918`
