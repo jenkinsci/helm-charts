@@ -396,7 +396,7 @@ controller:
     - kubernetes:4285.v50ed5f624918
     - workflow-aggregator:600.vb_57cdd26fdd7
     - git:5.4.1
-    - configuration-as-code:1849.v3a_d20568000a_
+    - configuration-as-code:1850.va_a_8c31d3158b_
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
