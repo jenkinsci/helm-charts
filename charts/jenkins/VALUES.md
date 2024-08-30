@@ -254,7 +254,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L613) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L557) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L559) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L561) | string | Tag for the image that triggers the reload | `"1.27.5"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L561) | string | Tag for the image that triggers the reload | `"1.27.6"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L562) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L577) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
 | [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L581) | bool | Enables custom log config utilizing using the settings below. | `false` |
