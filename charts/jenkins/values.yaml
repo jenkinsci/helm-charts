@@ -123,6 +123,12 @@ controller:
   # Share process namespace to allow sidecar containers to interact with processes in other containers in the same pod
   shareProcessNamespace: false
 
+  # Service links might cause issue if running in a namespace with a large amount of services
+  # that might cause a slow startup when plugins are copied from ref to volume
+  # Set to true to keep previous behavior
+  # See https://github.com/kubernetes/kubernetes/issues/121787
+  enableServiceLinks: false
+
   # Overrides the init container default values
   # -- Resources allocation (Requests and Limits) for Init Container
   initContainerResources: {}
