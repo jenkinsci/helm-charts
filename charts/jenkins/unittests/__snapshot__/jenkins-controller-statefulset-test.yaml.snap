@@ -131,6 +131,7 @@ default values:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+        enableServiceLinks: false
         initContainers:
           - env:
               - name: POD_NAME
@@ -350,6 +351,7 @@ test scheme for config-reload:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+        enableServiceLinks: false
         initContainers:
           - env:
               - name: POD_NAME

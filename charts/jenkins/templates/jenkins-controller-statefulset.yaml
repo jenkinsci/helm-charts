@@ -80,6 +80,9 @@ spec:
       {{- if .Values.controller.shareProcessNamespace }}
       shareProcessNamespace: true
       {{- end }}
+      {{- if not .Values.controller.enableServiceLinks }}
+      enableServiceLinks: false
+      {{- end }}
 {{- if .Values.controller.usePodSecurityContext }}
       securityContext:
   {{- if kindIs "map" .Values.controller.podSecurityContextOverride }}

@@ -623,6 +623,23 @@ tests:
     asserts:
       - isNull:
           path: spec.template.spec.shareProcessNamespace
+  - it: test false enableServiceLinks
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        enableServiceLinks: false
+    asserts:
+      - equal:
+          path: spec.template.spec.enableServiceLinks
+          value: false
+  - it: test true enableServiceLinks
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        enableServiceLinks: true
+    asserts:
+      - isNull:
+          path: spec.template.spec.enableServiceLinks
   - it: test disableSecretMount
     template: jenkins-controller-statefulset.yaml
     set:
