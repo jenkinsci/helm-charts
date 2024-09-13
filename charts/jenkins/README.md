@@ -23,8 +23,13 @@ _See [`helm repo`](https://helm.sh/docs/helm/helm_repo/) for command documentati
 ## Install Chart
 
 ```console
-# Helm 3
-$ helm install [RELEASE_NAME] jenkins/jenkins [flags]
+helm install [RELEASE_NAME] jenkins/jenkins [flags]
+```
+
+Since version `5.6.0` the chart is available as an OCI image and can be installed using:
+
+```console
+helm install [RELEASE_NAME] oci://ghcr.io/jenkinsci/helm-charts/jenkins [flags]
 ```
 
 _See [configuration](#configuration) below._
