@@ -4,6 +4,59 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Documentation about OCI installation
+      artifacthub.io/images: |
+        - name: jenkins
+          image: docker.io/jenkins/jenkins:2.462.2-jdk17
+        - name: k8s-sidecar
+          image: docker.io/kiwigrid/k8s-sidecar:1.27.6
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3261.v9c670a_4748a_9-1
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.462.2
+    created: "2024-09-13T08:25:26.026251505Z"
+    description: 'Jenkins - Build great things at any scale! As the leading open source
+      automation server, Jenkins provides over 1800 plugins to support building, deploying
+      and automating any project. '
+    digest: ce4e75b28a8b9b2fb51bad5636a4e09c4767bf884fd1e637cee545ef614363c1
+    home: https://www.jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-inbound-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    type: application
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-5.6.1/jenkins-5.6.1.tgz
+    version: 5.6.1
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Helm chart is also now deployed on GitHub packages and can be installed from `oci://ghcr.io/jenkinsci/helm-charts/jenkins`
       artifacthub.io/images: |
         - name: jenkins
@@ -23068,4 +23121,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2024-09-12T16:01:32.259043939Z"
+generated: "2024-09-13T08:25:26.028422037Z"
