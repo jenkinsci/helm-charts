@@ -35,6 +35,7 @@ jobs:
       - name: Install Helm
         uses: azure/setup-helm@v4
         with:
+          # renovate: datasource=github-tags depName=helm/helm
           version: v3.16.0
 
       - name: Retrieve version from Chart.yaml
