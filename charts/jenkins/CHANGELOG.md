@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.6.2
+
+Update `kubernetes` to version `4288.v1719f9d0c854`
+
 ## 5.6.1
 
 Documentation about OCI installation
