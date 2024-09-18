@@ -1,7 +1,7 @@
 additional plugins config:
   1: |
     |-
-      kubernetes:4287.v73451380b_576
+      kubernetes:4288.v1719f9d0c854
       workflow-aggregator:600.vb_57cdd26fdd7
       git:5.4.1
       configuration-as-code:1850.va_a_8c31d3158b_
@@ -9,7 +9,7 @@ additional plugins config:
 default config:
   1: |
     |-
-      kubernetes:4287.v73451380b_576
+      kubernetes:4288.v1719f9d0c854
       workflow-aggregator:600.vb_57cdd26fdd7
       git:5.4.1
       configuration-as-code:1850.va_a_8c31d3158b_
