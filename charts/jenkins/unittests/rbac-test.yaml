@@ -215,3 +215,55 @@ tests:
               name: my-release-jenkins
               namespace: my-namespace
 
+  - it: Role use-nonroot-scc
+    set:
+      rbac.useOpenShiftNonRootSCC: true
+    documentIndex: 2
+    asserts:
+      - isKind:
+          of: Role
+      - equal:
+          path: apiVersion
+          value: rbac.authorization.k8s.io/v1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-use-nonroot-scc
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - equal:
+          path: rules
+          value:
+            - apiGroups: ["security.openshift.io"]
+              resources: ["securitycontextconstraints"]
+              resourceNames: ["nonroot", "nonroot-v2"]
+              verbs: ["use"]
+
+  - it: RoleBinding use-nonroot-scc
+    set:
+      rbac.useOpenShiftNonRootSCC: true
+    documentIndex: 3
+    asserts:
+      - isKind:
+          of: RoleBinding
+      - equal:
+          path: apiVersion
+          value: rbac.authorization.k8s.io/v1
+      - equal:
+          path: metadata.name
+          value: my-release-jenkins-use-nonroot-scc
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+      - equal:
+          path: roleRef
+          value:
+            apiGroup: rbac.authorization.k8s.io
+            kind: Role
+            name: my-release-jenkins-use-nonroot-scc
+      - equal:
+          path: subjects
+          value:
+            - kind: ServiceAccount
+              name: my-release-jenkins
+              namespace: my-namespace

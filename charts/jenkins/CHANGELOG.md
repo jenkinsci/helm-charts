@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.7.0
+
+Add RBAC support for using the `nonroot` and `nonroot-v2` `SecurityContextConstraints` on OpenShift.
+
 ## 5.6.5
 
 Update `kubernetes` to version `4290.v93ea_4b_b_26a_61`
