@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.7.5
+
+Fix helm release deployment with flux revision reconciliation
+
 ## 5.7.4
 
 Update `kubernetes` to version `4292.v11898cf8fa_66`
