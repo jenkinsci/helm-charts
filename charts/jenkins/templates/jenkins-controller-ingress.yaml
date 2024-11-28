@@ -23,12 +23,12 @@ metadata:
 {{- end }}
 {{- if .Values.controller.ingress.annotations }}
   annotations:
-{{ toYaml .Values.controller.ingress.annotations | indent 4 }}
+{{ tpl (toYaml .Values.controller.ingress.annotations) . | indent 4 }}
 {{- end }}
   name: {{ template "jenkins.fullname" . }}
 spec:
 {{- if .Values.controller.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.controller.ingress.ingressClassName | quote }}
+  ingressClassName: {{ tpl .Values.controller.ingress.ingressClassName . | quote }}
 {{- end }}
   rules:
   - http:
