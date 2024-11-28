@@ -28,7 +28,7 @@ metadata:
   name: {{ template "jenkins.fullname" . }}
 spec:
 {{- if .Values.controller.ingress.ingressClassName }}
-  ingressClassName: {{ tpl .Values.controller.ingress.ingressClassName | quote }}
+  ingressClassName: {{ tpl .Values.controller.ingress.ingressClassName . | quote }}
 {{- end }}
   rules:
   - http:
