@@ -14,6 +14,10 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.7.15
 
+Add tpl support for persistence.storageClassName in home-pvc.yaml  and tpl support in controller.ingress parameters(ingressClassName, annotations, hostname) in jenkins-controller-ingress.yaml
+
+## 5.7.15
+
 Update `jenkins/jenkins` to version `2.479.2-jdk17`
 
 ## 5.7.14
