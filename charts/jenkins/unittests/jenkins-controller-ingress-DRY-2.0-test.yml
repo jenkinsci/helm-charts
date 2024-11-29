@@ -1,0 +1,35 @@
+suite: Jenkins Controller Ingress
+templates:
+- jenkins-controller-ingress.yaml
+
+tests:
+- it: should set the correct ingressClassName
+  set:
+    controller.ingress.enabled: true
+    controller.ingress.ingressClassName: "nginx"
+  asserts:
+  - equal:
+      path: spec.ingressClassName
+      value: "nginx"
+
+- it: should correctly set hostName using tpl
+  set:
+    global.jenkinsHostname: "jenkins.example.com"
+    controller.ingress.enabled: true
+    controller.ingress.hostName: "{{ .Values.global.jenkinsHostname }}"
+  asserts:
+  - equal:
+      path: spec.rules[0].host
+      value: "jenkins.example.com"
+
+- it: should configure TLS when specified
+  set:
+    global.jenkinsHostname: "jenkins.example.com"
+    controller.ingress.enabled: true
+    controller.ingress.tls:
+    - hosts:
+      - "jenkins.example.com"
+  asserts:
+  - equal:
+      path: spec.tls[0].hosts[0]
+      value: "jenkins.example.com"

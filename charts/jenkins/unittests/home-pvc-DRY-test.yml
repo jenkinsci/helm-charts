@@ -1,0 +1,29 @@
+suite: Jenkins PVC
+templates:
+- jenkins-home-pvc.yaml
+
+tests:
+- it: should set the correct storageClassName
+  set:
+    persistence.storageClassName: "local-path"
+    persistence.enabled: true
+  asserts:
+  - equal:
+      path: spec.storageClassName
+      value: "local-path"
+
+- it: should set storageClassName to empty when '-' is specified
+  set:
+    persistence.storageClassName: "-"
+    persistence.enabled: true
+  asserts:
+  - equal:
+      path: spec.storageClassName
+      value: ""
+
+- it: should not create PVC when persistence is disabled
+  set:
+    persistence.enabled: false
+  asserts:
+  - notExists:
+      path: spec
