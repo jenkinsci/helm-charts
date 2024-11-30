@@ -1362,4 +1362,4 @@ helmtest:
       # -- Repository of the image used to test the framework
       repository: "bats/bats"
       # -- Tag of the image to test the framework
-      tag: "1.11.0"
+      tag: "1.11.1"

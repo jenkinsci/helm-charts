@@ -280,7 +280,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [fullnameOverride](./values.yaml#L13) | string | Override the full resource names | `jenkins-(release-name)` or `jenkins` if the release-name is `jenkins` |
 | [helmtest.bats.image.registry](./values.yaml#L1361) | string | Registry of the image used to test the framework | `"docker.io"` |
 | [helmtest.bats.image.repository](./values.yaml#L1363) | string | Repository of the image used to test the framework | `"bats/bats"` |
-| [helmtest.bats.image.tag](./values.yaml#L1365) | string | Tag of the image to test the framework | `"1.11.0"` |
+| [helmtest.bats.image.tag](./values.yaml#L1365) | string | Tag of the image to test the framework | `"1.11.1"` |
 | [kubernetesURL](./values.yaml#L24) | string | The URL of the Kubernetes API server | `"https://kubernetes.default"` |
 | [nameOverride](./values.yaml#L10) | string | Override the resource name prefix | `Chart.Name` |
 | [namespaceOverride](./values.yaml#L16) | string | Override the deployment namespace | `Release.Namespace` |
