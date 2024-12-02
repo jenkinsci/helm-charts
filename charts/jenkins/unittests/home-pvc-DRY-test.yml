@@ -1,11 +1,17 @@
 suite: Jenkins PVC
+
+release:
+  name: my-release
+  namespace: my-namespace
+
 templates:
 - jenkins-home-pvc.yaml
 
 tests:
-- it: should set the correct storageClassName
+- it: should set the correct storageClassName using tpl
   set:
-    persistence.storageClassName: "local-path"
+    persistence.storageClassName: "{{ .Values.global.storageClass }}"
+    global.storageClass: "local-path"
     persistence.enabled: true
   asserts:
   - equal:

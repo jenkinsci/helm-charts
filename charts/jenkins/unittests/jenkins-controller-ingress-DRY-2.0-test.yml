@@ -1,16 +1,33 @@
 suite: Jenkins Controller Ingress
+
+release:
+  name: my-release
+  namespace: my-namespace
+
 templates:
 - jenkins-controller-ingress.yaml
 
 tests:
-- it: should set the correct ingressClassName
+- it: should set the correct ingressClassName using tpl
   set:
     controller.ingress.enabled: true
-    controller.ingress.ingressClassName: "nginx"
+    controller.ingress.ingressClassName: "{{ .Values.global.ingressClassName }}"
+    global.ingressClassName: "nginx"
   asserts:
   - equal:
       path: spec.ingressClassName
       value: "nginx"
+
+- it: should correctly render annotations using tpl
+  set:
+    controller.ingress.enabled: true
+    controller.ingress.annotations: "{{ .Values.global.ingressAnnotations }}"
+    global.ingressAnnotations: |
+      custom-annotation-key: custom-annotation-value
+  asserts:
+  - equal:
+      path: metadata.annotations.custom-annotation-key
+      value: "custom-annotation-value"
 
 - it: should correctly set hostName using tpl
   set:
@@ -28,7 +45,7 @@ tests:
     controller.ingress.enabled: true
     controller.ingress.tls:
     - hosts:
-      - "jenkins.example.com"
+      - "{{ .Values.global.jenkinsHostname }}"
   asserts:
   - equal:
       path: spec.tls[0].hosts[0]
