@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.7.19
+
+Update `configuration-as-code` to version `1903.v004d55388f30`
+
 ## 5.7.18
 
 Update `kubernetes` to version `4300.vd82c5692b_3a_e`
