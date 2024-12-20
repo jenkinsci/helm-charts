@@ -52,8 +52,6 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.resources](./values.yaml#L975) | object | Resources allocation (Requests and Limits) | `{"limits":{"cpu":"512m","memory":"512Mi"},"requests":{"cpu":"512m","memory":"512Mi"}}` |
 | [agent.restrictedPssSecurityContext](./values.yaml#L1000) | bool | Set a restricted securityContext on jnlp containers | `false` |
 | [agent.retentionTimeout](./values.yaml#L941) | int | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated | `5` |
-| [agent.runAsGroup](./values.yaml#L971) | string | Configure container group | `nil` |
-| [agent.runAsUser](./values.yaml#L969) | string | Configure container user | `nil` |
 | [agent.secretEnvVars](./values.yaml#L1080) | list | Mount a secret as environment variable | `[]` |
 | [agent.serviceAccount](./values.yaml#L921) | string | Override the default service account | `serviceAccountAgent.name` if `agent.useDefaultServiceAccount` is `true` |
 | [agent.showRawYaml](./values.yaml#L1007) | bool |  | `true` |
