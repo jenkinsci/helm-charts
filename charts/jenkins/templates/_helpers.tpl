@@ -396,15 +396,9 @@ Returns kubernetes pod template configuration as code
     {{- end }}
     resourceRequestCpu: {{.Values.agent.resources.requests.cpu}}
     resourceRequestMemory: {{.Values.agent.resources.requests.memory}}
-    {{- with .Values.agent.resources.requests.ephemeralStorage }}
-    resourceRequestEphemeralStorage: {{.}}
-    {{- end }}
-    {{- with .Values.agent.runAsUser }}
-    runAsUser: {{ . }}
-    {{- end }}
-    {{- with .Values.agent.runAsGroup }}
-    runAsGroup: {{ . }}
-    {{- end }}
+    resourceRequestEphemeralStorage: {{ .Values.agent.resources.requests.ephemeralStorage }}
+    runAsUser: {{ .Values.agent.runAsUser }}
+    runAsGroup: {{ .Values.agent.runAsGroup }}
     ttyEnabled: {{ .Values.agent.TTYEnabled }}
     workingDir: {{ .Values.agent.workingDir }}
 {{- range $additionalContainers := .Values.agent.additionalContainers }}
