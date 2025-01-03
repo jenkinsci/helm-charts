@@ -232,6 +232,10 @@ controller:
   # but risks potentially imbalanced traffic spreading.
   serviceExternalTrafficPolicy:
 
+  # If enabled, the controller is available through its service before its pods reports ready. Makes startup screen and
+  # auto-reload on restart feature possible.
+  publishNotReadyAddresses:
+
   # -- Jenkins controller service annotations
   serviceAnnotations: {}
   # -- Jenkins controller custom labels for the StatefulSet
