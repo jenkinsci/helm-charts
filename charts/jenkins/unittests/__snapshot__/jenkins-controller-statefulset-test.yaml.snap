@@ -22,6 +22,7 @@ default values:
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
       spec:
+        automountServiceAccountToken: true
         containers:
           - args:
               - --httpPort=8080
@@ -242,6 +243,7 @@ test scheme for config-reload:
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
       spec:
+        automountServiceAccountToken: true
         containers:
           - args:
               - --httpPort=8080
