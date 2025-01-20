@@ -1329,6 +1329,8 @@ serviceAccount:
   extraLabels: {}
   # -- Controller ServiceAccount image pull secret
   imagePullSecretName:
+  # -- Auto-mount ServiceAccount token
+  automountServiceAccountToken: true
 
 
 serviceAccountAgent:
@@ -1344,6 +1346,8 @@ serviceAccountAgent:
   extraLabels: {}
   # -- Agent ServiceAccount image pull secret
   imagePullSecretName:
+  # -- Auto-mount ServiceAccount token
+  automountServiceAccountToken: true
 
 # -- Checks if any deprecated values are used
 checkDeprecation: true

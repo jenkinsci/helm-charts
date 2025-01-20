@@ -107,6 +107,7 @@ spec:
   {{- end }}
 {{- end }}
       serviceAccountName: "{{ template "jenkins.serviceAccountName" . }}"
+      automountServiceAccountToken: {{ .Values.serviceAccount.automountServiceAccountToken }}
 {{- if .Values.controller.hostNetworking }}
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
