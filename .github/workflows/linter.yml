@@ -21,6 +21,7 @@ jobs:
           VALIDATE_CHECKOV: false
           VALIDATE_GITLEAKS: false
           VALIDATE_JSCPD: false
+          VALIDATE_JSONC: false
           VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_YAML: false
           DEFAULT_BRANCH: main
