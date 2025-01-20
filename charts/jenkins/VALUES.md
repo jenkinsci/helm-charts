@@ -68,11 +68,11 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.workspaceVolume](./values.yaml#L1053) | object | Workspace volume (defaults to EmptyDir) | `{}` |
 | [agent.yamlMergeStrategy](./values.yaml#L1142) | string | Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override" | `"override"` |
 | [agent.yamlTemplate](./values.yaml#L1131) | string | The raw yaml of a Pod API Object to merge into the agent spec | `""` |
-| [awsSecurityGroupPolicies.enabled](./values.yaml#L1352) | bool |  | `false` |
-| [awsSecurityGroupPolicies.policies[0].name](./values.yaml#L1354) | string |  | `""` |
-| [awsSecurityGroupPolicies.policies[0].podSelector](./values.yaml#L1356) | object |  | `{}` |
-| [awsSecurityGroupPolicies.policies[0].securityGroupIds](./values.yaml#L1355) | list |  | `[]` |
-| [checkDeprecation](./values.yaml#L1349) | bool | Checks if any deprecated values are used | `true` |
+| [awsSecurityGroupPolicies.enabled](./values.yaml#L1356) | bool |  | `false` |
+| [awsSecurityGroupPolicies.policies[0].name](./values.yaml#L1358) | string |  | `""` |
+| [awsSecurityGroupPolicies.policies[0].podSelector](./values.yaml#L1360) | object |  | `{}` |
+| [awsSecurityGroupPolicies.policies[0].securityGroupIds](./values.yaml#L1359) | list |  | `[]` |
+| [checkDeprecation](./values.yaml#L1353) | bool | Checks if any deprecated values are used | `true` |
 | [clusterZone](./values.yaml#L21) | string | Override the cluster name for FQDN resolving | `"cluster.local"` |
 | [controller.JCasC.authorizationStrategy](./values.yaml#L543) | string | Jenkins Config as Code Authorization Strategy-section | `"loggedInUsersCanDoAnything:\n  allowAnonymousRead: false"` |
 | [controller.JCasC.configMapAnnotations](./values.yaml#L548) | object | Annotations for the JCasC ConfigMap | `{}` |
@@ -279,9 +279,9 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.usePodSecurityContext](./values.yaml#L182) | bool | Enable pod security context (must be `true` if podSecurityContextOverride, runAsUser or fsGroup are set) | `true` |
 | [credentialsId](./values.yaml#L27) | string | The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed. | `nil` |
 | [fullnameOverride](./values.yaml#L13) | string | Override the full resource names | `jenkins-(release-name)` or `jenkins` if the release-name is `jenkins` |
-| [helmtest.bats.image.registry](./values.yaml#L1365) | string | Registry of the image used to test the framework | `"docker.io"` |
-| [helmtest.bats.image.repository](./values.yaml#L1367) | string | Repository of the image used to test the framework | `"bats/bats"` |
-| [helmtest.bats.image.tag](./values.yaml#L1369) | string | Tag of the image to test the framework | `"1.11.1"` |
+| [helmtest.bats.image.registry](./values.yaml#L1369) | string | Registry of the image used to test the framework | `"docker.io"` |
+| [helmtest.bats.image.repository](./values.yaml#L1371) | string | Repository of the image used to test the framework | `"bats/bats"` |
+| [helmtest.bats.image.tag](./values.yaml#L1373) | string | Tag of the image to test the framework | `"1.11.1"` |
 | [kubernetesURL](./values.yaml#L24) | string | The URL of the Kubernetes API server | `"https://kubernetes.default"` |
 | [nameOverride](./values.yaml#L10) | string | Override the resource name prefix | `Chart.Name` |
 | [namespaceOverride](./values.yaml#L16) | string | Override the deployment namespace | `Release.Namespace` |
@@ -308,12 +308,14 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [rbac.useOpenShiftNonRootSCC](./values.yaml#L1317) | bool | Whether the Jenkins service account should be able to use the OpenShift "nonroot" Security Context Constraints | `false` |
 | [renderHelmLabels](./values.yaml#L30) | bool | Enables rendering of the helm.sh/chart label to the annotations | `true` |
 | [serviceAccount.annotations](./values.yaml#L1327) | object | Configures annotations for the ServiceAccount | `{}` |
+| [serviceAccount.automountServiceAccountToken](./values.yaml#L1333) | bool | Auto-mount ServiceAccount token | `true` |
 | [serviceAccount.create](./values.yaml#L1321) | bool | Configures if a ServiceAccount with this name should be created | `true` |
 | [serviceAccount.extraLabels](./values.yaml#L1329) | object | Configures extra labels for the ServiceAccount | `{}` |
 | [serviceAccount.imagePullSecretName](./values.yaml#L1331) | string | Controller ServiceAccount image pull secret | `nil` |
 | [serviceAccount.name](./values.yaml#L1325) | string |  | `nil` |
-| [serviceAccountAgent.annotations](./values.yaml#L1342) | object | Configures annotations for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.create](./values.yaml#L1336) | bool | Configures if an agent ServiceAccount should be created | `false` |
-| [serviceAccountAgent.extraLabels](./values.yaml#L1344) | object | Configures extra labels for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1346) | string | Agent ServiceAccount image pull secret | `nil` |
-| [serviceAccountAgent.name](./values.yaml#L1340) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
+| [serviceAccountAgent.annotations](./values.yaml#L1344) | object | Configures annotations for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.automountServiceAccountToken](./values.yaml#L1350) | bool | Auto-mount ServiceAccount token | `true` |
+| [serviceAccountAgent.create](./values.yaml#L1338) | bool | Configures if an agent ServiceAccount should be created | `false` |
+| [serviceAccountAgent.extraLabels](./values.yaml#L1346) | object | Configures extra labels for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1348) | string | Agent ServiceAccount image pull secret | `nil` |
+| [serviceAccountAgent.name](./values.yaml#L1342) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
