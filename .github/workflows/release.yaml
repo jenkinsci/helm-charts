@@ -89,7 +89,7 @@ jobs:
 
       - name: Run chart-releaser
         id: chart_releaser
-        uses: helm/chart-releaser-action@v1.6.0
+        uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
