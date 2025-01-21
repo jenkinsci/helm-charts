@@ -21,6 +21,10 @@ metadata:
 {{ toYaml .Values.persistence.labels | indent 4 }}
 {{- end }}
 spec:
+{{- if .Values.persistence.dataSource }}
+  dataSource:
+{{ toYaml .Values.persistence.dataSource | indent 4 }}
+{{- end }}
   accessModes:
     - {{ .Values.persistence.accessMode | quote }}
   resources:
@@ -30,7 +34,7 @@ spec:
 {{- if (eq "-" .Values.persistence.storageClass) }}
   storageClassName: ""
 {{- else }}
-  storageClassName: "{{ .Values.persistence.storageClass }}"
+  storageClassName: "{{ tpl .Values.persistence.storageClass . }}"
 {{- end }}
 {{- end }}
 {{- end }}

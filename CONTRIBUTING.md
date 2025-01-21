@@ -43,10 +43,10 @@ Tests can be executed like this:
 
 ```console
 # install the unittest plugin
-$ helm plugin install https://github.com/quintush/helm-unittest --version 0.2.11
+$ helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
 
 # run the unittests
-$ helm unittest --helm3 --strict -f 'unittests/*.yaml' charts/jenkins
+$ helm unittest --strict -f 'unittests/*.yaml' charts/jenkins
 
 ### Chart [ jenkins ] charts/jenkins
 
@@ -56,7 +56,6 @@ $ helm unittest --helm3 --strict -f 'unittests/*.yaml' charts/jenkins
  PASS  PersistentVolumeClaim                   charts/jenkins/unittests/home-pvc-test.yaml
  PASS  Configuration as Code                   charts/jenkins/unittests/jcasc-config-test.yaml
  PASS  Jenkins Agent Service                   charts/jenkins/unittests/jenkins-agent-svc-test.yaml
- PASS  Jenkins Backup Cronjob                  charts/jenkins/unittests/jenkins-backup-cronjob-test.yaml
  PASS  Controller Prometheus PrometheusRule    charts/jenkins/unittests/jenkins-controller-alerting-rules-test.yaml
  PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-1.19-test.yaml
  PASS  Controller Primary Ingress              charts/jenkins/unittests/jenkins-controller-ingress-test.yaml
@@ -94,7 +93,7 @@ The chart `version` should follow [SemVer](https://semver.org/).
 Charts should start at `1.0.0`. Any breaking (backwards incompatible) changes to a chart should:
 
 1. Bump the MAJOR version
-2. In the README, under a section called "Upgrading", describe the manual steps necessary to upgrade to the new (specified) MAJOR version
+2. In the readme, under a section called "Upgrading", describe the manual steps necessary to upgrade to the new (specified) MAJOR version
 
 ### Community Requirements
 

@@ -16,7 +16,7 @@ tests:
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -37,19 +37,14 @@ tests:
             # Copy plugins to shared volume
             yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
             echo "finished initialization"
-      - equal:
-          path: data.plugins\.txt
-          value: |-
-            kubernetes:3900.va_dce992317b_4
-            workflow-aggregator:596.v8c21c963d92d
-            git:5.0.0
-            configuration-as-code:1625.v27444588cc3d
+      - matchSnapshot:
+          path: data["plugins.txt"]
   - it: no plugins
     set:
       controller.installPlugins: []
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -58,7 +53,7 @@ tests:
             echo $JENKINS_VERSION > /var/jenkins_home/jenkins.install.InstallUtil.lastExecVersion
             echo "finished initialization"
       - equal:
-          path: data.plugins\.txt
+          path: data["plugins.txt"]
           value: ""
   - it: additional plugins config
     set:
@@ -66,20 +61,14 @@ tests:
         additionalPlugins:
               - kubernetes-credentials-provider
     asserts:
-      - equal:
-          path: data.plugins\.txt
-          value: |-
-            kubernetes:3900.va_dce992317b_4
-            workflow-aggregator:596.v8c21c963d92d
-            git:5.0.0
-            configuration-as-code:1625.v27444588cc3d
-            kubernetes-credentials-provider
+      - matchSnapshot:
+          path: data["plugins.txt"]
   - it: install latest plugins
     set:
       controller.installLatestPlugins: false
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"
@@ -105,7 +94,7 @@ tests:
       controller.installLatestSpecifiedPlugins: true
     asserts:
       - equal:
-          path: data.apply_config\.sh
+          path: data["apply_config.sh"]
           value: |-
             set -e
             echo "disable Setup Wizard"

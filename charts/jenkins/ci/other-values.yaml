@@ -18,7 +18,7 @@ controller:
               fromUserRecord:
                 attributeName: "memberOf"
   additionalPlugins:
-    - ldap:671.v2a_9192a_7419d
+    - ldap:682.v7b_544c9d1512
   scriptApproval:
     - "method groovy.json.JsonSlurperClassic parseText java.lang.String"
     - "new groovy.json.JsonSlurperClassic"
@@ -41,6 +41,9 @@ agent:
       value: /usr/local/bin
   nodeSelector:
     "app.kubernetes.io/component": "{{ .Values.agent.componentName }}"
+  restrictedPssSecurityContext: true
+  runAsUser: 1000
+  runAsGroup: 1000
   yamlTemplate: |-
     apiVersion: v1
     kind: Pod
@@ -56,14 +59,16 @@ agent:
       customJenkinsLabels: maven
       # An example of overriding the jnlp container
       # sideContainerName: jnlp
-      image: jenkins/jnlp-agent-maven
-      tag: latest
+      image:
+        repository: jenkins/jnlp-agent-maven
+        tag: latest
     python:
       podName: python
       customJenkinsLabels: python
       sideContainerName: python
-      image: python
-      tag: "3"
+      image:
+        repository: python
+        tag: "3"
       command: "/bin/sh -c"
       args: "cat"
       TTYEnabled: true

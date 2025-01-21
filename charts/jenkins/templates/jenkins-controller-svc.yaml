@@ -41,6 +41,9 @@ spec:
       targetPort: {{ $port.port }}
       {{- end -}}
 {{- end }}
+  {{- if .Values.controller.publishNotReadyAddresses }}
+  publishNotReadyAddresses: true
+  {{- end }}
   selector:
     "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
     "app.kubernetes.io/instance": "{{ .Release.Name }}"

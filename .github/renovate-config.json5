@@ -1,0 +1,96 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  onboarding: false,
+  requireConfig: "ignored",
+  platform: "github",
+  repositories: ["jenkinsci/helm-charts"],
+  // eslint-disable-next-line
+  allowedPostUpgradeCommands: ['^\.github\/renovate-postupgrade\.sh "{{{depName}}}" "{{{newVersion}}}"$'],
+  prConcurrentLimit: 0,
+  prHourlyLimit: 5,
+  semanticCommits: "enabled",
+  enabledManagers: [
+    "helm-values",
+    "github-actions",
+    "regex",
+  ],
+  packageRules: [
+    {
+      matchPackageNames: ["jenkins/inbound-agent"],
+      versioning: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?-(?<build>\\d+)?$",
+    },
+    {
+      matchPackageNames: ["jenkins/jenkins"],
+      versioning: "regex:^(?<major>\\d+?)\\.(?<minor>\\d+?)\\.(?<patch>\\d+?)(-(?<compatibility>\\w+))?$",
+    },
+    {
+      matchFileNames: ["charts/jenkins/**"],
+      postUpgradeTasks: {
+        commands: [
+          '.github/renovate-postupgrade.sh "{{{depName}}}" "{{{newVersion}}}"',
+        ],
+        fileFilters: ["charts/jenkins/**"],
+        executionMode: "branch",
+      },
+    },
+    {
+      matchPackagePatterns: [".*"],
+      excludePackagePatterns: ["jenkins/jenkins"],
+      minimumReleaseAge: "12 hours",
+    },
+  ],
+  customDatasources: {
+    "python_actions": {
+      defaultRegistryUrlTemplate: "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
+      transformTemplates: [
+        "{\"releases\": $$[stable=true].files[arch=\"x64\" and platform=\"linux\"].{\"version\":%.version,\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"},\"homepage\":\"https://python.org/\",\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"}",
+      ],
+    },
+  },
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["(^|/)\\.github/workflows/[^/]+\\.ya?ml$", "(^|/)\\.github/[^/]+\\.sh$"],
+      matchStrings: [
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version:? (?<currentValue>.*)\\s",
+        "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?_VERSION=(?<currentValue>.*)\\s",
+      ],
+    },
+    {
+      customType: "regex",
+      fileMatch: [
+        "^charts/jenkins/Chart.yaml$",
+        "^charts/jenkins/values.yaml$",
+      ],
+      matchStrings: [
+        "appVersion: (?<currentValue>.*?)\\s",
+        'repository: \\"jenkins/jenkins\\"\\s*?# tag: \\"(?<currentValue>.*?)\\"',
+      ],
+      depNameTemplate: "jenkins/jenkins",
+      datasourceTemplate: "docker",
+    },
+    {
+      customType: "regex",
+      fileMatch: ["^charts/jenkins/values.yaml$"],
+      matchStringsStrategy: "recursive",
+      matchStrings: [
+        "installPlugins:[\\s\\w:.-]*?(?:\\r*\\n){2}",
+        "- (?<depName>.*?):(?<currentValue>.*?)\\s",
+      ],
+      datasourceTemplate: "jenkins-plugins",
+      versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(\\.(?<patch>\\d+?))?$",
+    },
+    {
+      customType: "regex",
+      fileMatch: ["^charts/jenkins/Chart.yaml$"],
+      matchStringsStrategy: "recursive",
+      matchStrings: [
+        "artifacthub\\.io\\/images: \\|[\\s\\w:.\\/-]*(?:artifacthub)",
+        "image: (?<depName>.*?):(?<currentValue>.*?)\\s",
+      ],
+      datasourceTemplate: "docker",
+      versioningTemplate: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?(_|\\.)(?<patch>\\w+)?(-(?<build>\\d+))?.*",
+      depNameTemplate: "{{#if (equals depName 'docker.io/jenkins/jenkins')}}jenkins/jenkins{{else}}{{{depName}}}{{/if}}",
+    },
+  ],
+}

@@ -1,0 +1,40 @@
+name: Renovate
+on:
+  schedule:
+    - cron: "0 * * * *"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  renovate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get token
+        id: get_token
+        uses: tibdex/github-app-token@v2
+        with:
+          app_id: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_APP_ID }}
+          private_key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Self-hosted Renovate
+        uses: renovatebot/github-action@v41.0.10
+        with:
+          token: "${{ steps.get_token.outputs.token }}"
+          docker-cmd-file: .github/renovate-entrypoint.sh
+          docker-user: root
+          configurationFile: .github/renovate-config.json5
+        env:
+          LOG_LEVEL: 'debug'

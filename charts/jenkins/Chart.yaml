@@ -1,9 +1,12 @@
 apiVersion: v2
 name: jenkins
-home: https://jenkins.io/
-version: 4.3.22
-appVersion: 2.387.2
-description: Jenkins - Build great things at any scale! The leading open source automation server, Jenkins provides hundreds of plugins to support building, deploying and automating any project.
+type: application
+home: https://www.jenkins.io/
+version: 5.8.5
+appVersion: 2.479.3
+description: >
+  Jenkins - Build great things at any scale! As the leading open source automation server, Jenkins provides over 1800 plugins to support building, deploying and automating any project.
+
 sources:
   - https://github.com/jenkinsci/jenkins
   - https://github.com/jenkinsci/docker-inbound-agent
@@ -35,12 +38,10 @@ annotations:
       url: https://github.com/jenkinsci/helm-charts/issues
   artifacthub.io/images: |
     - name: jenkins
-      image: jenkins/jenkins:2.387.2-jdk11
+      image: docker.io/jenkins/jenkins:2.479.3-jdk17
     - name: k8s-sidecar
-      image: kiwigrid/k8s-sidecar:1.23.1
+      image: docker.io/kiwigrid/k8s-sidecar:1.29.0
     - name: inbound-agent
-      image: jenkins/inbound-agent:3107.v665000b_51092-5
-    - name: backup
-      image: maorfr/kube-tasks:0.2.0
+      image: jenkins/inbound-agent:3283.v92c105e0f819-7
   artifacthub.io/category: "integration-delivery"
   artifacthub.io/license: "Apache-2.0"

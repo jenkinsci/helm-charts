@@ -23,12 +23,12 @@ metadata:
 {{- end }}
 {{- if .Values.controller.ingress.annotations }}
   annotations:
-{{ toYaml .Values.controller.ingress.annotations | indent 4 }}
+{{ tpl (toYaml .Values.controller.ingress.annotations) . | indent 4 }}
 {{- end }}
   name: {{ template "jenkins.fullname" . }}
 spec:
 {{- if .Values.controller.ingress.ingressClassName }}
-  ingressClassName: {{ .Values.controller.ingress.ingressClassName | quote }}
+  ingressClassName: {{ tpl .Values.controller.ingress.ingressClassName . | quote }}
 {{- end }}
   rules:
   - http:
@@ -52,7 +52,7 @@ spec:
 {{ tpl (toYaml .Values.controller.ingress.paths | indent 6) . }}
 {{- end -}}
 {{- if .Values.controller.ingress.hostName }}
-    host: {{ .Values.controller.ingress.hostName | quote }}
+    host: {{ tpl .Values.controller.ingress.hostName . | quote }}
 {{- end }}
 {{- if .Values.controller.ingress.resourceRootUrl }}
   - http:
@@ -68,10 +68,10 @@ spec:
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
 {{- end }}
-    host: {{ .Values.controller.ingress.resourceRootUrl | quote }}
+    host: {{ tpl .Values.controller.ingress.resourceRootUrl . | quote }}
 {{- end }}
 {{- if .Values.controller.ingress.tls }}
   tls:
-{{ toYaml .Values.controller.ingress.tls | indent 4 }}
+{{ tpl (toYaml .Values.controller.ingress.tls ) . | indent 4 }}
 {{- end -}}
 {{- end }}

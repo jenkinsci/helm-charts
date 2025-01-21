@@ -5,6 +5,8 @@ release:
 templates:
   - jenkins-controller-statefulset.yaml
   - config.yaml
+  - config-init-scripts.yaml
+  - auto-reload-config.yaml
 tests:
   - it: default values
     template: jenkins-controller-statefulset.yaml
@@ -21,7 +23,7 @@ tests:
           path: metadata.namespace
           value: my-namespace
       - matchRegex:
-          path: metadata.labels.helm\.sh/chart
+          path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
@@ -34,194 +36,8 @@ tests:
             matchLabels:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
-      - equal:
+      - matchSnapshot:
           path: spec
-          value:
-            serviceName: my-release-jenkins
-            replicas: 1
-            selector:
-              matchLabels:
-                app.kubernetes.io/component: jenkins-controller
-                app.kubernetes.io/instance: my-release
-            template:
-              metadata:
-                annotations:
-                  checksum/config: 572b6e6e44f82aa907092e9fcd7e4070830217a6bdca52f224d0c82dea885b9a
-                labels:
-                  app.kubernetes.io/component: jenkins-controller
-                  app.kubernetes.io/instance: my-release
-                  app.kubernetes.io/managed-by: Helm
-                  app.kubernetes.io/name: jenkins
-              spec:
-                containers:
-                  - args:
-                      - --httpPort=8080
-                    env:
-                      - name: SECRETS
-                        value: /run/secrets/additional
-                      - name: POD_NAME
-                        valueFrom:
-                          fieldRef:
-                            fieldPath: metadata.name
-                      - name: JAVA_OPTS
-                        value: "-Dcasc.reload.token=$(POD_NAME) "
-                      - name: JENKINS_OPTS
-                        value: "--webroot=/var/jenkins_cache/war "
-                      - name: JENKINS_SLAVE_AGENT_PORT
-                        value: "50000"
-                      - name: CASC_JENKINS_CONFIG
-                        value: /var/jenkins_home/casc_configs
-                    image: jenkins/jenkins:2.387.2-jdk11
-                    imagePullPolicy: Always
-                    securityContext:
-                      runAsUser: 1000
-                      runAsGroup: 1000
-                      readOnlyRootFilesystem: true
-                      allowPrivilegeEscalation: false
-                    livenessProbe:
-                      failureThreshold: 5
-                      httpGet:
-                        path: /login
-                        port: http
-                      periodSeconds: 10
-                      timeoutSeconds: 5
-                    name: jenkins
-                    ports:
-                      - containerPort: 8080
-                        name: http
-                      - containerPort: 50000
-                        name: agent-listener
-                    readinessProbe:
-                      failureThreshold: 3
-                      httpGet:
-                        path: /login
-                        port: http
-                      periodSeconds: 10
-                      timeoutSeconds: 5
-                    resources:
-                      limits:
-                        cpu: 2000m
-                        memory: 4096Mi
-                      requests:
-                        cpu: 50m
-                        memory: 256Mi
-                    startupProbe:
-                      httpGet:
-                        path: "/login"
-                        port: http
-                      periodSeconds: 10
-                      timeoutSeconds: 5
-                      failureThreshold: 12
-                    volumeMounts:
-                      - mountPath: /var/jenkins_home
-                        name: jenkins-home
-                        readOnly: false
-                      - mountPath: /var/jenkins_config
-                        name: jenkins-config
-                        readOnly: true
-                      - mountPath: /usr/share/jenkins/ref/plugins/
-                        name: plugin-dir
-                        readOnly: false
-                      - mountPath: /var/jenkins_home/casc_configs
-                        name: sc-config-volume
-                      - mountPath: /run/secrets/additional
-                        name: jenkins-secrets
-                        readOnly: true
-                      - mountPath: /var/jenkins_cache
-                        name: jenkins-cache
-                      - mountPath: /tmp
-                        name: tmp-volume
-                  - env:
-                      - name: POD_NAME
-                        valueFrom:
-                          fieldRef:
-                            fieldPath: metadata.name
-                      - name: LABEL
-                        value: my-release-jenkins-jenkins-config
-                      - name: FOLDER
-                        value: /var/jenkins_home/casc_configs
-                      - name: NAMESPACE
-                        value: my-namespace
-                      - name: REQ_URL
-                        value: http://localhost:8080/reload-configuration-as-code/?casc-reload-token=$(POD_NAME)
-                      - name: REQ_METHOD
-                        value: POST
-                      - name: REQ_RETRY_CONNECT
-                        value: "10"
-                    image: kiwigrid/k8s-sidecar:1.23.1
-                    imagePullPolicy: IfNotPresent
-                    securityContext:
-                      readOnlyRootFilesystem: true
-                      allowPrivilegeEscalation: false
-                    name: config-reload
-                    resources: {}
-                    volumeMounts:
-                      - mountPath: /var/jenkins_home/casc_configs
-                        name: sc-config-volume
-                      - mountPath: /var/jenkins_home
-                        name: jenkins-home
-                initContainers:
-                  - command:
-                      - sh
-                      - /var/jenkins_config/apply_config.sh
-                    image: jenkins/jenkins:2.387.2-jdk11
-                    imagePullPolicy: Always
-                    securityContext:
-                      runAsUser: 1000
-                      runAsGroup: 1000
-                      readOnlyRootFilesystem: true
-                      allowPrivilegeEscalation: false
-                    name: init
-                    resources:
-                      limits:
-                        cpu: 2000m
-                        memory: 4096Mi
-                      requests:
-                        cpu: 50m
-                        memory: 256Mi
-                    volumeMounts:
-                      - mountPath: /var/jenkins_home
-                        name: jenkins-home
-                      - mountPath: /var/jenkins_config
-                        name: jenkins-config
-                      - mountPath: /usr/share/jenkins/ref/plugins
-                        name: plugins
-                      - mountPath: /var/jenkins_plugins
-                        name: plugin-dir
-                      - mountPath: /tmp
-                        name: tmp-volume
-                securityContext:
-                  fsGroup: 1000
-                  runAsUser: 1000
-                  runAsNonRoot: true
-                serviceAccountName: my-release-jenkins
-                volumes:
-                  - emptyDir: {}
-                    name: plugins
-                  - configMap:
-                      name: my-release-jenkins
-                    name: jenkins-config
-                  - emptyDir: {}
-                    name: plugin-dir
-                  - name: jenkins-secrets
-                    projected:
-                      sources:
-                        - secret:
-                            name: my-release-jenkins
-                            items:
-                              - key: jenkins-admin-user
-                                path: chart-admin-username
-                              - key: jenkins-admin-password
-                                path: chart-admin-password
-                  - emptyDir: {}
-                    name: jenkins-cache
-                  - name: jenkins-home
-                    persistentVolumeClaim:
-                      claimName: my-release-jenkins
-                  - emptyDir: {}
-                    name: sc-config-volume
-                  - emptyDir: {}
-                    name: tmp-volume
   - it: test different values
     template: jenkins-controller-statefulset.yaml
     capabilities:
@@ -248,6 +64,13 @@ tests:
                     values:
                       - S1
               topologyKey: failure-domain.beta.kubernetes.io/zone
+        topologySpreadConstraints:
+          - maxSkew: 1
+            topologyKey: "topology.kubernetes.io/zone"
+            whenUnsatisfiable: ScheduleAnyway
+            labelSelector:
+              matchLabels:
+                app.kubernetes.io/component: jenkins-controller
         terminationGracePeriodSeconds: 120
         priorityClassName: important
         runAsUser: 2000
@@ -296,6 +119,15 @@ tests:
                         - S1
                 topologyKey: failure-domain.beta.kubernetes.io/zone
       - equal:
+          path: spec.template.spec.topologySpreadConstraints
+          value:
+            - maxSkew: 1
+              topologyKey: "topology.kubernetes.io/zone"
+              whenUnsatisfiable: ScheduleAnyway
+              labelSelector:
+                matchLabels:
+                  app.kubernetes.io/component: jenkins-controller
+      - equal:
           path: spec.template.spec.terminationGracePeriodSeconds
           value: 120
       - equal:
@@ -337,42 +169,41 @@ tests:
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tag: 2.249.1-slim
-      controller.imagePullPolicy: IfNotPresent
+      controller.image.tag: slim
+      controller.image.pullPolicy: IfNotPresent
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.249.1-slim
+          value: docker.io/jenkins/jenkins:slim
       - equal:
           path: spec.template.spec.containers[0].imagePullPolicy
           value: IfNotPresent
   - it: configure image tag label
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tagLabel: alpine
+      controller.image.tagLabel: alpine
     asserts:
-      - equal:
+      - matchSnapshot:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.387.2-alpine
   - it: configure empty image tag label
     template: jenkins-controller-statefulset.yaml
     set:
-      controller.tagLabel:
+      controller.image.tagLabel:
     asserts:
-      - equal:
+      - matchSnapshot:
           path: spec.template.spec.containers[0].image
-          value: jenkins/jenkins:2.387.2
   - it: custom image
     template: jenkins-controller-statefulset.yaml
     set:
       controller:
-        image: registry/image
-        tag: my-tag
+        image:
+          repository: registry/image
+          tag: my-tag
         javaOpts: -Dio.jenkins.plugins.kubernetes.disableNoDelayProvisioning=true
     asserts:
       - equal:
           path: spec.template.spec.containers[0].image
-          value: registry/image:my-tag
+          value: docker.io/registry/image:my-tag
       - contains:
           path: spec.template.spec.containers[0].env
           content:
@@ -425,18 +256,74 @@ tests:
     template: jenkins-controller-statefulset.yaml
     set:
       controller:
-        podSecurityContextOverride:
+        podSecurityContextOverride: &expected
           runAsNonRoot: true
           runAsUser: 4444
           supplementalGroups: [5555]
     asserts:
       - equal:
           path: spec.template.spec.securityContext
+          value: *expected
+  - it: test controller.sidecars.additionalSidecarContainers
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        sidecars:
+          additionalSidecarContainers:
+            - name: otel-collector
+              image: opentelemetry-collector:0.93.0
+              imagePullPolicy: IfNotPresent
+              resources:
+                limits:
+                  cpu: 200m
+                  memory: 256Mi
+                requests:
+                  cpu: 100m
+                  memory: 128Mi
+    asserts:
+      - equal:
+          path: spec.template.spec.containers[2]
           value:
-            runAsNonRoot: true
-            runAsUser: 4444
-            supplementalGroups:
-              - 5555
+            name: otel-collector
+            image: opentelemetry-collector:0.93.0
+            imagePullPolicy: IfNotPresent
+            resources:
+              limits:
+                cpu: 200m
+                memory: 256Mi
+              requests:
+                cpu: 100m
+                memory: 128Mi
+  - it: test controller.sidecars.configAutoReload.logging.configuration.override (Part 1)
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.enabled: true
+      controller.sidecars.configAutoReload.logging.configuration.override: true
+    asserts:
+      - equal:
+          path: spec.template.spec.volumes[0]
+          value:
+            name: auto-reload-config
+            configMap:
+              name: my-release-jenkins-auto-reload-config
+      - equal:
+          path: spec.template.spec.initContainers[0].env[5]
+          value:
+            name: LOG_CONFIG
+            value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
+      - equal:
+          path: spec.template.spec.containers[1].env[7]
+          value:
+            name: LOG_CONFIG
+            value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
+  - it: test controller.sidecars.configAutoReload.logging.configuration.override (Part 2)
+    template: auto-reload-config.yaml
+    set:
+      controller.sidecars.configAutoReload.enabled: true
+      controller.sidecars.configAutoReload.logging.configuration.override: true
+    asserts:
+      - isKind:
+          of: ConfigMap
   - it: test 2 additional secrets
     template: jenkins-controller-statefulset.yaml
     set:
@@ -558,7 +445,7 @@ tests:
             name: special-config
       controller.sidecars.configAutoReload.envFrom:
         - configMapRef:
-            name: special-config
+            name: special-config-auto-reload
       controller.containerEnvFrom:
         - configMapRef:
             name: special-config
@@ -566,10 +453,20 @@ tests:
       - contains:
           path: spec.template.spec.initContainers[0].env
           content:
+            name: "TEST_ENV_VAR_CONFIG"
+            value: "test-env-var-config"
+      - contains:
+          path: spec.template.spec.initContainers[0].env
+          content:
+            name: "TEST_ENV_VAR_CONFIG_TEMPLATED"
+            value: "some-value"
+      - contains:
+          path: spec.template.spec.initContainers[1].env
+          content:
             name: "TEST_ENV_VAR_INIT"
             value: "test-env-var-init"
       - contains:
-          path: spec.template.spec.initContainers[0].env
+          path: spec.template.spec.initContainers[1].env
           content:
             name: "TEST_ENV_VAR_INIT_TEMPLATED"
             value: "some-value"
@@ -597,6 +494,11 @@ tests:
           path: spec.template.spec.initContainers[0].envFrom
           content:
             configMapRef:
+              name: special-config-auto-reload
+      - contains:
+          path: spec.template.spec.initContainers[1].envFrom
+          content:
+            configMapRef:
               name: special-config
       - contains:
           path: spec.template.spec.containers[0].envFrom
@@ -607,7 +509,69 @@ tests:
           path: spec.template.spec.containers[1].envFrom
           content:
             configMapRef:
-              name: special-config
+              name: special-config-auto-reload
+  - it: test sleep time for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.sleepTime: 60
+    asserts:
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "SLEEP_TIME"
+          value: "60"
+  - it: test METHOD env var for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.env:
+      - name: "METHOD"
+        value: "SLEEP"
+    asserts:
+    - contains:
+        # METHOD remains LIST on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "LIST"
+    - notContains:
+        # only one METHOD on the config-reload init container
+        path: spec.template.spec.initContainers[0].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "METHOD"
+          value: "SLEEP"
+  - it: test scheme for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.scheme: "https"
+    asserts:
+      - matchSnapshot:
+          path: spec
+  - it: test skip tls verify for config-reload
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.sidecars.configAutoReload.skipTlsVerify: true
+    asserts:
+    - contains:
+        path: spec.template.spec.containers[1].env
+        content:
+          name: "REQ_SKIP_TLS_VERIFY"
+          value: "true"
   - it: overrides container args
     template: jenkins-controller-statefulset.yaml
     set:
@@ -659,6 +623,23 @@ tests:
     asserts:
       - isNull:
           path: spec.template.spec.shareProcessNamespace
+  - it: test false enableServiceLinks
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        enableServiceLinks: false
+    asserts:
+      - equal:
+          path: spec.template.spec.enableServiceLinks
+          value: false
+  - it: test true enableServiceLinks
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        enableServiceLinks: true
+    asserts:
+      - isNull:
+          path: spec.template.spec.enableServiceLinks
   - it: test disableSecretMount
     template: jenkins-controller-statefulset.yaml
     set:
@@ -682,7 +663,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -721,7 +702,7 @@ tests:
             mountPath: /some/path
             name: jenkins-https-keystore
       - contains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             mountPath: /some/path
             name: jenkins-https-keystore
@@ -733,6 +714,48 @@ tests:
               secretName: some-secret-name
               items:
                 - key: jenkins-jks-file
+                  path: some-file-name
+  - it: test override with jenkinsHttpsJksPasswordSecretName and jenkinsHttpsJksPasswordSecretKey
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksPasswordSecretName: "some-jks-name"
+          jenkinsHttpsJksPasswordSecretKey: "some-jks-password"
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: "JENKINS_HTTPS_KEYSTORE_PASSWORD"
+            valueFrom:
+              secretKeyRef:
+                name: "some-jks-name"
+                key: "some-jks-password"
+  - it: test jenkinsHttpsJksSecretKey override
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          path: /some/path
+          fileName: some-file-name
+          jenkinsHttpsJksSecretKey: "some.jks"
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: "some.jks"
                   path: some-file-name
   - it:
     template: jenkins-controller-statefulset.yaml
@@ -746,7 +769,7 @@ tests:
             name: plugins
             emptyDir: {}
       - notContains:
-          path: spec.template.spec.initContainers[0].volumeMounts
+          path: spec.template.spec.initContainers[1].volumeMounts
           content:
             name: plugins
   - it:
@@ -790,3 +813,16 @@ tests:
           content:
             name: "CASC_JENKINS_CONFIG"
             value: "/var/jenkins_home/casc_configs"
+
+  - it: test checksum for config-init-script
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        initScripts:
+          test: |-
+            This is a test script
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            checksum/config-init-scripts: 2ee2c03a600a50a55cf62cbed3f1d558d5322eda7544b4047beeb4df66e8ec11

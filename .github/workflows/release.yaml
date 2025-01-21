@@ -4,13 +4,19 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'charts/**'
+
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
@@ -19,12 +25,117 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Install Helm
-        uses: azure/setup-helm@v3.5
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
         with:
-          version: v3.8.2
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Helm
+        uses: azure/setup-helm@v4
+        with:
+          # renovate: datasource=github-tags depName=helm/helm
+          version: v3.17.0
+
+      - name: Retrieve version from Chart.yaml
+        id: chart_version
+        run: |
+          echo "version=$(yq '.version' charts/jenkins/Chart.yaml)" >> "${GITHUB_OUTPUT}"
+
+      - name: Extract version changelog
+        id: version_changelog
+        env:
+          VERSION: ${{ steps.chart_version.outputs.version }}
+        run: |
+          changelog=$(awk -v version="${VERSION}" '
+          /^(##|###) [0-9]+.[0-9]+.[0-9]+/ {
+              if (p) { exit };
+              if ($2 == version) {
+                  p = 1; next
+              }
+          } p
+          ' charts/jenkins/CHANGELOG.md)
+
+          delimiter="$(openssl rand -hex 8)"
+          # shellcheck disable=SC2129
+          echo "changelog<<${delimiter}" >> "${GITHUB_OUTPUT}"
+          echo "${changelog}" >> "${GITHUB_OUTPUT}"
+          echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+
+      - name: Annotate Chart.yaml with current version changelog
+        if: steps.version_changelog.outputs.changelog != ''
+        env:
+          CHANGELOG: ${{ steps.version_changelog.outputs.changelog }}
+        run: |
+          # Changelog sanitation
+          # shellcheck disable=SC2016
+          proper_changelog=$(echo "${CHANGELOG}" \
+          | grep -v '^$' `# remove empty lines` \
+          | grep -v '^|' `# remove table lines` \
+          | iconv -c -f utf8 -t ascii `# remove non ascii characters like emoji` \
+          | sed 's/^/- /' `# add a dash in front of every line` \
+          | sed 's/  / /') # double spaces
+
+          # Add new line to ensure scalar value in Chart.yaml
+          printf -v change '%s\n' "${proper_changelog}"
+
+          # Update chart annotations using strenv operator (https://mikefarah.gitbook.io/yq/operators/string-operators#string-blocks-bash-and-newlines)
+          CHANGE="${change}" yq --inplace ".annotations.\"artifacthub.io/changes\" = strenv(CHANGE)" charts/jenkins/Chart.yaml
+
+      - name: Show updated Chart.yaml
+        run: |
+          yq charts/jenkins/Chart.yaml
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.5.0
+        id: chart_releaser
+        uses: helm/chart-releaser-action@v1.7.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+
+      - name: Push Chart to GHCR
+        run: |
+          for pkg in .cr-release-packages/*; do
+            if [ -z "${pkg:-}" ]; then
+              break
+            fi
+            helm push "${pkg}" oci://ghcr.io/jenkinsci/helm-charts
+          done
+
+      - name: Retrieve release info
+        id: release_info
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        env:
+          LAST_TAG: "jenkins-${{ steps.chart_version.outputs.version }}"
+          REPOSITORY: ${{ github.repository }}
+        run: |
+          release=$(curl -L "https://api.github.com/repos/${REPOSITORY}/releases/tags/${LAST_TAG}")
+
+          echo "id=$(echo "${release}" | jq '.id')" >> "${GITHUB_OUTPUT}"
+
+          delimiter="$(openssl rand -hex 8)"
+          # shellcheck disable=SC2129
+          echo "body<<${delimiter}" >> "${GITHUB_OUTPUT}"
+          echo "${release}" | jq --raw-output '.body' >> "${GITHUB_OUTPUT}"
+          echo "${delimiter}" >> "${GITHUB_OUTPUT}"
+
+      - name: Update release description
+        id: update_release
+        if: steps.chart_releaser.outputs.changed_charts != ''
+        uses: actions/github-script@v7
+        env:
+          ID: ${{ steps.release_info.outputs.id }}
+          BODY: ${{steps.release_info.outputs.body}}
+          CHANGELOG: ${{steps.version_changelog.outputs.changelog}}
+        with:
+          script: |
+            try {
+              await github.rest.repos.updateRelease({
+                release_id: process.env.ID,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: process.env.BODY + "\r\n\r\n## Changelog" + process.env.CHANGELOG,
+              });
+            } catch (error) {
+              core.setFailed(error.message);
+            }

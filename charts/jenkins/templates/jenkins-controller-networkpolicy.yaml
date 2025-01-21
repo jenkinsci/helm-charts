@@ -39,7 +39,7 @@ spec:
             {{- end }}
         {{- end }}
       {{- end }}
-      {{- if .Values.networkPolicy.externalAgents }}
+      {{- if or .Values.networkPolicy.externalAgents.ipCIDR .Values.networkPolicy.externalAgents.except }}
       - ipBlock:
           cidr: {{ required "ipCIDR is required if you wish to allow external agents to connect to Jenkins Controller." .Values.networkPolicy.externalAgents.ipCIDR }}
           {{- if .Values.networkPolicy.externalAgents.except }}
