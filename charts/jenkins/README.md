@@ -5,7 +5,7 @@
 [![Releases downloads](https://img.shields.io/github/downloads/jenkinsci/helm-charts/total.svg)](https://github.com/jenkinsci/helm-charts/releases)
 [![Join the chat at https://app.gitter.im/#/room/#jenkins-ci:matrix.org](https://badges.gitter.im/badge.svg)](https://app.gitter.im/#/room/#jenkins-ci:matrix.org)
 
-[Jenkins](https://www.jenkins.io/) is the leading open source automation server, Jenkins provides over 1800 plugins to support building, deploying and automating any project.
+[Jenkins](https://www.jenkins.io/) is the leading open source automation server, Jenkins provides over 2000 plugins to support building, deploying and automating any project.
 
 This chart installs a Jenkins server which spawns agents on [Kubernetes](http://kubernetes.io) utilizing the [Jenkins Kubernetes plugin](https://plugins.jenkins.io/kubernetes/).
 
