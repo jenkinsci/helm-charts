@@ -1,0 +1,26 @@
+name: Generate values schema json
+on:
+  pull_request:
+  workflow_dispatch:
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Set up Helm
+        uses: azure/setup-helm@v4
+        with:
+          # renovate: datasource=github-tags depName=helm/helm
+          version: v3.17.1
+      - name: Generate values schema json
+        uses: losisin/helm-values-schema-json-action@v1
+        with:
+          input: charts/jenkins/values.yaml
+          output: charts/jenkins/values.schema.json
+          indent: 2
+          id: "https://charts.jenkins.io/values.schema.json"
+          title: "Jenkins Helm Chart"
+          description: "Values schema for Jenkins Helm Chart"
+          fail-on-diff: true
