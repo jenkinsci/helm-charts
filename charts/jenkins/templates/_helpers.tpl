@@ -310,6 +310,7 @@ jenkins:
   {{- $_ := set $ "Values" $oldRoot.Values }}
   {{- end }}
   {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
+  slaveAgentPort: {{ .Values.controller.agentListenerPort }}
   crumbIssuer:
     standard:
       excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
