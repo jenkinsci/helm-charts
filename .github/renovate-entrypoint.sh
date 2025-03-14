@@ -4,7 +4,7 @@
 export YQ_VERSION=v4.45.1
 
 # renovate: datasource=github-tags depName=helm/helm
-export HELM_VERSION=v3.17.1
+export HELM_VERSION=v3.17.2
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
 export HELM_UNITTEST_VERSION=v0.7.2
