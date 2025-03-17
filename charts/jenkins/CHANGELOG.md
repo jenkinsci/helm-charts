@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.20
+
+Update `jenkins/inbound-agent` to version `3291.vb_131b_dc231fa_-1`
+
 ## 5.8.19
 
 Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.2`
