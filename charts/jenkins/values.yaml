@@ -986,12 +986,12 @@ agent:
       memory: "512Mi"
       # ephemeralStorage:
   livenessProbe: {}
-#    execArgs: "cat /tmp/healthy"
-#    failureThreshold: 3
-#    initialDelaySeconds: 0
-#    periodSeconds: 10
-#    successThreshold: 1
-#    timeoutSeconds: 1
+  #  execArgs: "cat /tmp/healthy"
+  #  failureThreshold: 3
+  #  initialDelaySeconds: 0
+  #  periodSeconds: 10
+  #  successThreshold: 1
+  #  timeoutSeconds: 1
 
   # You may want to change this to true while testing a new image
   # -- Always pull agent container image before build
