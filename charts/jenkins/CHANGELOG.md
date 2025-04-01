@@ -12,6 +12,106 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.30
+
+Update `jenkins/inbound-agent` to version `3301.v4363ddcca_4e7-3`
+
+## 5.8.29
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.3`
+
+## 5.8.28
+
+Update `jenkins/inbound-agent` to version `3301.v4363ddcca_4e7-2`
+
+## 5.8.27
+
+Update `jenkins/inbound-agent` to version `3301.v4363ddcca_4e7-1`
+
+## 5.8.26
+
+Update `jenkins/inbound-agent` to version `3299.v0d0d06908537-2`
+
+## 5.8.25
+
+Fix indentation in `values.yaml`
+
+## 5.8.24
+
+Update `workflow-aggregator` to version `608.v67378e9d3db_1`
+
+## 5.8.23
+
+Update `configuration-as-code` to version `1947.v7d33fe23569c`
+
+## 5.8.22
+
+Update `jenkins/inbound-agent` to version `3299.v0d0d06908537-1`
+
+## 5.8.21
+
+Update `kubernetes` to version `4324.vfec199a_33512`
+
+## 5.8.20
+
+Update `jenkins/inbound-agent` to version `3291.vb_131b_dc231fa_-1`
+
+## 5.8.19
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.2`
+
+## 5.8.18
+
+Update `jenkins/jenkins` to version `2.492.2-jdk17`
+
+## 5.8.17
+
+Update `kubernetes` to version `4314.v5b_846cf499eb_`
+
+## 5.8.16
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.1`
+
+## 5.8.15
+
+Update `kubernetes` to version `4313.va_9b_4fe2a_0e34`
+
+## 5.8.14
+
+Update `jenkins/inbound-agent` to version `3283.v92c105e0f819-9`
+
+## 5.8.13
+
+Fix `agentListenerPort` not being updated in `config.xml` when set via Helm values.
+
+## 5.8.12
+
+Update plugin count.
+
+## 5.8.11
+
+Update `jenkins/inbound-agent` to version `3283.v92c105e0f819-8`
+
+## 5.8.10
+
+Update `jenkins/jenkins` to version `2.492.1-jdk17`
+
+## 5.8.9
+
+Update `configuration-as-code` to version `1932.v75cb_b_f1b_698d`
+
+## 5.8.8
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.0`
+
+## 5.8.7
+
+Update `configuration-as-code` to version `1929.v036b_5a_e1f123`
+
+## 5.8.6
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.29.1`
+
 ## 5.8.5
 
 Update `jenkins/inbound-agent` to version `3283.v92c105e0f819-7`

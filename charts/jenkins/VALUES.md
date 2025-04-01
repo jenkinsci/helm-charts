@@ -31,7 +31,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.hostNetworking](./values.yaml#L977) | bool | Enables the agent to use the host network | `false` |
 | [agent.idleMinutes](./values.yaml#L1124) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.repository](./values.yaml#L956) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L958) | string | Tag of the image to pull | `"3283.v92c105e0f819-7"` |
+| [agent.image.tag](./values.yaml#L958) | string | Tag of the image to pull | `"3301.v4363ddcca_4e7-3"` |
 | [agent.imagePullSecretName](./values.yaml#L965) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.inheritYamlMergeStrategy](./values.yaml#L1144) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
 | [agent.jenkinsTunnel](./values.yaml#L933) | string | Overrides the Kubernetes Jenkins tunnel | `nil` |
@@ -165,7 +165,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L424) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L413) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L416) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L405) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4306.vc91e951ea_eb_d","workflow-aggregator:600.vb_57cdd26fdd7","git:5.7.0","configuration-as-code:1915.vcdd0a_d0d2625"]` |
+| [controller.installPlugins](./values.yaml#L405) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4324.vfec199a_33512","workflow-aggregator:608.v67378e9d3db_1","git:5.7.0","configuration-as-code:1947.v7d33fe23569c"]` |
 | [controller.javaOpts](./values.yaml#L162) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L96) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L101) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -256,7 +256,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L623) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L567) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L569) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L571) | string | Tag for the image that triggers the reload | `"1.29.0"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L571) | string | Tag for the image that triggers the reload | `"1.30.3"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L572) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L587) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
 | [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L591) | bool | Enables custom log config utilizing using the settings below. | `false` |

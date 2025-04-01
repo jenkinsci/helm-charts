@@ -403,10 +403,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4306.vc91e951ea_eb_d
-    - workflow-aggregator:600.vb_57cdd26fdd7
+    - kubernetes:4324.vfec199a_33512
+    - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
-    - configuration-as-code:1915.vcdd0a_d0d2625
+    - configuration-as-code:1947.v7d33fe23569c
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -568,7 +568,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 1.29.0
+        tag: 1.30.3
       imagePullPolicy: IfNotPresent
       resources: {}
         #   limits:
@@ -955,7 +955,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3283.v92c105e0f819-7"
+    tag: "3301.v4363ddcca_4e7-3"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
@@ -986,12 +986,12 @@ agent:
       memory: "512Mi"
       # ephemeralStorage:
   livenessProbe: {}
-#    execArgs: "cat /tmp/healthy"
-#    failureThreshold: 3
-#    initialDelaySeconds: 0
-#    periodSeconds: 10
-#    successThreshold: 1
-#    timeoutSeconds: 1
+  #  execArgs: "cat /tmp/healthy"
+  #  failureThreshold: 3
+  #  initialDelaySeconds: 0
+  #  periodSeconds: 10
+  #  successThreshold: 1
+  #  timeoutSeconds: 1
 
   # You may want to change this to true while testing a new image
   # -- Always pull agent container image before build

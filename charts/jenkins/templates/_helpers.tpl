@@ -309,6 +309,7 @@ jenkins:
   {{- /* restore root */}}
   {{- $_ := set $ "Values" $oldRoot.Values }}
   {{- end }}
+  slaveAgentPort: {{ .Values.controller.agentListenerPort }}
   {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
   crumbIssuer:
     standard:

@@ -1,15 +1,15 @@
 additional plugins config:
   1: |
     |-
-      kubernetes:4306.vc91e951ea_eb_d
-      workflow-aggregator:600.vb_57cdd26fdd7
+      kubernetes:4324.vfec199a_33512
+      workflow-aggregator:608.v67378e9d3db_1
       git:5.7.0
-      configuration-as-code:1915.vcdd0a_d0d2625
+      configuration-as-code:1947.v7d33fe23569c
       kubernetes-credentials-provider
 default config:
   1: |
     |-
-      kubernetes:4306.vc91e951ea_eb_d
-      workflow-aggregator:600.vb_57cdd26fdd7
+      kubernetes:4324.vfec199a_33512
+      workflow-aggregator:608.v67378e9d3db_1
       git:5.7.0
-      configuration-as-code:1915.vcdd0a_d0d2625
+      configuration-as-code:1947.v7d33fe23569c

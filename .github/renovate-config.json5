@@ -17,7 +17,7 @@
   packageRules: [
     {
       matchPackageNames: ["jenkins/inbound-agent"],
-      versioning: "regex:^(?<major>\\d+)?\\.(?<minor>\\w+?)?-(?<build>\\d+)?$",
+      versioning: "regex:^(?<major>\\d+)[\\w.]+?-(?<minor>\\d+)$",
     },
     {
       matchPackageNames: ["jenkins/jenkins"],
