@@ -38,11 +38,11 @@ controller:
     # -- Controller image repository
     repository: "jenkins/jenkins"
 
-    # -- Controller image tag override; i.e., tag: "2.440.1-jdk17"
+    # -- Controller image tag override; i.e., tag: "2.440.1-jdk21"
     tag:
 
     # -- Controller image tag label
-    tagLabel: jdk17
+    tagLabel: jdk21
     # -- Controller image pull policy
     pullPolicy: "Always"
   # -- Controller image pull secret

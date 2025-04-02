@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.8.31
 
-Update `jenkins/jenkins` to version `2.492.3-jdk17`
+Update `jenkins/jenkins` to version `2.492.3-jdk21`
 
 ## 5.8.30
 
