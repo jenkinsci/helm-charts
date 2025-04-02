@@ -145,8 +145,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.image.pullPolicy](./values.yaml#L47) | string | Controller image pull policy | `"Always"` |
 | [controller.image.registry](./values.yaml#L37) | string | Controller image registry | `"docker.io"` |
 | [controller.image.repository](./values.yaml#L39) | string | Controller image repository | `"jenkins/jenkins"` |
-| [controller.image.tag](./values.yaml#L42) | string | Controller image tag override; i.e., tag: "2.440.1-jdk17" | `nil` |
-| [controller.image.tagLabel](./values.yaml#L45) | string | Controller image tag label | `"jdk17"` |
+| [controller.image.tag](./values.yaml#L42) | string | Controller image tag override; i.e., tag: "2.440.1-jdk21" | `nil` |
+| [controller.image.tagLabel](./values.yaml#L45) | string | Controller image tag label | `"jdk21"` |
 | [controller.imagePullSecretName](./values.yaml#L49) | string | Controller image pull secret | `nil` |
 | [controller.ingress.annotations](./values.yaml#L712) | object | Ingress annotations | `{}` |
 | [controller.ingress.apiVersion](./values.yaml#L708) | string | Ingress API version | `"extensions/v1beta1"` |
