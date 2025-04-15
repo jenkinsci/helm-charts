@@ -1103,8 +1103,10 @@ agent:
   # Doesn't allocate pseudo TTY by default
   # -- Allocate pseudo tty to the side container
   TTYEnabled: false
-  # -- Max number of agents to launch
+  # -- Max number of agents to launch for a whole cluster.
   containerCap: 10
+  # -- Max number of agents to launch for this type of agent
+  instanceCap: 2147483647
   # -- Agent Pod base name
   podName: "default"
 

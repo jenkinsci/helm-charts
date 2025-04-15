@@ -463,7 +463,7 @@ Returns kubernetes pod template configuration as code
   {{- end }}
 {{- end }}
   idleMinutes: {{ .Values.agent.idleMinutes }}
-  instanceCap: 2147483647
+  instanceCap: {{ int .Values.agent.instanceCap }}
   {{- if .Values.agent.hostNetworking }}
   hostNetwork: {{ .Values.agent.hostNetworking }}
   {{- end }}
