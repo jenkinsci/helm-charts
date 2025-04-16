@@ -1,0 +1,45 @@
+suite: Instance cap tests
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: default-cap
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+
+
+  - it: limited-cap
+    set:
+        agent.instanceCap: 5
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+         count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+
+

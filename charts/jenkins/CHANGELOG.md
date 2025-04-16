@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.34
+
+Added .Values.agent.instanceCap to limit number of agents of each type.
+
 ## 5.8.33
 
 Update `configuration-as-code` to version `1953.v148f87d74b_1e`
