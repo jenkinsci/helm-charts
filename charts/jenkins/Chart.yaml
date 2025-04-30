@@ -2,8 +2,8 @@ apiVersion: v2
 name: jenkins
 type: application
 home: https://www.jenkins.io/
-version: 5.8.37
-appVersion: 2.492.3
+version: 5.8.38
+appVersion: 2.504.1
 description: >
   Jenkins - Build great things at any scale! As the leading open source automation server, Jenkins provides over 2000 plugins to support building, deploying and automating any project.
 
@@ -38,7 +38,7 @@ annotations:
       url: https://github.com/jenkinsci/helm-charts/issues
   artifacthub.io/images: |
     - name: jenkins
-      image: docker.io/jenkins/jenkins:2.492.3-jdk21
+      image: docker.io/jenkins/jenkins:2.504.1-jdk21
     - name: k8s-sidecar
       image: docker.io/kiwigrid/k8s-sidecar:1.30.3
     - name: inbound-agent
