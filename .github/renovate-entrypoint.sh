@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # renovate: datasource=github-tags depName=mikefarah/yq
-export YQ_VERSION=v4.45.3
+export YQ_VERSION=v4.45.4
 
 # renovate: datasource=github-tags depName=helm/helm
 export HELM_VERSION=v3.17.3
