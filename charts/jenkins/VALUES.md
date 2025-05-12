@@ -252,7 +252,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.additionalVolumeMounts](./values.yaml#L581) | list | Enables additional volume mounts for the config auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.containerSecurityContext](./values.yaml#L630) | object | Enable container security context | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true}` |
 | [controller.sidecars.configAutoReload.enabled](./values.yaml#L564) | bool | Enables Jenkins Config as Code auto-reload | `true` |
-| [controller.sidecars.configAutoReload.env](./values.yaml#L612) | object | Environment variables for the Jenkins Config as Code auto-reload container | `{}` |
+| [controller.sidecars.configAutoReload.env](./values.yaml#L612) | list | Environment variables for the Jenkins Config as Code auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.envFrom](./values.yaml#L610) | list | Environment variable sources for the Jenkins Config as Code auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L623) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L567) | string | Registry for the image that triggers the reload | `"docker.io"` |
