@@ -7,8 +7,8 @@ templates:
 tests:
   - it: tests defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       networkPolicy.enabled: true
@@ -36,14 +36,14 @@ tests:
           path: spec
           value:
             ingress:
-            - ports:
-              - port: 8080
-            - from:
-              - podSelector:
-                  matchLabels:
-                    jenkins/my-release-jenkins-agent: "true"
-              ports:
-              - port: 50000
+              - ports:
+                  - port: 8080
+              - from:
+                  - podSelector:
+                      matchLabels:
+                        jenkins/my-release-jenkins-agent: "true"
+                ports:
+                  - port: 50000
             podSelector:
               matchLabels:
                 app.kubernetes.io/component: jenkins-controller
@@ -77,18 +77,18 @@ tests:
       networkPolicy.enabled: true
       controller.agentListenerEnabled: false
     asserts:
-    - hasDocuments:
-        count: 2
-    - isKind:
-        of: NetworkPolicy
-    - equal:
-        path: spec
-        value:
-          ingress:
-          - ports:
-            - port: 8080
-          podSelector:
-            matchLabels:
-              app.kubernetes.io/component: jenkins-controller
-              app.kubernetes.io/instance: my-release
-      documentIndex: 0
+      - hasDocuments:
+          count: 2
+      - isKind:
+          of: NetworkPolicy
+      - equal:
+          path: spec
+          value:
+            ingress:
+              - ports:
+                  - port: 8080
+            podSelector:
+              matchLabels:
+                app.kubernetes.io/component: jenkins-controller
+                app.kubernetes.io/instance: my-release
+        documentIndex: 0

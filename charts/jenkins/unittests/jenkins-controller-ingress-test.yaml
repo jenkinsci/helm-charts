@@ -10,8 +10,8 @@ capabilities:
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.ingress:
@@ -51,9 +51,9 @@ tests:
                         serviceName: my-release-jenkins
                         servicePort: 8080
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: other values
     set:
       controller.ingress:
@@ -96,9 +96,9 @@ tests:
                         serviceName: my-release-jenkins
                         servicePort: 8080
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
@@ -120,26 +120,26 @@ tests:
         enabled: true
         paths:
     asserts:
-    - equal:
-        path: spec.rules
-        value:
-          - http:
-              paths:
-                - backend:
-                    serviceName: my-release-jenkins
-                    servicePort: 8080
+      - equal:
+          path: spec.rules
+          value:
+            - http:
+                paths:
+                  - backend:
+                      serviceName: my-release-jenkins
+                      servicePort: 8080
   - it: single path
     set:
       controller.ingress:
         enabled: true
         path: /jenkins/
     asserts:
-    - equal:
-        path: spec.rules
-        value:
-          - http:
-              paths:
-                - path: /jenkins/
-                  backend:
-                    serviceName: my-release-jenkins
-                    servicePort: 8080
+      - equal:
+          path: spec.rules
+          value:
+            - http:
+                paths:
+                  - path: /jenkins/
+                    backend:
+                      serviceName: my-release-jenkins
+                      servicePort: 8080

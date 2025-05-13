@@ -73,7 +73,6 @@ controller:
   # If you disable the non-Jenkins identity store and instead use the Jenkins internal one,
   # you should revert controller.admin.username to your preferred admin user:
   admin:
-
     # -- Admin username created as a secret if `controller.admin.createSecret` is true
     username: "admin"
     # -- Admin password created as a secret if `controller.admin.createSecret` is true
@@ -338,7 +337,7 @@ controller:
   agentListenerExternalTrafficPolicy:
   # -- Allowed inbound IP for the agentListener service
   agentListenerLoadBalancerSourceRanges:
-  - 0.0.0.0/0
+    - 0.0.0.0/0
   # -- Disabled agent protocols
   disabledAgentProtocols:
     - JNLP-connect
@@ -380,7 +379,7 @@ controller:
   # set allowed inbound rules on the security group assigned to the controller load balancer
   # -- Allowed inbound IP addresses
   loadBalancerSourceRanges:
-  - 0.0.0.0/0
+    - 0.0.0.0/0
 
   # -- Optionally assign a known public LB IP
   loadBalancerIP:
@@ -560,7 +559,7 @@ controller:
       # If false or not-specified, JCasC changes will cause a reboot and will only be applied at the subsequent start-up.
       # Auto-reload uses the http://<jenkins_url>/reload-configuration-as-code endpoint to reapply config when changes to
       # the configScripts are detected.
-      # -- Enables Jenkins Config as Code auto-reload
+      # -- Enable Jenkins Config as Code auto-reload
       enabled: true
       image:
         # -- Registry for the image that triggers the reload
@@ -570,7 +569,8 @@ controller:
         # -- Tag for the image that triggers the reload
         tag: 1.30.3
       imagePullPolicy: IfNotPresent
-      resources: {}
+      resources:
+        {}
         #   limits:
         #     cpu: 100m
         #     memory: 100Mi
@@ -578,7 +578,8 @@ controller:
         #     cpu: 50m
         #     memory: 50Mi
       # -- Enables additional volume mounts for the config auto-reload container
-      additionalVolumeMounts: []
+      additionalVolumeMounts:
+        []
         #   - name: auto-reload-config
         #     mountPath: /var/config/logger
         #   - name: auto-reload-logs
@@ -709,7 +710,8 @@ controller:
     # -- Ingress labels
     labels: {}
     # -- Ingress annotations
-    annotations: {}
+    annotations:
+      {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
@@ -1125,7 +1127,6 @@ agent:
   # -- Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it
   idleMinutes: 0
 
-
   # The raw yaml of a Pod API Object, for example, this allows usage of toleration for agent pods.
   # https://github.com/jenkinsci/kubernetes-plugin#using-yaml-to-define-pod-templates
   # https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
@@ -1300,13 +1301,15 @@ networkPolicy:
     # -- A map of labels (keys/values) that agent pods must have to be able to connect to controller
     podLabels: {}
     # -- A map of labels (keys/values) that agents namespaces must have to be able to connect to controller
-    namespaceLabels: {}
+    namespaceLabels:
+      {}
       # project: myproject
   externalAgents:
     # -- The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16
     ipCIDR:
     # -- A list of IP sub-ranges to be excluded from the allowlisted IP range
-    except: []
+    except:
+      []
       # - 172.17.1.0/24
 
 ## Install Default RBAC roles and bindings
@@ -1333,7 +1336,6 @@ serviceAccount:
   imagePullSecretName:
   # -- Auto-mount ServiceAccount token
   automountServiceAccountToken: true
-
 
 serviceAccountAgent:
   # -- Configures if an agent ServiceAccount should be created

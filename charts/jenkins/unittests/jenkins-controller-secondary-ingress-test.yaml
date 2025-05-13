@@ -6,12 +6,12 @@ templates:
   - jenkins-controller-secondary-ingress.yaml
 capabilities:
   majorVersion: 1
-  minorVersion: 18 
+  minorVersion: 18
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       "controller.secondaryingress":
@@ -54,9 +54,9 @@ tests:
                         servicePort: 8080
                       path: /github-webhook
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: disable helm.sh label
     set:
       renderHelmLabels: false

@@ -5,15 +5,13 @@
   platform: "github",
   repositories: ["jenkinsci/helm-charts"],
   // eslint-disable-next-line
-  allowedPostUpgradeCommands: ['^\.github\/renovate-postupgrade\.sh ".+" ".+"$'],
+  allowedPostUpgradeCommands: [
+    '^\.github\/renovate-postupgrade\.sh ".+" ".+"$',
+  ],
   prConcurrentLimit: 0,
   prHourlyLimit: 5,
   semanticCommits: "enabled",
-  enabledManagers: [
-    "helm-values",
-    "github-actions",
-    "regex",
-  ],
+  enabledManagers: ["helm-values", "github-actions", "regex"],
   packageRules: [
     {
       matchPackageNames: ["jenkins/inbound-agent"],
@@ -40,17 +38,20 @@
     },
   ],
   customDatasources: {
-    "python_actions": {
+    python_actions: {
       defaultRegistryUrlTemplate: "https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json",
       transformTemplates: [
-        "{\"releases\": $$[stable=true].files[arch=\"x64\" and platform=\"linux\"].{\"version\":%.version,\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"},\"homepage\":\"https://python.org/\",\"changelogUrl\":\"https://docs.python.org/whatsnew/index.html\"}",
+        '{"releases": $$[stable=true].files[arch="x64" and platform="linux"].{"version":%.version,"changelogUrl":"https://docs.python.org/whatsnew/index.html"},"homepage":"https://python.org/","changelogUrl":"https://docs.python.org/whatsnew/index.html"}',
       ],
     },
   },
   customManagers: [
     {
       customType: "regex",
-      fileMatch: ["(^|/)\\.github/workflows/[^/]+\\.ya?ml$", "(^|/)\\.github/[^/]+\\.sh$"],
+      fileMatch: [
+        "(^|/)\\.github/workflows/[^/]+\\.ya?ml$",
+        "(^|/)\\.github/[^/]+\\.sh$",
+      ],
       matchStrings: [
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s+?[\\w\\s-]*?version:? (?<currentValue>.*)\\s",
         "# renovate: datasource=(?<datasource>.*?) depName=(?<depName>.*?)( versioning=(?<versioning>.*?))?\\s.*?_VERSION=(?<currentValue>.*)\\s",

@@ -20,6 +20,7 @@ helm repo update
 You can then run `helm search repo jenkins` to see the charts or obtain an exhaustive list of releases from [GitHub releases](https://github.com/jenkinsci/helm-charts/releases).
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+
 Chart documentation is available in [jenkins directory](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/README.md).
 
 ## Building weekly releases
@@ -31,9 +32,11 @@ You can also rebuild the chart if you want the `appVersion` field to match.
 ## Contributing
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+
 We'd love to have you contribute! Please refer to our [contribution guidelines](https://github.com/jenkinsci/helm-charts/blob/main/CONTRIBUTING.md) for details.
 
 ## License
 
 <!-- Keep full URL links to repo files because this README syncs from main to gh-pages.  -->
+
 [Apache 2.0 License](https://github.com/jenkinsci/helm-charts/blob/main/LICENSE).

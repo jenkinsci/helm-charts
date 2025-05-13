@@ -1,6 +1,7 @@
 # Upgrade Notes
 
 ## To 5.0.0
+
 - `controller.image`, `controller.tag`, and `controller.tagLabel` have been removed. If you want to overwrite the image you now need to configure any or all of:
   - `controller.image.registry`
   - `controller.image.repository`
@@ -31,38 +32,40 @@
 - `backup.*` was unmaintained and has thus been removed. See the following page for alternatives: [Kubernetes Backup and Migrations](https://nubenetes.com/kubernetes-backup-migrations/).
 
 ## To 4.0.0
+
 Removes automatic `remotingSecurity` setting when using a container tag older than `2.326` (introduced in [`3.11.7`](./CHANGELOG.md#3117)). If you're using a version older than `2.326`, you should explicitly set `.controller.legacyRemotingSecurityEnabled` to `true`.
 
 ## To 3.0.0
 
-* Check `securityRealm` and `authorizationStrategy` and adjust it.
+- Check `securityRealm` and `authorizationStrategy` and adjust it.
   Otherwise, your configured users and permissions will be overridden.
-* You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
-* All XML configuration options have been removed.
+- You need to use helm version 3 as the `Chart.yaml` uses `apiVersion: v2`.
+- All XML configuration options have been removed.
   In case those are still in use you need to migrate to configuration as code.
   Upgrade guide to 2.0.0 contains pointers how to do that.
-* Jenkins is now using a `StatefulSet` instead of a `Deployment`
-* terminology has been adjusted that's also reflected in values.yaml
+- Jenkins is now using a `StatefulSet` instead of a `Deployment`
+- terminology has been adjusted that's also reflected in values.yaml
   The following values from `values.yaml` have been renamed:
 
-  * `master` => `controller`
-  * `master.useSecurity` => `controller.adminSecret`
-  * `master.slaveListenerPort` => `controller.agentListenerPort`
-  * `master.slaveHostPort` => `controller.agentListenerHostPort`
-  * `master.slaveKubernetesNamespace` => `agent.namespace`
-  * `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
-  * `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
-  * `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
-  * `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
-  * `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
-  * `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
-  * `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
-  * `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
-  * `agent.slaveConnectTimeout` => `agent.connectTimeout`
-* Removed values:
+  - `master` => `controller`
+  - `master.useSecurity` => `controller.adminSecret`
+  - `master.slaveListenerPort` => `controller.agentListenerPort`
+  - `master.slaveHostPort` => `controller.agentListenerHostPort`
+  - `master.slaveKubernetesNamespace` => `agent.namespace`
+  - `master.slaveDefaultsProviderTemplate` => `agent.defaultsProviderTemplate`
+  - `master.slaveJenkinsUrl` => `agent.jenkinsUrl`
+  - `master.slaveJenkinsTunnel` => `agent.jenkinsTunnel`
+  - `master.slaveConnectTimeout` => `agent.kubernetesConnectTimeout`
+  - `master.slaveReadTimeout` => `agent.kubernetesReadTimeout`
+  - `master.slaveListenerServiceAnnotations` => `controller.agentListenerServiceAnnotations`
+  - `master.slaveListenerServiceType` => `controller.agentListenerServiceType`
+  - `master.slaveListenerLoadBalancerIP` => `controller.agentListenerLoadBalancerIP`
+  - `agent.slaveConnectTimeout` => `agent.connectTimeout`
 
-  * `master.imageTag`: use `controller.image` and `controller.tag` instead
-  * `slave.imageTag`: use `agent.image` and `agent.tag` instead
+- Removed values:
+
+  - `master.imageTag`: use `controller.image` and `controller.tag` instead
+  - `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
 ## To 2.0.0
 
@@ -95,14 +98,14 @@ Here we show which values have changed and the previous default values:
 
 ```yaml
 controller:
-  runAsUser: 1000         # was unset before
-  fsGroup: 1000           # was unset before
+  runAsUser: 1000 # was unset before
+  fsGroup: 1000 # was unset before
   JCasC:
-    enabled: true         # was false
-    defaultConfig: true   # was false
+    enabled: true # was false
+    defaultConfig: true # was false
   sidecars:
     configAutoReload:
-      enabled: true       # was false
+      enabled: true # was false
 ```
 
 ### Migration steps
@@ -135,7 +138,7 @@ So think of the list below more as a general guideline of what should be done.
 
 Breaking changes:
 
-- Values have been renamed to follow [helm recommended naming conventions](https://helm.sh/docs/chart_best_practices/#naming-conventions) so that all variables start with a lowercase letter and words are separated with camelcase
+- Values have been renamed to follow [helm recommended naming conventions](https://helm.sh/docs/chart_best_practices/#naming-conventions) so that all variables start with a lowercase letter and words are separated with camelCase
 - All resources are now using [helm recommended standard labels](https://helm.sh/docs/chart_best_practices/#standard-labels)
 
 As a result of the label changes also the selectors of the deployment have been updated.

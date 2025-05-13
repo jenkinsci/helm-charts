@@ -7,8 +7,8 @@ templates:
 tests:
   - it: defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.prometheus.enabled: true
@@ -31,13 +31,13 @@ tests:
           path: spec
           value:
             endpoints:
-            - interval: 60s
-              port: http
-              path: /prometheus
+              - interval: 60s
+                port: http
+                path: /prometheus
             jobLabel: my-release-jenkins
             namespaceSelector:
               matchNames:
-              - "my-namespace"
+                - "my-namespace"
             selector:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
@@ -55,13 +55,13 @@ tests:
           path: spec
           value:
             endpoints:
-            - interval: 120s
-              port: http
-              path: /prefix/monitoring
+              - interval: 120s
+                port: http
+                path: /prefix/monitoring
             jobLabel: my-release-jenkins
             namespaceSelector:
               matchNames:
-              - "my-namespace"
+                - "my-namespace"
             selector:
               matchLabels:
                 "app.kubernetes.io/instance": "my-release"
