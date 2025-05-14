@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.8.44
 
-Fix the default value for `controller.sidecars.configAutoReload.env` (change from `{}` to `[]`) to address `coalesce.go:286: warning: cannot overwrite table with non table` 
+Fix the default value for `controller.sidecars.configAutoReload.env` (change from `{}` to `[]`) to address `coalesce.go:286: warning: cannot overwrite table with non table`.
 
 ## 5.8.43
 
