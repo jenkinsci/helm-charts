@@ -609,7 +609,7 @@ controller:
       # -- Environment variable sources for the Jenkins Config as Code auto-reload container
       envFrom: []
       # -- Environment variables for the Jenkins Config as Code auto-reload container
-      env: {}
+      env: []
       #   - name: REQ_TIMEOUT
       #     value: "30"
 
