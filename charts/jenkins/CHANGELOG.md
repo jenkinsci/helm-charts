@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.45
+
+Update `jenkins/inbound-agent` to version `3309.v27b_9314fd1a_4-2`
+
 ## 5.8.44
 
 Fix the default value for `controller.sidecars.configAutoReload.env` (change from `{}` to `[]`) to address `coalesce.go:286: warning: cannot overwrite table with non table`.
