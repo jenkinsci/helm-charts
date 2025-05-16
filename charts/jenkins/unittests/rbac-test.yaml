@@ -41,7 +41,14 @@ tests:
           path: rules
           value:
             - apiGroups: [""]
-              resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims", "events"]
+              resources:
+                [
+                  "pods",
+                  "pods/exec",
+                  "pods/log",
+                  "persistentvolumeclaims",
+                  "events",
+                ]
               verbs: ["get", "list", "watch"]
             - apiGroups: [""]
               resources: ["pods", "pods/exec", "persistentvolumeclaims"]

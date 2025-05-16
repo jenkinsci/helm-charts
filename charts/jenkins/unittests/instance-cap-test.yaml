@@ -10,7 +10,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -22,15 +22,14 @@ tests:
           path: metadata.namespace
           value: my-namespace
 
-
   - it: limited-cap
     set:
-        agent.instanceCap: 5
+      agent.instanceCap: 5
     asserts:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -41,5 +40,3 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
-
-

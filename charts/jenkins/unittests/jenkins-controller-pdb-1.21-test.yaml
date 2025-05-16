@@ -10,8 +10,8 @@ capabilities:
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.podDisruptionBudget:

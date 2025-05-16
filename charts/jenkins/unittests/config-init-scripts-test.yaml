@@ -12,7 +12,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - equal:
           path: data["inittest.groovy"]
           value: |-

@@ -10,8 +10,8 @@ capabilities:
 tests:
   - it: test defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.ingress:
@@ -54,9 +54,9 @@ tests:
                             number: 8080
                       pathType: ImplementationSpecific
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: other values
     set:
       controller.ingress:
@@ -107,13 +107,13 @@ tests:
                     - backend:
                         service:
                           name: my-release-jenkins
-                          port: 
+                          port:
                             number: 8080
                       pathType: ImplementationSpecific
             tls:
-            - hosts:
-              - jenkins.example.com
-              secretName: tlsSecret
+              - hosts:
+                  - jenkins.example.com
+                secretName: tlsSecret
   - it: disable helm.sh label
     set:
       renderHelmLabels: false
@@ -135,14 +135,14 @@ tests:
         enabled: true
         paths:
     asserts:
-    - equal:
-        path: spec.rules
-        value:
-          - http:
-              paths:
-                - backend:
-                    service:
-                      name: my-release-jenkins
-                      port:
-                        number: 8080
-                  pathType: ImplementationSpecific
+      - equal:
+          path: spec.rules
+          value:
+            - http:
+                paths:
+                  - backend:
+                      service:
+                        name: my-release-jenkins
+                        port:
+                          number: 8080
+                    pathType: ImplementationSpecific

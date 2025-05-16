@@ -227,8 +227,8 @@ Further JCasC examples can be found [here](https://github.com/jenkinsci/configur
 
 #### Breaking out large Config as Code scripts
 
-Jenkins Config as Code scripts can become quite large, and maintaining all of your scripts within one yaml file can be difficult.  The Config as Code plugin itself suggests updating the `CASC_JENKINS_CONFIG` environment variable to be a comma separated list of paths for the plugin to traverse, picking up the yaml files as needed.  
-However, under the Jenkins helm chart, this `CASC_JENKINS_CONFIG` value is maintained through the templates.  A better solution is to split your `controller.JCasC.configScripts` into separate values files, and provide each file during the helm install.
+Jenkins Config as Code scripts can become quite large, and maintaining all of your scripts within one yaml file can be difficult. The Config as Code plugin itself suggests updating the `CASC_JENKINS_CONFIG` environment variable to be a comma separated list of paths for the plugin to traverse, picking up the yaml files as needed.  
+However, under the Jenkins helm chart, this `CASC_JENKINS_CONFIG` value is maintained through the templates. A better solution is to split your `controller.JCasC.configScripts` into separate values files, and provide each file during the helm install.
 
 For example, you can have a values file (e.g values_main.yaml) that defines the values described in the `VALUES_SUMMARY.md` for your Jenkins configuration:
 
@@ -247,7 +247,7 @@ jenkins:
   controller:
     JCasC:
       configScripts:
-        jenkinsCasc:  |
+        jenkinsCasc: |
           jenkins:
             disableRememberMe: false
             mode: NORMAL
@@ -268,7 +268,7 @@ jenkins:
             ...
 ```
 
-When installing, you provide all relevant yaml files (e.g `helm install -f values_main.yaml -f values_jenkins_casc.yaml -f values_jenkins_unclassified.yaml ...`).  Instead of updating the `CASC_JENKINS_CONFIG` environment variable to include multiple paths, multiple CasC yaml files will be created in the same path `var/jenkins_home/casc_configs`.
+When installing, you provide all relevant yaml files (e.g `helm install -f values_main.yaml -f values_jenkins_casc.yaml -f values_jenkins_unclassified.yaml ...`). Instead of updating the `CASC_JENKINS_CONFIG` environment variable to include multiple paths, multiple CasC yaml files will be created in the same path `var/jenkins_home/casc_configs`.
 
 #### Config as Code With or Without Auto-Reload
 
@@ -295,27 +295,36 @@ This option requires installation of the [OWASP Markup Formatter Plugin (antisam
 This plugin is **not** installed by default but may be added to `controller.additionalPlugins`.
 
 ### Change max connections to Kubernetes API
+
 When using agents with containers other than JNLP, The kubernetes plugin will communicate with those containers using the Kubernetes API. this changes the maximum concurrent connections
+
 ```yaml
 agent:
   maxRequestsPerHostStr: "32"
 ```
+
 This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
 
 ### Change container cleanup timeout API
+
 For tasks that use very large images, this timeout can be increased to avoid early termination of the task while the Kubernetes pod is still deploying.
+
 ```yaml
 agent:
   retentionTimeout: "32"
 ```
+
 This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
 
 ### Change seconds to wait for pod to be running
+
 This will change how long Jenkins will wait (seconds) for pod to be in running state.
+
 ```yaml
 agent:
   waitForPodSec: "32"
 ```
+
 This will change the configuration of the kubernetes "cloud" (as called by jenkins) that is created automatically as part of this helm chart.
 
 ### Mounting Volumes into Agent Pods
@@ -325,9 +334,9 @@ Your Jenkins Agents will run as pods, and it's possible to inject volumes where 
 ```yaml
 agent:
   volumes:
-  - type: Secret
-    secretName: jenkins-mysecrets
-    mountPath: /var/run/secrets/jenkins-mysecrets
+    - type: Secret
+      secretName: jenkins-mysecrets
+      mountPath: /var/run/secrets/jenkins-mysecrets
 ```
 
 The supported volume types are: `ConfigMap`, `EmptyDir`, `HostPath`, `Nfs`, `PVC`, `Secret`.
@@ -380,11 +389,11 @@ See additional `persistence` values using [configuration commands](#configuratio
 2. Create the PersistentVolumeClaim
 3. [Install](#install-chart) the chart, setting `persistence.existingClaim` to `PVC_NAME`
 
-#### Long Volume Attach/Mount Times
+#### Long Volume Attach-/Mount Times
 
 Certain volume type and filesystem format combinations may experience long
 attach/mount times, [10 or more minutes][K8S_VOLUME_TIMEOUT], when using
-`fsGroup`.  This issue may result in the following entries in the pod's event
+`fsGroup`. This issue may result in the following entries in the pod's event
 history:
 
 ```console
@@ -392,7 +401,7 @@ Warning  FailedMount  38m                kubelet, aks-default-41587790-2 Unable 
 ```
 
 In these cases, experiment with replacing `fsGroup` with
-`supplementalGroups` in the pod's `securityContext`.  This can be achieved by
+`supplementalGroups` in the pod's `securityContext`. This can be achieved by
 setting the `controller.podSecurityContextOverride` Helm chart value to
 something like:
 
@@ -424,6 +433,7 @@ A common use case might be identity provider credentials if using an external LD
 The secret may then be referenced in JCasC configuration (see [JCasC configuration](#configuration-as-code)).
 
 `values.yaml` controller section, referencing mounted secrets:
+
 ```yaml
 controller:
   # the 'name' and 'keyName' are concatenated with a '-' in between, so for example:
@@ -433,7 +443,7 @@ controller:
   # existingSecret existing secret "secret-credentials" and a key inside it named "github-username" should be used in Jcasc as ${github-username}
   # When using existingSecret no need to specify the keyName under additionalExistingSecrets.
   existingSecret: secret-credentials
-  
+
   additionalExistingSecrets:
     - name: secret-credentials
       keyName: github-username
@@ -441,7 +451,7 @@ controller:
       keyName: github-password
     - name: secret-credentials
       keyName: token
-  
+
   additionalSecrets:
     - name: client_id
       value: abc123
@@ -481,6 +491,7 @@ It's possible for this chart to generate `SecretClaim` resources in order to aut
 These `Secrets` can then be referenced in the same manner as Additional Secrets above.
 
 This can be achieved by defining required Secret Claims within `controller.secretClaims`, as follows:
+
 ```yaml
 controller:
   secretClaims:
@@ -574,11 +585,11 @@ The simplest configuration looks like the following:
 
 ```yaml
 controller:
-   ingress:
-       enabled: true
-       paths: []
-       apiVersion: "extensions/v1beta1"
-       hostName: jenkins.example.com
+  ingress:
+    enabled: true
+    paths: []
+    apiVersion: "extensions/v1beta1"
+    hostName: jenkins.example.com
 ```
 
 This snippet configures an ingress rule for exposing jenkins at `jenkins.example.com`
@@ -593,20 +604,20 @@ The secondaryingress doesn't expose anything by default and has to be configured
 
 ```yaml
 controller:
-   ingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins.internal.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "internal"
-   secondaryingress:
-       enabled: true
-       apiVersion: "extensions/v1beta1"
-       hostName: "jenkins-scm.example.com"
-       annotations:
-           kubernetes.io/ingress.class: "public"
-       paths:
-        - /github-webhook
+  ingress:
+    enabled: true
+    apiVersion: "extensions/v1beta1"
+    hostName: "jenkins.internal.example.com"
+    annotations:
+      kubernetes.io/ingress.class: "internal"
+  secondaryingress:
+    enabled: true
+    apiVersion: "extensions/v1beta1"
+    hostName: "jenkins-scm.example.com"
+    annotations:
+      kubernetes.io/ingress.class: "public"
+    paths:
+      - /github-webhook
 ```
 
 ## Prometheus Metrics
@@ -660,15 +671,16 @@ and `https-jks-password` (or override the key name using `jenkinsHttpsJksPasswor
 
 ```yaml
 controller:
-   httpsKeyStore:
-       enable: true
-       jenkinsHttpsJksSecretName: ''
-       httpPort: 8081
-       path: "/var/jenkins_keystore"
-       fileName: "keystore.jks"
-       password: "changeit"
-       jenkinsKeyStoreBase64Encoded: ''
+  httpsKeyStore:
+    enable: true
+    jenkinsHttpsJksSecretName: ""
+    httpPort: 8081
+    path: "/var/jenkins_keystore"
+    fileName: "keystore.jks"
+    password: "changeit"
+    jenkinsKeyStoreBase64Encoded: ""
 ```
+
 ### AWS Security Group Policies
 
 To create SecurityGroupPolicies set `awsSecurityGroupPolicies.enabled` to true and add your policies. Each policy requires a `name`, array of `securityGroupIds` and a `podSelector`. Example:
@@ -678,7 +690,7 @@ awsSecurityGroupPolicies:
   enabled: true
   policies:
     - name: "jenkins-controller"
-      securityGroupIds: 
+      securityGroupIds:
         - sg-123456789
       podSelector:
         matchExpressions:

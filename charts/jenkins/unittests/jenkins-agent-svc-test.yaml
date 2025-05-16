@@ -27,9 +27,9 @@ tests:
           path: spec
           value:
             ports:
-            - name: agent-listener
-              port: 50000
-              targetPort: 50000
+              - name: agent-listener
+                port: 50000
+                targetPort: 50000
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -49,9 +49,9 @@ tests:
           path: spec
           value:
             ports:
-            - name: agent-listener
-              port: 55555
-              targetPort: 55555
+              - name: agent-listener
+                port: 55555
+                targetPort: 55555
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -65,9 +65,9 @@ tests:
           path: spec
           value:
             ports:
-            - name: agent-listener
-              port: 50000
-              targetPort: 50000
+              - name: agent-listener
+                port: 50000
+                targetPort: 50000
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -82,10 +82,10 @@ tests:
           path: spec
           value:
             ports:
-            - name: agent-listener
-              port: 50000
-              targetPort: 50000
-              nodePort: 32123
+              - name: agent-listener
+                port: 50000
+                targetPort: 50000
+                nodePort: 32123
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -100,9 +100,9 @@ tests:
           path: spec
           value:
             ports:
-            - name: agent-listener
-              port: 50000
-              targetPort: 50000
+              - name: agent-listener
+                port: 50000
+                targetPort: 50000
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -126,5 +126,5 @@ tests:
       controller:
         agentListenerEnabled: false
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0

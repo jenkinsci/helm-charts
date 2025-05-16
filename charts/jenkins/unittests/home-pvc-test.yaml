@@ -34,7 +34,7 @@ tests:
           path: spec.dataSource
       - isNull:
           path: spec.storageClassName
-            
+
   - it: test different values
     set:
       persistence:
@@ -64,8 +64,8 @@ tests:
       persistence:
         existingClaim: my-pvc
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
 
   - it: disable helm.sh label
     set:
@@ -108,4 +108,3 @@ tests:
       - equal:
           path: spec.dataSource.kind
           value: PersistentVolumeClaim
-

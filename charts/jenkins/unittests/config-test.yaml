@@ -7,7 +7,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - equal:
           path: metadata.labels
           value:
@@ -59,7 +59,7 @@ tests:
     set:
       controller:
         additionalPlugins:
-              - kubernetes-credentials-provider
+          - kubernetes-credentials-provider
     asserts:
       - matchSnapshot:
           path: data["plugins.txt"]

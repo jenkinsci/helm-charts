@@ -27,9 +27,9 @@ tests:
           path: spec
           value:
             ports:
-            - name: http
-              port: 8080
-              targetPort: 8080
+              - name: http
+                port: 8080
+                targetPort: 8080
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -60,12 +60,12 @@ tests:
           value:
             clusterIP: 10.10.10.11
             ports:
-            - name: http
-              port: 8888
-              targetPort: 7777
-            - name: BuildInfoProxy
-              port: 9000
-              targetPort: 9000
+              - name: http
+                port: 8888
+                targetPort: 7777
+              - name: BuildInfoProxy
+                port: 9000
+                targetPort: 9000
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -97,12 +97,12 @@ tests:
           value:
             clusterIP: 10.10.10.11
             ports:
-            - name: http
-              port: 8888
-              targetPort: 7777
-            - name: https
-              port: 443
-              targetPort: 8080
+              - name: http
+                port: 8888
+                targetPort: 7777
+              - name: https
+                port: 443
+                targetPort: 8080
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -113,14 +113,14 @@ tests:
         serviceType: NodePort
         nodePort: 11111
     asserts:
-       - equal:
+      - equal:
           path: spec
           value:
             ports:
-            - name: http
-              port: 8080
-              targetPort: 8080
-              nodePort: 11111
+              - name: http
+                port: 8080
+                targetPort: 8080
+                nodePort: 11111
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release
@@ -131,16 +131,16 @@ tests:
         serviceType: LoadBalancer
         loadBalancerIP: 10.10.10.10
     asserts:
-       - equal:
+      - equal:
           path: spec
           value:
             loadBalancerIP: 10.10.10.10
             loadBalancerSourceRanges:
               - 0.0.0.0/0
             ports:
-            - name: http
-              port: 8080
-              targetPort: 8080
+              - name: http
+                port: 8080
+                targetPort: 8080
             selector:
               app.kubernetes.io/component: jenkins-controller
               app.kubernetes.io/instance: my-release

@@ -7,7 +7,7 @@ Contributions are welcome via GitHub pull requests. This document outlines the p
 1. Fork this repository, develop, and test your changes
 1. Submit a pull request
 
-***NOTE***: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
+**_NOTE_**: In order to make testing and merging of PRs easier, please submit changes to multiple charts in separate PRs.
 
 ## Local Development
 
@@ -29,9 +29,9 @@ minikube service chart-$CHART
 
 ### Technical Requirements
 
-* Must follow [Charts best practices](https://helm.sh/docs/topics/chart_best_practices/)
-* Must pass CI jobs for linting and installing changed charts with the [chart-testing](https://github.com/helm/chart-testing) tool
-* Any change to a chart requires a version bump following [SemVer](https://semver.org/) principles. See [Immutability](#immutability) and [Versioning](#versioning) below
+- Must follow [Charts best practices](https://helm.sh/docs/topics/chart_best_practices/)
+- Must pass CI jobs for linting and installing changed charts with the [chart-testing](https://github.com/helm/chart-testing) tool
+- Any change to a chart requires a version bump following [SemVer](https://semver.org/) principles. See [Immutability](#immutability) and [Versioning](#versioning) below
 
 Once changes have been merged, the release job will automatically run to package and release changed charts.
 

@@ -9,7 +9,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -125,33 +125,33 @@ tests:
         podRetention: onFailure
         connectTimeout: 111
         volumes:
-        - type: ConfigMap
-          configMapName: myconfigmap
-          mountPath: /var/myapp/myconfigmap
-        - type: EmptyDir
-          mountPath: /var/myapp/myemptydir
-          memory: false
-        - type: HostPath
-          hostPath: /var/lib/containers
-          mountPath: /var/myapp/myhostpath
-        - type: Nfs
-          mountPath: /var/myapp/mynfs
-          readOnly: false
-          serverAddress: "192.0.2.0"
-          serverPath: /var/lib/containers
-        - type: PVC
-          claimName: mypvc
-          mountPath: /var/myapp/mypvc
-          readOnly: false
-        - type: Secret
-          defaultMode: "600"
-          mountPath: /var/myapp/mysecret
-          secretName: mysecret
-        - type: EphemeralVolume
-          mountPath: /var/myapp/myephemeralvolume
-          accessModes: ReadWriteOnce
-          requestsSize: 2Gi
-          storageClassName: test-storageclass
+          - type: ConfigMap
+            configMapName: myconfigmap
+            mountPath: /var/myapp/myconfigmap
+          - type: EmptyDir
+            mountPath: /var/myapp/myemptydir
+            memory: false
+          - type: HostPath
+            hostPath: /var/lib/containers
+            mountPath: /var/myapp/myhostpath
+          - type: Nfs
+            mountPath: /var/myapp/mynfs
+            readOnly: false
+            serverAddress: "192.0.2.0"
+            serverPath: /var/lib/containers
+          - type: PVC
+            claimName: mypvc
+            mountPath: /var/myapp/mypvc
+            readOnly: false
+          - type: Secret
+            defaultMode: "600"
+            mountPath: /var/myapp/mysecret
+            secretName: mysecret
+          - type: EphemeralVolume
+            mountPath: /var/myapp/myephemeralvolume
+            accessModes: ReadWriteOnce
+            requestsSize: 2Gi
+            storageClassName: test-storageclass
         annotations:
           ci.jenkins-agent/test: "custom"
         yamlTemplate: |-
@@ -231,7 +231,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -251,7 +251,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -271,7 +271,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -293,7 +293,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -314,7 +314,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -335,7 +335,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -368,7 +368,7 @@ tests:
       controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
-         count: 0
+          count: 0
   - it: custom jenkins label
     set:
       controller:
@@ -379,7 +379,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -397,7 +397,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -413,7 +413,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -429,7 +429,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -444,17 +444,17 @@ tests:
       controller:
         legacyRemotingSecurityEnabled: false
     asserts:
-    - isKind:
-        of: ConfigMap
-    - hasDocuments:
-        count: 1
-    - isNotEmpty:
-        path: data["jcasc-default-config.yaml"]
-    - matchRegex:
-        path: metadata.labels["helm.sh/chart"]
-        pattern: ^jenkins-
-    - matchSnapshot:
-        path: data["jcasc-default-config.yaml"]
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
   - it: legacyRemotingSecurityEnabled = true
     release:
       namespace: default
@@ -462,17 +462,17 @@ tests:
       controller:
         legacyRemotingSecurityEnabled: true
     asserts:
-    - isKind:
-        of: ConfigMap
-    - hasDocuments:
-        count: 1
-    - isNotEmpty:
-        path: data["jcasc-default-config.yaml"]
-    - matchRegex:
-        path: metadata.labels["helm.sh/chart"]
-        pattern: ^jenkins-
-    - matchSnapshot:
-        path: data["jcasc-default-config.yaml"]
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
   - it: empty projectNamingStrategy
     release:
       namespace: default
@@ -604,7 +604,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -715,7 +715,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -743,7 +743,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -772,7 +772,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -791,7 +791,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - equal:
           path: metadata.annotations
           value:

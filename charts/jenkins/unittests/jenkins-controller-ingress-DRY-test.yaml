@@ -16,7 +16,7 @@ tests:
         resourceRootUrl: "{{ .Values.global.jenkinsHostname }}"
         tls:
           - hosts:
-            - "{{ .Values.global.jenkinsHostname }}"
+              - "{{ .Values.global.jenkinsHostname }}"
     asserts:
       - equal:
           path: spec.rules[0].host

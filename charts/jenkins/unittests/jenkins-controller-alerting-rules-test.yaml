@@ -7,8 +7,8 @@ templates:
 tests:
   - it: defaults
     asserts:
-    - hasDocuments:
-        count: 0
+      - hasDocuments:
+          count: 0
   - it: enabled
     set:
       controller.prometheus:
@@ -45,15 +45,15 @@ tests:
           path: spec
           value:
             groups:
-            - name: ./jenkins.rules
-              rules:
-                - alert: JenkinsFailedPlugins
-                  expr: jenkins_plugins_failed > 0
-                  for: 10m
-                  labels:
-                    severity: warning
-                  annotations:
-                    message: Some Jenkins plugins failed to load
+              - name: ./jenkins.rules
+                rules:
+                  - alert: JenkinsFailedPlugins
+                    expr: jenkins_plugins_failed > 0
+                    for: 10m
+                    labels:
+                      severity: warning
+                    annotations:
+                      message: Some Jenkins plugins failed to load
   - it: disable helm.sh label
     set:
       renderHelmLabels: false

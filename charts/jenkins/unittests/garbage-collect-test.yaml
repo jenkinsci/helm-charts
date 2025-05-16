@@ -7,12 +7,12 @@ templates:
 tests:
   - it: one cloud
     set:
-        agent.garbageCollection.enabled: true
+      agent.garbageCollection.enabled: true
     asserts:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -24,16 +24,15 @@ tests:
           path: metadata.namespace
           value: my-namespace
 
-
   - it: second cloud
     set:
-        agent.garbageCollection.enabled: true
-        additionalClouds.second.agent.containerCap: 5
+      agent.garbageCollection.enabled: true
+      additionalClouds.second.agent.containerCap: 5
     asserts:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -47,15 +46,15 @@ tests:
 
   - it: namespaces
     set:
-        agent.garbageCollection.enabled: true
-        agent.garbageCollection.namespaces: |-
-          namespace1
-          namespace2
+      agent.garbageCollection.enabled: true
+      agent.garbageCollection.namespaces: |-
+        namespace1
+        namespace2
     asserts:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-         count: 1
+          count: 1
       - isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
@@ -66,5 +65,3 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
-
-

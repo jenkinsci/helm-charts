@@ -6,7 +6,7 @@ templates:
   - jenkins-controller-secondary-ingress.yaml
 capabilities:
   majorVersion: 1
-  minorVersion: 19 
+  minorVersion: 19
 tests:
   - it: test defaults
     asserts:
