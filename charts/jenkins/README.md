@@ -233,25 +233,23 @@ However, under the Jenkins helm chart, this `CASC_JENKINS_CONFIG` value is maint
 For example, you can have a values file (e.g values_main.yaml) that defines the values described in the `VALUES_SUMMARY.md` for your Jenkins configuration:
 
 ```yaml
-jenkins:
-  controller:
-    jenkinsUrlProtocol: https
-    installPlugins: false
-    ...
+controller:
+  jenkinsUrlProtocol: https
+  installPlugins: false
+  ...
 ```
 
 In a second file (e.g values_jenkins_casc.yaml), you can define a section of your config scripts:
 
 ```yaml
-jenkins:
-  controller:
-    JCasC:
-      configScripts:
-        jenkinsCasc:  |
-          jenkins:
-            disableRememberMe: false
-            mode: NORMAL
-            ...
+controller:
+  JCasC:
+    configScripts:
+      jenkinsCasc:  |
+        jenkins:
+          disableRememberMe: false
+          mode: NORMAL
+          ...
 ```
 
 And keep extending your config scripts by creating more files (so not all config scripts are located in one yaml file for better maintenance):
@@ -259,13 +257,12 @@ And keep extending your config scripts by creating more files (so not all config
 values_jenkins_unclassified.yaml
 
 ```yaml
-jenkins:
-  controller:
-    JCasC:
-      configScripts:
-        unclassifiedCasc: |
-          unclassified:
-            ...
+controller:
+  JCasC:
+    configScripts:
+      unclassifiedCasc: |
+        unclassified:
+          ...
 ```
 
 When installing, you provide all relevant yaml files (e.g `helm install -f values_main.yaml -f values_jenkins_casc.yaml -f values_jenkins_unclassified.yaml ...`).  Instead of updating the `CASC_JENKINS_CONFIG` environment variable to include multiple paths, multiple CasC yaml files will be created in the same path `var/jenkins_home/casc_configs`.
