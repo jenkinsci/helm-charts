@@ -31,7 +31,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.hostNetworking](./values.yaml#L979) | bool | Enables the agent to use the host network | `false` |
 | [agent.idleMinutes](./values.yaml#L1128) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.repository](./values.yaml#L958) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L960) | string | Tag of the image to pull | `"3309.v27b_9314fd1a_4-1"` |
+| [agent.image.tag](./values.yaml#L960) | string | Tag of the image to pull | `"3309.v27b_9314fd1a_4-2"` |
 | [agent.imagePullSecretName](./values.yaml#L967) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.inheritYamlMergeStrategy](./values.yaml#L1147) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
 | [agent.instanceCap](./values.yaml#L1111) | int | Max number of agents to launch for this type of agent | `2147483647` |
@@ -166,7 +166,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L423) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L412) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L415) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L404) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4336.v55d9a_494db_38","workflow-aggregator:608.v67378e9d3db_1","git:5.7.0","configuration-as-code:1967.va_968e15fd05b_"]` |
+| [controller.installPlugins](./values.yaml#L404) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4340.v345364d31a_2a_","workflow-aggregator:608.v67378e9d3db_1","git:5.7.0","configuration-as-code:1967.va_968e15fd05b_"]` |
 | [controller.javaOpts](./values.yaml#L161) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L95) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L100) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -252,7 +252,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.additionalVolumeMounts](./values.yaml#L581) | list | Enables additional volume mounts for the config auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.containerSecurityContext](./values.yaml#L631) | object | Enable container security context | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true}` |
 | [controller.sidecars.configAutoReload.enabled](./values.yaml#L563) | bool | Enable Jenkins Config as Code auto-reload | `true` |
-| [controller.sidecars.configAutoReload.env](./values.yaml#L613) | object | Environment variables for the Jenkins Config as Code auto-reload container | `{}` |
+| [controller.sidecars.configAutoReload.env](./values.yaml#L613) | list | Environment variables for the Jenkins Config as Code auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.envFrom](./values.yaml#L611) | list | Environment variable sources for the Jenkins Config as Code auto-reload container | `[]` |
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L624) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L566) | string | Registry for the image that triggers the reload | `"docker.io"` |
