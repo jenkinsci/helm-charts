@@ -402,7 +402,7 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4347.va_c0cf1c32f38
+    - kubernetes:4349.v8fe8f2b_ee9f1
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
     - configuration-as-code:1967.va_968e15fd05b_
