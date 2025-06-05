@@ -54,12 +54,16 @@ docker push <account>.dkr.ecr.ap-southeast-1.amazonaws.com/sbt-0.13
 
 ## 3. Prepare Helm values
 
-Create a `values.yaml` with the custom image and plugins disabled so the chart uses the bundled versions:
+Create a `values.yaml` with the custom controller image and plugins disabled so
+the chart uses the bundled versions. Refer to the [chart documentation](../charts/jenkins/README.md#consider-using-a-custom-image)
+for details on building and tagging a production-ready image.
 
 ```yaml
 controller:
-  image: "<aws_account>.dkr.ecr.<region>.amazonaws.com/jenkins-custom"
-  tag: "v1"
+  image:
+    registry: "<aws_account>.dkr.ecr.<region>.amazonaws.com"
+    repository: "jenkins-custom"
+    tag: "v1"
   installPlugins: false
   jenkinsUrl: "https://jenkins.example.com"
   ingress:
@@ -79,11 +83,12 @@ controller:
       security: |
         jenkins:
           securityRealm:
-            legacySecurityRealm:
-              disableSignup: true
+            reverseProxy:
+              forwardedUser: "X-Auth-Request-Email"
+              forwardedEmail: "X-Auth-Request-Email"
           authorizationStrategy:
             globalMatrix:
-              grantedPermissions:
+              permissions:
                 - "Overall/Read:anonymous"
                 - "Overall/Administer:authenticated"
 ```
