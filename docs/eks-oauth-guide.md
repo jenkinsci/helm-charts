@@ -11,7 +11,7 @@ This guide describes one approach for installing the [Jenkins Helm chart](https:
 
 ## 2. Build a custom Jenkins image
 
-The chart recommends building a custom controller image for production so you control plugin versions【F:charts/jenkins/README.md†L102-L132】. Example Dockerfile:
+The chart recommends building a custom controller image for production so you control plugin versions【F:charts/jenkins/README.md†L102-L132】. Example Dockerfile (also available in `docs/Dockerfile.jenkins`):
 
 ```Dockerfile
 FROM jenkins/jenkins:lts
@@ -36,7 +36,7 @@ docker push <aws_account>.dkr.ecr.<region>.amazonaws.com/jenkins-custom:v1
 ### 2.1 Build an sbt 0.13 image
 
 The pipelines use a container with sbt 0.13 installed. Build and push the
-following Dockerfile so it is available in your registry:
+following Dockerfile (see `docs/Dockerfile-sbt-013`) so it is available in your registry:
 
 ```Dockerfile
 FROM openjdk:8-jdk
@@ -227,15 +227,14 @@ EXPOSE 9000
 The `/root/.ivy2` directory in the first stage should be mounted from the
 `ivy-cache` volume so dependencies are not downloaded on every run.
 
-Create a ConfigMap with your sbt credentials file so the agent can publish
+Create a **Secret** with your sbt credentials file so the agent can publish
 artifacts if required:
 
 ```bash
-kubectl create configmap sbt-credentials --from-file=.credentials=/path/to/.credentials -n jenkins
+kubectl create secret generic sbt-publish-creds --from-file=credentials=/path/to/.credentials -n jenkins
 ```
 
-Mount this ConfigMap under `/root/.sbt` in the pod template so sbt can create
-its lock files alongside it.
+Mount this secret at `/root/.ivy2/.credentials` inside the `sbt` container.
 
 Bitbucket credentials for cloning are defined in JCasC using a secret text
 environment variable `BITBUCKET_PASSWORD`:
@@ -273,10 +272,17 @@ variables for your jobs:
 kubectl create secret generic aws-ecr-creds --from-literal=AWS_ACCESS_KEY_ID=<id> --from-literal=AWS_SECRET_ACCESS_KEY=<key> -n jenkins
 ```
 
+Create a ConfigMap containing your `~/.docker/config.json` with the ECR credential helper so Kaniko can authenticate:
+
+```bash
+kubectl create configmap docker-config --from-file=config.json=docs/docker-config.json -n jenkins
+```
+
 Use the credentials in a pipeline that builds the image with Kaniko. The full
 pipeline shown in `docs/kaniko-sbt-pipeline.groovy` clones the Bitbucket
 repository, compiles it with sbt, and then uses Kaniko to push the image to ECR.
-Refer to that file for a complete example.
+For a Job DSL example see `docs/enhanced-seed-job.groovy` and for a declarative
+pipeline using Kubernetes agents see `docs/enhanced-Jenkinsfile`.
 
 ## 7. Resilience
 

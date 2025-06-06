@@ -1,0 +1,22 @@
+jenkins:
+  credentials:
+    system:
+      domainCredentials:
+        - credentials:
+            - usernamePassword:
+                id: "bitbucket-readonly"
+                description: "Readonly Bitbucket access"
+                username: "${BITBUCKET_USER}"
+                password: "${BITBUCKET_PASS}"
+            - string:
+                id: "sbt-publish-creds"
+                description: "SBT publishing credential"
+                secret: "${SBT_TOKEN}"
+            - usernamePassword:
+                id: "aws-ecr-creds"
+                description: "AWS ECR access"
+                username: "${AWS_ACCESS_KEY_ID}"
+                password: "${AWS_SECRET_ACCESS_KEY}"
+  unclassified:
+    location:
+      url: "http://jenkins.example.com/"
