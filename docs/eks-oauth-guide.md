@@ -74,7 +74,9 @@ controller:
       nginx.ingress.kubernetes.io/auth-signin: https://oauth2.example.com/oauth2/start?rd=/redirect/$http_host$escaped_request_uri
 ```
 
-Set up matrix authorization in JCasC so anonymous users are read only and authenticated users are admins. Place the configuration under `controller.JCasC.configScripts`:
+Set up matrix authorization in JCasC so anonymous users can only read while the
+authenticated group and specific admin accounts have full control. Place the
+configuration under `controller.JCasC.configScripts`:
 
 ```yaml
 controller:
@@ -88,9 +90,20 @@ controller:
               forwardedEmail: "X-Auth-Request-Email"
           authorizationStrategy:
             globalMatrix:
-              permissions:
-                - "Overall/Read:anonymous"
-                - "Overall/Administer:authenticated"
+              entries:
+                - group:
+                    name: "authenticated"
+                    permissions:
+                      - "Overall/Administer"
+                - user:
+                    name: "anonymous"
+                    permissions:
+                      - "Overall/Read"
+                - user:
+                    name: "deept.shukla@solvei8.com"
+                    permissions:
+                      - "Overall/Administer"
+                      - "Overall/Read"
 ```
 
 ## 4. Installing the chart

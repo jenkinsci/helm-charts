@@ -6,8 +6,21 @@ controller:
   fsGroup: 1000
   JCasC:
     authorizationStrategy: |-
-      loggedInUsersCanDoAnything:
-        allowAnonymousRead: true
+      globalMatrix:
+        entries:
+          - group:
+              name: "authenticated"
+              permissions:
+                - "Overall/Administer"
+          - user:
+              name: "anonymous"
+              permissions:
+                - "Overall/Read"
+          - user:
+              name: "deept.shukla@solvei8.com"
+              permissions:
+                - "Overall/Administer"
+                - "Overall/Read"
     securityRealm: |-
       ldap:
         configurations:
