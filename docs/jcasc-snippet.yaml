@@ -17,6 +17,31 @@ jenkins:
                 description: "AWS ECR access"
                 username: "${AWS_ACCESS_KEY_ID}"
                 password: "${AWS_SECRET_ACCESS_KEY}"
+  jobs:
+    - script: >
+        job('bootstrap-seed') {
+          scm {
+            git {
+              remote {
+                url 'https://shukla_deept@bitbucket.org/ncinga/jenkins-k8s.git'
+                credentials 'bitbucket-creds'
+              }
+              branches '*/master'
+              extensions {
+                cloneOptions {
+                  shallow true
+                  depth 1
+                  noTags true
+                }
+              }
+            }
+          }
+          steps {
+            jobDsl targets: 'old_setup/jobs/*.groovy',
+                   removedJobAction: 'DELETE',
+                   removedViewAction: 'DELETE'
+          }
+        }
   unclassified:
     location:
       url: "http://jenkins.example.com/"

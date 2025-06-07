@@ -262,7 +262,41 @@ kubectl create secret generic jenkins-jcasc-secrets \
   --from-literal=BITBUCKET_PASSWORD=<bitbucket-password> -n jenkins
 ```
 
-## 6. Pushing images to Amazon ECR
+## 6. Seed job for pipeline creation
+
+Define a seed job in JCasC so Jenkins automatically loads all the Job DSL scripts
+under `old_setup/jobs` from the infrastructure repository:
+
+```yaml
+controller:
+  JCasC:
+    configScripts:
+      seed: |
+        jobs:
+          - script: >
+              job('bootstrap-seed') {
+                scm {
+                  git {
+                    remote {
+                      url 'https://shukla_deept@bitbucket.org/ncinga/jenkins-k8s.git'
+                      credentials 'bitbucket-creds'
+                    }
+                    branches '*/master'
+                    extensions:
+                      - cleanBeforeCheckout: true
+                  }
+                }
+                steps {
+                  jobDsl targets: 'old_setup/jobs/*.groovy',
+                         removedJobAction: 'DELETE',
+                         removedViewAction: 'DELETE'
+                }
+              }
+```
+
+Running this job will create or update all pipelines defined in the repository.
+
+## 7. Pushing images to Amazon ECR
 
 Provide AWS credentials to the controller so pipelines can push images. Create a
 secret with an IAM user that has ECR permissions and reference it as environment
@@ -281,14 +315,15 @@ kubectl create configmap docker-config --from-file=config.json=docs/docker-confi
 Use the credentials in a pipeline that builds the image with Kaniko. The full
 pipeline shown in `docs/kaniko-sbt-pipeline.groovy` clones the Bitbucket
 repository, compiles it with sbt, and then uses Kaniko to push the image to ECR.
-For a Job DSL example see `docs/enhanced-seed-job.groovy` and for a declarative
-pipeline using Kubernetes agents see `docs/enhanced-Jenkinsfile`.
+For a Job DSL example see `docs/seed-job-oldsetup.groovy` or
+`docs/enhanced-seed-job.groovy`. For a declarative pipeline using Kubernetes
+agents see `docs/enhanced-Jenkinsfile`.
 
-## 7. Resilience
+## 8. Resilience
 
 The chart deploys Jenkins as a Kubernetes StatefulSet with persistent storage. Enabling `controller.JCasC.defaultConfig: true` means configuration is reapplied on restarts. Storage persistence ensures that plugin and build state survive pod recreation.
 
-## 8. Next steps
+## 9. Next steps
 
 - Access the dashboard through the ingress hostname after oauth2-proxy authentication.
 - Create additional pipelines using Job DSL.
