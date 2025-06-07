@@ -1,0 +1,5 @@
+FROM openjdk:8-jdk
+RUN curl -L -o /tmp/sbt.tgz https://github.com/sbt/sbt/releases/download/v0.13.18/sbt-0.13.18.tgz \
+    && tar xzf /tmp/sbt.tgz -C /usr/local \
+    && ln -s /usr/local/sbt/bin/sbt /usr/local/bin/sbt \
+    && rm /tmp/sbt.tgz

@@ -1,0 +1,93 @@
+pipeline {
+    environment {
+        // ECR repository to push the final image
+        ECR_REPO = '<account>.dkr.ecr.<region>.amazonaws.com/nsp_auth'
+    }
+    agent {
+        kubernetes {
+            yaml '''
+apiVersion: v1
+kind: Pod
+spec:
+  volumes:
+  - name: ivy-cache
+    emptyDir: {}
+  - name: sbt-creds
+    secret:
+      secretName: sbt-publish-creds
+      items:
+      - key: credentials
+        path: .credentials
+  - name: docker-config
+    configMap:
+      name: docker-config
+  containers:
+  - name: sbt
+    image: 185889327143.dkr.ecr.ap-southeast-1.amazonaws.com/sbt-0.13
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: ivy-cache
+      mountPath: /root/.ivy2/cache
+    - name: sbt-creds
+      mountPath: /root/.ivy2/.credentials
+      subPath: .credentials
+  - name: kaniko
+    image: gcr.io/kaniko-project/executor:v1.20.1
+    command:
+    - cat
+    tty: true
+    volumeMounts:
+    - name: ivy-cache
+      mountPath: /root/.ivy2/cache
+    - name: docker-config
+      mountPath: /kaniko/.docker
+'''
+        }
+    }
+    options {
+        ansiColor('xterm')
+        disableConcurrentBuilds()
+        buildDiscarder(logRotator(numToKeepStr: '5'))
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo "Cloning ${env.SERVICE_REPO_URL}"
+                checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: "${params.branch}"]],
+                    userRemoteConfigs: [[
+                        url: env.SERVICE_REPO_URL,
+                        credentialsId: env.CREDENTIALS_ID
+                    ]],
+                    extensions: [[
+                        $class: 'CloneOption',
+                        depth: 1,
+                        shallow: true,
+                        noTags: true,
+                        timeout: 10
+                    ]]
+                ])
+            }
+        }
+        stage('SBT Build') {
+            steps {
+                container('sbt') {
+                    sh 'sbt -mem 2048 clean update compile'
+                }
+            }
+        }
+        stage('Build & Push Docker Image') {
+            steps {
+                container('kaniko') {
+                    withCredentials([usernamePassword(credentialsId: 'aws-ecr-creds', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
+                        sh '/kaniko/executor --dockerfile=Dockerfile --context=. --destination=${ECR_REPO}:${BUILD_NUMBER}'
+                    }
+                }
+            }
+        }
+    }
+}

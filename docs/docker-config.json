@@ -1,0 +1,5 @@
+{
+  "credHelpers": {
+    "<account>.dkr.ecr.<region>.amazonaws.com": "ecr-login"
+  }
+}
