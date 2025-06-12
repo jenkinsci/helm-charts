@@ -50,7 +50,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.podRetention](./values.yaml#L1009) | string |  | `"Never"` |
 | [agent.podTemplates](./values.yaml#L1183) | object | Configures extra pod templates for the default kubernetes cloud | `{}` |
 | [agent.privileged](./values.yaml#L973) | bool | Agent privileged container | `false` |
-| [agent.resources](./values.yaml#L981) | object | Resources allocation (Requests and Limits) | `{"limits":{"cpu":"512m","memory":"512Mi"},"requests":{"cpu":"512m","memory":"512Mi"}}` |
+| [agent.resources](./values.yaml#L981) | object | Resources allocation (Requests and Limits) | `{"limits":{"cpu":"500m","memory":"512Mi"},"requests":{"cpu":"500m","memory":"512Mi"}}` |
 | [agent.restrictedPssSecurityContext](./values.yaml#L1006) | bool | Set a restricted securityContext on jnlp containers | `false` |
 | [agent.retentionTimeout](./values.yaml#L947) | int | Time in minutes after which the Kubernetes cloud plugin will clean up an idle worker that has not already terminated | `5` |
 | [agent.runAsGroup](./values.yaml#L977) | string | Configure container group | `nil` |
