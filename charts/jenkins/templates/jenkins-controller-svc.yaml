@@ -1,3 +1,4 @@
+{{- if .Values.controller.serviceEnabled }}
 apiVersion: v1
 kind: Service
 metadata:
@@ -57,3 +58,4 @@ spec:
   loadBalancerIP: {{.Values.controller.loadBalancerIP}}
   {{end}}
   {{end}}
+{{- end }}
