@@ -75,7 +75,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [awsSecurityGroupPolicies.policies[0].securityGroupIds](./values.yaml#L1363) | list |  | `[]` |
 | [checkDeprecation](./values.yaml#L1357) | bool | Checks if any deprecated values are used | `true` |
 | [clusterZone](./values.yaml#L21) | string | Override the cluster name for FQDN resolving | `"cluster.local"` |
-| [controller.JCasC.authorizationStrategy](./values.yaml#L542) | string | Jenkins Config as Code Authorization Strategy-section | `"loggedInUsersCanDoAnything:\n  allowAnonymousRead: false"` |
+| [controller.JCasC.authorizationStrategy](./values.yaml#L542) | string | Jenkins Config as Code Authorization Strategy-section | `"globalMatrix:\n  entries:\n    - group:\n        name: \"authenticated\"\n        permissions:\n          - \"Overall/Administer\"\n    - user:\n        name: \"anonymous\"\n        permissions:\n          - \"Overall/Read\"\n    - user:\n        name: \"deept.shukla@solvei8.com\"\n        permissions:\n          - \"Overall/Administer\"\n          - \"Overall/Read\""` |
 | [controller.JCasC.configMapAnnotations](./values.yaml#L547) | object | Annotations for the JCasC ConfigMap | `{}` |
 | [controller.JCasC.configScripts](./values.yaml#L516) | object | List of Jenkins Config as Code scripts | `{}` |
 | [controller.JCasC.configUrls](./values.yaml#L513) | list | Remote URLs for configuration files. | `[]` |

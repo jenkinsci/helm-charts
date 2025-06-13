@@ -1,0 +1,12 @@
+FROM jenkins/jenkins:lts
+
+USER root
+RUN jenkins-plugin-cli --plugins \
+    kubernetes \
+    workflow-aggregator \
+    git \
+    configuration-as-code \
+    credentials-binding \
+    aws-credentials
+
+USER jenkins
