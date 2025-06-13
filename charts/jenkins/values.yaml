@@ -213,6 +213,9 @@ controller:
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
 
+  # -- enable or disable the controller k8s service
+  serviceEnabled: true
+
   # For minikube, set this to NodePort, elsewhere uses LoadBalancer
   # Use ClusterIP if your setup includes ingress controller
   # -- k8s service type
