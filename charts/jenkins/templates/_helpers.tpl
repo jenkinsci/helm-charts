@@ -387,7 +387,11 @@ Returns kubernetes pod template configuration as code
           value: "http://{{ template "jenkins.fullname" . }}.{{ template "jenkins.namespace" . }}.svc.{{.Values.clusterZone}}:{{.Values.controller.servicePort}}{{ default "/" .Values.controller.jenkinsUriPrefix }}"
           {{- end }}
         {{- end }}
+    {{- if ne .Values.agent.image.registry "" }}
+    image: "{{ .Values.agent.image.registry}}/{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
+    {{- else }}
     image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
+    {{- end }}
     {{- if .Values.agent.livenessProbe }}
     livenessProbe:
       execArgs: {{.Values.agent.livenessProbe.execArgs | quote}}
