@@ -315,6 +315,12 @@ spec:
               mountPath: /var/jenkins_cache
             - mountPath: /tmp
               name: tmp-volume
+            {{- if .Values.controller.additionalConfigMaps }}
+            {{- range $key, $value := .Values.controller.additionalConfigMaps }}
+            - mountPath: {{ $value.mountPath }}
+              name: {{ $value.name }}
+            {{- end }}
+            {{- end }}
 
 {{- if .Values.controller.sidecars.configAutoReload.enabled }}
 {{- include "jenkins.configReloadContainer" (list $ "config-reload" "sidecar") | nindent 8 }}
@@ -412,7 +418,18 @@ spec:
         emptyDir: {}
       - name: tmp-volume
         emptyDir: {}
-
+      {{- range $key, $value := .Values.controller.additionalConfigMaps }}
+      - name: {{ $value.name }}
+        configMap:
+            name: {{ $value.name }}
+            {{- if $value.items }}
+            items:
+            {{- range $item := $value.items }}
+            - key: {{ $item.key }}
+              path: {{ $item.path }}
+            {{- end }}
+            {{- end }}
+      {{- end }}
       {{- if and .Values.controller.httpsKeyStore.enable (not .Values.controller.httpsKeyStore.disableSecretMount) }}
       - name: jenkins-https-keystore
         secret:

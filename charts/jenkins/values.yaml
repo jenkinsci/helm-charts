@@ -476,6 +476,14 @@ controller:
   #  - name: secret-name-1
   #    keyName: password
 
+  # -- List of addtional configmaps to mount
+  additionalConfigMaps: []
+  # - name: configmap-name-1
+  #   mountPath: /var/jenkins_home/configmap-path-1
+  #   items:
+  #    - key: configmap-key-1
+  #      path: configmap-path-1
+
   # -- List of additional secrets to create and mount
   additionalSecrets: []
   # ref: https://github.com/jenkinsci/configuration-as-code-plugin/blob/master/docs/features/secrets.adoc#kubernetes-secrets
