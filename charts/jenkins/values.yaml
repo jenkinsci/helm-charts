@@ -570,7 +570,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 1.30.3
+        tag: 1.30.5
       imagePullPolicy: IfNotPresent
       resources:
         {}
