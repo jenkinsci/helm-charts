@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.65
+
+Revert update of `docker.io/kiwigrid/k8s-sidecar` back to `1.30.3` which works due to upstream [bug](https://github.com/python/cpython/issues/135408)
+
 ## 5.8.64
 
 Update `kubernetes` to version `4358.vcfd9c5a_0a_f51`
