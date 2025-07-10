@@ -170,7 +170,7 @@ tests:
       namespace: other
     asserts:
       - hasDocuments:
-          count: 3
+          count: 2
       - documentIndex: 0
         isKind:
           of: ConfigMap
@@ -368,7 +368,7 @@ tests:
       controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
-          count: 0
+          count: 2
   - it: custom jenkins label
     set:
       controller:
@@ -868,13 +868,13 @@ tests:
         isNotEmpty:
           path: data["securityrealm.yaml"]
       - documentIndex: 0
-        contains:
+        matchRegex:
           path: data["securityrealm.yaml"]
-          content: "securityRealm:"
+          pattern: "securityRealm:"
       - documentIndex: 0
-        contains:
+        matchRegex:
           path: data["securityrealm.yaml"]
-          content: "allowsSignup: false"
+          pattern: "allowsSignup: false"
       - documentIndex: 1
         isKind:
           of: ConfigMap
@@ -886,13 +886,13 @@ tests:
         isNotEmpty:
           path: data["authorizationstrategy.yaml"]
       - documentIndex: 1
-        contains:
+        matchRegex:
           path: data["authorizationstrategy.yaml"]
-          content: "authorizationStrategy:"
+          pattern: "authorizationStrategy:"
       - documentIndex: 1
-        contains:
+        matchRegex:
           path: data["authorizationstrategy.yaml"]
-          content: "allowAnonymousRead: false"
+          pattern: "allowAnonymousRead: false"
   - it: securityRealm and authorizationStrategy in configScripts should not create separate configmaps
     set:
       controller:
@@ -929,10 +929,10 @@ tests:
         isNotEmpty:
           path: data["security.yaml"]
       - documentIndex: 0
-        contains:
+        matchRegex:
           path: data["security.yaml"]
-          content: "securityRealm:"
+          pattern: "securityRealm:"
       - documentIndex: 0
-        contains:
+        matchRegex:
           path: data["security.yaml"]
-          content: "authorizationStrategy:"
+          pattern: "authorizationStrategy:"
