@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.68
+
+Update `jenkins/inbound-agent` to version `3324.vea_eda_e98cd69-1`
+
 ## 5.8.67
 
 Update `jenkins/inbound-agent` to version `3309.v27b_9314fd1a_4-8`
