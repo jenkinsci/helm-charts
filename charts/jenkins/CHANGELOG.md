@@ -12,9 +12,45 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 5.8.60
+## 5.8.69
 
 Render securityRealm and authorizationStrategy as JCasC ConfigMaps when set outside configScripts (Fixes #1391)
+
+## 5.8.68
+
+Update `jenkins/inbound-agent` to version `3324.vea_eda_e98cd69-1`
+
+## 5.8.67
+
+Update `jenkins/inbound-agent` to version `3309.v27b_9314fd1a_4-8`
+
+## 5.8.66
+
+Update `jenkins/inbound-agent` to version `3309.v27b_9314fd1a_4-7`
+
+## 5.8.65
+
+Revert update of `docker.io/kiwigrid/k8s-sidecar` back to `1.30.3` which works due to upstream [bug](https://github.com/python/cpython/issues/135408)
+
+## 5.8.64
+
+Update `kubernetes` to version `4358.vcfd9c5a_0a_f51`
+
+## 5.8.63
+
+Update `jenkins/inbound-agent` to version `3309.v27b_9314fd1a_4-6`
+
+## 5.8.62
+
+Update `kubernetes` to version `4356.vfa_556c21f086`
+
+## 5.8.61
+
+Update `jenkins/jenkins` to version `2.504.3-jdk21`
+
+## 5.8.60
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `1.30.5`
 
 ## 5.8.59
 
