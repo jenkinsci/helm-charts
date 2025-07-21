@@ -825,4 +825,4 @@ tests:
       - isSubset:
           path: spec.template.metadata.annotations
           content:
-            checksum/config-init-scripts: fb5c231103643c20967090a76e1bc631cbd6e79a433f73a0c5f60c6a4a946b4c
+            checksum/config-init-scripts: a2331436e565e122750d28fbfbec14b360f3859e44cf4479f0358fa409bd6438
