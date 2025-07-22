@@ -15,12 +15,13 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: 56985563a4601f33a02dbb130df031039a92200678783ed869b292fcb225a257
+          checksum/config: d31d83ee03c2003869ffba04725a19aaedf15e6917cfb1cb0eb79e232aadea17
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
+          helm.sh/chart: jenkins-5.8.69
       spec:
         automountServiceAccountToken: true
         containers:
@@ -222,7 +223,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 56985563a4601f33a02dbb130df031039a92200678783ed869b292fcb225a257
+    checksum/config: d31d83ee03c2003869ffba04725a19aaedf15e6917cfb1cb0eb79e232aadea17
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -236,12 +237,13 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: 56985563a4601f33a02dbb130df031039a92200678783ed869b292fcb225a257
+          checksum/config: d31d83ee03c2003869ffba04725a19aaedf15e6917cfb1cb0eb79e232aadea17
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
+          helm.sh/chart: jenkins-5.8.69
       spec:
         automountServiceAccountToken: true
         containers:

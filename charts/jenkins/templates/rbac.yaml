@@ -8,13 +8,7 @@ metadata:
   name: {{ $serviceName }}-schedule-agents
   namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["pods", "pods/exec", "pods/log", "persistentvolumeclaims", "events"]
@@ -33,13 +27,7 @@ metadata:
   name: {{ $serviceName }}-schedule-agents
   namespace: {{ template "jenkins.agent.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -60,13 +48,7 @@ metadata:
   name: {{ template "jenkins.fullname" . }}-read-secrets
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 rules:
   - apiGroups: [""]
     resources: ["secrets"]
@@ -80,13 +62,7 @@ metadata:
   name: {{ $serviceName }}-read-secrets
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -109,13 +85,7 @@ metadata:
   name: {{ $serviceName }}-use-nonroot-scc
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 rules:
   - apiGroups: ["security.openshift.io"]
     resources: ["securitycontextconstraints"]
@@ -129,13 +99,7 @@ metadata:
   name: {{ $serviceName }}-use-nonroot-scc
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -157,13 +121,7 @@ metadata:
   name: {{ template "jenkins.fullname" . }}-casc-reload
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 rules:
 - apiGroups: [""]
   resources: ["configmaps"]
@@ -177,13 +135,7 @@ metadata:
   name: {{ $serviceName }}-watch-configmaps
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role

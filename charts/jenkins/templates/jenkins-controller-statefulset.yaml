@@ -8,13 +8,7 @@ metadata:
   name: {{ template "jenkins.fullname" . }}
   namespace: {{ template "jenkins.namespace" . }}
   labels:
-    "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-    "app.kubernetes.io/instance": "{{ .Release.Name }}"
-    "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
     {{- range $key, $val := .Values.controller.statefulSetLabels }}
     {{ $key }}: {{ $val | quote }}
     {{- end}}
@@ -36,10 +30,7 @@ spec:
   template:
     metadata:
       labels:
-        "app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
-        "app.kubernetes.io/managed-by": "{{ .Release.Service }}"
-        "app.kubernetes.io/instance": "{{ .Release.Name }}"
-        "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+        {{- include "jenkins.labels" . | nindent 8 }}
         {{- range $key, $val := .Values.controller.podLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end}}

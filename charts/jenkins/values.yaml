@@ -29,6 +29,9 @@ credentialsId:
 # -- Enables rendering of the helm.sh/chart label to the annotations
 renderHelmLabels: true
 
+# -- Configures extra labels for the agent all objects
+extraLabels: {}
+
 controller:
   # -- Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
