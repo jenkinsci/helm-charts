@@ -12,9 +12,21 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 5.8.69
+## 5.8.72
 
 Render securityRealm and authorizationStrategy as JCasC ConfigMaps when set outside configScripts (Fixes #1391)
+
+## 5.8.71
+
+Update `jenkins/inbound-agent` to version `3327.v868139a_d00e0-2`
+
+## 5.8.70
+
+Update `jenkins/inbound-agent` to version `3324.vea_eda_e98cd69-2`
+
+## 5.8.69
+
+Update `jenkins/jenkins` to version `2.516.1-jdk21`
 
 ## 5.8.68
 
