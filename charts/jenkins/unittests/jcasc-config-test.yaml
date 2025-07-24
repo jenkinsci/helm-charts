@@ -368,7 +368,7 @@ tests:
       controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
-          count: 0
+          count: 2
   - it: custom jenkins label
     set:
       controller:
@@ -841,3 +841,98 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: securityRealm and authorizationStrategy without defaultConfig
+    set:
+      controller:
+        JCasC:
+          defaultConfig: false
+          securityRealm: |-
+            local:
+              allowsSignup: false
+          authorizationStrategy: |-
+            loggedInUsersCanDoAnything:
+              allowAnonymousRead: false
+    release:
+      namespace: default
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        isKind:
+          of: ConfigMap
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-securityrealm
+      - documentIndex: 0
+        isNotEmpty:
+          path: data["securityrealm.yaml"]
+      - documentIndex: 0
+        matchRegex:
+          path: data["securityrealm.yaml"]
+          pattern: "securityRealm:"
+      - documentIndex: 0
+        matchRegex:
+          path: data["securityrealm.yaml"]
+          pattern: "allowsSignup: false"
+      - documentIndex: 1
+        isKind:
+          of: ConfigMap
+      - documentIndex: 1
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-authorizationstrategy
+      - documentIndex: 1
+        isNotEmpty:
+          path: data["authorizationstrategy.yaml"]
+      - documentIndex: 1
+        matchRegex:
+          path: data["authorizationstrategy.yaml"]
+          pattern: "authorizationStrategy:"
+      - documentIndex: 1
+        matchRegex:
+          path: data["authorizationstrategy.yaml"]
+          pattern: "allowAnonymousRead: false"
+  - it: securityRealm and authorizationStrategy in configScripts should not create separate configmaps
+    set:
+      controller:
+        JCasC:
+          defaultConfig: false
+          configScripts:
+            security: |
+              jenkins:
+                securityRealm:
+                  local:
+                    allowsSignup: false
+                authorizationStrategy:
+                  loggedInUsersCanDoAnything:
+                    allowAnonymousRead: false
+          securityRealm: |-
+            local:
+              allowsSignup: false
+          authorizationStrategy: |-
+            loggedInUsersCanDoAnything:
+              allowAnonymousRead: false
+    release:
+      namespace: default
+    asserts:
+      - hasDocuments:
+          count: 1
+      - documentIndex: 0
+        isKind:
+          of: ConfigMap
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-security
+      - documentIndex: 0
+        isNotEmpty:
+          path: data["security.yaml"]
+      - documentIndex: 0
+        matchRegex:
+          path: data["security.yaml"]
+          pattern: "securityRealm:"
+      - documentIndex: 0
+        matchRegex:
+          path: data["security.yaml"]
+          pattern: "authorizationStrategy:"
