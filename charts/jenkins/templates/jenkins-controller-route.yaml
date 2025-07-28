@@ -5,12 +5,10 @@ metadata:
   namespace: {{ template "jenkins.namespace" . }}
   labels:
     app: {{ template "jenkins.fullname" . }}
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ template "jenkins.label" .}}"
-    {{- end }}
     release: "{{ .Release.Name }}"
     heritage: "{{ .Release.Service }}"
     component: "{{ .Release.Name }}-{{ .Values.controller.componentName }}"
+    {{- include "jenkins.labels" . | nindent 4 }}
 {{- if .Values.controller.route.labels }}
 {{ toYaml .Values.controller.route.labels | indent 4 }}
 {{- end }}

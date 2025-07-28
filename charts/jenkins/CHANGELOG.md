@@ -12,6 +12,13 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.73
+
+Standardize labels and add extraLabels support across chart:
+
+- Standardize label application patterns throughout all template files
+- Add extraLabels configuration option for custom user-defined labels
+
 ## 5.8.72
 
 Render securityRealm and authorizationStrategy as JCasC ConfigMaps when set outside configScripts (Fixes #1391)

@@ -5,6 +5,8 @@ kind: SecurityGroupPolicy
 metadata:
   name: {{ .name }}
   namespace: {{ template "jenkins.namespace" $ }}
+  labels:
+    {{ include "jenkins.labels" $ | nindent 4 }}
 spec:
   podSelector: 
     {{- toYaml .podSelector | nindent 6}}
