@@ -38,8 +38,8 @@ data:
   jcasc-default-config.yaml: |-
     {{- include "jenkins.casc.defaults" . | nindent 4 }}
 {{- end}}
-{{- /* Only process JCasC if controller.JCasC.defaultConfig is not explicitly set to false */}}
-{{- if or (not (hasKey .Values.controller.JCasC "defaultConfig")) .Values.controller.JCasC.defaultConfig }}
+{{- /* ONLY process additional JCasC ConfigMaps if defaultConfig is true */}}
+{{- if .Values.controller.JCasC.defaultConfig }}
 {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
 {{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) }}
 ---
