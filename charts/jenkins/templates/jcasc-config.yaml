@@ -38,8 +38,10 @@ data:
   jcasc-default-config.yaml: |-
     {{- include "jenkins.casc.defaults" . | nindent 4 }}
 {{- end}}
+{{- /* Only process JCasC if controller.JCasC.defaultConfig is not explicitly set to false */}}
+{{- if or (not (hasKey .Values.controller.JCasC "defaultConfig")) .Values.controller.JCasC.defaultConfig }}
 {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
-{{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
+{{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -47,13 +49,7 @@ metadata:
   name: {{ template "jenkins.casc.configName" (list "config-securityrealm" $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
-    "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ $root.Chart.Name }}-{{ $root.Chart.Version | replace "+" "_" }}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
-    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-    "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
+    {{- include "jenkins.labels" $root | nindent 4 }}
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 {{- if $root.Values.controller.JCasC.configMapAnnotations }}
   annotations:
@@ -65,7 +61,7 @@ data:
       securityRealm:
         {{- tpl .Values.controller.JCasC.securityRealm . | nindent 8 }}
 {{- end }}
-{{- if and .Values.controller.JCasC.authorizationStrategy (not (contains "authorizationStrategy:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
+{{- if and .Values.controller.JCasC.authorizationStrategy (not (contains "authorizationStrategy:" $configScripts)) }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -73,13 +69,7 @@ metadata:
   name: {{ template "jenkins.casc.configName" (list "config-authorizationstrategy" $ )}}
   namespace: {{ template "jenkins.namespace" $root }}
   labels:
-    "app.kubernetes.io/name": {{ template "jenkins.name" $root}}
-    {{- if .Values.renderHelmLabels }}
-    "helm.sh/chart": "{{ $root.Chart.Name }}-{{ $root.Chart.Version | replace "+" "_" }}"
-    {{- end }}
-    "app.kubernetes.io/managed-by": "{{ $.Release.Service }}"
-    "app.kubernetes.io/instance": "{{ $.Release.Name }}"
-    "app.kubernetes.io/component": "{{ $.Values.controller.componentName }}"
+    {{- include "jenkins.labels" $root | nindent 4 }}
     {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
 {{- if $root.Values.controller.JCasC.configMapAnnotations }}
   annotations:
@@ -90,5 +80,6 @@ data:
     jenkins:
       authorizationStrategy:
         {{- tpl .Values.controller.JCasC.authorizationStrategy . | nindent 8 }}
+{{- end }}
 {{- end }}
 {{- end }}
