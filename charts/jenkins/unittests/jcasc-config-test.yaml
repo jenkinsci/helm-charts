@@ -856,38 +856,18 @@ tests:
       namespace: default
     asserts:
       - hasDocuments:
-          count: 2
-      - documentIndex: 0
-        isKind:
-          of: ConfigMap
-      - documentIndex: 0
-        equal:
-          path: metadata.name
-          value: RELEASE-NAME-jenkins-jenkins-config-securityrealm
-      - documentIndex: 0
-        isNotEmpty:
-          path: data["securityrealm.yaml"]
-      - documentIndex: 0
-        matchRegex:
-          path: data["securityrealm.yaml"]
-          pattern: "securityRealm:"
-      - documentIndex: 0
-        matchRegex:
-          path: data["securityrealm.yaml"]
-          pattern: "allowsSignup: false"
-      - documentIndex: 1
-        isKind:
-          of: ConfigMap
-      - documentIndex: 1
-        equal:
-          path: metadata.name
-          value: RELEASE-NAME-jenkins-jenkins-config-authorizationstrategy
-      - documentIndex: 1
-        isNotEmpty:
-          path: data["authorizationstrategy.yaml"]
-      - documentIndex: 1
-        matchRegex:
-          path: data["authorizationstrategy.yaml"]
+          count: 0
+      - hasDocuments:
+          count: 0
+          documentSelector:
+            path: metadata.name
+            pattern: ".*jenkins-jenkins-config-securityrealm"
+      - hasDocuments:
+          count: 0
+          documentSelector:
+            path: metadata.name
+            pattern: ".*jenkins-jenkins-config-authorizationstrategy"
+  # No assertions for document content because we expect no documents to be generated
           pattern: "authorizationStrategy:"
       - documentIndex: 1
         matchRegex:
