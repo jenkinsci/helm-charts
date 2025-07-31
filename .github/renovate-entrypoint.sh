@@ -10,7 +10,7 @@ export HELM_VERSION=v3.18.4
 export HELM_UNITTEST_VERSION=v0.8.2
 
 # renovate: datasource=github-tags depName=jenkins-x-plugins/jx-release-version
-export JENKINS_JX_VERSION=v2.7.10
+export JENKINS_JX_VERSION=v2.7.11
 
 # renovate: datasource=github-releases depName=norwoodj/helm-docs
 export HELM_DOCS_VERSION=1.14.2
