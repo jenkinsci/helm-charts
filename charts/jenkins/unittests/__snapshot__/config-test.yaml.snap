@@ -6,7 +6,7 @@ additional plugins config:
       git:5.7.0
       configuration-as-code:1971.vf9280461ea_89
       kubernetes-credentials-provider
-default config:
+default config without helm labels:
   1: |
     |-
       kubernetes:4358.vcfd9c5a_0a_f51
