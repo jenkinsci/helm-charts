@@ -9,13 +9,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: agent namespace and templates
     release:
@@ -60,7 +62,8 @@ tests:
                   resourceLimitMemory: "1024Mi"
                   resourceLimitEphemeralStorage: "2Gi"
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: customized config
     set:
@@ -170,7 +173,7 @@ tests:
       namespace: other
     asserts:
       - hasDocuments:
-          count: 2
+          count: 4
       - documentIndex: 0
         isKind:
           of: ConfigMap
@@ -231,13 +234,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom emptyDir workspace volume
     set:
@@ -251,13 +256,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom hostPath workspace volume
     set:
@@ -271,13 +278,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom nfs workspace volume
     set:
@@ -293,13 +302,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom pvc workspace volume
     set:
@@ -314,13 +325,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom other workspace volume
     set:
@@ -335,13 +348,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: disable helm.sh label
     set:
@@ -361,14 +376,15 @@ tests:
     set:
       agent.enabled: false
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: disable default config
     set:
       controller.JCasC.defaultConfig: false
     asserts:
       - hasDocuments:
-          count: 2
+          count: 0
   - it: custom jenkins label
     set:
       controller:
@@ -379,13 +395,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: adds custom labels on agent pods
     set:
@@ -397,13 +415,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: disable useDefaultServiceAccount
     set:
@@ -413,13 +433,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: set agent.serviceAccount
     set:
@@ -429,13 +451,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: legacyRemotingSecurityEnabled = false
     release:
@@ -447,13 +471,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: legacyRemotingSecurityEnabled = true
     release:
@@ -465,13 +491,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: empty projectNamingStrategy
     release:
@@ -480,7 +508,8 @@ tests:
       controller:
         projectNamingStrategy:
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: non-string projectNamingStrategy
     release:
@@ -492,7 +521,8 @@ tests:
             mySetting1: true
             mySetting2: something
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: specify security settings without apiToken override
     release:
@@ -504,7 +534,8 @@ tests:
             gitHostKeyVerificationConfiguration:
               sshHostKeyVerificationStrategy: "acceptFirstConnectionStrategy"
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: specify security settings with apiToken override
     release:
@@ -515,7 +546,8 @@ tests:
           security:
             apiToken: overridden
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: specify additional container
     release:
@@ -531,7 +563,8 @@ tests:
             args: ""
             privileged: true
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: specify additional container and overwrite in additional agent
     release:
@@ -557,7 +590,8 @@ tests:
               command: entrypoint.sh
               args: arg1 arg2
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: specify additional container and clear in additional agent
     release:
@@ -577,7 +611,8 @@ tests:
           podName: additional-agent
           additionalContainers: []
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: configure hostnetworking to agent
     release:
@@ -586,7 +621,8 @@ tests:
       agent:
         hostNetworking: true
     asserts:
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: set secretEnvVars
     set:
@@ -604,13 +640,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: set directConnection
     set:
@@ -622,13 +660,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: set restrictedPssSecurityContext
     set:
@@ -640,13 +680,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: agent with liveness probe
     set:
@@ -664,13 +706,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: agents with liveness probe
     set:
@@ -695,13 +739,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: additional clouds
     set:
@@ -715,13 +761,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: additional clouds inheriting additional agents
     set:
@@ -743,13 +791,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: additional clouds overriding additional agents
     set:
@@ -772,13 +822,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom configmap annotations
     set:
@@ -791,7 +843,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
+          count: 3
       - equal:
           path: metadata.annotations
           value:
@@ -811,13 +863,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: additional clouds set usageRestricted
     set:
@@ -833,13 +887,15 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 1
-      - isNotEmpty:
+          count: 3
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: securityRealm and authorizationStrategy without defaultConfig
     set:
@@ -857,22 +913,6 @@ tests:
     asserts:
       - hasDocuments:
           count: 0
-      - hasDocuments:
-          count: 0
-          documentSelector:
-            path: metadata.name
-            pattern: ".*jenkins-jenkins-config-securityrealm"
-      - hasDocuments:
-          count: 0
-          documentSelector:
-            path: metadata.name
-            pattern: ".*jenkins-jenkins-config-authorizationstrategy"
-  # No assertions for document content because we expect no documents to be generated
-          pattern: "authorizationStrategy:"
-      - documentIndex: 1
-        matchRegex:
-          path: data["authorizationstrategy.yaml"]
-          pattern: "allowAnonymousRead: false"
   - it: securityRealm and authorizationStrategy in configScripts should not create separate configmaps
     set:
       controller:
