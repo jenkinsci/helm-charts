@@ -42,6 +42,6 @@ annotations:
     - name: k8s-sidecar
       image: docker.io/kiwigrid/k8s-sidecar:1.30.3
     - name: inbound-agent
-      image: jenkins/inbound-agent:3327.v868139a_d00e0-2
+      image: jenkins/inbound-agent:3327.v868139a_d00e0-5
   artifacthub.io/category: "integration-delivery"
   artifacthub.io/license: "Apache-2.0"
