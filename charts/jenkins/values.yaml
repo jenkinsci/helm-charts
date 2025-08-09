@@ -854,9 +854,9 @@ controller:
   httpsKeyStore:
     # -- Enables HTTPS keystore on jenkins controller
     enable: false
-    # -- Name of the secret that already has ssl keystore
+    # -- Name of the secret that already has SSL keystore
     jenkinsHttpsJksSecretName: ""
-    # -- Name of the key in the secret that already has ssl keystore
+    # -- Name of the key in the secret that already has SSL keystore
     jenkinsHttpsJksSecretKey: "jenkins-jks-file"
     # -- Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file
     jenkinsHttpsJksPasswordSecretName: ""

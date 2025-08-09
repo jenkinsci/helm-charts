@@ -139,8 +139,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.httpsKeyStore.httpPort](./values.yaml#L869) | int | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. | `8081` |
 | [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey](./values.yaml#L864) | string | Name of the key in the secret that contains the JKS password | `"https-jks-password"` |
 | [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName](./values.yaml#L862) | string | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file | `""` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L860) | string | Name of the key in the secret that already has ssl keystore | `"jenkins-jks-file"` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L858) | string | Name of the secret that already has ssl keystore | `""` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L860) | string | Name of the key in the secret that already has SSL keystore | `"jenkins-jks-file"` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L858) | string | Name of the secret that already has SSL keystore | `""` |
 | [controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded](./values.yaml#L878) | string | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here | `nil` |
 | [controller.httpsKeyStore.password](./values.yaml#L875) | string | Jenkins keystore password | `"password"` |
 | [controller.httpsKeyStore.path](./values.yaml#L871) | string | Path of HTTPS keystore file | `"/var/jenkins_keystore"` |

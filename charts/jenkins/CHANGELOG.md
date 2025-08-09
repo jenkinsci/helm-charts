@@ -2156,7 +2156,7 @@ Fixed a bug in the configuration as code reload URL, where it wouldn't work with
 
 ## 1.9.22
 
-Add `master.jenkinsHome` and `master.jenkinsRef` options to use docker images derivates from Jenkins
+Add `master.jenkinsHome` and `master.jenkinsRef` options to use Docker images derivates from Jenkins
 
 ## 1.9.21
 
@@ -2230,7 +2230,7 @@ Make `agent.slaveConnectTimeout` configurable: by increasing this value Jenkins 
 
 ## 1.9.6
 
-Enables jenkins to use keystore inorder to have native ssl support #17790 <https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777>
+Enables jenkins to use keystore inorder to have native SSL support #17790 <https://wiki.jenkins.io/pages/viewpage.action?pageId=135468777>
 
 ## 1.9.5 Enable remoting security
 
@@ -2481,7 +2481,7 @@ commit: 7cc9b54c7
 
 ## 1.4.0
 
-Change the value name for docker image tags - standartise to helm preferred value name - tag; this also allows auto-deployments using weaveworks flux (#15565)
+Change the value name for Docker image tags - standartise to helm preferred value name - tag; this also allows auto-deployments using weaveworks flux (#15565)
 commit: 5c3d920e7
 
 ## 1.3.6
@@ -2912,7 +2912,7 @@ commit: 0d51a4187
 
 ## 0.28.3
 
-fix parsing java options (#10140)
+fix parsing Java options (#10140)
 commit: 9448d0293
 
 ## 0.28.2
