@@ -5,7 +5,7 @@
   platform: "github",
   repositories: ["jenkinsci/helm-charts"],
   // eslint-disable-next-line
-  allowedPostUpgradeCommands: [
+  allowedCommands: [
     '^\.github\/renovate-postupgrade\.sh ".+" ".+"$',
   ],
   prConcurrentLimit: 0,
