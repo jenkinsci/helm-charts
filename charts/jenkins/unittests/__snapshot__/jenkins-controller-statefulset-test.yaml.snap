@@ -1,3 +1,17 @@
+config values:
+  1: |
+    apiVersion: v1
+    data:
+      inittest.groovy: This is a test script
+    kind: ConfigMap
+    metadata:
+      labels:
+        app.kubernetes.io/component: jenkins-controller
+        app.kubernetes.io/instance: my-release
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: jenkins
+      name: my-release-jenkins-init-scripts
+      namespace: my-namespace
 configure empty image tag label:
   1: |
     docker.io/jenkins/jenkins:2.516.1
@@ -222,7 +236,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 964ceb18a473e1015035d0bc0aefd4a716baf1430997b6cab4dbe54db9e07180
+    checksum/config: 196ee73f223bd81f6a9ca60734bd278ae908da6226476f009f60ff7e3c524bf1
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:

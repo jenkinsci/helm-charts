@@ -821,8 +821,19 @@ tests:
         initScripts:
           test: |-
             This is a test script
+      renderHelmLabels: false
     asserts:
       - isSubset:
           path: spec.template.metadata.annotations
           content:
-            checksum/config-init-scripts: ef946fbeeb0d0cb6f5bd34506d57ccb1dcd932a493dd38bf53e13dc2b9206078
+            checksum/config-init-scripts: 7bbfa764cae3f479cabae93c236604a2ff72b8a79c2977606f75f46f730084eb
+  - it: config values
+    template: config-init-scripts.yaml
+    set:
+      controller:
+        initScripts:
+          test: |-
+            This is a test script
+      renderHelmLabels: false
+    asserts:
+      - matchSnapshot: {}
