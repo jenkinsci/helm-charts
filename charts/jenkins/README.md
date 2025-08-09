@@ -223,7 +223,7 @@ controller:
   jenkinsAdminEmail: example@mail.com
 ```
 
-Further JCasC examples can be found [here](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
+Further JCasC examples can be found in the [configuration-as-code repository](https://github.com/jenkinsci/configuration-as-code-plugin/tree/master/demos).
 
 #### Breaking out large Config as Code scripts
 
