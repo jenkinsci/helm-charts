@@ -27,7 +27,7 @@ jobs:
           private_key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Self-hosted Renovate
         uses: renovatebot/github-action@v43.0.7
