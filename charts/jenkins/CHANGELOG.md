@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.76
+
+Fix non-deterministic checksum calculation in unit tests by adding `renderHelmLabels: false` to "render pod annotations" test. This resolves Renovate PR failures when chart version changes.
+
 ## 5.8.75
 
 Minor documentation improvements
