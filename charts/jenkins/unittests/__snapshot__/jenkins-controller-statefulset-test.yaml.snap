@@ -236,7 +236,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 101e423d844c47598f2471ad4753e3deb0a77629f074c7353865bbab0a68b5c8
+    checksum/config: 2fe12d5948d3ef27bd5218202187339f21b4750ef4d40025ee85086254e9048d
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
