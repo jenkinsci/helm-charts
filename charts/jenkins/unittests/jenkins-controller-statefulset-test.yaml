@@ -599,6 +599,7 @@ tests:
   - it: render pod annotations
     template: jenkins-controller-statefulset.yaml
     set:
+      renderHelmLabels: false
       controller:
         podAnnotations:
           templated-annotations: "{{ .Release.Name }}"
