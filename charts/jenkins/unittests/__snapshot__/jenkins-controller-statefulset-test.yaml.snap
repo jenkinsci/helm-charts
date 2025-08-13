@@ -1,3 +1,17 @@
+config values:
+  1: |
+    apiVersion: v1
+    data:
+      inittest.groovy: This is a test script
+    kind: ConfigMap
+    metadata:
+      labels:
+        app.kubernetes.io/component: jenkins-controller
+        app.kubernetes.io/instance: my-release
+        app.kubernetes.io/managed-by: Helm
+        app.kubernetes.io/name: jenkins
+      name: my-release-jenkins-init-scripts
+      namespace: my-namespace
 configure empty image tag label:
   1: |
     docker.io/jenkins/jenkins:2.516.1
@@ -15,13 +29,12 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: d14cf21b97bebf1e9a45358f83fc71e6f5d8915a4ee7bc0e7d5f0de58a882d03
+          checksum/config: 2fe12d5948d3ef27bd5218202187339f21b4750ef4d40025ee85086254e9048d
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
-          helm.sh/chart: jenkins-5.8.74
       spec:
         automountServiceAccountToken: true
         containers:
@@ -121,7 +134,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.3
+            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -148,7 +161,7 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.3
+            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -223,7 +236,11 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
+<<<<<<< HEAD
     checksum/config: d14cf21b97bebf1e9a45358f83fc71e6f5d8915a4ee7bc0e7d5f0de58a882d03
+=======
+    checksum/config: 2fe12d5948d3ef27bd5218202187339f21b4750ef4d40025ee85086254e9048d
+>>>>>>> @{-1}
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -237,13 +254,20 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
+<<<<<<< HEAD
           checksum/config: d14cf21b97bebf1e9a45358f83fc71e6f5d8915a4ee7bc0e7d5f0de58a882d03
+=======
+          checksum/config: 2fe12d5948d3ef27bd5218202187339f21b4750ef4d40025ee85086254e9048d
+>>>>>>> @{-1}
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
           app.kubernetes.io/managed-by: Helm
           app.kubernetes.io/name: jenkins
+<<<<<<< HEAD
           helm.sh/chart: jenkins-5.8.74
+=======
+>>>>>>> @{-1}
       spec:
         automountServiceAccountToken: true
         containers:
@@ -343,7 +367,7 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.3
+            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -370,7 +394,7 @@ test scheme for config-reload:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.3
+            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}

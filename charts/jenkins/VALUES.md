@@ -32,7 +32,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.idleMinutes](./values.yaml#L1136) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.registry](./values.yaml#L964) | string | Registry to pull the agent jnlp image from | `""` |
 | [agent.image.repository](./values.yaml#L966) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L968) | string | Tag of the image to pull | `"3327.v868139a_d00e0-2"` |
+| [agent.image.tag](./values.yaml#L968) | string | Tag of the image to pull | `"3327.v868139a_d00e0-5"` |
 | [agent.imagePullSecretName](./values.yaml#L975) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.inheritYamlMergeStrategy](./values.yaml#L1155) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
 | [agent.instanceCap](./values.yaml#L1119) | int | Max number of agents to launch for this type of agent | `2147483647` |
@@ -139,8 +139,8 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.httpsKeyStore.httpPort](./values.yaml#L869) | int | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. | `8081` |
 | [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey](./values.yaml#L864) | string | Name of the key in the secret that contains the JKS password | `"https-jks-password"` |
 | [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName](./values.yaml#L862) | string | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file | `""` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L860) | string | Name of the key in the secret that already has ssl keystore | `"jenkins-jks-file"` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L858) | string | Name of the secret that already has ssl keystore | `""` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L860) | string | Name of the key in the secret that already has SSL keystore | `"jenkins-jks-file"` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L858) | string | Name of the secret that already has SSL keystore | `""` |
 | [controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded](./values.yaml#L878) | string | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here | `nil` |
 | [controller.httpsKeyStore.password](./values.yaml#L875) | string | Jenkins keystore password | `"password"` |
 | [controller.httpsKeyStore.path](./values.yaml#L871) | string | Path of HTTPS keystore file | `"/var/jenkins_keystore"` |
@@ -167,7 +167,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L429) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L418) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L421) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L410) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4358.vcfd9c5a_0a_f51","workflow-aggregator:608.v67378e9d3db_1","git:5.7.0","configuration-as-code:1971.vf9280461ea_89"]` |
+| [controller.installPlugins](./values.yaml#L410) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4358.vcfd9c5a_0a_f51","workflow-aggregator:608.v67378e9d3db_1","git:5.7.0","configuration-as-code:1985.vdda_32d0c4ea_b_"]` |
 | [controller.javaOpts](./values.yaml#L164) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L98) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L103) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -259,7 +259,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.folder](./values.yaml#L630) | string |  | `"/var/jenkins_home/casc_configs"` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L572) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L574) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L576) | string | Tag for the image that triggers the reload | `"1.30.3"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L576) | string | Tag for the image that triggers the reload | `"1.30.7"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L577) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L594) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
 | [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L598) | bool | Enables custom log config utilizing using the settings below. | `false` |

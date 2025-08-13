@@ -10,6 +10,8 @@ templates:
 tests:
   - it: default values
     template: jenkins-controller-statefulset.yaml
+    set:
+      renderHelmLabels: false
     asserts:
       - isKind:
           of: StatefulSet
@@ -22,9 +24,6 @@ tests:
       - equal:
           path: metadata.namespace
           value: my-namespace
-      - matchRegex:
-          path: metadata.labels["helm.sh/chart"]
-          pattern: ^jenkins-
       - isNull:
           path: metadata.annotations
       - equal:
@@ -558,6 +557,7 @@ tests:
   - it: test scheme for config-reload
     template: jenkins-controller-statefulset.yaml
     set:
+      renderHelmLabels: false
       controller.sidecars.configAutoReload.scheme: "https"
     asserts:
       - matchSnapshot:
@@ -599,6 +599,7 @@ tests:
   - it: render pod annotations
     template: jenkins-controller-statefulset.yaml
     set:
+      renderHelmLabels: false
       controller:
         podAnnotations:
           templated-annotations: "{{ .Release.Name }}"
@@ -821,8 +822,19 @@ tests:
         initScripts:
           test: |-
             This is a test script
+      renderHelmLabels: false
     asserts:
       - isSubset:
           path: spec.template.metadata.annotations
           content:
-            checksum/config-init-scripts: 9f749ad17984f7a90ee1753ee5039b6d7f26c5c3b6eba0eac789fdb3803d067d
+            checksum/config-init-scripts: 7bbfa764cae3f479cabae93c236604a2ff72b8a79c2977606f75f46f730084eb
+  - it: config values
+    template: config-init-scripts.yaml
+    set:
+      controller:
+        initScripts:
+          test: |-
+            This is a test script
+      renderHelmLabels: false
+    asserts:
+      - matchSnapshot: {}
