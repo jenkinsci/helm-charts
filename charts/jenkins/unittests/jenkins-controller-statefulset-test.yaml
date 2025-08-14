@@ -827,7 +827,7 @@ tests:
       - isSubset:
           path: spec.template.metadata.annotations
           content:
-            checksum/config-init-scripts: 136b7250f336f108445fa82adf273319e404f5bc1c9a653f112d44ff05605032
+            checksum/config-init-scripts: 7bbfa764cae3f479cabae93c236604a2ff72b8a79c2977606f75f46f730084eb
   - it: config values
     template: config-init-scripts.yaml
     set:
