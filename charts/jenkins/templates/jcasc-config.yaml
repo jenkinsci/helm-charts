@@ -20,6 +20,7 @@ data:
 {{ tpl $val $| indent 4 }}
 {{- end }}
 {{- end }}
+{{- end }}
 {{- if .Values.controller.JCasC.defaultConfig }}
 ---
 apiVersion: v1
@@ -37,9 +38,7 @@ metadata:
 data:
   jcasc-default-config.yaml: |-
     {{- include "jenkins.casc.defaults" . | nindent 4 }}
-{{- end}}
 {{- /* ONLY process additional JCasC ConfigMaps if defaultConfig is true */}}
-{{- if .Values.controller.JCasC.defaultConfig }}
 {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
 {{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) }}
 ---
@@ -80,6 +79,5 @@ data:
     jenkins:
       authorizationStrategy:
         {{- tpl .Values.controller.JCasC.authorizationStrategy . | nindent 8 }}
-{{- end }}
 {{- end }}
 {{- end }}
