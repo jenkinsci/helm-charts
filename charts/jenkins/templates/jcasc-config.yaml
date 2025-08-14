@@ -41,7 +41,7 @@ data:
 {{- else }}
 {{- /* ONLY process additional JCasC ConfigMaps if defaultConfig is false */}}
 {{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
-{{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) }}
+{{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -61,7 +61,7 @@ data:
       securityRealm:
         {{- tpl .Values.controller.JCasC.securityRealm . | nindent 8 }}
 {{- end }}
-{{- if and .Values.controller.JCasC.authorizationStrategy (not (contains "authorizationStrategy:" $configScripts)) }}
+{{- if and .Values.controller.JCasC.authorizationStrategy (not (contains "authorizationStrategy:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
 ---
 apiVersion: v1
 kind: ConfigMap
