@@ -173,7 +173,7 @@ tests:
       namespace: other
     asserts:
       - hasDocuments:
-          count: 2
+          count: 1
       - documentIndex: 0
         isKind:
           of: ConfigMap
@@ -181,43 +181,21 @@ tests:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
       - documentIndex: 0
-        equal:
-          path: metadata.name
-          value: my-release-jenkins-jenkins-config-welcome-message
-      - documentIndex: 0
-        equal:
-          path: metadata.namespace
-          value: other
-      - matchRegex:
-          path: metadata.labels["helm.sh/chart"]
-          pattern: ^jenkins-
-      - documentIndex: 1
-        isKind:
-          of: ConfigMap
-      - documentIndex: 1
         equal:
           path: metadata.name
           value: my-release-jenkins-jenkins-jcasc-config
-      - documentIndex: 1
+      - documentIndex: 0
         equal:
           path: metadata.namespace
           value: other
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
       - documentIndex: 0
         equal:
           path: metadata.labels.my-release-jenkins-jenkins-config
           value: "true"
-      - documentIndex: 1
-        equal:
-          path: metadata.labels.my-release-jenkins-jenkins-config
-          value: "true"
       - documentIndex: 0
-        equal:
-          path: data
-          value:
-            welcome-message.yaml: |-
-              jenkins:
-                systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
-      - documentIndex: 1
         matchSnapshot:
           path: data["jcasc-default-config.yaml"]
   - it: custom dynamic pvc workspace volume

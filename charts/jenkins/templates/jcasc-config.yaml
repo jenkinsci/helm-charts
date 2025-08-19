@@ -1,5 +1,5 @@
 {{- $root := . }}
-{{- if .Values.controller.sidecars.configAutoReload.enabled }}
+{{- if and .Values.controller.sidecars.configAutoReload.enabled (not .Values.controller.JCasC.defaultConfig) }}
 {{- range $key, $val := .Values.controller.JCasC.configScripts }}
 {{- if $val }}
 ---
