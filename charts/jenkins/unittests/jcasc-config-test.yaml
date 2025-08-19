@@ -9,7 +9,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -173,7 +173,7 @@ tests:
       namespace: other
     asserts:
       - hasDocuments:
-          count: 4
+          count: 2
       - documentIndex: 0
         isKind:
           of: ConfigMap
@@ -234,7 +234,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -256,7 +256,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -278,7 +278,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -302,7 +302,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -325,7 +325,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -348,7 +348,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -395,7 +395,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -415,7 +415,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -433,7 +433,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -451,7 +451,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -471,7 +471,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -491,7 +491,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -640,7 +640,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -660,7 +660,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -680,7 +680,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -706,7 +706,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -739,7 +739,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -761,7 +761,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -791,7 +791,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -822,7 +822,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -843,7 +843,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - equal:
           path: metadata.annotations
           value:
@@ -863,7 +863,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -887,7 +887,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]

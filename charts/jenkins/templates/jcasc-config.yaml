@@ -39,46 +39,5 @@ data:
   jcasc-default-config.yaml: |-
     {{- include "jenkins.casc.defaults" . | nindent 4 }}
 {{- else }}
-{{- /* ONLY process additional JCasC ConfigMaps if defaultConfig is false */}}
-{{- $configScripts := toYaml .Values.controller.JCasC.configScripts }}
-{{- if and .Values.controller.JCasC.securityRealm (not (contains "securityRealm:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "jenkins.casc.configName" (list "config-securityrealm" $ )}}
-  namespace: {{ template "jenkins.namespace" $root }}
-  labels:
-    {{- include "jenkins.labels" $root | nindent 4 }}
-    {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
-{{- if $root.Values.controller.JCasC.configMapAnnotations }}
-  annotations:
-{{ toYaml $root.Values.controller.JCasC.configMapAnnotations | indent 4 }}
-{{- end }}
-data:
-  securityrealm.yaml: |-
-    jenkins:
-      securityRealm:
-        {{- tpl .Values.controller.JCasC.securityRealm . | nindent 8 }}
-{{- end }}
-{{- if and .Values.controller.JCasC.authorizationStrategy (not (contains "authorizationStrategy:" $configScripts)) (not .Values.controller.JCasC.defaultConfig) }}
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: {{ template "jenkins.casc.configName" (list "config-authorizationstrategy" $ )}}
-  namespace: {{ template "jenkins.namespace" $root }}
-  labels:
-    {{- include "jenkins.labels" $root | nindent 4 }}
-    {{ template "jenkins.fullname" $root }}-jenkins-config: "true"
-{{- if $root.Values.controller.JCasC.configMapAnnotations }}
-  annotations:
-{{ toYaml $root.Values.controller.JCasC.configMapAnnotations | indent 4 }}
-{{- end }}
-data:
-  authorizationstrategy.yaml: |-
-    jenkins:
-      authorizationStrategy:
-        {{- tpl .Values.controller.JCasC.authorizationStrategy . | nindent 8 }}
-{{- end }}
+{{- /* When defaultConfig is false, only process configScripts - no individual security ConfigMaps */}}
 {{- end }}

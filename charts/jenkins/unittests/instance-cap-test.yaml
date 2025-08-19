@@ -10,7 +10,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
@@ -32,7 +32,7 @@ tests:
       - isKind:
           of: ConfigMap
       - hasDocuments:
-          count: 3
+          count: 1
       - documentIndex: 0
         isNotEmpty:
           path: data["jcasc-default-config.yaml"]
