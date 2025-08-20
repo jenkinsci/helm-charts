@@ -12,6 +12,12 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.80
+
+- Fix [#1435](https://github.com/jenkinsci/helm-charts/issues/1435): Ensure `controller.JCasC.defaultConfig=false` properly prevents generation of all JCasC ConfigMaps
+- Changed the conditional logic in jcasc-config.yaml to only generate ConfigMaps when defaultConfig is true
+- Moved securityRealm and authorizationStrategy configuration into configScripts for better maintainability
+
 ## 5.8.79
 
 Update `jenkins/inbound-agent` to version `3327.v868139a_d00e0-5`

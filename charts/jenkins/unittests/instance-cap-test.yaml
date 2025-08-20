@@ -11,14 +11,17 @@ tests:
           of: ConfigMap
       - hasDocuments:
           count: 1
-      - isNotEmpty:
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-      - equal:
+      - documentIndex: 0
+        equal:
           path: metadata.namespace
           value: my-namespace
 
@@ -30,13 +33,16 @@ tests:
           of: ConfigMap
       - hasDocuments:
           count: 1
-      - isNotEmpty:
+      - documentIndex: 0
+        isNotEmpty:
           path: data["jcasc-default-config.yaml"]
       - matchRegex:
           path: metadata.labels["helm.sh/chart"]
           pattern: ^jenkins-
-      - matchSnapshot:
+      - documentIndex: 0
+        matchSnapshot:
           path: data["jcasc-default-config.yaml"]
-      - equal:
+      - documentIndex: 0
+        equal:
           path: metadata.namespace
           value: my-namespace
