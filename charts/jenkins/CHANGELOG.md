@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.84
+
+Update `kubernetes` to version `4369.va_9a_89327dd35`
+
 ## 5.8.83
 
 Revert `defaultConfig=false` changes, see [#1470](https://github.com/jenkinsci/helm-charts/issues/1470).
