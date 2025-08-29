@@ -62,6 +62,10 @@ spec:
       topologySpreadConstraints:
 {{ toYaml .Values.controller.topologySpreadConstraints | indent 8 }}
       {{- end }}
+      {{- if .Values.controller.dnsConfig }}
+      dnsConfig:
+{{ toYaml .Values.controller.dnsConfig | indent 8 }}
+      {{- end }}
       {{- if quote .Values.controller.terminationGracePeriodSeconds }}
       terminationGracePeriodSeconds: {{ .Values.controller.terminationGracePeriodSeconds }}
       {{- end }}
