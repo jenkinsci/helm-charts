@@ -685,6 +685,7 @@ controller:
   podAnnotations: {}
   # -- Annotations for controller StatefulSet
   statefulSetAnnotations: {}
+  replicaCount: 1
 
   # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#update-strategies
   # -- Update strategy for StatefulSet
