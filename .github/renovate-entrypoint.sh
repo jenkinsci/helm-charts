@@ -5,7 +5,7 @@ set -euox pipefail
 export YQ_VERSION=v4.47.2
 
 # renovate: datasource=github-tags depName=helm/helm
-export HELM_VERSION=v3.18.6
+export HELM_VERSION=v3.19.0
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
 export HELM_UNITTEST_VERSION=v1.0.1
