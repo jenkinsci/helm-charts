@@ -1,15 +1,16 @@
 #!/bin/bash
+set -euox pipefail
 
 # renovate: datasource=github-tags depName=mikefarah/yq
-export YQ_VERSION=v4.45.4
+export YQ_VERSION=v4.47.2
 
 # renovate: datasource=github-tags depName=helm/helm
-export HELM_VERSION=v3.18.3
+export HELM_VERSION=v3.19.0
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
-export HELM_UNITTEST_VERSION=v0.8.2
+export HELM_UNITTEST_VERSION=v1.0.1
 
-# renovate: datasource=github-tags depName=jenkins-x-plugins/jx-release-version
+# renovate: datasource=github-releases depName=jenkins-x-plugins/jx-release-version
 export JENKINS_JX_VERSION=v2.7.10
 
 # renovate: datasource=github-releases depName=norwoodj/helm-docs
@@ -24,7 +25,7 @@ mkdir -p /tmp/helm && tar -xf /tmp/helm.tar.gz -C /tmp/helm
 mv /tmp/helm/linux-amd64/helm /usr/local/bin/helm
 chmod a+x /usr/local/bin/helm
 
-runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION}
+runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} || echo "helm-unittest plugin already installed"
 
 curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64
 chmod a+x /usr/local/bin/yq

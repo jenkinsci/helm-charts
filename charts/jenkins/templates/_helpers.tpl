@@ -13,6 +13,21 @@ Expand the label of the chart.
 {{- printf "%s-%s" (include "jenkins.name" .) .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/*
+Common labels for all Jenkins resources
+*/}}
+{{- define "jenkins.labels" -}}
+"app.kubernetes.io/name": '{{ template "jenkins.name" .}}'
+"app.kubernetes.io/managed-by": "{{ .Release.Service }}"
+"app.kubernetes.io/instance": "{{ .Release.Name }}"
+"app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
+{{- if .Values.renderHelmLabels }}
+"helm.sh/chart": "{{ template "jenkins.label" .}}"
+{{- end }}
+{{- with .Values.extraLabels }}
+{{- toYaml . | nindent 0 }}
+{{- end }}
+{{- end -}}
 
 {{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.

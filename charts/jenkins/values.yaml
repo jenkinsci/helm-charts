@@ -29,6 +29,9 @@ credentialsId:
 # -- Enables rendering of the helm.sh/chart label to the annotations
 renderHelmLabels: true
 
+# -- Configures extra labels for the agent all objects
+extraLabels: {}
+
 controller:
   # -- Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
@@ -405,10 +408,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4353.vb_47977da_9417
+    - kubernetes:4371.vb_33b_086d54a_1
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.7.0
-    - configuration-as-code:1971.vf9280461ea_89
+    - configuration-as-code:1985.vdda_32d0c4ea_b_
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -570,7 +573,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 1.30.3
+        tag: 1.30.7
       imagePullPolicy: IfNotPresent
       resources:
         {}
@@ -851,9 +854,9 @@ controller:
   httpsKeyStore:
     # -- Enables HTTPS keystore on jenkins controller
     enable: false
-    # -- Name of the secret that already has ssl keystore
+    # -- Name of the secret that already has SSL keystore
     jenkinsHttpsJksSecretName: ""
-    # -- Name of the key in the secret that already has ssl keystore
+    # -- Name of the key in the secret that already has SSL keystore
     jenkinsHttpsJksSecretKey: "jenkins-jks-file"
     # -- Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file
     jenkinsHttpsJksPasswordSecretName: ""
@@ -962,7 +965,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3309.v27b_9314fd1a_4-5"
+    tag: "3327.v868139a_d00e0-8"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"

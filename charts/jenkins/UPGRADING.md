@@ -46,7 +46,6 @@ Removes automatic `remotingSecurity` setting when using a container tag older th
 - Jenkins is now using a `StatefulSet` instead of a `Deployment`
 - terminology has been adjusted that's also reflected in values.yaml
   The following values from `values.yaml` have been renamed:
-
   - `master` => `controller`
   - `master.useSecurity` => `controller.adminSecret`
   - `master.slaveListenerPort` => `controller.agentListenerPort`
@@ -63,7 +62,6 @@ Removes automatic `remotingSecurity` setting when using a container tag older th
   - `agent.slaveConnectTimeout` => `agent.connectTimeout`
 
 - Removed values:
-
   - `master.imageTag`: use `controller.image` and `controller.tag` instead
   - `slave.imageTag`: use `agent.image` and `agent.tag` instead
 
