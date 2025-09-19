@@ -242,7 +242,19 @@ jenkins:
       {{- if .additionalAgentsOverride }}
       {{- $_ := set $newRoot.Values "additionalAgents" list}}
       {{- end}}
+      {{- /* Clear nodeSelector from root agent before merge to prevent inheritance */}}
+      {{- if $newRoot.Values.agent.nodeSelector }}
+        {{- $_ := set $newRoot.Values.agent "nodeSelector" dict }}
+      {{- end }}
       {{- $newValues := merge $additionalCloud $newRoot.Values }}
+      {{- /* Ensure nodeSelector is properly set for current cloud */}}
+      {{- if $newValues.agent }}
+        {{- if $additionalCloud.agent.nodeSelector }}
+          {{- $_ := set $newValues.agent "nodeSelector" $additionalCloud.agent.nodeSelector }}
+        {{- else }}
+          {{- $_ := set $newValues.agent "nodeSelector" dict }}
+        {{- end }}
+      {{- end }}
       {{- $_ := set $newRoot "Values" $newValues }}
       {{- /* clear additionalClouds from the copy */}}
       {{- $_ := set $newRoot.Values "additionalClouds" list }}
