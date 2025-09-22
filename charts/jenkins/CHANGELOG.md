@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.8.91
 
-Fix `docker-agent` git repository url
+Fix `docker-agent` git repository URL
 
 ## 5.8.90
 
