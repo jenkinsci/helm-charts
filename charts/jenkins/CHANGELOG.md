@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.92
+
+Update `configuration-as-code` to version `1995.v540b_50a_eb_0c1`
+
 ## 5.8.91
 
 Fix `docker-agent` git repository URL
