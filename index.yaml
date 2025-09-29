@@ -4,6 +4,59 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Update `kubernetes` to version `4383.vb_76fc9d3c4dc`
+      artifacthub.io/images: |
+        - name: jenkins
+          image: docker.io/jenkins/jenkins:2.516.3-jdk21
+        - name: k8s-sidecar
+          image: docker.io/kiwigrid/k8s-sidecar:1.30.7
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3341.v0766d82b_dec0-1
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.516.3
+    created: "2025-09-29T21:09:06.530201362Z"
+    description: 'Jenkins - Build great things at any scale! As the leading open source
+      automation server, Jenkins provides over 2000 plugins to support building, deploying
+      and automating any project. '
+    digest: ee31b959bc53d66eea22988f53b55302c0f70cb393ebcb081cb15f26a4be5fca
+    home: https://www.jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    type: application
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-5.8.93/jenkins-5.8.93.tgz
+    version: 5.8.93
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Update `configuration-as-code` to version `1995.v540b_50a_eb_0c1`
       artifacthub.io/images: |
         - name: jenkins
@@ -29589,4 +29642,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2025-09-25T10:22:56.658522611Z"
+generated: "2025-09-29T21:09:06.531701823Z"
