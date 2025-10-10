@@ -693,6 +693,9 @@ controller:
   # -- Topology spread constraints
   topologySpreadConstraints: {}
 
+  # -- DNS config for the pod
+  dnsConfig: {}
+
   ingress:
     # -- Enables ingress
     enabled: false
