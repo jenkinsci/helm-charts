@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.8.100
 
-Add support for custom DNS configuration in the controller: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config
+Add support for [custom DNS configuration](https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-dns-config) in the controller
 
 ## 5.8.99
 
