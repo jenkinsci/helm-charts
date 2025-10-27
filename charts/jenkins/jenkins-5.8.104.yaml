@@ -1,0 +1,75 @@
+name: cicd-jenkins
+
+controller:
+  runAsUser: 1000
+  fsGroup: 1000
+  image:
+    repository: jenkins/jenkins
+    tag: lts
+    pullPolicy: IfNotPresent
+
+  admin:
+    user: admin
+    password: admin
+
+  resources:
+    requests:
+      cpu: "1500m"
+      memory: "4Gi"
+    limits:
+      cpu: "1500m"
+      memory: "4Gi"
+
+  containerEnv:
+    - name: DOCKER_HOST
+      value: unix:///var/run/docker.sock
+
+  serviceType: NodePort
+  servicePort: 8080
+  targetPort: 8080
+  nodePort: 30003
+
+  agentListenerEnabled: true
+  agentListenerPort: 50000
+
+  agentListenerServiceType: NodePort
+
+  installPlugins:
+    - kubernetes:4384.v1b_6367f393d9
+    - workflow-aggregator:608.v67378e9d3db_1
+    - git:5.8.0
+    - configuration-as-code:2006.v001a_2ca_6b_574
+
+  JCasC:
+    defaultConfig: true
+    configScripts:
+      welcome-message: |
+        jenkins:
+          systemMessage: "Welcome to CICD Jenkins on Kubernetes"
+
+  volumes:
+    - type: HostPath
+      hostPath: /var/run/docker.sock
+      mountPath: /var/run/docker.sock
+      readOnly: true
+    - type: PVC
+      claimName: jenkins-pvc
+      mountPath: /var/jenkins_home
+      readOnly: false
+
+  nodeSelector:
+    app: jenkins
+
+agent:
+  enabled: true
+  garbageCollection:
+    enabled: true
+
+persistence:
+  enabled: true
+  existingClaim: jenkins-pvc
+  volumePermissions:
+    enabled: true
+
+rbac:
+  create: true
