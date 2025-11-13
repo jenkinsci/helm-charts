@@ -10,13 +10,11 @@
 
 If you modified files in the `./charts/jenkins/` directory, please also include the following:
 
-```[tasklist]
 ### Submitter checklist
 - [ ] I bumped the "version" key in `./charts/jenkins/Chart.yaml`.
 - [ ] I added a new changelog entry to `./charts/jenkins/CHANGELOG.md`.
 - [ ] I followed the [technical requirements](https://github.com/jenkinsci/helm-charts/blob/main/CONTRIBUTING.md#technical-requirements).
 - [ ] I ran `.github/helm-docs.sh` from the project root.
-```
 
 ### Special notes for your reviewer
 
