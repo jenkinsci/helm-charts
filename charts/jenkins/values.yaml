@@ -575,6 +575,8 @@ controller:
         # -- Tag for the image that triggers the reload
         tag: 2.1.4
       imagePullPolicy: IfNotPresent
+      # -- Port for sidecar health probes
+      healthPort: 8060
       resources:
         {}
         #   limits:
