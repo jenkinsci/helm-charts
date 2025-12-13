@@ -15,8 +15,8 @@ jobs:
         kubernetes_version:
           # See https://kubernetes.io/releases/ for EOL dates
           - "kindest/node:v1.34.2"
-          - "kindest/node:v1.33.6"
-          - "kindest/node:v1.32.10"
+          - "kindest/node:v1.33.4"
+          - "kindest/node:v1.32.8"
       fail-fast: false
 
     steps:
