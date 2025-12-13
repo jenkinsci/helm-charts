@@ -38,7 +38,7 @@ jobs:
           python-version: 3.14.2
 
       - name: Set up chart-testing
-        uses: helm/chart-testing-action@v2
+        uses: helm/chart-testing-action@v2.8.0
         with:
           # renovate: datasource=github-tags depName=helm/chart-testing
           version: v3.14.0
