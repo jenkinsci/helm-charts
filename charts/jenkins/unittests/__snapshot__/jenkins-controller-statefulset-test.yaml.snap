@@ -124,6 +124,8 @@ default values:
                     fieldPath: metadata.name
               - name: LABEL
                 value: my-release-jenkins-jenkins-config
+              - name: HEALTH_PORT
+                value: "8060"
               - name: FOLDER
                 value: /var/jenkins_home/casc_configs
               - name: NAMESPACE
@@ -134,7 +136,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
+            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -155,13 +157,15 @@ default values:
                     fieldPath: metadata.name
               - name: LABEL
                 value: my-release-jenkins-jenkins-config
+              - name: HEALTH_PORT
+                value: "8060"
               - name: FOLDER
                 value: /var/jenkins_home/casc_configs
               - name: NAMESPACE
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
+            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -345,6 +349,8 @@ test scheme for config-reload:
                     fieldPath: metadata.name
               - name: LABEL
                 value: my-release-jenkins-jenkins-config
+              - name: HEALTH_PORT
+                value: "8060"
               - name: FOLDER
                 value: /var/jenkins_home/casc_configs
               - name: NAMESPACE
@@ -355,7 +361,7 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
+            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -376,13 +382,15 @@ test scheme for config-reload:
                     fieldPath: metadata.name
               - name: LABEL
                 value: my-release-jenkins-jenkins-config
+              - name: HEALTH_PORT
+                value: "8060"
               - name: FOLDER
                 value: /var/jenkins_home/casc_configs
               - name: NAMESPACE
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:1.30.7
+            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
