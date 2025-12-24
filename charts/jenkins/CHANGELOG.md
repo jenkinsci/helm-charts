@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.115
+
+Removed controller.csrf.defaultCrumbIssuer.proxyCompatability as it is dropped in core
+
 ## 5.8.114
 
 Update `kubernetes` to version `4398.vb_b_33d9e7fe23`
