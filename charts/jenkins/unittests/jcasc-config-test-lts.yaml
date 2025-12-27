@@ -1,0 +1,1046 @@
+suite: Configuration as Code
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: default config
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: agent namespace and templates
+    release:
+      namespace: controller-namespace
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalAgents:
+        maven:
+          namespace: maven
+          podName: maven
+          customJenkinsLabels: maven
+          image:
+            repository: jenkins/jnlp-agent-maven
+            tag: latest
+        python:
+          podName: python
+          customJenkinsLabels: python
+          sideContainerName: python
+          image:
+            repository: python
+            tag: "3"
+          command: /bin/sh -c
+          args: "cat"
+          TTYEnabled: true
+      agent:
+        namespace: jenkins-agents
+        podTemplates:
+          python3: |-
+            - name: python3
+              label: jenkins-python3
+              serviceAccount: jenkins
+              containers:
+                - name: python
+                  image: python:3
+                  command: "/bin/sh -c"
+                  args: "cat"
+                  ttyEnabled: true
+                  privileged: true
+                  resourceRequestCpu: "400m"
+                  resourceRequestMemory: "512Mi"
+                  resourceRequestEphemeralStorage: "1Gi"
+                  resourceLimitCpu: "1"
+                  resourceLimitMemory: "1024Mi"
+                  resourceLimitEphemeralStorage: "2Gi"
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: customized config
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        disableRememberMe: true
+        executorMode: EXCLUSIVE
+        numExecutors: 1
+        enableRawHtmlMarkupFormatter: true
+        JCasC:
+          authorizationStrategy: |-
+            globalMatrix:
+              permissions:
+                - "Overall/Read:anonymous"
+          configScripts:
+            welcome-message: |
+              jenkins:
+                systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+          securityRealm: local
+        jenkinsAdminEmail: admin@example.org
+        ingress:
+          hostName: jenkins.example.com
+          tls:
+            - hosts:
+                - jenkins.example.com
+              secretName: tlsSecret
+      agent:
+        namespace: default
+        containerCap: 22
+        jnlpregistry: private.registry.com
+        defaultsProviderTemplate: my-defaults
+        kubernetesConnectTimeout: 11
+        kubernetesReadTimeout: 12
+        podName: my-agent
+        sideContainerName: sideContainer
+        alwaysPullImage: true
+        command: /bin/command
+        image:
+          repository: my-image/jnlp
+          tag: v1.2.3
+        privileged: true
+        resources:
+          limits:
+            cpu: 1024m
+            memory: 1Gi
+            ephemeralStorage: 1Gi
+          requests:
+            cpu: 756m
+            memory: 768Mi
+            ephemeralStorage: 512Mi
+        runAsUser: 2000
+        runAsGroup: 2000
+        TTYEnabled: true
+        workingDir: /workdir
+        envVars:
+          - name: VAR
+            value: value
+        idleMinutes: 30
+        imagePullSecretName: pullSecret
+        nodeSelector:
+          jenkins-agent: v1
+          selector: abc
+        podRetention: onFailure
+        connectTimeout: 111
+        volumes:
+          - type: ConfigMap
+            configMapName: myconfigmap
+            mountPath: /var/myapp/myconfigmap
+          - type: EmptyDir
+            mountPath: /var/myapp/myemptydir
+            memory: false
+          - type: HostPath
+            hostPath: /var/lib/containers
+            mountPath: /var/myapp/myhostpath
+          - type: Nfs
+            mountPath: /var/myapp/mynfs
+            readOnly: false
+            serverAddress: "192.0.2.0"
+            serverPath: /var/lib/containers
+          - type: PVC
+            claimName: mypvc
+            mountPath: /var/myapp/mypvc
+            readOnly: false
+          - type: Secret
+            defaultMode: "600"
+            mountPath: /var/myapp/mysecret
+            secretName: mysecret
+          - type: EphemeralVolume
+            mountPath: /var/myapp/myephemeralvolume
+            accessModes: ReadWriteOnce
+            requestsSize: 2Gi
+            storageClassName: test-storageclass
+        annotations:
+          ci.jenkins-agent/test: "custom"
+        yamlTemplate: |-
+          apiVersion: v1
+          kind: Pod
+          spec:
+            tolerations:
+            - key: "key"
+              operator: "Equal"
+              value: "value"
+        yamlMergeStrategy: merge
+      serviceAccountAgent:
+        name: agent-serviceaccount
+    release:
+      name: my-release
+      namespace: other
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        isKind:
+          of: ConfigMap
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: my-release-jenkins-jenkins-config-welcome-message
+      - documentIndex: 0
+        equal:
+          path: metadata.namespace
+          value: other
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - documentIndex: 1
+        isKind:
+          of: ConfigMap
+      - documentIndex: 1
+        equal:
+          path: metadata.name
+          value: my-release-jenkins-jenkins-jcasc-config
+      - documentIndex: 1
+        equal:
+          path: metadata.namespace
+          value: other
+      - documentIndex: 0
+        equal:
+          path: metadata.labels.my-release-jenkins-jenkins-config
+          value: "true"
+      - documentIndex: 1
+        equal:
+          path: metadata.labels.my-release-jenkins-jenkins-config
+          value: "true"
+      - documentIndex: 0
+        equal:
+          path: data
+          value:
+            welcome-message.yaml: |-
+              jenkins:
+                systemMessage: Welcome to our CI\CD server.  This Jenkins is configured and managed 'as code'.
+      - documentIndex: 1
+        matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom dynamic pvc workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "DynamicPVC"
+          accessModes: "ReadWriteOnce"
+          requestsSize: "2Gi"
+          storageClassName: "gp2"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom emptyDir workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "EmptyDir"
+          memory: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom hostPath workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "HostPath"
+          hostPath: "/data"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom nfs workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "Nfs"
+          readOnly: false
+          serverAddress: "1.1.1.1"
+          serverPath: "/data"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom pvc workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "PVC"
+          claimName: "my-claim"
+          readOnly: false
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom other workspace volume
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        workspaceVolume:
+          type: "persistentVolumeClaimWorkspaceVolume"
+          claimName: "my-claim"
+          readOnly: false
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: disable helm.sh label
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      renderHelmLabels: false
+    asserts:
+      - equal:
+          path: metadata.labels
+          value:
+            RELEASE-NAME-jenkins-jenkins-config: "true"
+            app.kubernetes.io/component: jenkins-controller
+            app.kubernetes.io/instance: RELEASE-NAME
+            app.kubernetes.io/managed-by: Helm
+            app.kubernetes.io/name: jenkins
+  - it: disable agents
+    release:
+      namespace: controller-namespace
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent.enabled: false
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: disable default config
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          defaultConfig: false
+    asserts:
+      - hasDocuments:
+          count: 2
+  - it: custom jenkins label
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        customJenkinsLabels: ["testlabel"]
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: adds custom labels on agent pods
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        podLabels:
+          label-one: value-one
+          label-two: true
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: disable useDefaultServiceAccount
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        useDefaultServiceAccount: false
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: set agent.serviceAccount
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        serviceAccount: "testing"
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: legacyRemotingSecurityEnabled = false
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        legacyRemotingSecurityEnabled: false
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: legacyRemotingSecurityEnabled = true
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        legacyRemotingSecurityEnabled: true
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: empty projectNamingStrategy
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        projectNamingStrategy:
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: non-string projectNamingStrategy
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        projectNamingStrategy:
+          myConfiguration:
+            mySetting1: true
+            mySetting2: something
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: specify security settings without apiToken override
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          security:
+            gitHostKeyVerificationConfiguration:
+              sshHostKeyVerificationStrategy: "acceptFirstConnectionStrategy"
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: specify security settings with apiToken override
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          security:
+            apiToken: overridden
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: specify additional container
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        additionalContainers:
+          - sideContainerName: dind
+            image:
+              repository: docker
+              tag: dind
+            command: dockerd-entrypoint.sh
+            args: ""
+            privileged: true
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: specify additional container and overwrite in additional agent
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        additionalContainers:
+          - sideContainerName: dind
+            image:
+              repository: docker
+              tag: dind
+            command: dockerd-entrypoint.sh
+            args: ""
+            privileged: true
+      additionalAgents:
+        additional-agent:
+          podName: additional-agent
+          additionalContainers:
+            - sideContainerName: additional
+              image:
+                repository: my-additional-container-image
+                tag: latest
+              command: entrypoint.sh
+              args: arg1 arg2
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: specify additional container and clear in additional agent
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        additionalContainers:
+          - sideContainerName: dind
+            image:
+              repository: docker
+              tag: dind
+            command: dockerd-entrypoint.sh
+            args: ""
+            privileged: true
+      additionalAgents:
+        additional-agent:
+          podName: additional-agent
+          additionalContainers: []
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: configure hostnetworking to agent
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        hostNetworking: true
+    asserts:
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: set secretEnvVars
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        secretEnvVars:
+          - key: UNITTEST_PATH
+            secretKey: UNITTEST_K8S_PATH
+            secretName: k8s-unittest-secret-name
+        envVars:
+          - name: UNITTEST_ENV
+            value: testvalue
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: set directConnection
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        directConnection: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: set restrictedPssSecurityContext
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        restrictedPssSecurityContext: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: agent with liveness probe
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        livenessProbe:
+          execArgs: "cat /tmp/healthy"
+          failureThreshold: 3
+          initialDelaySeconds: 0
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 1
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: agents with liveness probe
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      agent:
+        additionalContainers:
+          - sideContainerName: side-container
+            image:
+              repository: REPOSITORY
+              tag: TAG
+            args: ""
+            command: ""
+            livenessProbe:
+              execArgs: "cat /tmp/healthy"
+              failureThreshold: 3
+              initialDelaySeconds: 0
+              periodSeconds: 10
+              successThreshold: 1
+              timeoutSeconds: 1
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: additional clouds
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          credentialsId: "remote-cloud-token"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: additional clouds inheriting additional agents
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalAgents:
+        maven:
+          namespace: maven
+          podName: maven
+          customJenkinsLabels: maven
+          image:
+            repository: jenkins/jnlp-agent-maven
+            tag: latest
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          credentialsId: "remote-cloud-token"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: additional clouds overriding additional agents
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalAgents:
+        maven:
+          namespace: maven
+          podName: maven
+          customJenkinsLabels: maven
+          image:
+            repository: jenkins/jnlp-agent-maven
+            tag: latest
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          credentialsId: "remote-cloud-token"
+          additionalAgentsOverride: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: custom configmap annotations
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          configMapAnnotations:
+            jenkins.example.com/anno1: "custom-annotation"
+            jenkins.example.com/anno2: "another-annotation"
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - equal:
+          path: metadata.annotations
+          value:
+            jenkins.example.com/anno1: "custom-annotation"
+            jenkins.example.com/anno2: "another-annotation"
+  - it: additional clouds set skipTlsVerify
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          credentialsId: "remote-cloud-token"
+          agent:
+            skipTlsVerify: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: additional clouds set usageRestricted
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          credentialsId: "remote-cloud-token"
+          agent:
+            usageRestricted: true
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: securityRealm and authorizationStrategy without defaultConfig
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          defaultConfig: false
+          securityRealm: |-
+            local:
+              allowsSignup: false
+          authorizationStrategy: |-
+            loggedInUsersCanDoAnything:
+              allowAnonymousRead: false
+    release:
+      namespace: default
+    asserts:
+      - hasDocuments:
+          count: 2
+      - documentIndex: 0
+        isKind:
+          of: ConfigMap
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-securityrealm
+      - documentIndex: 0
+        isNotEmpty:
+          path: data["securityrealm.yaml"]
+      - documentIndex: 0
+        matchRegex:
+          path: data["securityrealm.yaml"]
+          pattern: "securityRealm:"
+      - documentIndex: 0
+        matchRegex:
+          path: data["securityrealm.yaml"]
+          pattern: "allowsSignup: false"
+      - documentIndex: 1
+        isKind:
+          of: ConfigMap
+      - documentIndex: 1
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-authorizationstrategy
+      - documentIndex: 1
+        isNotEmpty:
+          path: data["authorizationstrategy.yaml"]
+      - documentIndex: 1
+        matchRegex:
+          path: data["authorizationstrategy.yaml"]
+          pattern: "authorizationStrategy:"
+      - documentIndex: 1
+        matchRegex:
+          path: data["authorizationstrategy.yaml"]
+          pattern: "allowAnonymousRead: false"
+  - it: securityRealm and authorizationStrategy in configScripts should not create separate configmaps
+    set:
+      controller:
+        image:
+          tag: "lts-slim-jdk21"
+        JCasC:
+          defaultConfig: false
+          configScripts:
+            security: |
+              jenkins:
+                securityRealm:
+                  local:
+                    allowsSignup: false
+                authorizationStrategy:
+                  loggedInUsersCanDoAnything:
+                    allowAnonymousRead: false
+          securityRealm: |-
+            local:
+              allowsSignup: false
+          authorizationStrategy: |-
+            loggedInUsersCanDoAnything:
+              allowAnonymousRead: false
+    release:
+      namespace: default
+    asserts:
+      - hasDocuments:
+          count: 1
+      - documentIndex: 0
+        isKind:
+          of: ConfigMap
+      - documentIndex: 0
+        equal:
+          path: metadata.name
+          value: RELEASE-NAME-jenkins-jenkins-config-security
+      - documentIndex: 0
+        isNotEmpty:
+          path: data["security.yaml"]
+      - documentIndex: 0
+        matchRegex:
+          path: data["security.yaml"]
+          pattern: "securityRealm:"
+      - documentIndex: 0
+        matchRegex:
+          path: data["security.yaml"]
+          pattern: "authorizationStrategy:"

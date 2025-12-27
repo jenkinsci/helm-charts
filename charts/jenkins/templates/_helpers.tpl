@@ -336,6 +336,9 @@ jenkins:
   {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
   crumbIssuer:
     standard:
+      {{- if contains (include "controller.image.tag" .) "lts" }}
+      excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
+      {{- end }}
   {{- end }}
 {{- include "jenkins.casc.security" . }}
 {{- with .Values.controller.scriptApproval }}

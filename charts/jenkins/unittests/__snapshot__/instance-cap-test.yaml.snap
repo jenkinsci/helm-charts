@@ -74,7 +74,6 @@ default-cap:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -159,7 +158,6 @@ limited-cap:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false

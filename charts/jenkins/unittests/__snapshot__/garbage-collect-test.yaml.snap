@@ -79,7 +79,6 @@ namespaces:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -166,7 +165,6 @@ one cloud:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -305,7 +303,6 @@ second cloud:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
