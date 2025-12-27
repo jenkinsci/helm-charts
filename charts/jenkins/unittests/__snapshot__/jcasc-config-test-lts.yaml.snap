@@ -124,6 +124,7 @@ additional clouds:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -316,6 +317,7 @@ additional clouds inheriting additional agents:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -479,6 +481,7 @@ additional clouds overriding additional agents:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -613,6 +616,7 @@ additional clouds set skipTlsVerify:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -747,6 +751,7 @@ additional clouds set usageRestricted:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -835,6 +840,7 @@ adds custom labels on agent pods:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -994,6 +1000,7 @@ agent namespace and templates:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1085,6 +1092,7 @@ agent with liveness probe:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1191,6 +1199,7 @@ agents with liveness probe:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1276,6 +1285,7 @@ configure hostnetworking to agent:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1365,6 +1375,7 @@ custom dynamic pvc workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1452,6 +1463,7 @@ custom emptyDir workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1539,6 +1551,7 @@ custom hostPath workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1623,6 +1636,7 @@ custom jenkins label:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1712,6 +1726,7 @@ custom nfs workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1800,6 +1815,7 @@ custom other workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1888,6 +1904,7 @@ custom pvc workspace volume:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2020,6 +2037,7 @@ customized config:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2105,6 +2123,7 @@ default config:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2156,6 +2175,7 @@ disable agents:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2239,6 +2259,7 @@ disable useDefaultServiceAccount:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2322,6 +2343,7 @@ empty projectNamingStrategy:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2406,6 +2428,7 @@ legacyRemotingSecurityEnabled = false:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2492,6 +2515,7 @@ legacyRemotingSecurityEnabled = true:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2579,6 +2603,7 @@ non-string projectNamingStrategy:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2663,6 +2688,7 @@ set agent.serviceAccount:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2746,6 +2772,7 @@ set directConnection:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2830,6 +2857,7 @@ set restrictedPssSecurityContext:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2923,6 +2951,7 @@ set secretEnvVars:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3023,6 +3052,7 @@ specify additional container:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3152,6 +3182,7 @@ specify additional container and clear in additional agent:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3297,6 +3328,7 @@ specify additional container and overwrite in additional agent:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3381,6 +3413,7 @@ specify security settings with apiToken override:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken: overridden
       unclassified:
@@ -3462,6 +3495,7 @@ specify security settings without apiToken override:
         slaveAgentPort: 50000
         crumbIssuer:
           standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false

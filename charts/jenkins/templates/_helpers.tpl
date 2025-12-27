@@ -333,12 +333,10 @@ jenkins:
   {{- $_ := set $ "Values" $oldRoot.Values }}
   {{- end }}
   slaveAgentPort: {{ .Values.controller.agentListenerPort }}
-  {{- if .Values.controller.csrf.defaultCrumbIssuer.enabled }}
+  {{- if and .Values.controller.csrf.defaultCrumbIssuer.enabled (or (contains (include "controller.image.tag" .) "lts") .Values.controller.image.tag) }}
   crumbIssuer:
     standard:
-      {{- if contains (include "controller.image.tag" .) "lts" }}
       excludeClientIPFromCrumb: {{ if .Values.controller.csrf.defaultCrumbIssuer.proxyCompatability }}true{{ else }}false{{- end }}
-      {{- end }}
   {{- end }}
 {{- include "jenkins.casc.security" . }}
 {{- with .Values.controller.scriptApproval }}

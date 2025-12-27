@@ -72,8 +72,6 @@ default-cap:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -156,8 +154,6 @@ limited-cap:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false

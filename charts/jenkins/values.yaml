@@ -575,7 +575,7 @@ controller:
         # -- Tag for the image that triggers the reload
         tag: 1.30.7
       imagePullPolicy: IfNotPresent
-      resources: 
+      resources:
         {}
         #   limits:
         #     cpu: 100m
@@ -584,7 +584,7 @@ controller:
         #     cpu: 50m
         #     memory: 50Mi
       # -- Enables additional volume mounts for the config auto-reload container
-      additionalVolumeMounts: 
+      additionalVolumeMounts:
         []
         #   - name: auto-reload-config
         #     mountPath: /var/config/logger
@@ -719,7 +719,7 @@ controller:
     # -- Ingress labels
     labels: {}
     # -- Ingress annotations
-    annotations: 
+    annotations:
       {}
       # kubernetes.io/ingress.class: nginx
       # kubernetes.io/tls-acme: "true"
@@ -1312,14 +1312,14 @@ networkPolicy:
     # -- A map of labels (keys/values) that agent pods must have to be able to connect to controller
     podLabels: {}
     # -- A map of labels (keys/values) that agents namespaces must have to be able to connect to controller
-    namespaceLabels: 
+    namespaceLabels:
       {}
       # project: myproject
   externalAgents:
     # -- The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16
     ipCIDR:
     # -- A list of IP sub-ranges to be excluded from the allowlisted IP range
-    except: 
+    except:
       []
       # - 172.17.1.0/24
 

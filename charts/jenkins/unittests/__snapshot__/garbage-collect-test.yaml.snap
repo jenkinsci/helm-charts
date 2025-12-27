@@ -77,8 +77,6 @@ namespaces:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -163,8 +161,6 @@ one cloud:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -301,8 +297,6 @@ second cloud:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
