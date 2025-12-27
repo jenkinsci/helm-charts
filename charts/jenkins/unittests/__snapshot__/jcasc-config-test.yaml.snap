@@ -122,6 +122,9 @@ additional clouds:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -312,6 +315,9 @@ additional clouds inheriting additional agents:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -473,6 +479,9 @@ additional clouds overriding additional agents:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -605,6 +614,9 @@ additional clouds set skipTlsVerify:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -737,6 +749,9 @@ additional clouds set usageRestricted:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -823,6 +838,9 @@ adds custom labels on agent pods:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -980,6 +998,9 @@ agent namespace and templates:
                     resourceLimitMemory: "1024Mi"
                     resourceLimitEphemeralStorage: "2Gi"
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1069,6 +1090,9 @@ agent with liveness probe:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1173,6 +1197,9 @@ agents with liveness probe:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1256,6 +1283,9 @@ configure hostnetworking to agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1343,6 +1373,9 @@ custom dynamic pvc workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1428,6 +1461,9 @@ custom emptyDir workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1513,6 +1549,9 @@ custom hostPath workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1595,6 +1634,9 @@ custom jenkins label:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1682,6 +1724,9 @@ custom nfs workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1768,6 +1813,9 @@ custom other workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1854,6 +1902,9 @@ custom pvc workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1984,6 +2035,9 @@ customized config:
                 yamlMergeStrategy: merge
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2067,6 +2121,9 @@ default config:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2116,6 +2173,9 @@ disable agents:
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2197,6 +2257,9 @@ disable useDefaultServiceAccount:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2278,6 +2341,9 @@ empty projectNamingStrategy:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2360,6 +2426,9 @@ legacyRemotingSecurityEnabled = false:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2444,6 +2513,9 @@ legacyRemotingSecurityEnabled = true:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2529,6 +2601,9 @@ non-string projectNamingStrategy:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2611,6 +2686,9 @@ set agent.serviceAccount:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2692,6 +2770,9 @@ set directConnection:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2774,6 +2855,9 @@ set restrictedPssSecurityContext:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2865,6 +2949,9 @@ set secretEnvVars:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2963,6 +3050,9 @@ specify additional container:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3090,6 +3180,9 @@ specify additional container and clear in additional agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3233,6 +3326,9 @@ specify additional container and overwrite in additional agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3315,6 +3411,9 @@ specify security settings with apiToken override:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken: overridden
       unclassified:
@@ -3394,6 +3493,9 @@ specify security settings without apiToken override:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
+        crumbIssuer:
+          standard:
+            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3401,6 +3503,88 @@ specify security settings without apiToken override:
           usageStatisticsEnabled: true
         gitHostKeyVerificationConfiguration:
           sshHostKeyVerificationStrategy: acceptFirstConnectionStrategy
+      unclassified:
+        location:
+          url: http://RELEASE-NAME-jenkins:8080
+none lts version: 
+  1: |
+    |-
+      jenkins:
+        authorizationStrategy:
+          loggedInUsersCanDoAnything:
+            allowAnonymousRead: false
+        securityRealm:
+          local:
+            allowsSignup: false
+            enableCaptcha: false
+            users:
+            - id: "${chart-admin-username}"
+              name: "Jenkins Admin"
+              password: "${chart-admin-password}"
+        disableRememberMe: false
+        mode: NORMAL
+        numExecutors: 0
+        labelString: ""
+        projectNamingStrategy: "standard"
+        markupFormatter:
+          plainText
+        clouds:
+        - kubernetes:
+            containerCapStr: "10"
+            defaultsProviderTemplate: ""
+            connectTimeout: "5"
+            readTimeout: "15"
+            jenkinsUrl: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080"
+            jenkinsTunnel: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
+            skipTlsVerify: false
+            usageRestricted: false
+            maxRequestsPerHostStr: "32"
+            retentionTimeout: "5"
+            waitForPodSec: "600"
+            name: "kubernetes"
+            namespace: "default"
+            restrictedPssSecurityContext: false
+            serverUrl: "https://kubernetes.default"
+            credentialsId: ""
+            podLabels:
+            - key: "jenkins/RELEASE-NAME-jenkins-agent"
+              value: "true"
+            templates:
+              - name: "default"
+                namespace: "default"
+                id: a23c9bbcd21e360a77d51b426f05bd7b8032d8fdedd6ffb97c436883ce6c5ffa
+                containers:
+                - name: "jnlp"
+                  alwaysPullImage: false
+                  args: "^${computer.jnlpmac} ^${computer.name}"
+                  envVars:
+                    - envVar:
+                        key: "JENKINS_URL"
+                        value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-3"
+                  privileged: "false"
+                  resourceLimitCpu: 512m
+                  resourceLimitMemory: 512Mi
+                  resourceRequestCpu: 512m
+                  resourceRequestMemory: 512Mi
+                  ttyEnabled: false
+                  workingDir: /home/jenkins/agent
+                idleMinutes: 0
+                instanceCap: 2147483647
+                label: "RELEASE-NAME-jenkins-agent "
+                nodeUsageMode: "NORMAL"
+                podRetention: Never
+                showRawYaml: true
+                serviceAccount: "default"
+                slaveConnectTimeoutStr: "100"
+                yamlMergeStrategy: override
+                inheritYamlMergeStrategy: false
+        slaveAgentPort: 50000
+      security:
+        apiToken:
+          creationOfLegacyTokenEnabled: false
+          tokenGenerationOnCreationEnabled: false
+          usageStatisticsEnabled: true
       unclassified:
         location:
           url: http://RELEASE-NAME-jenkins:8080
