@@ -116,7 +116,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.containerEnvFrom](./values.yaml#L155) | list | Environment variable sources for Jenkins Container | `[]` |
 | [controller.containerSecurityContext](./values.yaml#L213) | object | Allow controlling the securityContext for the jenkins container | `{"allowPrivilegeEscalation":false,"readOnlyRootFilesystem":true,"runAsGroup":1000,"runAsUser":1000}` |
 | [controller.csrf.defaultCrumbIssuer.enabled](./values.yaml#L354) | bool | Enable the default CSRF Crumb issuer | `true` |
-| [controller.csrf.defaultCrumbIssuer.proxyCompatability](./values.yaml#L356) | bool | Enable proxy compatibility | `true` |
+| [controller.csrf.defaultCrumbIssuer.proxyCompatability](./values.yaml#L356) | bool | Enable proxy compatibility. This setting is ignored if you are not on the current LTS release and will be dropped with the next LTS. | `true` |
 | [controller.customInitContainers](./values.yaml#L556) | list | Custom init-container specification in raw-yaml format | `[]` |
 | [controller.customJenkinsLabels](./values.yaml#L71) | list | Append Jenkins labels to the controller | `[]` |
 | [controller.disableRememberMe](./values.yaml#L62) | bool | Disable use of remember me | `false` |
