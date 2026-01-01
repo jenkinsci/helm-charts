@@ -204,6 +204,7 @@ default values:
                 name: tmp-volume
         securityContext:
           fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
           runAsNonRoot: true
           runAsUser: 1000
         serviceAccountName: my-release-jenkins
@@ -425,6 +426,7 @@ test scheme for config-reload:
                 name: tmp-volume
         securityContext:
           fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
           runAsNonRoot: true
           runAsUser: 1000
         serviceAccountName: my-release-jenkins
