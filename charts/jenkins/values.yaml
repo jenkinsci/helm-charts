@@ -193,6 +193,9 @@ controller:
   # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that will be used for persistent volume.
   fsGroup: 1000
 
+  #  -- Deprecated in favor of `controller.podSecurityContextOverride`. fsGroupChangePolicy for the pod security context
+  fsGroupChangePolicy: OnRootMismatch
+
   # If you have PodSecurityPolicies that require dropping of capabilities as suggested by CIS K8s benchmark, put them here
   # securityContextCapabilities:
   #  drop:
