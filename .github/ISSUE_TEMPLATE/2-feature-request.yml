@@ -52,3 +52,8 @@ body:
         Add any other context or screenshots about the feature request here.
     validations:
       required: false
+
+  - type: textarea
+    attributes:
+      label: Are you interested in contributing this feature?
+      description: Indicate if this is something you would like to work on, and how we can best support you in doing so. More details [on contributing](https://github.com/jenkinsci/helm-charts/blob/main/CONTRIBUTING.md)
