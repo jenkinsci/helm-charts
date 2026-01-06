@@ -34,7 +34,7 @@ spec:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
-        pathType: {{ .Values.controller.ingress.pathType | default "ImplementationSpecific" }}
+        pathType: {{ .Values.controller.ingress.pathType }}
 {{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
@@ -57,7 +57,7 @@ spec:
             name: {{ template "jenkins.fullname" . }}
             port:
               number: {{ .Values.controller.servicePort }}
-        pathType: {{ .Values.controller.ingress.pathType | default "ImplementationSpecific" }}
+        pathType: {{ .Values.controller.ingress.pathType }}
 {{- else }}
           serviceName: {{ template "jenkins.fullname" . }}
           servicePort: {{ .Values.controller.servicePort }}
