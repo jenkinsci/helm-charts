@@ -715,8 +715,7 @@ controller:
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
 
-    # Override for the ingress rule pathType
-    # Choices are: Exact, ImplementationSpecific, Prefix
+    # -- Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix
     pathType: ImplementationSpecific
 
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
