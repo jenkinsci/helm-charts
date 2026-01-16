@@ -170,7 +170,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L432) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L421) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L424) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L413) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4416.v2ea_b_5372da_a_e","workflow-aggregator:608.v67378e9d3db_1","git:5.8.1","configuration-as-code:2006.v001a_2ca_6b_574"]` |
+| [controller.installPlugins](./values.yaml#L413) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4416.v2ea_b_5372da_a_e","workflow-aggregator:608.v67378e9d3db_1","git:5.8.1","configuration-as-code:2031.veb_a_fdda_b_3ffd"]` |
 | [controller.javaOpts](./values.yaml#L164) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L98) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L103) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
