@@ -18,6 +18,7 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: gh-pages
+          persist-credentials: true
       - run: |
           cp -f ${{ runner.temp }}/README.md .
           git config user.name "$GITHUB_ACTOR"

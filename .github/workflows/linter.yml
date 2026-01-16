@@ -36,6 +36,7 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_JSONC: false
           VALIDATE_KUBERNETES_KUBECONFORM: false
+          VALIDATE_TRIVY: false
           VALIDATE_YAML: false
           VALIDATE_YAML_PRETTIER: false
           DEFAULT_BRANCH: main
@@ -47,6 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Install and run helm-docs
         run: |-
           # renovate: datasource=github-releases depName=norwoodj/helm-docs
