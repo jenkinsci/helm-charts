@@ -25,7 +25,7 @@ mkdir -p /tmp/helm && tar -xf /tmp/helm.tar.gz -C /tmp/helm
 mv /tmp/helm/linux-amd64/helm /usr/local/bin/helm
 chmod a+x /usr/local/bin/helm
 
-runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} || echo "helm-unittest plugin already installed"
+runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} --verify=false || echo "helm-unittest plugin already installed"
 
 curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64
 chmod a+x /usr/local/bin/yq
