@@ -51,7 +51,7 @@ tests:
             fi
             echo "copy plugins to shared volume"
             # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            cp -f /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/ 2>/dev/null || true
             echo "finished initialization"
       - matchSnapshot:
           path: data["plugins.txt"]
@@ -103,7 +103,7 @@ tests:
             fi
             echo "copy plugins to shared volume"
             # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            cp -f /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/ 2>/dev/null || true
             echo "finished initialization"
   - it: install latest specified plugins
     set:
@@ -129,5 +129,5 @@ tests:
             fi
             echo "copy plugins to shared volume"
             # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            cp -f /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/ 2>/dev/null || true
             echo "finished initialization"
