@@ -651,6 +651,8 @@ Create the HTTP port for interacting with the controller
           fieldPath: metadata.name
     - name: LABEL
       value: "{{ template "jenkins.fullname" $root }}-jenkins-config"
+    - name: HEALTH_PORT
+      value: "{{ $root.Values.controller.sidecars.configAutoReload.healthPort }}"
     - name: FOLDER
       value: "{{ $root.Values.controller.sidecars.configAutoReload.folder }}"
     - name: NAMESPACE
@@ -699,6 +701,8 @@ Create the HTTP port for interacting with the controller
       {{- if $root.Values.persistence.subPath }}
       subPath: {{ $root.Values.persistence.subPath }}
       {{- end }}
+    - name: tmp-volume
+      mountPath: /tmp
     {{- if $root.Values.controller.sidecars.configAutoReload.logging.configuration.override }}
     - name: auto-reload-config
       mountPath: {{ $root.Values.controller.jenkinsHome }}/auto-reload

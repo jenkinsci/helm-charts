@@ -308,12 +308,12 @@ tests:
             configMap:
               name: my-release-jenkins-auto-reload-config
       - equal:
-          path: spec.template.spec.initContainers[0].env[5]
+          path: spec.template.spec.initContainers[0].env[6]
           value:
             name: LOG_CONFIG
             value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
       - equal:
-          path: spec.template.spec.containers[1].env[7]
+          path: spec.template.spec.containers[1].env[8]
           value:
             name: LOG_CONFIG
             value: /var/jenkins_home/auto-reload/auto-reload-config.yaml
