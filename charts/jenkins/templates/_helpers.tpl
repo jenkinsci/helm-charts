@@ -706,6 +706,8 @@ Create the HTTP port for interacting with the controller
       mountPath: {{ $root.Values.controller.jenkinsHome }}/auto-reload
     - name: auto-reload-config-logs
       mountPath: {{ $root.Values.controller.jenkinsHome }}/auto-reload-logs
+    - name: tmp-volume
+      mountPath: /tmp
     {{- end }}
     {{- if $root.Values.controller.sidecars.configAutoReload.additionalVolumeMounts }}
 {{ (tpl (toYaml $root.Values.controller.sidecars.configAutoReload.additionalVolumeMounts) $root) | indent 4 }}
