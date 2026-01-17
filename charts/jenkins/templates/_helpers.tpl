@@ -701,13 +701,13 @@ Create the HTTP port for interacting with the controller
       {{- if $root.Values.persistence.subPath }}
       subPath: {{ $root.Values.persistence.subPath }}
       {{- end }}
+    - name: tmp-volume
+      mountPath: /tmp
     {{- if $root.Values.controller.sidecars.configAutoReload.logging.configuration.override }}
     - name: auto-reload-config
       mountPath: {{ $root.Values.controller.jenkinsHome }}/auto-reload
     - name: auto-reload-config-logs
       mountPath: {{ $root.Values.controller.jenkinsHome }}/auto-reload-logs
-    - name: tmp-volume
-      mountPath: /tmp
     {{- end }}
     {{- if $root.Values.controller.sidecars.configAutoReload.additionalVolumeMounts }}
 {{ (tpl (toYaml $root.Values.controller.sidecars.configAutoReload.additionalVolumeMounts) $root) | indent 4 }}

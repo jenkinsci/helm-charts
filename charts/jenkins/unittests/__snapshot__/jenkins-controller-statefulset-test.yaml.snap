@@ -148,6 +148,8 @@ default values:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+              - mountPath: /tmp
+                name: tmp-volume
         enableServiceLinks: false
         initContainers:
           - env:
@@ -177,6 +179,8 @@ default values:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+              - mountPath: /tmp
+                name: tmp-volume
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
@@ -374,6 +378,8 @@ test scheme for config-reload:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+              - mountPath: /tmp
+                name: tmp-volume
         enableServiceLinks: false
         initContainers:
           - env:
@@ -403,6 +409,8 @@ test scheme for config-reload:
                 name: sc-config-volume
               - mountPath: /var/jenkins_home
                 name: jenkins-home
+              - mountPath: /tmp
+                name: tmp-volume
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
