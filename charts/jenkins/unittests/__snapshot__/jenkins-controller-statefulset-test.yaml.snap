@@ -136,7 +136,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
+            image: docker.io/kiwigrid/k8s-sidecar:2.3.0
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -167,7 +167,7 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
+            image: docker.io/kiwigrid/k8s-sidecar:2.3.0
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -366,7 +366,7 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
+            image: docker.io/kiwigrid/k8s-sidecar:2.3.0
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -397,7 +397,7 @@ test scheme for config-reload:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.1.4
+            image: docker.io/kiwigrid/k8s-sidecar:2.3.0
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
