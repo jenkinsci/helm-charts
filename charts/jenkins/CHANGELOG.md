@@ -12,9 +12,29 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.120
+
+Update `configuration-as-code` to version `2031.veb_a_fdda_b_3ffd`
+
+## 5.8.119
+
+Update `kubernetes` to version `4416.v2ea_b_5372da_a_e`
+
+## 5.8.118
+
+Update `jenkins/inbound-agent` to version `3355.v388858a_47b_33-5`
+
+## 5.8.117
+
+Added value to override default ingress pathType
+
+## 5.8.116
+
+Added default fsGroupChangePolicy value, allow overriding in accordance to current deprecation plans
+
 ## 5.8.115
 
-Update `docker.io/kiwigrid/k8s-sidecar` to version `2.1.4`
+Removed controller.csrf.defaultCrumbIssuer.proxyCompatability as it is dropped in core
 
 ## 5.8.114
 
