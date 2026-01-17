@@ -193,6 +193,9 @@ controller:
   # -- Deprecated in favor of `controller.podSecurityContextOverride`. uid that will be used for persistent volume.
   fsGroup: 1000
 
+  #  -- Deprecated in favor of `controller.podSecurityContextOverride`. fsGroupChangePolicy for the pod security context
+  fsGroupChangePolicy: OnRootMismatch
+
   # If you have PodSecurityPolicies that require dropping of capabilities as suggested by CIS K8s benchmark, put them here
   # securityContextCapabilities:
   #  drop:
@@ -352,7 +355,7 @@ controller:
     defaultCrumbIssuer:
       # -- Enable the default CSRF Crumb issuer
       enabled: true
-      # -- Enable proxy compatibility
+      # -- Enable proxy compatibility. This setting is ignored if you are not on the current LTS release and will be dropped with the next LTS.
       proxyCompatability: true
 
   # Kubernetes service type for the JNLP agent service
@@ -408,10 +411,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4398.vb_b_33d9e7fe23
+    - kubernetes:4416.v2ea_b_5372da_a_e
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.8.1
-    - configuration-as-code:2006.v001a_2ca_6b_574
+    - configuration-as-code:2031.veb_a_fdda_b_3ffd
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -714,6 +717,9 @@ controller:
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
 
+    # -- Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix
+    pathType: ImplementationSpecific
+
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
     # -- Ingress API version
@@ -970,7 +976,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3355.v388858a_47b_33-3"
+    tag: "3355.v388858a_47b_33-5"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"

@@ -86,12 +86,14 @@ spec:
     {{/* The rest of this section should be replaced with the contents of this comment one the runAsUser, fsGroup, and securityContextCapabilities Helm chart values have been removed:
         runAsUser: 1000
         fsGroup: 1000
+        fsGroupChangePolicy: OnRootMismatch
         runAsNonRoot: true
     */}}
         runAsUser: {{ default 0 .Values.controller.runAsUser }}
     {{- if and (.Values.controller.runAsUser) (.Values.controller.fsGroup) }}
       {{- if not (eq (int .Values.controller.runAsUser) 0) }}
         fsGroup: {{ .Values.controller.fsGroup }}
+        fsGroupChangePolicy: {{ .Values.controller.fsGroupChangePolicy }}
         runAsNonRoot: true
       {{- end }}
       {{- if .Values.controller.securityContextCapabilities }}

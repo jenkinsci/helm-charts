@@ -2,10 +2,10 @@
 set -euox pipefail
 
 # renovate: datasource=github-tags depName=mikefarah/yq
-export YQ_VERSION=v4.49.2
+export YQ_VERSION=v4.50.1
 
 # renovate: datasource=github-tags depName=helm/helm
-export HELM_VERSION=v4.0.4
+export HELM_VERSION=v4.0.5
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
 export HELM_UNITTEST_VERSION=v1.0.3
@@ -25,7 +25,7 @@ mkdir -p /tmp/helm && tar -xf /tmp/helm.tar.gz -C /tmp/helm
 mv /tmp/helm/linux-amd64/helm /usr/local/bin/helm
 chmod a+x /usr/local/bin/helm
 
-runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} || echo "helm-unittest plugin already installed"
+runuser -u ubuntu -- helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} --verify=false || echo "helm-unittest plugin already installed"
 
 curl -fsSL -o /usr/local/bin/yq https://github.com/mikefarah/yq/releases/download/${YQ_VERSION}/yq_linux_amd64
 chmod a+x /usr/local/bin/yq

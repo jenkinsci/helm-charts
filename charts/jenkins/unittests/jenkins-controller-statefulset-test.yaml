@@ -74,6 +74,7 @@ tests:
         priorityClassName: important
         runAsUser: 2000
         fsGroup: 4000
+        fsGroupChangePolicy: OnRootMismatch
         securityContextCapabilities:
           drop:
             - NET_RAW
@@ -137,6 +138,7 @@ tests:
           value:
             runAsUser: 2000
             fsGroup: 4000
+            fsGroupChangePolicy: OnRootMismatch
             runAsNonRoot: true
             capabilities:
               drop:

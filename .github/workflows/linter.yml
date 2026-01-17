@@ -2,20 +2,33 @@ name: Lint Code Base
 
 on: pull_request
 
-permissions:
-  contents: read
+permissions: {}
 
 jobs:
   build:
     name: Lint Code Base
     runs-on: ubuntu-latest
+
+    permissions:
+      # contents permission to clone the repository
+      contents: read
+      packages: read
+      # To issues and pull-requests permissions to write results as pull
+      # request comments. Omit them if you don't need summary comments
+      issues: write
+      pull-requests: write
+      # To report GitHub Actions status checks. Omit if you don't need
+      # to update commit status
+      statuses: write
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v6
         with:
           fetch-depth: 0
+          persist-credentials: false
       - name: Lint Code Base
-        uses: super-linter/super-linter/slim@v8.0.0
+        uses: super-linter/super-linter/slim@d5b0a2ab116623730dd094f15ddc1b6b25bf7b99 # v8.3.2
         env:
           VALIDATE_ALL_CODEBASE: true
           VALIDATE_CHECKOV: false
@@ -23,6 +36,7 @@ jobs:
           VALIDATE_JSCPD: false
           VALIDATE_JSONC: false
           VALIDATE_KUBERNETES_KUBECONFORM: false
+          VALIDATE_TRIVY: false
           VALIDATE_YAML: false
           VALIDATE_YAML_PRETTIER: false
           DEFAULT_BRANCH: main
@@ -34,6 +48,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Install and run helm-docs
         run: |-
           # renovate: datasource=github-releases depName=norwoodj/helm-docs

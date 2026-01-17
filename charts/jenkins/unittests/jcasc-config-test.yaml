@@ -936,3 +936,41 @@ tests:
         matchRegex:
           path: data["security.yaml"]
           pattern: "authorizationStrategy:"
+
+  - it: none lts version
+    chart:
+      version: 5.8.115
+      appVersion: 2.543
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]
+  - it: none lts version
+    set:
+      controller:
+        image:
+          tag: "2.543"
+    release:
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: data["jcasc-default-config.yaml"]
+      - matchRegex:
+          path: metadata.labels["helm.sh/chart"]
+          pattern: ^jenkins-
+      - matchSnapshot:
+          path: data["jcasc-default-config.yaml"]

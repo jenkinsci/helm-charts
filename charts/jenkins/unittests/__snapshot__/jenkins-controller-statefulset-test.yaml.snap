@@ -29,7 +29,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: f4d583a36bc08f194c6582246eb31ecabff5b6a4689b4c9807c2adabaae80b4f
+          checksum/config: b052af0e80dc1817de05eeaaddacbfde081a56ea16ffcb6a219f58c64f0cce8e
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -208,6 +208,7 @@ default values:
                 name: tmp-volume
         securityContext:
           fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
           runAsNonRoot: true
           runAsUser: 1000
         serviceAccountName: my-release-jenkins
@@ -240,7 +241,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: f4d583a36bc08f194c6582246eb31ecabff5b6a4689b4c9807c2adabaae80b4f
+    checksum/config: b052af0e80dc1817de05eeaaddacbfde081a56ea16ffcb6a219f58c64f0cce8e
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -254,7 +255,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: f4d583a36bc08f194c6582246eb31ecabff5b6a4689b4c9807c2adabaae80b4f
+          checksum/config: b052af0e80dc1817de05eeaaddacbfde081a56ea16ffcb6a219f58c64f0cce8e
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -433,6 +434,7 @@ test scheme for config-reload:
                 name: tmp-volume
         securityContext:
           fsGroup: 1000
+          fsGroupChangePolicy: OnRootMismatch
           runAsNonRoot: true
           runAsUser: 1000
         serviceAccountName: my-release-jenkins
