@@ -263,7 +263,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.healthPort](./values.yaml#L582) | int | Port for sidecar health probes | `8060` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L575) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L577) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L579) | string | Tag for the image that triggers the reload | `"2.4.0"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L579) | string | Tag for the image that triggers the reload | `"2.5.0"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L580) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L599) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
 | [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L603) | bool | Enables custom log config utilizing using the settings below. | `false` |
