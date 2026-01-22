@@ -10,6 +10,7 @@ tests:
     template: jenkins-controller-ingress.yaml
     set:
       global.jenkinsHostname: "jenkins.example.com"
+      global.resourceRootUrlHostname: "assets.jenkins.example.com"
       controller.ingress:
         enabled: true
         hostName: "{{ .Values.global.jenkinsHostname }}"
@@ -17,6 +18,7 @@ tests:
         tls:
           - hosts:
               - "{{ .Values.global.jenkinsHostname }}"
+              - "{{ .Values.global.resourceRootUrlHostname }}"
     asserts:
       - equal:
           path: spec.rules[0].host
@@ -24,3 +26,6 @@ tests:
       - equal:
           path: spec.tls[0].hosts[0]
           value: "jenkins.example.com"
+      - equal:
+          path: spec.tls[0].hosts[1]
+          value: "assets.jenkins.example.com"

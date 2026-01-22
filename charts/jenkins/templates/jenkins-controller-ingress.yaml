@@ -66,6 +66,15 @@ spec:
 {{- end }}
 {{- if .Values.controller.ingress.tls }}
   tls:
-{{ tpl (toYaml .Values.controller.ingress.tls ) . | indent 4 }}
-{{- end -}}
+{{- range .Values.controller.ingress.tls }}
+  - hosts:
+{{- range .hosts }}
+      - {{ tpl . $ | quote }}
+{{- end }}
+{{- if $.Values.controller.ingress.resourceRootUrl }}
+      - {{ tpl $.Values.controller.ingress.resourceRootUrl $ | quote }}
+{{- end }}
+    secretName: {{ .secretName | quote }}
+{{- end }}
+{{- end }}
 {{- end }}
