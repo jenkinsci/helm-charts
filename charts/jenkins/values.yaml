@@ -32,6 +32,9 @@ renderHelmLabels: true
 # -- Configures extra labels for the agent all objects
 extraLabels: {}
 
+# -- Configures extra manifests
+extraObjects:
+
 controller:
   # -- Used for label app.kubernetes.io/component
   componentName: "jenkins-controller"
