@@ -96,12 +96,8 @@ tests:
       - equal:
           path: metadata.name
           value: cm-v1
-        documentSelector:
-          path: kind
-          value: ConfigMap
+        documentIndex: 0
       - equal:
           path: metadata.name
           value: secret-v1
-        documentSelector:
-          path: kind
-          value: Secret
+        documentIndex: 1
