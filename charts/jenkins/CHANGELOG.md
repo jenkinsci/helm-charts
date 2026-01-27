@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.8.133
+
+Update `configuration-as-code` to version `2036.v0b_c2de701dcb_`
+
 ## 5.8.132
 
 Update `git` to version `5.9.0`
