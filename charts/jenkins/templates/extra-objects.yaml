@@ -1,0 +1,18 @@
+{{- if .Values.extraObjects -}}
+  {{- $extraObjects := .Values.extraObjects -}}
+
+  {{- if kindIs "map" $extraObjects -}}
+    {{- $extraObjects = values $extraObjects -}}
+  {{- end -}}
+
+  {{- range $index, $object := $extraObjects -}}
+    {{- if $object -}}
+---
+      {{- if kindIs "string" $object -}}
+        {{- tpl $object $ | nindent 0 -}}
+      {{- else -}}
+        {{- tpl (toYaml $object) $ | nindent 0 -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
