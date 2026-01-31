@@ -2,7 +2,7 @@
 set -euox pipefail
 
 # renovate: datasource=github-tags depName=mikefarah/yq
-export YQ_VERSION=v4.50.1
+export YQ_VERSION=v4.52.1
 
 # renovate: datasource=github-tags depName=helm/helm
 export HELM_VERSION=v4.1.0
