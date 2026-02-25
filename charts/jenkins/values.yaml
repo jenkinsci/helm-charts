@@ -807,6 +807,23 @@ controller:
     # -- Route path
     path:
 
+  # Gateway API HTTPRoute
+  httpRoute:
+    # Toggle to create an HTTPRoute resource alongside the existing ingress definition
+    enabled: false
+    apiVersion: "gateway.networking.k8s.io/v1"
+    kind: HTTPRoute
+    # specify the Gateway instance to bind the HTTPRoute to.
+    gatewayRef:
+      name: envoy-gateway-bundle
+      namespace: envoy-gateway-system
+    # Reuse ingress host information if true; set to false to manage hostnames below
+    ingressCompact: true
+    # Explicit host overrides when ingressCompact is disabled
+    hostnames: []
+    # Extra HTTPRoute rules that will be appended before the default backend
+    extraPaths: []
+
   # -- Allows for adding entries to Pod /etc/hosts
   hostAliases: []
   # ref: https://kubernetes.io/docs/concepts/services-networking/add-entries-to-pod-etc-hosts-with-host-aliases/
