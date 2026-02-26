@@ -137,12 +137,11 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.hostNetworking](./values.yaml#L76) | bool |  | `false` |
 | [controller.httpRoute.apiVersion](./values.yaml#L814) | string |  | `"gateway.networking.k8s.io/v1"` |
 | [controller.httpRoute.enabled](./values.yaml#L813) | bool |  | `false` |
-| [controller.httpRoute.extraPaths](./values.yaml#L825) | list |  | `[]` |
-| [controller.httpRoute.gatewayRef.name](./values.yaml#L818) | string |  | `"envoy-gateway-bundle"` |
-| [controller.httpRoute.gatewayRef.namespace](./values.yaml#L819) | string |  | `"envoy-gateway-system"` |
+| [controller.httpRoute.extraRules](./values.yaml#L825) | list |  | `[]` |
 | [controller.httpRoute.hostnames](./values.yaml#L823) | list |  | `[]` |
-| [controller.httpRoute.ingressCompact](./values.yaml#L821) | bool |  | `true` |
 | [controller.httpRoute.kind](./values.yaml#L815) | string |  | `"HTTPRoute"` |
+| [controller.httpRoute.parentRefs](./values.yaml#L817) | list |  | `[]` |
+| [controller.httpRoute.reuseIngressConfiguration](./values.yaml#L821) | bool |  | `true` |
 | [controller.httpsKeyStore.disableSecretMount](./values.yaml#L896) | bool |  | `false` |
 | [controller.httpsKeyStore.enable](./values.yaml#L887) | bool | Enables HTTPS keystore on jenkins controller | `false` |
 | [controller.httpsKeyStore.fileName](./values.yaml#L904) | string | Jenkins keystore filename which will appear under controller.httpsKeyStore.path | `"keystore.jks"` |

@@ -814,15 +814,15 @@ controller:
     apiVersion: "gateway.networking.k8s.io/v1"
     kind: HTTPRoute
     # specify the Gateway instance to bind the HTTPRoute to.
-    gatewayRef:
-      name: envoy-gateway-bundle
-      namespace: envoy-gateway-system
+    parentRefs: []
+    # - name: envoy-gateway-bundle
+    #   namespace: envoy-gateway-system
     # Reuse ingress host information if true; set to false to manage hostnames below
-    ingressCompact: true
-    # Explicit host overrides when ingressCompact is disabled
+    reuseIngressConfiguration: true
+    # Hostnames to use for the http route, only used if reuseIngressConfiguration is false.
     hostnames: []
     # Extra HTTPRoute rules that will be appended before the default backend
-    extraPaths: []
+    extraRules: []
 
   # -- Allows for adding entries to Pod /etc/hosts
   hostAliases: []

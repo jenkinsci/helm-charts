@@ -1,7 +1,7 @@
 {{- if .Values.controller.httpRoute.enabled }}
 {{- $root := . }}
 {{- $hostnames := (list) }}
-{{- if .Values.controller.httpRoute.ingressCompact }}
+{{- if .Values.controller.httpRoute.reuseIngressConfiguration }}
   {{- if .Values.controller.ingress.hostName }}
     {{- $hostnames = append $hostnames .Values.controller.ingress.hostName }}
   {{- end }}
@@ -19,16 +19,17 @@ metadata:
   labels:
     {{- include "jenkins.labels" . | nindent 4 }}
 spec:
+  {{- with .Values.controller.httpRoute.parentRefs }}
   parentRefs:
-  - name: {{ .Values.controller.httpRoute.gatewayRef.name }}
-    namespace: {{ .Values.controller.httpRoute.gatewayRef.namespace }}
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
   hostnames:
   {{- range $hostnames }}
     - {{ . | quote }}
   {{- end }}
   rules:
-{{- range $rule := (default (list) $root.Values.controller.httpRoute.extraPaths) }}
-  - {{ tpl (toYaml $rule) $root | nindent 4 }}
+{{- if .Values.controller.httpRoute.extraRules }}
+{{- toYaml .Values.controller.httpRoute.extraRules | nindent 2 }}
 {{- end }}
   - backendRefs:
     - name: {{ include "jenkins.fullname" $root }}
