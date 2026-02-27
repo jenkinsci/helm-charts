@@ -141,7 +141,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.httpRoute.hostnames](./values.yaml#L823) | list |  | `[]` |
 | [controller.httpRoute.kind](./values.yaml#L815) | string |  | `"HTTPRoute"` |
 | [controller.httpRoute.parentRefs](./values.yaml#L817) | list |  | `[]` |
-| [controller.httpRoute.reuseIngressConfiguration](./values.yaml#L821) | bool |  | `true` |
+| [controller.httpRoute.reuseIngressConfiguration](./values.yaml#L821) | bool |  | `false` |
 | [controller.httpsKeyStore.disableSecretMount](./values.yaml#L896) | bool |  | `false` |
 | [controller.httpsKeyStore.enable](./values.yaml#L887) | bool | Enables HTTPS keystore on jenkins controller | `false` |
 | [controller.httpsKeyStore.fileName](./values.yaml#L904) | string | Jenkins keystore filename which will appear under controller.httpsKeyStore.path | `"keystore.jks"` |
