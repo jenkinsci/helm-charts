@@ -17,6 +17,10 @@ metadata:
   name: {{ include "jenkins.fullname" . }}
   labels:
     {{- include "jenkins.labels" . | nindent 4 }}
+  {{- if .Values.controller.httpRoute.annotations }}
+  annotations:
+    {{- tpl (toYaml .Values.controller.httpRoute.annotations) . | nindent 4 }}
+  {{- end }}
 spec:
   {{- with .Values.controller.httpRoute.parentRefs }}
   parentRefs:

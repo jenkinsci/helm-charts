@@ -49,6 +49,44 @@ tests:
           value:
             - external.jenkins.example.com
             - internal.jenkins.example.com
+  - it: renders annotations when set
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+          annotations:
+            example.com/key: value
+            another.io/annotation: "true"
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            example.com/key: value
+            another.io/annotation: "true"
+  - it: does not render annotations when not set
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+    asserts:
+      - notExists:
+          path: metadata.annotations
   - it: matches snapshot
     set:
       controller:
@@ -66,4 +104,4 @@ tests:
     asserts:
       - matchSnapshot:
           path: spec
-    
+

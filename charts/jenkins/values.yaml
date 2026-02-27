@@ -823,6 +823,8 @@ controller:
     hostnames: []
     # Extra HTTPRoute rules that will be appended before the default backend
     extraRules: []
+    # -- HTTPRoute annotations
+    annotations: {}
 
   # -- Allows for adding entries to Pod /etc/hosts
   hostAliases: []
