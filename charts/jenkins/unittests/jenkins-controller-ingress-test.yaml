@@ -19,7 +19,7 @@ tests:
         hostName: jenkins.example.com
         ingressClassName: nginx
         tls:
-          - secretName: tlsSecret
+          - secretName: '{{ .Release.Name }}-tls'
             hosts:
               - jenkins.example.com
     asserts:
@@ -53,7 +53,7 @@ tests:
             tls:
               - hosts:
                   - jenkins.example.com
-                secretName: tlsSecret
+                secretName: my-release-tls
   - it: other values
     set:
       controller.ingress:
