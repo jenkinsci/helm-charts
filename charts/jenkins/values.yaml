@@ -818,7 +818,7 @@ controller:
     # - name: envoy-gateway-bundle
     #   namespace: envoy-gateway-system
     # Reuse ingress host information if true; set to false to manage hostnames below
-    reuseIngressConfiguration: true
+    reuseIngressConfiguration: false
     # Hostnames to use for the http route, only used if reuseIngressConfiguration is false.
     hostnames: []
     # Extra HTTPRoute rules that will be appended before the default backend
