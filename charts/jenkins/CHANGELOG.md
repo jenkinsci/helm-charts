@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.0
+
+Added [Gateway API](https://gateway-api.sigs.k8s.io/api-types/httproute/) support
+
 ## 5.8.142
 
 Update `jenkins/jenkins` to version `2.541.2-jdk21`

@@ -1,0 +1,69 @@
+suite: Controller HTTPRoute
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jenkins-controller-httproute.yaml
+tests:
+  - it: reuses ingress hostnames when reuse is enabled
+    set:
+      controller:
+        ingress:
+          hostName: jenkins.example.com
+          resourceRootUrl: root.jenkins.example.com
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: true
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+    asserts:
+      - isKind:
+          of: HTTPRoute
+      - equal:
+          path: spec.hostnames
+          value:
+            - jenkins.example.com
+            - root.jenkins.example.com
+  - it: uses explicit hostnames when reuse is disabled
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - external.jenkins.example.com
+            - internal.jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+    asserts:
+      - isKind:
+          of: HTTPRoute
+      - equal:
+          path: spec.hostnames
+          value:
+            - external.jenkins.example.com
+            - internal.jenkins.example.com
+  - it: matches snapshot
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - external.jenkins.example.com
+            - internal.jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+    asserts:
+      - matchSnapshot:
+          path: spec
+    

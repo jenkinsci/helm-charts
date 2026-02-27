@@ -1,0 +1,36 @@
+{{- if .Values.controller.httpRoute.enabled }}
+{{- $root := . }}
+{{- $hostnames := (list) }}
+{{- if .Values.controller.httpRoute.reuseIngressConfiguration }}
+  {{- if .Values.controller.ingress.hostName }}
+    {{- $hostnames = append $hostnames .Values.controller.ingress.hostName }}
+  {{- end }}
+  {{- if .Values.controller.ingress.resourceRootUrl }}
+     {{- $hostnames = append $hostnames .Values.controller.ingress.resourceRootUrl }}
+  {{- end }}
+{{- else }}
+  {{- $hostnames = default (list) .Values.controller.httpRoute.hostnames }}
+{{- end }}
+apiVersion: {{ .Values.controller.httpRoute.apiVersion }}
+kind: {{ .Values.controller.httpRoute.kind }}
+metadata:
+  name: {{ include "jenkins.fullname" . }}
+  labels:
+    {{- include "jenkins.labels" . | nindent 4 }}
+spec:
+  {{- with .Values.controller.httpRoute.parentRefs }}
+  parentRefs:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+  hostnames:
+  {{- range $hostnames }}
+    - {{ . | quote }}
+  {{- end }}
+  rules:
+{{- if .Values.controller.httpRoute.extraRules }}
+{{- toYaml .Values.controller.httpRoute.extraRules | nindent 2 }}
+{{- end }}
+  - backendRefs:
+    - name: {{ include "jenkins.fullname" $root }}
+      port: {{ $root.Values.controller.servicePort }}
+{{- end }}

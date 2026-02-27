@@ -1,0 +1,12 @@
+matches snapshot:
+  1: |
+    hostnames:
+      - external.jenkins.example.com
+      - internal.jenkins.example.com
+    parentRefs:
+      - name: shared-gateway
+        namespace: networking
+    rules:
+      - backendRefs:
+          - name: my-release-jenkins
+            port: 8080
