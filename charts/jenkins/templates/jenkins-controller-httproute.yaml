@@ -11,7 +11,6 @@
 {{- else }}
   {{- $hostnames = default (list) .Values.controller.httpRoute.hostnames }}
 {{- end }}
----
 apiVersion: {{ .Values.controller.httpRoute.apiVersion }}
 kind: {{ .Values.controller.httpRoute.kind }}
 metadata:

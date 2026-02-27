@@ -49,3 +49,21 @@ tests:
           value:
             - external.jenkins.example.com
             - internal.jenkins.example.com
+  - it: matches snapshot
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - external.jenkins.example.com
+            - internal.jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+    asserts:
+      - matchSnapshot:
+          path: spec
+    
