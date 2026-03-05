@@ -714,3 +714,11 @@ Create the HTTP port for interacting with the controller
     {{- end }}
 
 {{- end -}}
+
+{{- define "controller.replicas" -}}
+{{- $replicas := int (default 1 .Values.controller.replicas) -}}
+{{- if or (lt $replicas 0) (gt $replicas 1) -}}
+{{- fail "controller.replicas must be 0 or 1" -}}
+{{- end -}}
+{{- .Values.controller.replicas -}}
+{{- end -}}

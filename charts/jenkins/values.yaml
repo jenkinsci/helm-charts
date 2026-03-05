@@ -51,6 +51,10 @@ controller:
     tagLabel: jdk21
     # -- Controller image pull policy
     pullPolicy: "Always"
+
+  # -- Number of replicas. Max 1. Can be set to 0 for maintenance scenarios.
+  replicas: 1
+
   # -- Controller image pull secret
   imagePullSecretName:
   # -- Lifecycle specification for controller-container

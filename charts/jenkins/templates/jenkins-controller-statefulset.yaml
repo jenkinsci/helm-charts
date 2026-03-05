@@ -18,7 +18,7 @@ metadata:
   {{- end }}
 spec:
   serviceName: {{ template "jenkins.fullname" . }}
-  replicas: 1
+  replicas: {{ include "controller.replicas" . }}
   selector:
     matchLabels:
       "app.kubernetes.io/component": "{{ .Values.controller.componentName }}"
