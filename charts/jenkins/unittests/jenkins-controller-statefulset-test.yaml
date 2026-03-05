@@ -840,3 +840,30 @@ tests:
       renderHelmLabels: false
     asserts:
       - matchSnapshot: {}
+  - it: fails when replicas is greater than 1
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        replicas: 2
+    asserts:
+      - failedTemplate:
+          errorPattern:
+            'controller.replicas must be 0 or 1'
+  - it: allow to scale to 0 replicas
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        replicas: 0
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 0
+  - it: allow to scale to 1 replicas
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        replicas: 1
+    asserts:
+      - equal:
+          path: spec.replicas
+          value: 1
