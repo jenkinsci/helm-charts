@@ -6,7 +6,7 @@
   {{- end -}}
 
   {{- range $index, $object := $extraObjects -}}
-    {{- if $object -}}
+    {{- if $object }}
 ---
       {{- if kindIs "string" $object -}}
         {{- tpl $object $ | nindent 0 -}}
