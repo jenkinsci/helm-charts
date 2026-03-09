@@ -65,6 +65,36 @@ tests:
       - equal:
           path: metadata.name
           value: test-secret
+  - it: should process multiple manifests
+    set:
+      extraObjects:
+        - apiVersion: v1
+          kind: Secret
+          metadata:
+            name: test-secret-1
+        - apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: test-configmap-1
+    asserts:
+      - hasDocuments:
+          count: 2
+      - equal:
+          path: kind
+          value: Secret
+        documentIndex: 0
+      - equal:
+          path: metadata.name
+          value: test-secret-1
+        documentIndex: 0
+      - equal:
+          path: kind
+          value: ConfigMap
+        documentIndex: 1
+      - equal:
+          path: metadata.name
+          value: test-configmap-1
+        documentIndex: 1
   - it: should process map manifest with tpl values
     set:
       env: prod
