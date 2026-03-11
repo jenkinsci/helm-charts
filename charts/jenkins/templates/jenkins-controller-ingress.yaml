@@ -81,7 +81,9 @@ spec:
 {{- if $.Values.controller.ingress.resourceRootUrl }}
       - {{ tpl $.Values.controller.ingress.resourceRootUrl $ | quote }}
 {{- end }}
+{{- if .secretName }}
     secretName: {{ tpl (.secretName | toString) $ | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end }}
