@@ -74,3 +74,82 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+  - it: hostName with Release.Name template variable
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins-{{ .Release.Name }}.example.com
+        ingressClassName: nginx
+        paths:
+          - /wsagents/
+        tls:
+          - secretName: my-tls-secret
+            hosts:
+              - jenkins-{{ .Release.Name }}.example.com
+    asserts:
+      - equal:
+          path: spec.rules[0].host
+          value: jenkins-my-release.example.com
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: jenkins-my-release.example.com
+      - equal:
+          path: spec.tls[0].secretName
+          value: my-tls-secret
+  - it: multiple TLS hosts with Release.Name template variable
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins-{{ .Release.Name }}.example.com
+        ingressClassName: nginx
+        paths:
+          - /wsagents/
+        tls:
+          - secretName: my-tls-secret
+            hosts:
+              - jenkins-{{ .Release.Name }}.example.com
+              - jenkins-{{ .Release.Name }}.alt.example.com
+    asserts:
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: jenkins-my-release.example.com
+      - equal:
+          path: spec.tls[0].hosts[1]
+          value: jenkins-my-release.alt.example.com
+  - it: multiple TLS hosts, some with Release.Name template variable
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins-{{ .Release.Name }}.example.com
+        ingressClassName: nginx
+        paths:
+          - /wsagents/
+        tls:
+          - secretName: my-tls-secret
+            hosts:
+              - jenkins-hard-coded.example.com
+              - jenkins-{{ .Release.Name }}.alt.example.com
+    asserts:
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: jenkins-hard-coded.example.com
+      - equal:
+          path: spec.tls[0].hosts[1]
+          value: jenkins-my-release.alt.example.com
+  - it: TLS without secretName uses default secret
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        ingressClassName: nginx
+        paths:
+          - /github-webhook
+        tls:
+          - hosts:
+              - jenkins.example.com
+    asserts:
+      - equal:
+          path: spec.tls[0].hosts[0]
+          value: jenkins.example.com
+      - isNull:
+          path: spec.tls[0].secretName

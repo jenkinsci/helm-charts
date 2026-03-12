@@ -26,7 +26,7 @@ spec:
   ingressClassName: {{ .Values.controller.secondaryingress.ingressClassName | quote }}
 {{- end }}
   rules:
-    - host: {{ .Values.controller.secondaryingress.hostName }}
+    - host: {{ tpl .Values.controller.secondaryingress.hostName . | quote }}
       http:
         paths:
         {{- range .Values.controller.secondaryingress.paths }}
@@ -45,6 +45,14 @@ spec:
         {{- end}}
 {{- if .Values.controller.secondaryingress.tls }}
   tls:
-{{ toYaml .Values.controller.secondaryingress.tls | indent 4 }}
+{{- range .Values.controller.secondaryingress.tls }}
+  - hosts:
+{{- range .hosts }}
+      - {{ tpl . $ | quote }}
+{{- end }}
+{{- if .secretName }}
+    secretName: {{ tpl (.secretName | toString) $ | quote }}
+{{- end }}
+{{- end }}
 {{- end -}}
 {{- end }}
