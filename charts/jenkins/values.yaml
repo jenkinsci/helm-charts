@@ -703,7 +703,7 @@ controller:
   updateStrategy: {}
 
   # -- Topology spread constraints
-  topologySpreadConstraints: {}
+  topologySpreadConstraints: []
 
   # -- DNS config for the pod
   dnsConfig: {}
