@@ -103,12 +103,12 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.agentListenerPort](./values.yaml#L345) | int | Listening port for agents | `50000` |
 | [controller.agentListenerServiceAnnotations](./values.yaml#L378) | object | Annotations for the agentListener service | `{}` |
 | [controller.agentListenerServiceType](./values.yaml#L375) | string | Defines how to expose the agentListener service | `"ClusterIP"` |
-| [controller.backendconfig.annotations](./values.yaml#L799) | object | backendconfig annotations | `{}` |
-| [controller.backendconfig.apiVersion](./values.yaml#L793) | string | backendconfig API version | `"extensions/v1beta1"` |
-| [controller.backendconfig.enabled](./values.yaml#L791) | bool | Enables backendconfig | `false` |
-| [controller.backendconfig.labels](./values.yaml#L797) | object | backendconfig labels | `{}` |
-| [controller.backendconfig.name](./values.yaml#L795) | string | backendconfig name | `nil` |
-| [controller.backendconfig.spec](./values.yaml#L801) | object | backendconfig spec | `{}` |
+| [controller.backendconfig.annotations](./values.yaml#L809) | object | backendconfig annotations | `{}` |
+| [controller.backendconfig.apiVersion](./values.yaml#L803) | string | backendconfig API version | `"extensions/v1beta1"` |
+| [controller.backendconfig.enabled](./values.yaml#L801) | bool | Enables backendconfig | `false` |
+| [controller.backendconfig.labels](./values.yaml#L807) | object | backendconfig labels | `{}` |
+| [controller.backendconfig.name](./values.yaml#L805) | string | backendconfig name | `nil` |
+| [controller.backendconfig.spec](./values.yaml#L811) | object | backendconfig spec | `{}` |
 | [controller.cloudName](./values.yaml#L512) | string | Name of default cloud configuration. | `"kubernetes"` |
 | [controller.clusterIp](./values.yaml#L238) | string | k8s service clusterIP. Only used if serviceType is ClusterIP | `nil` |
 | [controller.componentName](./values.yaml#L40) | string | Used for label app.kubernetes.io/component | `"jenkins-controller"` |
@@ -129,47 +129,48 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.extraPorts](./values.yaml#L413) | list | Optionally configure other ports to expose in the controller container | `[]` |
 | [controller.fsGroup](./values.yaml#L201) | int | Deprecated in favor of `controller.podSecurityContextOverride`. uid that will be used for persistent volume. | `1000` |
 | [controller.fsGroupChangePolicy](./values.yaml#L204) | string |  | `"OnRootMismatch"` |
-| [controller.googlePodMonitor.enabled](./values.yaml#L881) | bool |  | `false` |
-| [controller.googlePodMonitor.scrapeEndpoint](./values.yaml#L886) | string |  | `"/prometheus"` |
-| [controller.googlePodMonitor.scrapeInterval](./values.yaml#L884) | string |  | `"60s"` |
+| [controller.googlePodMonitor.enabled](./values.yaml#L891) | bool |  | `false` |
+| [controller.googlePodMonitor.scrapeEndpoint](./values.yaml#L896) | string |  | `"/prometheus"` |
+| [controller.googlePodMonitor.scrapeInterval](./values.yaml#L894) | string |  | `"60s"` |
 | [controller.healthProbes](./values.yaml#L273) | bool | Enable Kubernetes Probes configuration configured in `controller.probes` | `true` |
-| [controller.hostAliases](./values.yaml#L834) | list | Allows for adding entries to Pod /etc/hosts | `[]` |
+| [controller.hostAliases](./values.yaml#L844) | list | Allows for adding entries to Pod /etc/hosts | `[]` |
 | [controller.hostNetworking](./values.yaml#L80) | bool |  | `false` |
-| [controller.httpRoute.annotations](./values.yaml#L831) | object | HTTPRoute annotations | `{}` |
-| [controller.httpRoute.apiVersion](./values.yaml#L818) | string |  | `"gateway.networking.k8s.io/v1"` |
-| [controller.httpRoute.enabled](./values.yaml#L817) | bool |  | `false` |
-| [controller.httpRoute.extraRules](./values.yaml#L829) | list |  | `[]` |
-| [controller.httpRoute.hostnames](./values.yaml#L827) | list |  | `[]` |
-| [controller.httpRoute.kind](./values.yaml#L819) | string |  | `"HTTPRoute"` |
-| [controller.httpRoute.parentRefs](./values.yaml#L821) | list |  | `[]` |
-| [controller.httpRoute.reuseIngressConfiguration](./values.yaml#L825) | bool |  | `false` |
-| [controller.httpsKeyStore.disableSecretMount](./values.yaml#L902) | bool |  | `false` |
-| [controller.httpsKeyStore.enable](./values.yaml#L893) | bool | Enables HTTPS keystore on jenkins controller | `false` |
-| [controller.httpsKeyStore.fileName](./values.yaml#L910) | string | Jenkins keystore filename which will appear under controller.httpsKeyStore.path | `"keystore.jks"` |
-| [controller.httpsKeyStore.httpPort](./values.yaml#L906) | int | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. | `8081` |
-| [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey](./values.yaml#L901) | string | Name of the key in the secret that contains the JKS password | `"https-jks-password"` |
-| [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName](./values.yaml#L899) | string | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file | `""` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L897) | string | Name of the key in the secret that already has SSL keystore | `"jenkins-jks-file"` |
-| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L895) | string | Name of the secret that already has SSL keystore | `""` |
-| [controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded](./values.yaml#L915) | string | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here | `nil` |
-| [controller.httpsKeyStore.password](./values.yaml#L912) | string | Jenkins keystore password | `"password"` |
-| [controller.httpsKeyStore.path](./values.yaml#L908) | string | Path of HTTPS keystore file | `"/var/jenkins_keystore"` |
+| [controller.httpRoute.annotations](./values.yaml#L841) | object | HTTPRoute annotations | `{}` |
+| [controller.httpRoute.apiVersion](./values.yaml#L828) | string |  | `"gateway.networking.k8s.io/v1"` |
+| [controller.httpRoute.enabled](./values.yaml#L827) | bool |  | `false` |
+| [controller.httpRoute.extraRules](./values.yaml#L839) | list |  | `[]` |
+| [controller.httpRoute.hostnames](./values.yaml#L837) | list |  | `[]` |
+| [controller.httpRoute.kind](./values.yaml#L829) | string |  | `"HTTPRoute"` |
+| [controller.httpRoute.parentRefs](./values.yaml#L831) | list |  | `[]` |
+| [controller.httpRoute.reuseIngressConfiguration](./values.yaml#L835) | bool |  | `false` |
+| [controller.httpsKeyStore.disableSecretMount](./values.yaml#L912) | bool |  | `false` |
+| [controller.httpsKeyStore.enable](./values.yaml#L903) | bool | Enables HTTPS keystore on jenkins controller | `false` |
+| [controller.httpsKeyStore.fileName](./values.yaml#L920) | string | Jenkins keystore filename which will appear under controller.httpsKeyStore.path | `"keystore.jks"` |
+| [controller.httpsKeyStore.httpPort](./values.yaml#L916) | int | HTTP Port that Jenkins should listen to along with HTTPS, it also serves as the liveness and readiness probes port. | `8081` |
+| [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretKey](./values.yaml#L911) | string | Name of the key in the secret that contains the JKS password | `"https-jks-password"` |
+| [controller.httpsKeyStore.jenkinsHttpsJksPasswordSecretName](./values.yaml#L909) | string | Name of the secret that contains the JKS password, if it is not in the same secret as the JKS file | `""` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretKey](./values.yaml#L907) | string | Name of the key in the secret that already has SSL keystore | `"jenkins-jks-file"` |
+| [controller.httpsKeyStore.jenkinsHttpsJksSecretName](./values.yaml#L905) | string | Name of the secret that already has SSL keystore | `""` |
+| [controller.httpsKeyStore.jenkinsKeyStoreBase64Encoded](./values.yaml#L925) | string | Base64 encoded Keystore content. Keystore must be converted to base64 then being pasted here | `nil` |
+| [controller.httpsKeyStore.password](./values.yaml#L922) | string | Jenkins keystore password | `"password"` |
+| [controller.httpsKeyStore.path](./values.yaml#L918) | string | Path of HTTPS keystore file | `"/var/jenkins_keystore"` |
 | [controller.image.pullPolicy](./values.yaml#L53) | string | Controller image pull policy | `"Always"` |
 | [controller.image.registry](./values.yaml#L43) | string | Controller image registry | `"docker.io"` |
 | [controller.image.repository](./values.yaml#L45) | string | Controller image repository | `"jenkins/jenkins"` |
 | [controller.image.tag](./values.yaml#L48) | string | Controller image tag override; i.e., tag: "2.440.1-jdk21" | `nil` |
 | [controller.image.tagLabel](./values.yaml#L51) | string | Controller image tag label | `"jdk21"` |
 | [controller.imagePullSecretName](./values.yaml#L59) | string | Controller image pull secret | `nil` |
-| [controller.ingress.annotations](./values.yaml#L737) | object | Ingress annotations | `{}` |
-| [controller.ingress.apiVersion](./values.yaml#L733) | string | Ingress API version | `"extensions/v1beta1"` |
-| [controller.ingress.enabled](./values.yaml#L713) | bool | Enables ingress | `false` |
-| [controller.ingress.hostName](./values.yaml#L751) | string | Ingress hostname | `nil` |
-| [controller.ingress.labels](./values.yaml#L735) | object | Ingress labels | `{}` |
-| [controller.ingress.path](./values.yaml#L747) | string | Ingress path | `nil` |
-| [controller.ingress.pathType](./values.yaml#L728) | string | Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix | `"ImplementationSpecific"` |
-| [controller.ingress.paths](./values.yaml#L717) | list | Override for the default Ingress paths | `[]` |
-| [controller.ingress.resourceRootUrl](./values.yaml#L753) | string | Hostname to serve assets from | `nil` |
-| [controller.ingress.tls](./values.yaml#L755) | list | Ingress TLS configuration | `[]` |
+| [controller.ingress.annotations](./values.yaml#L737) | object | Primary Ingress annotations | `{}` |
+| [controller.ingress.apiVersion](./values.yaml#L733) | string | Primary Ingress API version | `"networking.k8s.io/v1"` |
+| [controller.ingress.enabled](./values.yaml#L713) | bool | Enables the Primary ingress | `false` |
+| [controller.ingress.hostName](./values.yaml#L753) | string | Primary Ingress hostname | `nil` |
+| [controller.ingress.ingressClassName](./values.yaml#L745) | string | Primary Ingress ingressClassName | `nil` |
+| [controller.ingress.labels](./values.yaml#L735) | object | Primary Ingress labels | `{}` |
+| [controller.ingress.path](./values.yaml#L749) | string | Primary Ingress path | `nil` |
+| [controller.ingress.pathType](./values.yaml#L728) | string | Primary Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix | `"ImplementationSpecific"` |
+| [controller.ingress.paths](./values.yaml#L717) | list | Override for the default Primary Ingress paths | `[]` |
+| [controller.ingress.resourceRootUrl](./values.yaml#L755) | string | Primary Hostname to serve assets from | `nil` |
+| [controller.ingress.tls](./values.yaml#L757) | list | Primary Ingress TLS configuration | `[]` |
 | [controller.initConfigMap](./values.yaml#L471) | string | Name of the existing ConfigMap that contains init scripts | `nil` |
 | [controller.initContainerEnv](./values.yaml#L156) | list | Environment variables for Init Container | `[]` |
 | [controller.initContainerEnvFrom](./values.yaml#L152) | list | Environment variable sources for Init Container | `[]` |
@@ -226,33 +227,34 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.probes.startupProbe.periodSeconds](./values.yaml#L285) | int | Set the time interval between two startup probes executions in seconds | `10` |
 | [controller.probes.startupProbe.timeoutSeconds](./values.yaml#L287) | int | Set the timeout for the startup probe in seconds | `5` |
 | [controller.projectNamingStrategy](./values.yaml#L450) | string |  | `"standard"` |
-| [controller.prometheus.alertingRulesAdditionalLabels](./values.yaml#L867) | object | Additional labels to add to the PrometheusRule object | `{}` |
-| [controller.prometheus.alertingrules](./values.yaml#L865) | list | Array of prometheus alerting rules | `[]` |
-| [controller.prometheus.enabled](./values.yaml#L850) | bool | Enables prometheus service monitor | `false` |
-| [controller.prometheus.metricRelabelings](./values.yaml#L877) | list |  | `[]` |
-| [controller.prometheus.prometheusRuleNamespace](./values.yaml#L869) | string | Set a custom namespace where to deploy PrometheusRule resource | `""` |
-| [controller.prometheus.relabelings](./values.yaml#L875) | list |  | `[]` |
-| [controller.prometheus.scrapeEndpoint](./values.yaml#L860) | string | The endpoint prometheus should get metrics from | `"/prometheus"` |
-| [controller.prometheus.scrapeInterval](./values.yaml#L856) | string | How often prometheus should scrape metrics | `"60s"` |
-| [controller.prometheus.serviceMonitorAdditionalLabels](./values.yaml#L852) | object | Additional labels to add to the service monitor object | `{}` |
-| [controller.prometheus.serviceMonitorNamespace](./values.yaml#L854) | string | Set a custom namespace where to deploy ServiceMonitor resource | `nil` |
+| [controller.prometheus.alertingRulesAdditionalLabels](./values.yaml#L877) | object | Additional labels to add to the PrometheusRule object | `{}` |
+| [controller.prometheus.alertingrules](./values.yaml#L875) | list | Array of prometheus alerting rules | `[]` |
+| [controller.prometheus.enabled](./values.yaml#L860) | bool | Enables prometheus service monitor | `false` |
+| [controller.prometheus.metricRelabelings](./values.yaml#L887) | list |  | `[]` |
+| [controller.prometheus.prometheusRuleNamespace](./values.yaml#L879) | string | Set a custom namespace where to deploy PrometheusRule resource | `""` |
+| [controller.prometheus.relabelings](./values.yaml#L885) | list |  | `[]` |
+| [controller.prometheus.scrapeEndpoint](./values.yaml#L870) | string | The endpoint prometheus should get metrics from | `"/prometheus"` |
+| [controller.prometheus.scrapeInterval](./values.yaml#L866) | string | How often prometheus should scrape metrics | `"60s"` |
+| [controller.prometheus.serviceMonitorAdditionalLabels](./values.yaml#L862) | object | Additional labels to add to the service monitor object | `{}` |
+| [controller.prometheus.serviceMonitorNamespace](./values.yaml#L864) | string | Set a custom namespace where to deploy ServiceMonitor resource | `nil` |
 | [controller.publishNotReadyAddresses](./values.yaml#L252) | string |  | `nil` |
 | [controller.replicas](./values.yaml#L56) | int | Number of replicas. Max 1. Can be set to 0 for maintenance scenarios. | `1` |
 | [controller.resources](./values.yaml#L124) | object | Resource allocation (Requests and Limits) | `{"limits":{"cpu":"2000m","memory":"4096Mi"},"requests":{"cpu":"50m","memory":"256Mi"}}` |
-| [controller.route.annotations](./values.yaml#L810) | object | Route annotations | `{}` |
-| [controller.route.enabled](./values.yaml#L806) | bool | Enables openshift route | `false` |
-| [controller.route.labels](./values.yaml#L808) | object | Route labels | `{}` |
-| [controller.route.path](./values.yaml#L812) | string | Route path | `nil` |
+| [controller.route.annotations](./values.yaml#L820) | object | Route annotations | `{}` |
+| [controller.route.enabled](./values.yaml#L816) | bool | Enables openshift route | `false` |
+| [controller.route.labels](./values.yaml#L818) | object | Route labels | `{}` |
+| [controller.route.path](./values.yaml#L822) | string | Route path | `nil` |
 | [controller.runAsUser](./values.yaml#L198) | int | Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with. | `1000` |
 | [controller.schedulerName](./values.yaml#L672) | string | Name of the Kubernetes scheduler to use | `""` |
 | [controller.scriptApproval](./values.yaml#L462) | list | List of groovy functions to approve | `[]` |
-| [controller.secondaryingress.annotations](./values.yaml#L773) | object |  | `{}` |
-| [controller.secondaryingress.apiVersion](./values.yaml#L771) | string |  | `"extensions/v1beta1"` |
-| [controller.secondaryingress.enabled](./values.yaml#L765) | bool |  | `false` |
-| [controller.secondaryingress.hostName](./values.yaml#L780) | string |  | `nil` |
-| [controller.secondaryingress.labels](./values.yaml#L772) | object |  | `{}` |
-| [controller.secondaryingress.paths](./values.yaml#L768) | list |  | `[]` |
-| [controller.secondaryingress.tls](./values.yaml#L781) | string |  | `nil` |
+| [controller.secondaryingress.annotations](./values.yaml#L780) | object | Secondary Ingress annotations | `{}` |
+| [controller.secondaryingress.apiVersion](./values.yaml#L776) | string | Secondary Ingress API version | `"networking.k8s.io/v1"` |
+| [controller.secondaryingress.enabled](./values.yaml#L768) | bool | Enables the Secondary Ingress | `false` |
+| [controller.secondaryingress.hostName](./values.yaml#L789) | string | Secondary Ingress hostname | `nil` |
+| [controller.secondaryingress.ingressClassName](./values.yaml#L786) | string | Secondary Ingress ingressClassName | `nil` |
+| [controller.secondaryingress.labels](./values.yaml#L778) | object | Secondary Ingress labels | `{}` |
+| [controller.secondaryingress.paths](./values.yaml#L772) | list | Secondary Ingress paths | `[]` |
+| [controller.secondaryingress.tls](./values.yaml#L791) | string | Secondary Ingress TLS configuration | `nil` |
 | [controller.secretClaims](./values.yaml#L505) | list | List of `SecretClaim` resources to create | `[]` |
 | [controller.securityContextCapabilities](./values.yaml#L210) | object |  | `{}` |
 | [controller.serviceAnnotations](./values.yaml#L255) | object | Jenkins controller service annotations | `{}` |
@@ -288,7 +290,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.terminationGracePeriodSeconds](./values.yaml#L682) | string | Set TerminationGracePeriodSeconds | `nil` |
 | [controller.terminationMessagePath](./values.yaml#L684) | string | Set the termination message path | `nil` |
 | [controller.terminationMessagePolicy](./values.yaml#L686) | string | Set the termination message policy | `nil` |
-| [controller.testEnabled](./values.yaml#L889) | bool | Can be used to disable rendering controller test resources when using helm template | `true` |
+| [controller.testEnabled](./values.yaml#L899) | bool | Can be used to disable rendering controller test resources when using helm template | `true` |
 | [controller.tolerations](./values.yaml#L680) | list | Toleration labels for pod assignment | `[]` |
 | [controller.topologySpreadConstraints](./values.yaml#L706) | object | Topology spread constraints | `{}` |
 | [controller.updateStrategy](./values.yaml#L703) | object | Update strategy for StatefulSet | `{}` |
@@ -297,43 +299,43 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [extraLabels](./values.yaml#L33) | object | Configures extra labels for the agent all objects | `{}` |
 | [extraObjects](./values.yaml#L36) | string | Configures extra manifests | `nil` |
 | [fullnameOverride](./values.yaml#L13) | string | Override the full resource names | `jenkins-(release-name)` or `jenkins` if the release-name is `jenkins` |
-| [helmtest.bats.image.registry](./values.yaml#L1418) | string | Registry of the image used to test the framework | `"docker.io"` |
-| [helmtest.bats.image.repository](./values.yaml#L1420) | string | Repository of the image used to test the framework | `"bats/bats"` |
-| [helmtest.bats.image.tag](./values.yaml#L1422) | string | Tag of the image to test the framework | `"1.13.0"` |
+| [helmtest.bats.image.registry](./values.yaml#L1428) | string | Registry of the image used to test the framework | `"docker.io"` |
+| [helmtest.bats.image.repository](./values.yaml#L1430) | string | Repository of the image used to test the framework | `"bats/bats"` |
+| [helmtest.bats.image.tag](./values.yaml#L1432) | string | Tag of the image to test the framework | `"1.13.0"` |
 | [kubernetesURL](./values.yaml#L24) | string | The URL of the Kubernetes API server | `"https://kubernetes.default"` |
 | [nameOverride](./values.yaml#L10) | string | Override the resource name prefix | `Chart.Name` |
 | [namespaceOverride](./values.yaml#L16) | string | Override the deployment namespace | `Release.Namespace` |
-| [networkPolicy.apiVersion](./values.yaml#L1341) | string | NetworkPolicy ApiVersion | `"networking.k8s.io/v1"` |
-| [networkPolicy.enabled](./values.yaml#L1336) | bool | Enable the creation of NetworkPolicy resources | `false` |
-| [networkPolicy.externalAgents.except](./values.yaml#L1356) | list | A list of IP sub-ranges to be excluded from the allowlisted IP range | `[]` |
-| [networkPolicy.externalAgents.ipCIDR](./values.yaml#L1354) | string | The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16 | `nil` |
-| [networkPolicy.internalAgents.allowed](./values.yaml#L1345) | bool | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels | `true` |
-| [networkPolicy.internalAgents.namespaceLabels](./values.yaml#L1349) | object | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller | `{}` |
-| [networkPolicy.internalAgents.podLabels](./values.yaml#L1347) | object | A map of labels (keys/values) that agent pods must have to be able to connect to controller | `{}` |
-| [persistence.accessMode](./values.yaml#L1311) | string | The PVC access mode | `"ReadWriteOnce"` |
-| [persistence.annotations](./values.yaml#L1307) | object | Annotations for the PVC | `{}` |
-| [persistence.dataSource](./values.yaml#L1317) | object | Existing data source to clone PVC from | `{}` |
-| [persistence.enabled](./values.yaml#L1291) | bool | Enable the use of a Jenkins PVC | `true` |
-| [persistence.existingClaim](./values.yaml#L1297) | string | Provide the name of a PVC | `nil` |
-| [persistence.labels](./values.yaml#L1309) | object | Labels for the PVC | `{}` |
-| [persistence.mounts](./values.yaml#L1329) | list | Additional mounts | `[]` |
-| [persistence.size](./values.yaml#L1313) | string | The size of the PVC | `"8Gi"` |
-| [persistence.storageClass](./values.yaml#L1305) | string | Storage class for the PVC | `nil` |
-| [persistence.subPath](./values.yaml#L1322) | string | SubPath for jenkins-home mount | `nil` |
-| [persistence.volumes](./values.yaml#L1324) | list | Additional volumes | `[]` |
-| [rbac.create](./values.yaml#L1363) | bool | Whether RBAC resources are created | `true` |
-| [rbac.readSecrets](./values.yaml#L1365) | bool | Whether the Jenkins service account should be able to read Kubernetes secrets | `false` |
-| [rbac.useOpenShiftNonRootSCC](./values.yaml#L1367) | bool | Whether the Jenkins service account should be able to use the OpenShift "nonroot" Security Context Constraints | `false` |
+| [networkPolicy.apiVersion](./values.yaml#L1351) | string | NetworkPolicy ApiVersion | `"networking.k8s.io/v1"` |
+| [networkPolicy.enabled](./values.yaml#L1346) | bool | Enable the creation of NetworkPolicy resources | `false` |
+| [networkPolicy.externalAgents.except](./values.yaml#L1366) | list | A list of IP sub-ranges to be excluded from the allowlisted IP range | `[]` |
+| [networkPolicy.externalAgents.ipCIDR](./values.yaml#L1364) | string | The IP range from which external agents are allowed to connect to controller, i.e., 172.17.0.0/16 | `nil` |
+| [networkPolicy.internalAgents.allowed](./values.yaml#L1355) | bool | Allow internal agents (from the same cluster) to connect to controller. Agent pods will be filtered based on PodLabels | `true` |
+| [networkPolicy.internalAgents.namespaceLabels](./values.yaml#L1359) | object | A map of labels (keys/values) that agents namespaces must have to be able to connect to controller | `{}` |
+| [networkPolicy.internalAgents.podLabels](./values.yaml#L1357) | object | A map of labels (keys/values) that agent pods must have to be able to connect to controller | `{}` |
+| [persistence.accessMode](./values.yaml#L1321) | string | The PVC access mode | `"ReadWriteOnce"` |
+| [persistence.annotations](./values.yaml#L1317) | object | Annotations for the PVC | `{}` |
+| [persistence.dataSource](./values.yaml#L1327) | object | Existing data source to clone PVC from | `{}` |
+| [persistence.enabled](./values.yaml#L1301) | bool | Enable the use of a Jenkins PVC | `true` |
+| [persistence.existingClaim](./values.yaml#L1307) | string | Provide the name of a PVC | `nil` |
+| [persistence.labels](./values.yaml#L1319) | object | Labels for the PVC | `{}` |
+| [persistence.mounts](./values.yaml#L1339) | list | Additional mounts | `[]` |
+| [persistence.size](./values.yaml#L1323) | string | The size of the PVC | `"8Gi"` |
+| [persistence.storageClass](./values.yaml#L1315) | string | Storage class for the PVC | `nil` |
+| [persistence.subPath](./values.yaml#L1332) | string | SubPath for jenkins-home mount | `nil` |
+| [persistence.volumes](./values.yaml#L1334) | list | Additional volumes | `[]` |
+| [rbac.create](./values.yaml#L1373) | bool | Whether RBAC resources are created | `true` |
+| [rbac.readSecrets](./values.yaml#L1375) | bool | Whether the Jenkins service account should be able to read Kubernetes secrets | `false` |
+| [rbac.useOpenShiftNonRootSCC](./values.yaml#L1377) | bool | Whether the Jenkins service account should be able to use the OpenShift "nonroot" Security Context Constraints | `false` |
 | [renderHelmLabels](./values.yaml#L30) | bool | Enables rendering of the helm.sh/chart label to the annotations | `true` |
-| [serviceAccount.annotations](./values.yaml#L1377) | object | Configures annotations for the ServiceAccount | `{}` |
-| [serviceAccount.automountServiceAccountToken](./values.yaml#L1383) | bool | Auto-mount ServiceAccount token | `true` |
-| [serviceAccount.create](./values.yaml#L1371) | bool | Configures if a ServiceAccount with this name should be created | `true` |
-| [serviceAccount.extraLabels](./values.yaml#L1379) | object | Configures extra labels for the ServiceAccount | `{}` |
-| [serviceAccount.imagePullSecretName](./values.yaml#L1381) | string | Controller ServiceAccount image pull secret | `nil` |
-| [serviceAccount.name](./values.yaml#L1375) | string |  | `nil` |
-| [serviceAccountAgent.annotations](./values.yaml#L1393) | object | Configures annotations for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.automountServiceAccountToken](./values.yaml#L1399) | bool | Auto-mount ServiceAccount token | `true` |
-| [serviceAccountAgent.create](./values.yaml#L1387) | bool | Configures if an agent ServiceAccount should be created | `false` |
-| [serviceAccountAgent.extraLabels](./values.yaml#L1395) | object | Configures extra labels for the agent ServiceAccount | `{}` |
-| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1397) | string | Agent ServiceAccount image pull secret | `nil` |
-| [serviceAccountAgent.name](./values.yaml#L1391) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |
+| [serviceAccount.annotations](./values.yaml#L1387) | object | Configures annotations for the ServiceAccount | `{}` |
+| [serviceAccount.automountServiceAccountToken](./values.yaml#L1393) | bool | Auto-mount ServiceAccount token | `true` |
+| [serviceAccount.create](./values.yaml#L1381) | bool | Configures if a ServiceAccount with this name should be created | `true` |
+| [serviceAccount.extraLabels](./values.yaml#L1389) | object | Configures extra labels for the ServiceAccount | `{}` |
+| [serviceAccount.imagePullSecretName](./values.yaml#L1391) | string | Controller ServiceAccount image pull secret | `nil` |
+| [serviceAccount.name](./values.yaml#L1385) | string |  | `nil` |
+| [serviceAccountAgent.annotations](./values.yaml#L1403) | object | Configures annotations for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.automountServiceAccountToken](./values.yaml#L1409) | bool | Auto-mount ServiceAccount token | `true` |
+| [serviceAccountAgent.create](./values.yaml#L1397) | bool | Configures if an agent ServiceAccount should be created | `false` |
+| [serviceAccountAgent.extraLabels](./values.yaml#L1405) | object | Configures extra labels for the agent ServiceAccount | `{}` |
+| [serviceAccountAgent.imagePullSecretName](./values.yaml#L1407) | string | Agent ServiceAccount image pull secret | `nil` |
+| [serviceAccountAgent.name](./values.yaml#L1401) | string | The name of the agent ServiceAccount to be used by access-controlled resources | `nil` |

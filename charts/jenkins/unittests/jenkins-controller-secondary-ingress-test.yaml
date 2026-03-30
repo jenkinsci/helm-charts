@@ -153,3 +153,55 @@ tests:
           value: jenkins.example.com
       - isNull:
           path: spec.tls[0].secretName
+  - it: empty TLS entry does not render tls block
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        paths:
+          - /github-webhook
+        tls:
+          - {}
+    asserts:
+      - isNull:
+          path: spec.tls
+  - it: annotations with and without template variables
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        paths:
+          - /github-webhook
+        annotations:
+          nginx.ingress.kubernetes.io/app-root: /{{ .Release.Name }}
+          nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+    asserts:
+      - equal:
+          path: metadata.annotations
+          value:
+            nginx.ingress.kubernetes.io/app-root: /my-release
+            nginx.ingress.kubernetes.io/proxy-read-timeout: "300"
+  - it: ingressClassName with template variable
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        ingressClassName: "{{ .Release.Name }}-nginx"
+        paths:
+          - /github-webhook
+    asserts:
+      - equal:
+          path: spec.ingressClassName
+          value: my-release-nginx
+  - it: ingressClassName with hard-coded value
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        ingressClassName: "nginx"
+        paths:
+          - /github-webhook
+    asserts:
+      - equal:
+          path: spec.ingressClassName
+          value: nginx
