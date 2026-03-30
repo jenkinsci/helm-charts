@@ -18,12 +18,13 @@ metadata:
     {{ toYaml .Values.controller.secondaryingress.labels | nindent 4 }}
     {{- end }}
   {{- if .Values.controller.secondaryingress.annotations }}
-  annotations: {{ toYaml .Values.controller.secondaryingress.annotations | nindent 4 }}
+  annotations:
+{{ tpl (toYaml .Values.controller.secondaryingress.annotations) . | indent 4 }}
   {{- end }}
   name: {{ template "jenkins.fullname" . }}-secondary
 spec:
 {{- if .Values.controller.secondaryingress.ingressClassName }}
-  ingressClassName: {{ .Values.controller.secondaryingress.ingressClassName | quote }}
+  ingressClassName: {{ tpl .Values.controller.secondaryingress.ingressClassName . | quote }}
 {{- end }}
   rules:
     - host: {{ tpl .Values.controller.secondaryingress.hostName . | quote }}
@@ -44,6 +45,13 @@ spec:
 {{ end }}
         {{- end}}
 {{- if .Values.controller.secondaryingress.tls }}
+{{- $withTlsEntries := false }}
+{{- range .Values.controller.secondaryingress.tls }}
+  {{- if gt (len .) 0 }}
+    {{- $withTlsEntries = true }}
+  {{- end }}
+{{- end }}
+{{- if $withTlsEntries }}
   tls:
 {{- range .Values.controller.secondaryingress.tls }}
   - hosts:
@@ -52,6 +60,7 @@ spec:
 {{- end }}
 {{- if .secretName }}
     secretName: {{ tpl (.secretName | toString) $ | quote }}
+{{- end }}
 {{- end }}
 {{- end }}
 {{- end -}}

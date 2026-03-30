@@ -32,6 +32,9 @@ minikube service chart-$CHART
 - Must follow [Charts best practices](https://helm.sh/docs/topics/chart_best_practices/)
 - Must pass CI jobs for linting and installing changed charts with the [chart-testing](https://github.com/helm/chart-testing) tool
 - Any change to a chart requires a version bump following [SemVer](https://semver.org/) principles. See [Immutability](#immutability) and [Versioning](#versioning) below
+  - Bump the `version` key in [charts/jenkins/Chart.yaml](charts/jenkins/Chart.yaml)
+  - Add a new changelog entry to [charts/jenkins/CHANGELOG.md](charts/jenkins/CHANGELOG.md) with the new version and a description of the change
+- Run `.github/helm-docs.sh` from the project root. This will update the [charts/jenkins/VALUES.md](charts/jenkins/VALUES.md) file with changes you made in [charts/jenkins/values.yaml](charts/jenkins/values.yaml)
 
 Once changes have been merged, the release job will automatically run to package and release changed charts.
 
@@ -43,7 +46,7 @@ Tests can be executed like this:
 
 ```console
 # install the unittest plugin
-$ helm plugin install https://github.com/helm-unittest/helm-unittest --version 0.3.6
+$ helm plugin install https://github.com/helm-unittest/helm-unittest --version 1.0.3
 
 # run the unittests
 $ helm unittest --strict -f 'unittests/*.yaml' charts/jenkins
