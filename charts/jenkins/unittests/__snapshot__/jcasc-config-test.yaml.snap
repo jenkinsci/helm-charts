@@ -44,7 +44,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -67,6 +67,7 @@ additional clouds:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -94,7 +95,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -117,6 +118,7 @@ additional clouds:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -179,7 +181,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -202,13 +204,14 @@ additional clouds inheriting additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: f4d3a213d8dd38bcfe3a1b3b2a8060a3a4a702e721e524b061cf12c627cf5609
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -231,6 +234,7 @@ additional clouds inheriting additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -258,7 +262,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -281,13 +285,14 @@ additional clouds inheriting additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: f4d3a213d8dd38bcfe3a1b3b2a8060a3a4a702e721e524b061cf12c627cf5609
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -310,6 +315,7 @@ additional clouds inheriting additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -372,7 +378,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -395,13 +401,14 @@ additional clouds overriding additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: f4d3a213d8dd38bcfe3a1b3b2a8060a3a4a702e721e524b061cf12c627cf5609
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -424,6 +431,7 @@ additional clouds overriding additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -451,7 +459,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -474,6 +482,7 @@ additional clouds overriding additional agents:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -536,7 +545,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -559,6 +568,7 @@ additional clouds set skipTlsVerify:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -586,7 +596,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: bf70cb0b26538de026a98a3e1856804763e4004cc6e963cdd35ccc142951000c
+                id: 1d4e61721f462e18c228827857797593fe31790676a194f8792b155b7140a80a
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -609,6 +619,7 @@ additional clouds set skipTlsVerify:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -671,7 +682,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -694,6 +705,7 @@ additional clouds set usageRestricted:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -721,7 +733,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: b3216560ba164efbb83d9246fad512a18b746046d34e9a038cb44cb497c33b39
+                id: d16c5815a5b6a7a63418d7c33e413434136c446434f1948ac349fc422b9eebf6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -744,6 +756,7 @@ additional clouds set usageRestricted:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -810,7 +823,7 @@ adds custom labels on agent pods:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 6d3c5cc625b0d802ceb341ae669e3a1e7cc6ee02a29e3a6337a9bd09766d0942
+                id: 725d86b80f88568ae806f0b1e544a92a77257b776611bd7710fb115066cdb12c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -833,6 +846,7 @@ adds custom labels on agent pods:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -895,7 +909,7 @@ agent namespace and templates:
             templates:
               - name: "default"
                 namespace: "jenkins-agents"
-                id: 5fdda4ecda00705756db7e1adadbc096ac9e49691603fc70491af940aefb410e
+                id: 3a5f20e0fec08bfaf5e7aca48ea12d9b42fc3622396a6c9d166e16e873a044c1
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -918,13 +932,14 @@ agent namespace and templates:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: bb800a1c3085f77f33e2209f2c16aa5ea4894bc919b25e32d0a7cc7fba80f205
+                id: 942137a85aef5a07a5af6ca2430929a60f0da6957f1466938125357ed6e642c0
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -947,13 +962,14 @@ agent namespace and templates:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "python"
                 namespace: "jenkins-agents"
-                id: 475cb70f861ac29f9234e42d92fe6f06327b45ee8b567381058c4fd2ed91f1b2
+                id: fa5756404fe229e78d63dfa371a3b7a746cb0be0a9e0ac1a0fc5d020e41c0857
                 containers:
                 - name: "python"
                   alwaysPullImage: false
@@ -977,6 +993,7 @@ agent namespace and templates:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -1055,7 +1072,7 @@ agent with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 1def21008325f99909f8d4a4334c109573c5871b34b80c382d1444c29e4bbc32
+                id: ff10b94737da226dd730c150edef26c267ae681601ac5282d3d42ff38a686845
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1085,6 +1102,7 @@ agent with liveness probe:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -1147,7 +1165,7 @@ agents with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 6494500d2b8055ce6cfbcaf6a72323264dea095add44f21247a24d122cc57c3a
+                id: 6d5ffe9e2f0ff36d8f616dc8f22d4523a6a390afd27714eb144025f2ce977fe2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1192,6 +1210,7 @@ agents with liveness probe:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -1254,7 +1273,7 @@ configure hostnetworking to agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 8e9e045f6b1fdf682dc982aaf8d198c95543671e45fb81e12c95c5d23d7897ec
+                id: 6552298e5b50656ba2b43c9e5bb8a15ed9876a59972e158fdd2b3bf5181155af
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1278,6 +1297,7 @@ configure hostnetworking to agent:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -1340,7 +1360,7 @@ custom dynamic pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c147bfafd9173bedffe61f9e640c9a601fc41d1d5a4e1130c867007add9e045d
+                id: 5eaebf7dd1bc457da40093b1bbff24eb5b2dc6c4c3685b5fcd90549ea06d7060
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1363,6 +1383,7 @@ custom dynamic pvc workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1430,7 +1451,7 @@ custom emptyDir workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 3a35c71bb4fe1e49c4cabe0e85ceb9ae15775dfdac1569ffce49505f71ddd914
+                id: 8756b037ccad190d81a95b1db3fba0d25a4876ee235d112714bb65304a67ecfe
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1453,6 +1474,7 @@ custom emptyDir workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1518,7 +1540,7 @@ custom hostPath workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: b75967cd9785a1366f0adda2e311ee3566956085a957d31a1723335aada70991
+                id: 9080db1f9ba109e9be3ffd1e947e6ec00dc1e9b4db6007adaf420f27b5a0c5da
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1541,6 +1563,7 @@ custom hostPath workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1606,7 +1629,7 @@ custom jenkins label:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1629,6 +1652,7 @@ custom jenkins label:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -1691,7 +1715,7 @@ custom nfs workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 37d1341c52bbdf7e34c8c0170cf495b669fec07f5105b1bc1769da6fe964022a
+                id: 8f3e0c08fffcd27a0b1a73a67f37d8ad9516f8b28c8980182a6daab4b8947773
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1714,6 +1738,7 @@ custom nfs workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1781,7 +1806,7 @@ custom other workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 6f533182a2960ca4b528f464bcc3047437af7bf4cdb78a591f92751c3b299e2f
+                id: 51c0d5d133b5ecbe92b1f0e43d62ae0239bd6cdddf4fa62b3e433f51bbc44076
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1804,6 +1829,7 @@ custom other workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1870,7 +1896,7 @@ custom pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 1172ef1ef45ff320d2a5b6561f7a69cb92e9b2fbba1e5ffde381f6de592933fc
+                id: 82c2e1cc8427bdfa898bd5356a8953baf0df4794cc30d390f4a9e2117f3ea086
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1893,6 +1919,7 @@ custom pvc workspace volume:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 workspaceVolume:
@@ -1959,7 +1986,7 @@ customized config:
                 annotations:
                 - key: ci.jenkins-agent/test
                   value: "custom"
-                id: f5eac9df656fa71574142e06fc04f282b6e6ef56c598d8e0ca7bc3ec0d9405ba
+                id: 6d03f1a3c70f8d8cb7227951ae9223ead7a37d6a6c2fe339fccebc6d10059df8
                 containers:
                 - name: "sideContainer"
                   alwaysPullImage: true
@@ -1994,6 +2021,7 @@ customized config:
                 nodeUsageMode: "NORMAL"
                 podRetention: onFailure
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "agent-serviceaccount"
                 slaveConnectTimeoutStr: "111"
                 volumes:
@@ -2093,7 +2121,7 @@ default config:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2116,6 +2144,7 @@ default config:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2230,7 +2259,7 @@ disable useDefaultServiceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: f126ea0f1045b7234fe2b06e9aeae1e8cc71e5122f14ffd887f113e83f68b9f3
+                id: 559fd5b1f68e40d352cb808a699a397074a310fe32aaed0ba46ed53fc3970b4f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2253,6 +2282,7 @@ disable useDefaultServiceAccount:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
@@ -2313,7 +2343,7 @@ empty projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2336,6 +2366,7 @@ empty projectNamingStrategy:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2398,7 +2429,7 @@ legacyRemotingSecurityEnabled = false:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2421,6 +2452,7 @@ legacyRemotingSecurityEnabled = false:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2485,7 +2517,7 @@ legacyRemotingSecurityEnabled = true:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2508,6 +2540,7 @@ legacyRemotingSecurityEnabled = true:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2573,7 +2606,7 @@ non-string projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2596,6 +2629,7 @@ non-string projectNamingStrategy:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2658,7 +2692,7 @@ none lts version:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2681,6 +2715,7 @@ none lts version:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2740,7 +2775,7 @@ set agent.serviceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: f656eb319011254e54ca3f31d9763c3e0c04d8e22c06de32472352004038588f
+                id: 60429f1cf9c2832aa47d7216b4a32c4aad06c3f3adea563f8b5c37e1df2f4853
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2763,6 +2798,7 @@ set agent.serviceAccount:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "testing"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2824,7 +2860,7 @@ set directConnection:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 5ee7d2fe56ab9740cebc4646d15ea280d1750b2f2b7fa712c284cea6691c457b
+                id: 185e72bc37df32a242f0f3a82ec52d1ae53ddf1cdf71f08455220c3a683aa157
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2847,6 +2883,7 @@ set directConnection:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2909,7 +2946,7 @@ set restrictedPssSecurityContext:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c6a7bf7d6b700ed9ccb523347e4d3d6692ad129bb3be0291d6ec007e102e6951
+                id: 7a42ae806095d999b448918b4705b3d39855e1dd9f3cc9397c540e5402e5c405
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2932,6 +2969,7 @@ set restrictedPssSecurityContext:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -2994,7 +3032,7 @@ set secretEnvVars:
             templates:
               - name: "default"
                 namespace: "default"
-                id: b9bf1213d21cc60832db20f26c571ee246654ab4c9554fc9d23ff1ff4aafb728
+                id: 7048b299b388548dc7d800e47b127964c81c3529182bca740bdf9175a2fc62fd
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3026,6 +3064,7 @@ set secretEnvVars:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -3088,7 +3127,7 @@ specify additional container:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 0df073d6b9ea749ac5ded94e36a1a9771e9c9e8891576ab0699c63bd3412418d
+                id: 0b369ee6e1b298fc24dcc36cb8c6e1fc082c08039382a7838718bc48bc492520
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3127,6 +3166,7 @@ specify additional container:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -3189,7 +3229,7 @@ specify additional container and clear in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 0df073d6b9ea749ac5ded94e36a1a9771e9c9e8891576ab0699c63bd3412418d
+                id: 0b369ee6e1b298fc24dcc36cb8c6e1fc082c08039382a7838718bc48bc492520
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3228,13 +3268,14 @@ specify additional container and clear in additional agent:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 8cb800c0b03e860486e8fb83187e36a88b9b2123fe2ea98cd5b985d50e6cfbdb
+                id: d69c5f9ee23f50428348c9898df57af4123ad297aeabecc4b32bd17c3cb17ce3
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3257,6 +3298,7 @@ specify additional container and clear in additional agent:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -3319,7 +3361,7 @@ specify additional container and overwrite in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 0df073d6b9ea749ac5ded94e36a1a9771e9c9e8891576ab0699c63bd3412418d
+                id: 0b369ee6e1b298fc24dcc36cb8c6e1fc082c08039382a7838718bc48bc492520
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3358,13 +3400,14 @@ specify additional container and overwrite in additional agent:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 6fa3ebca1074cbb9fc10daeb9ea7ad814267449d324ab53a25af3805684f7730
+                id: f6087a7373e32f6ac6d9ade80fce98f0be6ce64866ceec7b96e0f04432071408
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3403,6 +3446,7 @@ specify additional container and overwrite in additional agent:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -3465,7 +3509,7 @@ specify security settings with apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3488,6 +3532,7 @@ specify security settings with apiToken override:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
@@ -3547,7 +3592,7 @@ specify security settings without apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f4d4365a0fec0782b890b993b76313dc849cf66ca57c3fdedba41bcdef3b7069
+                id: 76f85b27deecb44e7db2542be82af8cef1c6ed86d90a37f5d00685c37e6c78d7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3570,6 +3615,7 @@ specify security settings without apiToken override:
                 nodeUsageMode: "NORMAL"
                 podRetention: Never
                 showRawYaml: true
+                agentInjection: false
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
