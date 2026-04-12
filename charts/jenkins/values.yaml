@@ -1056,6 +1056,9 @@ agent:
   # in the job Console Output. This can be helpful for either security reasons
   # or simply to clean up the output to make it easier to read.
   showRawYaml: true
+  # -- Inject the Jenkins agent into the agent container instead of using a separate jnlp sidecar.
+  # This avoids version drift between the Jenkins controller and the agent.
+  agentInjection: false
 
   # You can define the volumes that you want to mount for this container
   # Allowed types are: ConfigMap, EmptyDir, EphemeralVolume, HostPath, Nfs, PVC, Secret

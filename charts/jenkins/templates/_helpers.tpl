@@ -511,6 +511,7 @@ Returns kubernetes pod template configuration as code
   nodeUsageMode: {{ quote .Values.agent.nodeUsageMode }}
   podRetention: {{ .Values.agent.podRetention }}
   showRawYaml: {{ .Values.agent.showRawYaml }}
+  agentInjection: {{ .Values.agent.agentInjection }}
 {{- $asaname := default (include "jenkins.serviceAccountAgentName" .) .Values.agent.serviceAccount -}}
 {{- if or (.Values.agent.useDefaultServiceAccount) (.Values.agent.serviceAccount) }}
   serviceAccount: "{{ $asaname }}"
