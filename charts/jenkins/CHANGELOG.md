@@ -12,6 +12,11 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.13
+
+- Fix [#1637](https://github.com/jenkinsci/helm-charts/issues/1637): Evaluate tpl values in secondary ingress host and tls hosts
+- Fix [#476](https://github.com/jenkinsci/helm-charts/issues/476): Secondary ingress template should have parameters as primary ingress
+
 ## 5.9.12
 
 Update `git` to version `5.10.1`
