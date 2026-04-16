@@ -420,8 +420,8 @@ controller:
   installPlugins:
     - kubernetes:4423.vb_59f230b_ce53
     - workflow-aggregator:608.v67378e9d3db_1
-    - git:5.10.0
-    - configuration-as-code:2053.vb_0da_47381a_25
+    - git:5.10.1
+    - configuration-as-code:2074.va_57f83f7a_10b_
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -583,7 +583,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 2.5.0
+        tag: 2.6.0
       imagePullPolicy: IfNotPresent
       # -- Port for sidecar health probes
       healthPort: 8060
@@ -703,17 +703,17 @@ controller:
   updateStrategy: {}
 
   # -- Topology spread constraints
-  topologySpreadConstraints: {}
+  topologySpreadConstraints: []
 
   # -- DNS config for the pod
   dnsConfig: {}
 
   ingress:
-    # -- Enables ingress
+    # -- Enables the Primary ingress
     enabled: false
 
     # Override for the default paths that map requests to the backend
-    # -- Override for the default Ingress paths
+    # -- Override for the default Primary Ingress paths
     paths: []
     # - backend:
     #     serviceName: ssl-redirect
@@ -724,16 +724,16 @@ controller:
     #     # Don't use string here, use only integer value!
     #     servicePort: 8080
 
-    # -- Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix
+    # -- Primary Ingress rule pathType, choices are: Exact, ImplementationSpecific, Prefix
     pathType: ImplementationSpecific
 
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    # -- Ingress API version
-    apiVersion: "extensions/v1beta1"
-    # -- Ingress labels
+    # -- Primary Ingress API version
+    apiVersion: "networking.k8s.io/v1"
+    # -- Primary Ingress labels
     labels: {}
-    # -- Ingress annotations
+    # -- Primary Ingress annotations
     annotations:
       {}
       # kubernetes.io/ingress.class: nginx
@@ -741,17 +741,19 @@ controller:
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
     # ingressClassName: nginx
+    # -- Primary Ingress ingressClassName
+    ingressClassName:
 
     # Set this path to jenkinsUriPrefix above or use annotations to rewrite path
-    # -- Ingress path
+    # -- Primary Ingress path
     path:
 
     # configures the hostname e.g. jenkins.example.com
-    # -- Ingress hostname
+    # -- Primary Ingress hostname
     hostName:
-    # -- Hostname to serve assets from
+    # -- Primary Hostname to serve assets from
     resourceRootUrl:
-    # -- Ingress TLS configuration
+    # -- Primary Ingress TLS configuration
     tls: []
     # - secretName: jenkins.cluster.local
     #   hosts:
@@ -762,22 +764,30 @@ controller:
   # A secondary ingress will let you expose different urls
   # with a different configuration
   secondaryingress:
+    # -- Enables the Secondary Ingress
     enabled: false
     # paths you want forwarded to the backend
     # ex /github-webhook
+    # -- Secondary Ingress paths
     paths: []
     # For Kubernetes v1.14+, use 'networking.k8s.io/v1beta1'
     # For Kubernetes v1.19+, use 'networking.k8s.io/v1'
-    apiVersion: "extensions/v1beta1"
+    # -- Secondary Ingress API version
+    apiVersion: "networking.k8s.io/v1"
+    # -- Secondary Ingress labels
     labels: {}
+    # -- Secondary Ingress annotations
     annotations: {}
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
     # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
     # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-    # ingressClassName: nginx
+    # -- Secondary Ingress ingressClassName
+    ingressClassName:
     # configures the hostname e.g., jenkins-external.example.com
+    # -- Secondary Ingress hostname
     hostName:
+    # -- Secondary Ingress TLS configuration
     tls:
     # - secretName: jenkins-external.example.com
     #   hosts:
@@ -1002,7 +1012,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3355.v388858a_47b_33-16"
+    tag: "3355.v388858a_47b_33-19"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"

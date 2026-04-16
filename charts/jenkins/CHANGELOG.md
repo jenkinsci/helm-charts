@@ -12,6 +12,47 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.18
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `2.6.0`
+
+## 5.9.17
+
+Update `jenkins/jenkins` to version `2.555.1-jdk21`
+
+## 5.9.16
+
+Update `jenkins/inbound-agent` to version `3355.v388858a_47b_33-19`
+
+## 5.9.15
+
+Update `configuration-as-code` to version `2074.va_57f83f7a_10b_`
+
+## 5.9.14
+
+Update `jenkins/inbound-agent` to version `3355.v388858a_47b_33-18`
+
+## 5.9.13
+
+- Fix [#1637](https://github.com/jenkinsci/helm-charts/issues/1637): Evaluate tpl values in secondary ingress host and tls hosts
+- Fix [#476](https://github.com/jenkinsci/helm-charts/issues/476): Secondary ingress template should have parameters as primary ingress
+
+## 5.9.12
+
+Update `git` to version `5.10.1`
+
+## 5.9.11
+
+Update `jenkins/inbound-agent` to version `3355.v388858a_47b_33-17`
+
+## 5.9.10
+
+Update `configuration-as-code` to version `2061.vc08919f7fc37`
+
+## 5.9.9
+
+Update `jenkins/jenkins` to version `2.541.3-jdk21`
+
 ## 5.9.8
 
 Update `jenkins/inbound-agent` to version `3355.v388858a_47b_33-16`
