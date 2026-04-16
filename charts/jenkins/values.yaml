@@ -421,7 +421,7 @@ controller:
     - kubernetes:4423.vb_59f230b_ce53
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.10.1
-    - configuration-as-code:2061.vc08919f7fc37
+    - configuration-as-code:2074.va_57f83f7a_10b_
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -583,7 +583,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 2.5.0
+        tag: 2.6.0
       imagePullPolicy: IfNotPresent
       # -- Port for sidecar health probes
       healthPort: 8060
@@ -1012,7 +1012,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3355.v388858a_47b_33-18"
+    tag: "3355.v388858a_47b_33-19"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"

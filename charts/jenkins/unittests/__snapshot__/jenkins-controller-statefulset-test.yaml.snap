@@ -14,10 +14,10 @@ config values:
       namespace: my-namespace
 configure empty image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.541.3
+    docker.io/jenkins/jenkins:2.555.1
 configure image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.541.3-alpine
+    docker.io/jenkins/jenkins:2.555.1-alpine
 default values:
   1: |
     replicas: 1
@@ -29,7 +29,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: c39b74cc216d5f5ad3f4327282ca7ace9f98c8dfe875e77b73b1299887ccff40
+          checksum/config: 065dda93bd0d696007ea50c64a4e242df0900524c5dd70253437f6e7970747c6
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -55,7 +55,7 @@ default values:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.541.3-jdk21
+            image: docker.io/jenkins/jenkins:2.555.1-jdk21
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -136,7 +136,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.5.0
+            image: docker.io/kiwigrid/k8s-sidecar:2.6.0
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -167,7 +167,7 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.5.0
+            image: docker.io/kiwigrid/k8s-sidecar:2.6.0
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -184,7 +184,7 @@ default values:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.541.3-jdk21
+            image: docker.io/jenkins/jenkins:2.555.1-jdk21
             imagePullPolicy: Always
             name: init
             resources:
@@ -245,7 +245,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: c39b74cc216d5f5ad3f4327282ca7ace9f98c8dfe875e77b73b1299887ccff40
+    checksum/config: 065dda93bd0d696007ea50c64a4e242df0900524c5dd70253437f6e7970747c6
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -259,7 +259,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: c39b74cc216d5f5ad3f4327282ca7ace9f98c8dfe875e77b73b1299887ccff40
+          checksum/config: 065dda93bd0d696007ea50c64a4e242df0900524c5dd70253437f6e7970747c6
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -285,7 +285,7 @@ test scheme for config-reload:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.541.3-jdk21
+            image: docker.io/jenkins/jenkins:2.555.1-jdk21
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -366,7 +366,7 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.5.0
+            image: docker.io/kiwigrid/k8s-sidecar:2.6.0
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -397,7 +397,7 @@ test scheme for config-reload:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.5.0
+            image: docker.io/kiwigrid/k8s-sidecar:2.6.0
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -414,7 +414,7 @@ test scheme for config-reload:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.541.3-jdk21
+            image: docker.io/jenkins/jenkins:2.555.1-jdk21
             imagePullPolicy: Always
             name: init
             resources:

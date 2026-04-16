@@ -49,7 +49,7 @@ namespaces:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 4957e4cea438a9211b4e3441f9406f0923c63bdbb99e593789f811ccf5ace195
+                id: d849c2961601298719c70916aded40a381409eabd68e6980fc5d17bd155df793
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -58,7 +58,7 @@ namespaces:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -77,9 +77,6 @@ namespaces:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -136,7 +133,7 @@ one cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 3800a28592eedbf0646138e67cda85eea2419727bb5fa2aa0ec6463d09a42ca7
+                id: e7229dd9ce72e48637df6909766860b99aeb9a1bdf84ed124e08371b5cc88bc6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -145,7 +142,7 @@ one cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -164,9 +161,6 @@ one cloud:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -223,7 +217,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 3800a28592eedbf0646138e67cda85eea2419727bb5fa2aa0ec6463d09a42ca7
+                id: e7229dd9ce72e48637df6909766860b99aeb9a1bdf84ed124e08371b5cc88bc6
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -232,7 +226,7 @@ second cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -275,7 +269,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 0e5d9ea34c2f374e1fa9b99943033f111c23033f32b0b4b4aaa99f15d4bcd86b
+                id: 5a9432aa4b20aa8a9ff6520407c8e8594574c9883285f41064a10b8384f0821f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -284,7 +278,7 @@ second cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -303,9 +297,6 @@ second cloud:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false

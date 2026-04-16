@@ -44,7 +44,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -53,7 +53,7 @@ additional clouds:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -94,7 +94,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -103,7 +103,7 @@ additional clouds:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -122,9 +122,6 @@ additional clouds:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -179,7 +176,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -188,7 +185,7 @@ additional clouds inheriting additional agents:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -258,7 +255,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -267,7 +264,7 @@ additional clouds inheriting additional agents:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -315,9 +312,6 @@ additional clouds inheriting additional agents:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -372,7 +366,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -381,7 +375,7 @@ additional clouds overriding additional agents:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -451,7 +445,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -460,7 +454,7 @@ additional clouds overriding additional agents:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -479,9 +473,6 @@ additional clouds overriding additional agents:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -536,7 +527,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -545,7 +536,7 @@ additional clouds set skipTlsVerify:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -586,7 +577,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c1d298cfdbae4b5433ce6ccb0f232c6eaf7ed30e10df454ad88132e9e9892646
+                id: 85999b56fa48fc6e69e625165e5a0e261e836802917268feacc832468bbfec7c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -595,7 +586,7 @@ additional clouds set skipTlsVerify:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -614,9 +605,6 @@ additional clouds set skipTlsVerify:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -671,7 +659,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -680,7 +668,7 @@ additional clouds set usageRestricted:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -721,7 +709,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 15c65ee9a6df2c18db2dda9893f9ea2dade0201c3ff8d65d5779808c4c6af0a7
+                id: ba861b4a695954ba303874aa73fe064c423ef85e7fffe223924ce46c60f61bbe
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -730,7 +718,7 @@ additional clouds set usageRestricted:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -749,9 +737,6 @@ additional clouds set usageRestricted:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -810,7 +795,7 @@ adds custom labels on agent pods:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 4e125af91937a25039833a87fc8508d89050ca7d7bba7e95c70831042d186efd
+                id: 5d176677c9eeea9cebb5e7560bf235656fdb2fa8087e32016c6a6848e781c321
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -819,7 +804,7 @@ adds custom labels on agent pods:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -838,9 +823,6 @@ adds custom labels on agent pods:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -895,7 +877,7 @@ agent namespace and templates:
             templates:
               - name: "default"
                 namespace: "jenkins-agents"
-                id: ea5802fc1e6d96c16422e1c12357742f77698d4bc4f466a397ffbc724fb34a8b
+                id: c77ccbab90144bc6ce7769956c3ca4a7fc5447a3956a507c8b8b55d3ad9b9c31
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -904,7 +886,7 @@ agent namespace and templates:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.controller-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -998,9 +980,6 @@ agent namespace and templates:
                     resourceLimitMemory: "1024Mi"
                     resourceLimitEphemeralStorage: "2Gi"
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1055,7 +1034,7 @@ agent with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 260664dfa22037dac62e1d7b120106ced60cfd0596198a62a0e0ad101c988e24
+                id: 793503fc456519d7366b9c95c52bcb8838bcc6f9921875c03b2b59e73be4cff8
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1064,7 +1043,7 @@ agent with liveness probe:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   livenessProbe:
                     execArgs: "cat /tmp/healthy"
                     failureThreshold: 3
@@ -1090,9 +1069,6 @@ agent with liveness probe:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1147,7 +1123,7 @@ agents with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 296767111310317255bcc3951babcd3d162bc6ffa6953f7a6bff6f5f8c0ffde7
+                id: 35c392819a9a5482aa66d4d8bcd2254f4641ecca021b66e1babf2f4d7fa625c8
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1156,7 +1132,7 @@ agents with liveness probe:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1197,9 +1173,6 @@ agents with liveness probe:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1254,7 +1227,7 @@ configure hostnetworking to agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 01beb00ab179d7926fa94c5890346cf91fa7909945c690f26c526051459abe27
+                id: 276b6908a39cb32fa5a81e5a0d06db32a13e51990a5a54a083f93ac414c93bb9
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1263,7 +1236,7 @@ configure hostnetworking to agent:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1283,9 +1256,6 @@ configure hostnetworking to agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1340,7 +1310,7 @@ custom dynamic pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 31d4f3c3b6a32688e94a980fef44ff223c58dad8d1def9eba756ef4d31c74d40
+                id: fcff22ace4791efa19322507dfa41055d0397aa78b5db7ee31489f01313aba6d
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1349,7 +1319,7 @@ custom dynamic pvc workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1373,9 +1343,6 @@ custom dynamic pvc workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1430,7 +1397,7 @@ custom emptyDir workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: e3903294f14e2a8c9293f5206541dd17021dbe9b464e5f5bc85a44c077e0f210
+                id: 3172ca321e6a0fbe53464c5127e8ad7387a3787926188f7f6829001698ccfd96
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1439,7 +1406,7 @@ custom emptyDir workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1461,9 +1428,6 @@ custom emptyDir workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1518,7 +1482,7 @@ custom hostPath workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 8b52ad026dab7a1b62fc3d61d8d21a5fad1c77aa7deed92cf5882260c78cd0a5
+                id: 3a0b28fcc45cc039849bc5f2ce70d1bd691942e951fc0cfe94e6a2d7047c5030
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1527,7 +1491,7 @@ custom hostPath workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1549,9 +1513,6 @@ custom hostPath workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1606,7 +1567,7 @@ custom jenkins label:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1615,7 +1576,7 @@ custom jenkins label:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1634,9 +1595,6 @@ custom jenkins label:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1691,7 +1649,7 @@ custom nfs workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: af9e4d2a4f34c8f5edfe3e0ee85e5753131513ddfea4cb4c723f4c1bcd5f25c7
+                id: c78dc66aacebd877374ed5438562be68abad608699c049e59c55c2c6aae073bc
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1700,7 +1658,7 @@ custom nfs workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1724,9 +1682,6 @@ custom nfs workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1781,7 +1736,7 @@ custom other workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 7b5f63a8a23eea57fbd066421c70adaaa93e8d8dd6b0e11c32af2c10a6078e28
+                id: 8c965484d0949884392216e8181128cd5d82fbb652bb6cdb342781130457000c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1790,7 +1745,7 @@ custom other workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1813,9 +1768,6 @@ custom other workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -1870,7 +1822,7 @@ custom pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: bf99478429181d93416d8576b49066c691df77a86afc706142978d577c757ead
+                id: cdb1de7404d94ca558ff256c75d99b0bb0964968ca788e4e61259005f8f992d0
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1879,7 +1831,7 @@ custom pvc workspace volume:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -1902,9 +1854,6 @@ custom pvc workspace volume:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2035,9 +1984,6 @@ customized config:
                 yamlMergeStrategy: merge
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2093,7 +2039,7 @@ default config:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2102,7 +2048,7 @@ default config:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2121,9 +2067,6 @@ default config:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2173,9 +2116,6 @@ disable agents:
             serverUrl: "https://kubernetes.default"
             credentialsId: ""
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2230,7 +2170,7 @@ disable useDefaultServiceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 03afe2c3d725753a3d2934e425e366a9dad23de37a2b059b37214987deef2ed5
+                id: 906cbd2d8e5a2f3d56e41a984025f3bcb551085f1afb2f3ab0ff8fce575ca83e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2239,7 +2179,7 @@ disable useDefaultServiceAccount:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2257,9 +2197,6 @@ disable useDefaultServiceAccount:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2313,7 +2250,7 @@ empty projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2322,7 +2259,7 @@ empty projectNamingStrategy:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2341,9 +2278,6 @@ empty projectNamingStrategy:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2398,7 +2332,7 @@ legacyRemotingSecurityEnabled = false:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2407,7 +2341,7 @@ legacyRemotingSecurityEnabled = false:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2426,9 +2360,6 @@ legacyRemotingSecurityEnabled = false:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2485,7 +2416,7 @@ legacyRemotingSecurityEnabled = true:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2494,7 +2425,7 @@ legacyRemotingSecurityEnabled = true:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2513,9 +2444,6 @@ legacyRemotingSecurityEnabled = true:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2573,7 +2501,7 @@ non-string projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2582,7 +2510,7 @@ non-string projectNamingStrategy:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2601,9 +2529,6 @@ non-string projectNamingStrategy:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2658,7 +2583,7 @@ none lts version:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2667,7 +2592,7 @@ none lts version:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2740,7 +2665,7 @@ set agent.serviceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 5bef2e84e5db43c47209b6790dac80aa63fca926435ed0e34821535fc79bd20c
+                id: e972fda85eb51ba464aa65df9c7ab71098a7700a92a698ed4272066030687b10
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2749,7 +2674,7 @@ set agent.serviceAccount:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.NAMESPACE.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2768,9 +2693,6 @@ set agent.serviceAccount:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2824,7 +2746,7 @@ set directConnection:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 872e9e3bf72a9a4c4524890656bb15e41552d8416b8d23888c2d4be9cbacdf04
+                id: 9991440ce9a000dbd1ada75f787dfaf03c53b9bdf8ec45a5bec199ce4f6fee9a
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2833,7 +2755,7 @@ set directConnection:
                     - envVar:
                         key: "JENKINS_DIRECT_CONNECTION"
                         value: "RELEASE-NAME-jenkins-agent.default.svc.cluster.local:50000"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2852,9 +2774,6 @@ set directConnection:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2909,7 +2828,7 @@ set restrictedPssSecurityContext:
             templates:
               - name: "default"
                 namespace: "default"
-                id: b4a379c287806252100269123668cfb6d54beafa19a86744645356cdddc2b318
+                id: cb67f4cc78c4f58464fd70cd3a44320fe63ff1c372e5f04843d071d9eafdeb63
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2918,7 +2837,7 @@ set restrictedPssSecurityContext:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -2937,9 +2856,6 @@ set restrictedPssSecurityContext:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -2994,7 +2910,7 @@ set secretEnvVars:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 531370de3196f96e1da28c9f29a5ea76e7088fac97561c2b4c6577b16b7cef2f
+                id: 8231573c53d9eeac78196cc0bf40e87aeb008c81a33e4e9058bd1687acd48c5f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3003,7 +2919,7 @@ set secretEnvVars:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3031,9 +2947,6 @@ set secretEnvVars:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3088,7 +3001,7 @@ specify additional container:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 766b22022ec0fe210039e2338c0dbf6a5c924128ddc812d5489ebf9bf1f3d6ca
+                id: 7043c20682c47bee417165e610b4ec0c2d6f33dc48cf052a5f9534c676b9c9f2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3097,7 +3010,7 @@ specify additional container:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3132,9 +3045,6 @@ specify additional container:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3189,7 +3099,7 @@ specify additional container and clear in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 766b22022ec0fe210039e2338c0dbf6a5c924128ddc812d5489ebf9bf1f3d6ca
+                id: 7043c20682c47bee417165e610b4ec0c2d6f33dc48cf052a5f9534c676b9c9f2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3198,7 +3108,7 @@ specify additional container and clear in additional agent:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3234,7 +3144,7 @@ specify additional container and clear in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: fcbf5a8b44d96b3b67a76bf958caa474dc9970dfa8fe19382dac97de4a2bbe76
+                id: 7dbfc6aee1e15a9c94fec7a828a9602953fc9916f0deeb956f96280073894b4d
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3243,7 +3153,7 @@ specify additional container and clear in additional agent:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3262,9 +3172,6 @@ specify additional container and clear in additional agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3319,7 +3226,7 @@ specify additional container and overwrite in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 766b22022ec0fe210039e2338c0dbf6a5c924128ddc812d5489ebf9bf1f3d6ca
+                id: 7043c20682c47bee417165e610b4ec0c2d6f33dc48cf052a5f9534c676b9c9f2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3328,7 +3235,7 @@ specify additional container and overwrite in additional agent:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3364,7 +3271,7 @@ specify additional container and overwrite in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: b6a474897af98e9225f80a7e53a932b5a4ac0ba8047aaafd38b50515b04b3f2c
+                id: 9cb135f45736f55f8f71dad395977fadce4964b9e90bd0d9974c2ee7ef6d6e7d
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3373,7 +3280,7 @@ specify additional container and overwrite in additional agent:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3408,9 +3315,6 @@ specify additional container and overwrite in additional agent:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
@@ -3465,7 +3369,7 @@ specify security settings with apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3474,7 +3378,7 @@ specify security settings with apiToken override:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3493,9 +3397,6 @@ specify security settings with apiToken override:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken: overridden
       unclassified:
@@ -3547,7 +3448,7 @@ specify security settings without apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 28db075af0957a256fc45064e6acab29eca522c5fc8ff0b34758e6a8e837f782
+                id: bad56ce76c3a0312a1969d7702f884e938a2ac146244a2fdb558e233960e33e2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3556,7 +3457,7 @@ specify security settings without apiToken override:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://RELEASE-NAME-jenkins.default.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-18"
+                  image: "jenkins/inbound-agent:3355.v388858a_47b_33-19"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -3575,9 +3476,6 @@ specify security settings without apiToken override:
                 yamlMergeStrategy: override
                 inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
-        crumbIssuer:
-          standard:
-            excludeClientIPFromCrumb: true
       security:
         apiToken:
           creationOfLegacyTokenEnabled: false
