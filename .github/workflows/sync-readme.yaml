@@ -12,12 +12,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           persist-credentials: false
       - run: |
           cp -f README.md ${{ runner.temp }}/README.md
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           ref: gh-pages
           persist-credentials: true
