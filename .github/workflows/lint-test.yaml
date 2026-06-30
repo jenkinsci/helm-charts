@@ -21,13 +21,13 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 0
           persist-credentials: false
 
       - name: Set up Helm
-        uses: azure/setup-helm@dda3372f752e03dde6b3237bc9431cdc2f7a02a2 # v5
+        uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5
         with:
           # renovate: datasource=github-tags depName=helm/helm
           version: v4.2.2
@@ -57,7 +57,7 @@ jobs:
         run: |
           helm env
           # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
-          HELM_UNITTEST_VERSION=v1.0.3
+          HELM_UNITTEST_VERSION=v1.1.1
           helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} --verify=false
 
       - name: Run chart-testing (lint)
