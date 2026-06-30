@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.9.30
 
-Solves: [#1691](https://github.com/jenkinsci/helm-charts/issues/1691) Added addMasterProxyEnvVars to allow agents to use proxy env settings from the controller.
+Added addMasterProxyEnvVars to allow agents to use proxy env settings from the controller.
 
 ## 5.9.29
 
