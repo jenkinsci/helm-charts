@@ -57,7 +57,7 @@ jobs:
         run: |
           helm env
           # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
-          HELM_UNITTEST_VERSION=v1.0.3
+          HELM_UNITTEST_VERSION=v1.1.1
           helm plugin install https://github.com/helm-unittest/helm-unittest --version ${HELM_UNITTEST_VERSION} --verify=false
 
       - name: Run chart-testing (lint)
