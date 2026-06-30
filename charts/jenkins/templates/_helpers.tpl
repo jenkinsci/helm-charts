@@ -196,6 +196,7 @@ jenkins:
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
+      addMasterProxyEnvVars: {{ .Values.agent.addMasterProxyEnvVars | default false }}
       credentialsId: "{{ .Values.credentialsId }}"
       {{- if .Values.agent.enabled }}
       podLabels:
