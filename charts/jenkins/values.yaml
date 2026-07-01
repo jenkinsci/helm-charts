@@ -966,6 +966,9 @@ controller:
 #        hYAzODo1Jt59pcqqKJEas0C/lFJEB3frw4ImNx5fNlJYOpx+ijfQs9m39CevDq0=
 
 agent:
+  # -- Add the environment proxy settings form jenkins controller to the agents.
+  addMasterProxyEnvVars: false
+
   # -- Enable Kubernetes plugin jnlp-agent podTemplate
   enabled: true
   # -- The name of the pod template to use for providing default values

@@ -37,6 +37,7 @@ additional clouds:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -44,7 +45,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -94,7 +95,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -169,6 +170,7 @@ additional clouds inheriting additional agents:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -176,7 +178,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -205,7 +207,7 @@ additional clouds inheriting additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -255,7 +257,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -284,7 +286,7 @@ additional clouds inheriting additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -359,6 +361,7 @@ additional clouds overriding additional agents:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -366,7 +369,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -395,7 +398,7 @@ additional clouds overriding additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 6259994af2ee2301f5f7570a0c6ac0cb657a723f2bca0e498c24656cb6c15909
+                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -445,7 +448,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -520,6 +523,7 @@ additional clouds set skipTlsVerify:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -527,7 +531,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -577,7 +581,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 63d6f6b4a6f77c186997ee840d17387b0c0794f47387fbd3b104147fa5efa234
+                id: 3f343485ee68426c80d322b121967b406a397f2f205b4ac6cd542a20edd57a0f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -652,6 +656,7 @@ additional clouds set usageRestricted:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -659,7 +664,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -709,7 +714,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: d815081e62a1768a35fbb5679304badcd6f0ac2514efbde582c89e43fb76ee51
+                id: be54a6c5db1d1ea76ce41d19bfcf8835e21bfda4838bcf47da2dd3689989b0a2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -784,6 +789,7 @@ adds custom labels on agent pods:
             namespace: "NAMESPACE"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -795,7 +801,7 @@ adds custom labels on agent pods:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 9ded257aa33400bd689e9115784d2e964cbddba0b811a5f0123e57ee66ee99b9
+                id: dd184968a4ed9dda932ba0191b7b3c46f4badbd78c721aec83fd41fd5f2943e1
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -870,6 +876,7 @@ agent namespace and templates:
             namespace: "jenkins-agents"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -877,7 +884,7 @@ agent namespace and templates:
             templates:
               - name: "default"
                 namespace: "jenkins-agents"
-                id: b642bbb18182aa59cf3d5823f411a0c99eac1eb0fc59555dc1e852feecaa84f4
+                id: 619371d57947e0f25dd5faf44d284da2c5e2535298473736c701cf9589a71ea4
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -906,7 +913,7 @@ agent namespace and templates:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: bb800a1c3085f77f33e2209f2c16aa5ea4894bc919b25e32d0a7cc7fba80f205
+                id: 691a7c5eb3421920f70e25b14b15fbce13282d4bf7b9efd84344029d7db5f777
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -935,7 +942,7 @@ agent namespace and templates:
                 inheritYamlMergeStrategy: false
               - name: "python"
                 namespace: "jenkins-agents"
-                id: 475cb70f861ac29f9234e42d92fe6f06327b45ee8b567381058c4fd2ed91f1b2
+                id: b113a83d5e91a3eae813e147e118452ad5a1b458d761a826a5bb82a298419845
                 containers:
                 - name: "python"
                   alwaysPullImage: false
@@ -1027,6 +1034,7 @@ agent with liveness probe:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1034,7 +1042,7 @@ agent with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c7ae8c36d8a8c1ecd613f7b5074c91b55c7b64ea1705435c545b9dd762f844b9
+                id: e1e54c7ec6a4f149baa0f5dd1604e077439810e4d739a824b1a7999edafb6573
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1116,6 +1124,7 @@ agents with liveness probe:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1123,7 +1132,7 @@ agents with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 67e71fbace88e0f187e6b59e5b3e23a78aab3553a310feb151a499dbb29a8d58
+                id: aa6d962e2ec284b8fac7672c27d4793abe18f005f0fb6d2c160041e535305a74
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1220,6 +1229,7 @@ configure hostnetworking to agent:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1227,7 +1237,7 @@ configure hostnetworking to agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: a3d8b1761b0d92cecfd5e31f089ec8e28df17c3dd1da4a10b35473c550f4af16
+                id: eb86a69520afe771e96c2f4add0a178e7a4ee0525d8c82aec4c14a12f11b3095
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1303,6 +1313,7 @@ custom dynamic pvc workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1310,7 +1321,7 @@ custom dynamic pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 05c9efd7742a8f315c34674fdd62e35324e36e03a01cc29629149054b9bc4dd4
+                id: c9a747c071be23b9ef72949631866bdcf0f88076db3f0a1a050fd94a5f6cbdd4
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1390,6 +1401,7 @@ custom emptyDir workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1397,7 +1409,7 @@ custom emptyDir workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 6b912865be129c06e6f75f9000c074337c0aa1ee07d1d081bafc4e4022e1317c
+                id: d148a4ffcbcf4c0b434684fe4c9db20953f6e9729c435ae9bfe6be1c46c7649c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1475,6 +1487,7 @@ custom hostPath workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1482,7 +1495,7 @@ custom hostPath workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 603b4335598bbf0e87b4f0f974634facf61749d5931a2888b49ed0d6bf6be467
+                id: c764934b644a8c17bce102945b842883c779802ebf5176fff2d144df2abd9ac3
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1560,6 +1573,7 @@ custom jenkins label:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1567,7 +1581,7 @@ custom jenkins label:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1642,6 +1656,7 @@ custom nfs workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1649,7 +1664,7 @@ custom nfs workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c726f86369b2b365a9d307e8cf0c4a50010cc299965268291fac5212b6f61748
+                id: b37aac63ccc5c55efc29ee9579c3c47f47df306e1e8e66906a45f2386cace6c3
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1729,6 +1744,7 @@ custom other workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1736,7 +1752,7 @@ custom other workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 430f3fca3a54aa76b6c4d563da358ecdc86c0fe0d71e11dfbd55e22b9a50c8d9
+                id: f80afb09fb0739ecd80a61e6884a62c98c95fd1571194950b66d88754fff009c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1815,6 +1831,7 @@ custom pvc workspace volume:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -1822,7 +1839,7 @@ custom pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 2a30caebdd050a9fea6d56c578ca82c08c24428fb104c565277118c9ed10675c
+                id: eb9d0bc94c2b41d02dab1194acb7ac4118ac3cfb324122038a63a04188b86ce1
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1898,6 +1915,7 @@ customized config:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -1908,7 +1926,7 @@ customized config:
                 annotations:
                 - key: ci.jenkins-agent/test
                   value: "custom"
-                id: f5eac9df656fa71574142e06fc04f282b6e6ef56c598d8e0ca7bc3ec0d9405ba
+                id: c7d25b0816dbd4ebd5d8435596172bcff9b334d32f75ca624ccecb9af3895ccc
                 containers:
                 - name: "sideContainer"
                   alwaysPullImage: true
@@ -2032,6 +2050,7 @@ default config:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2039,7 +2058,7 @@ default config:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2114,6 +2133,7 @@ disable agents:
             namespace: "controller-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
         slaveAgentPort: 50000
       security:
@@ -2163,6 +2183,7 @@ disable useDefaultServiceAccount:
             namespace: "NAMESPACE"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2170,7 +2191,7 @@ disable useDefaultServiceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 9106c4144b0de1502d04bf37a37ed41053e2183e6e82a9ad1400952acb0d6985
+                id: 394489cbe13aa0ce8781cfe275da26551517759597cb5517d5d6029e1b8c0c41
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2243,6 +2264,7 @@ empty projectNamingStrategy:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2250,7 +2272,7 @@ empty projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2325,6 +2347,7 @@ legacyRemotingSecurityEnabled = false:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2332,7 +2355,7 @@ legacyRemotingSecurityEnabled = false:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2409,6 +2432,7 @@ legacyRemotingSecurityEnabled = true:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2416,7 +2440,7 @@ legacyRemotingSecurityEnabled = true:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2494,6 +2518,7 @@ non-string projectNamingStrategy:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2501,7 +2526,7 @@ non-string projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2576,6 +2601,7 @@ none lts version:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2583,7 +2609,7 @@ none lts version:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2658,6 +2684,7 @@ set agent.serviceAccount:
             namespace: "NAMESPACE"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2665,7 +2692,7 @@ set agent.serviceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: f2a059b2280b0eac09a936f7d0651d43df8ada7d94dc8341045875bfffdac67b
+                id: 9c0b18d6a0f385fc8c6c48e9d07a2bfb1b1f0b296455e65694ac128059166a70
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2739,6 +2766,7 @@ set directConnection:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2746,7 +2774,7 @@ set directConnection:
             templates:
               - name: "default"
                 namespace: "default"
-                id: cefa2db5f9122633c9698f9708b0c23c59ef67268b887cc5e5d8f5ab90003999
+                id: b176378f082367697d6306149f4d2a9d85c925cdfeac8ad051dbf7d562799450
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2821,6 +2849,7 @@ set restrictedPssSecurityContext:
             namespace: "default"
             restrictedPssSecurityContext: true
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2828,7 +2857,7 @@ set restrictedPssSecurityContext:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 5592ea28004baa37efa14844fa8e46d4ba8cdef58dd4e1b6715cd69946c28d98
+                id: 178ee998035a8f1ae0d720555f7da970b04986720dc2e3b306d4b7320d13c57d
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2903,6 +2932,7 @@ set secretEnvVars:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -2910,7 +2940,7 @@ set secretEnvVars:
             templates:
               - name: "default"
                 namespace: "default"
-                id: d3dcfcf3bd9b65ce264e3e572ab610d0e4bb598d9180de1722eb6fb274fe0a04
+                id: b959d041b00160bf00e75a0af5bfea38ec6ed9f7da63c0fafa4244b6b2b24182
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2994,6 +3024,7 @@ specify additional container:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -3001,7 +3032,7 @@ specify additional container:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f0c40a3d7387f9986f12efad3b605d00edd208768f6778990b5194666fd9b391
+                id: 32e3584d01e6035a57c68f69f5864129db75b740388c466edc936b54491839a5
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3092,6 +3123,7 @@ specify additional container and clear in additional agent:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -3099,7 +3131,7 @@ specify additional container and clear in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f0c40a3d7387f9986f12efad3b605d00edd208768f6778990b5194666fd9b391
+                id: 32e3584d01e6035a57c68f69f5864129db75b740388c466edc936b54491839a5
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3144,7 +3176,7 @@ specify additional container and clear in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 7a0f898e228c1e83e6c55c096d81f8ae73da1935d45afd2cc5b68b29a9daca2d
+                id: 6c06c48ac3e94761bee8cd271281f230a8272b36919409ee65a58adca61c15ee
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3219,6 +3251,7 @@ specify additional container and overwrite in additional agent:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -3226,7 +3259,7 @@ specify additional container and overwrite in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: f0c40a3d7387f9986f12efad3b605d00edd208768f6778990b5194666fd9b391
+                id: 32e3584d01e6035a57c68f69f5864129db75b740388c466edc936b54491839a5
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3271,7 +3304,7 @@ specify additional container and overwrite in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 3eabd9c876c707f82e15d38a5c88e3fd7d8d8d6bbe739ed7d2f0b9ec14320f0e
+                id: 678986b613383e3401fb5cf649280f2184a580ae733f8ef8725259491f60bf65
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3362,6 +3395,7 @@ specify security settings with apiToken override:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -3369,7 +3403,7 @@ specify security settings with apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3441,6 +3475,7 @@ specify security settings without apiToken override:
             namespace: "default"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/RELEASE-NAME-jenkins-agent"
@@ -3448,7 +3483,7 @@ specify security settings without apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false

@@ -42,6 +42,7 @@ namespaces:
             namespace: "my-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -49,7 +50,7 @@ namespaces:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 7dbf2c1c2eabcc4287fb80986558579d1d1685640364fde006527f37bab94cc8
+                id: 5d88103ee52121cb6392e72eb251b1dc98bc2ea62bf46545b30c3e30406667ae
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -126,6 +127,7 @@ one cloud:
             namespace: "my-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -133,7 +135,7 @@ one cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: b8b3187f6b2ceb0ffe7f613edfd9af7afa50952d843f97a0b22af348d1fd8ca4
+                id: 46c3234798484c8d0ca5cadd2dbc297af49069ce33e95814cd167ae9e04b6c7b
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -210,6 +212,7 @@ second cloud:
             namespace: "my-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -217,7 +220,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: b8b3187f6b2ceb0ffe7f613edfd9af7afa50952d843f97a0b22af348d1fd8ca4
+                id: 46c3234798484c8d0ca5cadd2dbc297af49069ce33e95814cd167ae9e04b6c7b
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -269,7 +272,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: cf705f942da01f59a2ee6abe52b6c9f807afcb49b594da9b45aba62b5477099a
+                id: 56c6024505c5649c177bab38a257362405937e593e69e6b4c3ab7365a1c5f2cd
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false

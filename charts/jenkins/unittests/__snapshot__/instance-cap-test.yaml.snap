@@ -37,6 +37,7 @@ default-cap:
             namespace: "my-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -44,7 +45,7 @@ default-cap:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 4d595aac8e0d04f25846098240d46af0d9cd935ec385070b24b6ef199b63c182
+                id: 932ec669918116ed60ebb0ddf682b62e30c19584a3795e18ae5ca9b88175131e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -119,6 +120,7 @@ limited-cap:
             namespace: "my-namespace"
             restrictedPssSecurityContext: false
             serverUrl: "https://kubernetes.default"
+            addMasterProxyEnvVars: false
             credentialsId: ""
             podLabels:
             - key: "jenkins/my-release-jenkins-agent"
@@ -126,7 +128,7 @@ limited-cap:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 2dabafd6f47150a04f57585957f5179b9cb01fa97697910a9ebb75da60310a10
+                id: a4a7ebb0f686949e5dda69a77a985c3dc3cff7b6da8df189b1599c8d36a3cfad
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
