@@ -34,7 +34,7 @@ data:
 {{- if .Values.controller.installPlugins }}
     echo "download plugins"
     # Install missing plugins
-    cp /var/jenkins_config/plugins.txt {{ .Values.controller.jenkinsHome }};
+    yes n | cp /var/jenkins_config/plugins.txt {{ .Values.controller.jenkinsHome }};
     rm -rf {{ .Values.controller.jenkinsRef }}/plugins/*.lock
     version () { echo "$@" | awk -F. '{ printf("%d%03d%03d%03d\n", $1,$2,$3,$4); }'; }
     if [ -f "{{ .Values.controller.jenkinsWar }}" ] && [ -n "$(command -v jenkins-plugin-cli)" 2>/dev/null ] && [ $(version $(jenkins-plugin-cli --version)) -ge $(version "2.1.1") ]; then
