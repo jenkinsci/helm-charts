@@ -76,6 +76,18 @@ tests:
             app.kubernetes.io/instance: my-release
             app.kubernetes.io/managed-by: Helm
             app.kubernetes.io/name: jenkins
+  - it: uses the configured path type
+    set:
+      controller.secondaryingress:
+        enabled: true
+        hostName: jenkins.example.com
+        paths:
+          - /github-webhook
+        pathType: Prefix
+    asserts:
+      - equal:
+          path: spec.rules[0].http.paths[0].pathType
+          value: Prefix
   - it: hostName with Release.Name template variable
     set:
       controller.secondaryingress:
