@@ -533,6 +533,73 @@ tests:
     asserts:
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: preserve zero user and group IDs for the default agent
+    set:
+      agent:
+        runAsUser: 0
+        runAsGroup: 0
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "default".*runAsUser: 0.*runAsGroup: 0'
+  - it: preserve zero user and group IDs for additional containers
+    set:
+      agent:
+        runAsUser: 1000
+        runAsGroup: 1000
+        additionalContainers:
+          - sideContainerName: root-container
+            image:
+              repository: docker
+              tag: dind
+            args: ""
+            runAsUser: 0
+            runAsGroup: 0
+          - sideContainerName: inherited-container
+            image:
+              repository: busybox
+              tag: latest
+            args: ""
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "root-container".*runAsUser: 0.*runAsGroup: 0'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "inherited-container".*runAsUser: 1000.*runAsGroup: 1000'
+  - it: preserve zero user and group IDs for additional agents
+    set:
+      agent:
+        disableDefaultAgent: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      additionalAgents:
+        root-agent:
+          podName: root-agent
+          runAsUser: 0
+          runAsGroup: 0
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "root-agent".*runAsUser: 0.*runAsGroup: 0'
+  - it: preserve zero user and group IDs for additional agents in additional clouds
+    set:
+      agent:
+        disableDefaultAgent: true
+        runAsUser: 1000
+        runAsGroup: 1000
+      additionalAgents:
+        root-agent:
+          podName: root-agent
+          runAsUser: 0
+          runAsGroup: 0
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-cloud".*- name: "root-agent".*runAsUser: 0.*runAsGroup: 0'
   - it: specify additional container and overwrite in additional agent
     release:
       namespace: default
