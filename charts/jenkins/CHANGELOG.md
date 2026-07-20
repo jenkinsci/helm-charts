@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.39
+
+Evaluate `tpl` on `controller.javaOpts` and `controller.jenkinsOpts` so values can reference other Helm values or named templates, matching the templating already supported by fields such as `controller.ingress.hostName`, `controller.secondaryIngress.hostName`, and `controller.admin.existingSecret`.
+
 ## 5.9.38
 
 Allow overriding the secondary ingress path type

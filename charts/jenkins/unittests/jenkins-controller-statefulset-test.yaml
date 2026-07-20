@@ -244,6 +244,31 @@ tests:
             name: JENKINS_OPTS
             value: >-
               --webroot=/var/jenkins_cache/war -Dtest="custom: 'true'"
+  - it: java & jenkins opts are evaluated with tpl
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        image:
+          registry: docker.io
+          repository: registry/image
+          tag: my-tag
+        javaOpts: >-
+          -Dcontroller.image={{ .Values.controller.image.repository }}:{{ .Values.controller.image.tag }}
+        jenkinsOpts: >-
+          -Dcontroller.image={{ .Values.controller.image.repository }}:{{ .Values.controller.image.tag }}
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: >-
+              -Dcasc.reload.token=$(POD_NAME) -Dcontroller.image=registry/image:my-tag
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JENKINS_OPTS
+            value: >-
+              --webroot=/var/jenkins_cache/war -Dcontroller.image=registry/image:my-tag
   - it: test empty controller.podSecurityContextOverride
     template: jenkins-controller-statefulset.yaml
     set:
