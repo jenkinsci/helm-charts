@@ -33,7 +33,7 @@ jobs:
           version: v4.2.2
 
       - name: Set up Python
-        uses: actions/setup-python@v6
+        uses: actions/setup-python@v7
         with:
           # renovate: datasource=custom.python_actions depName=python
           python-version: 3.14.6
