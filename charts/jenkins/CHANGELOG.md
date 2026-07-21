@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.40
+
+Evaluate `tpl` on `agent.image.registry`, `agent.image.repository`, and `agent.image.tag` so the default kubernetes-agent pod template can compose its jnlp image from other Helm values or named templates. Complements the `tpl`-support added for `controller.javaOpts` / `controller.jenkinsOpts` in 5.9.39.
+
 ## 5.9.39
 
 Evaluate `tpl` on `controller.javaOpts` and `controller.jenkinsOpts` so values can reference other Helm values or named templates, matching the templating already supported by fields such as `controller.ingress.hostName`, `controller.secondaryIngress.hostName`, and `controller.admin.existingSecret`.

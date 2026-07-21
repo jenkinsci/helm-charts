@@ -424,9 +424,9 @@ Returns kubernetes pod template configuration as code
           {{- end }}
         {{- end }}
     {{- if ne .Values.agent.image.registry "" }}
-    image: "{{ .Values.agent.image.registry}}/{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
+    image: "{{ tpl .Values.agent.image.registry . }}/{{ tpl .Values.agent.image.repository . }}:{{ tpl .Values.agent.image.tag . }}"
     {{- else }}
-    image: "{{ .Values.agent.image.repository }}:{{ .Values.agent.image.tag }}"
+    image: "{{ tpl .Values.agent.image.repository . }}:{{ tpl .Values.agent.image.tag . }}"
     {{- end }}
     {{- if .Values.agent.livenessProbe }}
     livenessProbe:

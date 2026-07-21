@@ -17,6 +17,23 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: agent image fields are evaluated with tpl
+    release:
+      namespace: default
+    set:
+      controller:
+        image:
+          repository: myrepo/controller
+          tag: my-controller-tag
+      agent:
+        image:
+          registry: myregistry.example.com
+          repository: "{{ .Values.controller.image.repository }}-agent"
+          tag: "{{ .Values.controller.image.tag }}"
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'image: "myregistry\.example\.com/myrepo/controller-agent:my-controller-tag"'
   - it: agent namespace and templates
     release:
       namespace: controller-namespace
