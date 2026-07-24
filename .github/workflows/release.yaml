@@ -37,7 +37,7 @@ jobs:
         uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5
         with:
           # renovate: datasource=github-tags depName=helm/helm
-          version: v4.2.2
+          version: v4.2.3
 
       - name: Retrieve version from Chart.yaml
         id: chart_version
