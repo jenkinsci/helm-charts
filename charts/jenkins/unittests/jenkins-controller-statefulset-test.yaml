@@ -87,6 +87,7 @@ tests:
               - something.local
         updateStrategy:
           type: OnDelete
+        revisionHistoryLimit: 5
       serviceAccount.name: my-serviceaccount
     asserts:
       - equal:
@@ -167,6 +168,9 @@ tests:
       - equal:
           path: spec.updateStrategy.type
           value: OnDelete
+      - equal:
+          path: spec.revisionHistoryLimit
+          value: 5
   - it: configure image tag
     template: jenkins-controller-statefulset.yaml
     set:

@@ -702,6 +702,10 @@ controller:
   # -- Update strategy for StatefulSet
   updateStrategy: {}
 
+  # ref: https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/#managing-revision-history
+  # -- Maximum number of revisions that will be maintained in the StatefulSet's revision history
+  revisionHistoryLimit:
+
   # -- Topology spread constraints
   topologySpreadConstraints: []
 
