@@ -27,6 +27,9 @@ spec:
   updateStrategy:
 {{ toYaml .Values.controller.updateStrategy | indent 4 }}
   {{- end }}
+  {{- if .Values.controller.revisionHistoryLimit }}
+  revisionHistoryLimit: {{ .Values.controller.revisionHistoryLimit }}
+  {{- end }}
   template:
     metadata:
       labels:
