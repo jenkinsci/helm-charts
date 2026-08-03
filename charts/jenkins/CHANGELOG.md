@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.46
+
+Add support for `controller.revisionHistoryLimit` to configure the number of revisions maintained in the controller StatefulSet's revision history.
+
 ## 5.9.45
 
 Update `kubernetes` to version `4538.v5b_ce7f35b_257`
