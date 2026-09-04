@@ -15,6 +15,10 @@ spec:
   tolerations:
 {{ toYaml .Values.controller.tolerations | indent 4 }}
   {{- end }}
+  {{- if .Values.helmtest.bats.imagePullSecretName}}
+  imagePullSecrets:
+    - name: "{{ .Values.helmtest.bats.imagePullSecretName }}"
+  {{- end }}
   initContainers:
     - name: "test-framework"
       image: "{{ .Values.helmtest.bats.image.registry }}/{{ .Values.helmtest.bats.image.repository }}:{{ .Values.helmtest.bats.image.tag }}"

@@ -1432,6 +1432,8 @@ helmtest:
   # A testing framework for bash
   bats:
     # Bash Automated Testing System (BATS)
+    # -- Name of the secret to be used to pull the image
+    imagePullSecretName: ""
     image:
       # -- Registry of the image used to test the framework
       registry: "docker.io"
