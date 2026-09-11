@@ -38,9 +38,9 @@ spec:
         {{ $key }}: {{ $val | quote }}
         {{- end}}
       annotations:
-        checksum/config: {{ include (print $.Template.BasePath "/config.yaml") . | sha256sum }}
+        checksum/config: {{ include "jenkins.configChecksum" (dict "context" $ "path" "/config.yaml") }}
         {{- if .Values.controller.initScripts }}
-        checksum/config-init-scripts: {{ include (print $.Template.BasePath "/config-init-scripts.yaml") . | sha256sum }}
+        checksum/config-init-scripts: {{ include "jenkins.configChecksum" (dict "context" $ "path" "/config-init-scripts.yaml") }}
         {{- end }}
         {{- if .Values.controller.podAnnotations }}
 {{ tpl (toYaml .Values.controller.podAnnotations | indent 8) . }}

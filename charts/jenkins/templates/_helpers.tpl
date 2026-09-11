@@ -30,6 +30,16 @@ Common labels for all Jenkins resources
 {{- end -}}
 
 {{/*
+sha256sum of the data of a rendered ConfigMap, for checksum/* pod annotations.
+The full manifest is not hashed: its metadata.labels carry helm.sh/chart, which changes on every
+chart version bump.
+*/}}
+{{- define "jenkins.configChecksum" -}}
+{{- $rendered := include (print .context.Template.BasePath .path) .context | fromYaml -}}
+{{- merge (dict) (dig "data" dict $rendered) (dig "stringData" dict $rendered) | toYaml | sha256sum -}}
+{{- end -}}
+
+{{/*
 Allow the release namespace to be overridden for multi-namespace deployments in combined charts.
 */}}
 {{- define "jenkins.namespace" -}}

@@ -858,7 +858,20 @@ tests:
       - isSubset:
           path: spec.template.metadata.annotations
           content:
-            checksum/config-init-scripts: 7bbfa764cae3f479cabae93c236604a2ff72b8a79c2977606f75f46f730084eb
+            checksum/config-init-scripts: fdc4dd4c6600130ea2a45366f5bc600ffa0e29aaf284bce3d85118291f7c96ce
+  - it: test checksum is unaffected by the helm labels
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        initScripts:
+          test: |-
+            This is a test script
+      renderHelmLabels: true
+    asserts:
+      - isSubset:
+          path: spec.template.metadata.annotations
+          content:
+            checksum/config-init-scripts: fdc4dd4c6600130ea2a45366f5bc600ffa0e29aaf284bce3d85118291f7c96ce
   - it: config values
     template: config-init-scripts.yaml
     set:
