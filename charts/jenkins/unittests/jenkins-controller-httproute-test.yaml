@@ -87,6 +87,53 @@ tests:
     asserts:
       - notExists:
           path: metadata.annotations
+  - it: renders filters on the default rule when extra rules are configured
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          apiVersion: gateway.networking.k8s.io/v1
+          kind: HTTPRoute
+          reuseIngressConfiguration: false
+          hostnames:
+            - jenkins.example.com
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+          extraRules:
+            - matches:
+                - path:
+                    type: PathPrefix
+                    value: /health
+              backendRefs:
+                - name: health-service
+                  port: 8081
+          filters:
+            - type: ResponseHeaderModifier
+              responseHeaderModifier:
+                set:
+                  - name: Strict-Transport-Security
+                    value: "max-age=31536000; includeSubDomains"
+                  - name: X-Jenkins-Release
+                    value: "{{ .Release.Name }}"
+    asserts:
+      - notExists:
+          path: spec.rules[0].filters
+      - equal:
+          path: spec.rules[1].backendRefs
+          value:
+            - name: my-release-jenkins
+              port: 8080
+      - equal:
+          path: spec.rules[1].filters
+          value:
+            - type: ResponseHeaderModifier
+              responseHeaderModifier:
+                set:
+                  - name: Strict-Transport-Security
+                    value: "max-age=31536000; includeSubDomains"
+                  - name: X-Jenkins-Release
+                    value: my-release
   - it: matches snapshot
     set:
       controller:
@@ -102,6 +149,7 @@ tests:
             - name: shared-gateway
               namespace: networking
     asserts:
+      - notExists:
+          path: spec.rules[0].filters
       - matchSnapshot:
           path: spec
-
