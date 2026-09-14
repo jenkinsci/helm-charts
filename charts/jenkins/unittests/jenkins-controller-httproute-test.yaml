@@ -134,6 +134,28 @@ tests:
                     value: "max-age=31536000; includeSubDomains"
                   - name: X-Jenkins-Release
                     value: my-release
+  - it: renders timeouts on the default rule when set
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+          timeouts:
+            request: 300s
+            backendRequest: 300s
+    asserts:
+      - equal:
+          path: spec.rules[0].timeouts
+          value:
+            request: 300s
+            backendRequest: 300s
+  - it: does not render timeouts when not set
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+    asserts:
+      - notExists:
+          path: spec.rules[0].timeouts
   - it: matches snapshot
     set:
       controller:

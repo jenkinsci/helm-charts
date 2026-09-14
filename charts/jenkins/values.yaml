@@ -847,6 +847,8 @@ controller:
     annotations: {}
     # -- Filters applied to the default HTTPRoute rule
     filters: []
+    # -- Timeouts applied to the default HTTPRoute rule. Requires Gateway API v1.2+ and controller support
+    timeouts: {}
 
   # -- Allows for adding entries to Pod /etc/hosts
   hostAliases: []
