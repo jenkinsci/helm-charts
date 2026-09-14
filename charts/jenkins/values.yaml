@@ -845,6 +845,8 @@ controller:
     extraRules: []
     # -- HTTPRoute annotations
     annotations: {}
+    # -- Filters applied to the default HTTPRoute rule
+    filters: []
 
   # -- Allows for adding entries to Pod /etc/hosts
   hostAliases: []
