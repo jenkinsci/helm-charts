@@ -44,7 +44,7 @@ data:
     fi
     echo "copy plugins to shared volume"
     # Copy plugins to shared volume
-    yes n | cp -i {{ .Values.controller.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
+    cp -f {{ .Values.controller.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
 {{- end }}
   {{- if not .Values.controller.sidecars.configAutoReload.enabled }}
     echo "copy configuration as code files"

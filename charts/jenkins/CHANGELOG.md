@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.64
+
+Copy plugins to the shared volume with `cp -f` instead of `yes n | cp -i`, whose non-zero exit code aborted `apply_config.sh` (`set -e`) and left the init container in a restart loop whenever the pod was restarted in place (e.g. node reboot) with an already populated `plugin-dir`.
+
 ## 5.9.63
 
 Update `kubernetes` to version `4557.ve746270f672f`
