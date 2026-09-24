@@ -510,6 +510,8 @@ controller:
 
   # -- Name of default cloud configuration.
   cloudName: "kubernetes"
+  # -- Traits for the chart-generated Kubernetes cloud (for example, `ephemeralContainer`). Additional clouds inherit these unless overridden by `additionalClouds.<name>.controller.cloudTraits`.
+  cloudTraits: []
 
   # Below is the implementation of Jenkins Configuration as Code. Add a key under configScripts for each configuration area,
   # where each corresponds to a plugin or section of the UI. Each key (prior to | character) is just a label, and can be any value.
@@ -1292,9 +1294,13 @@ additionalAgents: {}
 # you only need to specify values which differ. If you want to override
 # default additionalAgents with the additionalClouds.additionalAgents set
 # additionalAgentsOverride to `true`.
+# To override inherited cloud traits, set controller.cloudTraits for that cloud (use [] to clear them).
 additionalClouds: {}
 #  remote-cloud-1:
 #    kubernetesURL: https://api.remote-cloud.com
+#    controller:
+#      cloudTraits:
+#        - ephemeralContainer
 #    additionalAgentsOverride: true
 #    additionalAgents:
 #      maven-2:

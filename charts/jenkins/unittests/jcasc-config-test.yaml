@@ -17,6 +17,87 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: omit traits when the cloud traits list is empty
+    set:
+      controller:
+        cloudTraits: []
+    asserts:
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?m)^      traits:'
+  - it: add ephemeralContainer to the default cloud
+    set:
+      controller:
+        cloudTraits:
+          - ephemeralContainer
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "kubernetes"\n      traits:\n        - ephemeralContainer\n      namespace:'
+  - it: add traits to an additional cloud without changing the default cloud
+    set:
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+          controller:
+            cloudTraits:
+              - ephemeralContainer
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "kubernetes"\n      namespace:'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "remote-cloud"\n      traits:\n        - ephemeralContainer\n      namespace:'
+  - it: override inherited traits on an additional cloud
+    set:
+      controller:
+        cloudTraits:
+          - ephemeralContainer
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+          controller:
+            cloudTraits:
+              - customTrait
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "kubernetes"\n      traits:\n        - ephemeralContainer\n      namespace:'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "remote-cloud"\n      traits:\n        - customTrait\n      namespace:'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "remote-cloud".*\n      traits:\n        - customTrait\n      namespace:.*\n      restrictedPssSecurityContext: false\n      serverUrl: "https://api.remote-cloud.com"'
+  - it: inherit default traits on an additional cloud
+    set:
+      controller:
+        cloudTraits:
+          - ephemeralContainer
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "remote-cloud"\n      traits:\n        - ephemeralContainer\n      namespace:'
+  - it: clear inherited traits on an additional cloud
+    set:
+      controller:
+        cloudTraits:
+          - ephemeralContainer
+      additionalClouds:
+        remote-cloud:
+          controller:
+            cloudTraits: []
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "kubernetes"\n      traits:\n        - ephemeralContainer\n      namespace:'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "remote-cloud"\n      namespace:'
   - it: agent image fields are evaluated with tpl
     release:
       namespace: default
