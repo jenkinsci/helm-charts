@@ -32,7 +32,7 @@ jobs:
           persist-credentials: false
 
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@316d7cd859606d6039a2182b7d69199e9b036835 # v46.2.1
+        uses: renovatebot/github-action@9fea9f0fbf80401026d11d03911d62b1f70fef1f # v46.3.3
         with:
           token: "${{ steps.get_token.outputs.token }}"
           docker-cmd-file: .github/renovate-entrypoint.sh
