@@ -203,6 +203,10 @@ jenkins:
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: "{{ .Values.controller.cloudName }}"
+      {{- with .Values.controller.cloudTraits }}
+      traits:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
@@ -263,6 +267,10 @@ jenkins:
       {{- if .additionalAgentsOverride }}
       {{- $_ := set $newRoot.Values "additionalAgents" list}}
       {{- end}}
+      {{- /* merge retains non-empty inherited lists; allow an explicit empty cloudTraits override */}}
+      {{- if and (hasKey $additionalCloud "controller") (hasKey $additionalCloud.controller "cloudTraits") }}
+      {{- $_ := set $newRoot.Values.controller "cloudTraits" $additionalCloud.controller.cloudTraits }}
+      {{- end }}
       {{- $newValues := merge $additionalCloud $newRoot.Values }}
       {{- $_ := set $newRoot "Values" $newValues }}
       {{- /* clear additionalClouds from the copy */}}
@@ -308,6 +316,10 @@ jenkins:
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: {{ $name | quote }}
+      {{- with .Values.controller.cloudTraits }}
+      traits:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"

@@ -77,6 +77,22 @@ $ helm show values jenkins/jenkins
 
 For a summary of all configurable options, see [VALUES.md](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES.md).
 
+### Configure Kubernetes Cloud Traits
+
+Set `controller.cloudTraits` to add traits to the chart-generated Kubernetes cloud. Additional clouds inherit this list; set `additionalClouds.<name>.controller.cloudTraits` to override it (including with `[]` to disable inherited traits).
+
+```yaml
+controller:
+  cloudTraits:
+    - ephemeralContainer
+additionalClouds:
+  remote-cloud:
+    kubernetesURL: https://api.remote-cloud.com
+    controller:
+      cloudTraits:
+        - ephemeralContainer
+```
+
 ### Configure Security Realm and Authorization Strategy
 
 This chart configured a `securityRealm` and `authorizationStrategy` as shown below:
