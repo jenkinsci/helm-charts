@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.65
+
+Update `configuration-as-code` to version `2130.v3ef02f16a_34b_`
+
 ## 5.9.64
 
 Allow configuring traits on the default and additional Kubernetes clouds with `controller.cloudTraits`.
