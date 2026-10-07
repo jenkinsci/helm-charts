@@ -48,7 +48,7 @@ controller:
     tag:
 
     # -- Controller image tag label
-    tagLabel: jdk21
+    tagLabel: jdk25
     # -- Controller image pull policy
     pullPolicy: "Always"
 
@@ -1027,7 +1027,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3385.vf1123fb_515da_-1"
+    tag: "3385.vf1123fb_515da_-1-jdk25"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
