@@ -33,7 +33,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.idleMinutes](./values.yaml#L1198) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.registry](./values.yaml#L1026) | string | Registry to pull the agent jnlp image from | `""` |
 | [agent.image.repository](./values.yaml#L1028) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L1030) | string | Tag of the image to pull | `"3385.vf1123fb_515da_-1"` |
+| [agent.image.tag](./values.yaml#L1030) | string | Tag of the image to pull | `"3385.vf1123fb_515da_-1-jdk25"` |
 | [agent.imagePullSecretName](./values.yaml#L1037) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.inheritYamlMergeStrategy](./values.yaml#L1217) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
 | [agent.instanceCap](./values.yaml#L1181) | int | Max number of agents to launch for this type of agent | `2147483647` |
@@ -162,7 +162,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.image.registry](./values.yaml#L43) | string | Controller image registry | `"docker.io"` |
 | [controller.image.repository](./values.yaml#L45) | string | Controller image repository | `"jenkins/jenkins"` |
 | [controller.image.tag](./values.yaml#L48) | string | Controller image tag override; i.e., tag: "2.440.1-jdk21" | `nil` |
-| [controller.image.tagLabel](./values.yaml#L51) | string | Controller image tag label | `"jdk21"` |
+| [controller.image.tagLabel](./values.yaml#L51) | string | Controller image tag label | `"jdk25"` |
 | [controller.imagePullSecretName](./values.yaml#L59) | string | Controller image pull secret | `nil` |
 | [controller.ingress.annotations](./values.yaml#L743) | object | Primary Ingress annotations | `{}` |
 | [controller.ingress.apiVersion](./values.yaml#L739) | string | Primary Ingress API version | `"networking.k8s.io/v1"` |
