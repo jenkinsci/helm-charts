@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.69
+
+Update `kubernetes` to version `4560.vc25b_83890c34`
+
 ## 5.9.68
 
 Switch images to jdk25 variant:
