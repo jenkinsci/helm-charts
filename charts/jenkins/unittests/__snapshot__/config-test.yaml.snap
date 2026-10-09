@@ -1,7 +1,7 @@
 additional plugins config:
   1: |
     |-
-      kubernetes:4557.ve746270f672f
+      kubernetes:4560.vc25b_83890c34
       workflow-aggregator:608.v67378e9d3db_1
       git:5.10.1
       configuration-as-code:2133.ve570217cdb_cd
@@ -9,7 +9,7 @@ additional plugins config:
 default config without helm labels:
   1: |
     |-
-      kubernetes:4557.ve746270f672f
+      kubernetes:4560.vc25b_83890c34
       workflow-aggregator:608.v67378e9d3db_1
       git:5.10.1
       configuration-as-code:2133.ve570217cdb_cd
