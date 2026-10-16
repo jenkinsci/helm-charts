@@ -420,7 +420,7 @@ controller:
   installPlugins:
     - kubernetes:4557.ve746270f672f
     - workflow-aggregator:608.v67378e9d3db_1
-    - git:5.10.1
+    - git:5.11.0
     - configuration-as-code:2133.ve570217cdb_cd
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
