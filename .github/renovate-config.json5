@@ -31,7 +31,7 @@
     },
     {
       matchPackagePatterns: [".*"],
-      excludePackagePatterns: ["jenkins/jenkins"],
+      excludePackagePatterns: ["jenkins/jenkins", "jenkins/inbound-agent"],
       minimumReleaseAge: "12 hours",
     },
   ],
