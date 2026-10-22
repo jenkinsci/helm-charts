@@ -418,10 +418,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4557.ve746270f672f
+    - kubernetes:4560.vc25b_83890c34
     - workflow-aggregator:608.v67378e9d3db_1
     - git:5.11.0
-    - configuration-as-code:2133.ve570217cdb_cd
+    - configuration-as-code:2136.veb_3a_554550b_f
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -585,7 +585,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 2.11.2
+        tag: 2.14.1
       imagePullPolicy: IfNotPresent
       # -- Port for sidecar health probes
       healthPort: 8060

@@ -12,6 +12,18 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.9.72
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `2.14.1`
+
+## 5.9.71
+
+Update `kubernetes` to version `4560.vc25b_83890c34`
+
+## 5.9.70
+
+Update `configuration-as-code` to version `2136.veb_3a_554550b_f`
+
 ## 5.9.69
 
 Update `git` to version `5.11.0`

@@ -183,7 +183,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.initializeOnce](./values.yaml#L439) | bool | Initialize only on first installation. Ensures plugins do not get updated inadvertently. Requires `persistence.enabled` to be set to `true` | `false` |
 | [controller.installLatestPlugins](./values.yaml#L428) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L431) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
-| [controller.installPlugins](./values.yaml#L420) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4557.ve746270f672f","workflow-aggregator:608.v67378e9d3db_1","git:5.11.0","configuration-as-code:2133.ve570217cdb_cd"]` |
+| [controller.installPlugins](./values.yaml#L420) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4560.vc25b_83890c34","workflow-aggregator:608.v67378e9d3db_1","git:5.11.0","configuration-as-code:2136.veb_3a_554550b_f"]` |
 | [controller.javaOpts](./values.yaml#L171) | string | Append to `JAVA_OPTS` env var | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L105) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L110) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
@@ -280,7 +280,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.sidecars.configAutoReload.healthPort](./values.yaml#L591) | int | Port for sidecar health probes | `8060` |
 | [controller.sidecars.configAutoReload.image.registry](./values.yaml#L584) | string | Registry for the image that triggers the reload | `"docker.io"` |
 | [controller.sidecars.configAutoReload.image.repository](./values.yaml#L586) | string | Repository of the image that triggers the reload | `"kiwigrid/k8s-sidecar"` |
-| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L588) | string | Tag for the image that triggers the reload | `"2.11.2"` |
+| [controller.sidecars.configAutoReload.image.tag](./values.yaml#L588) | string | Tag for the image that triggers the reload | `"2.14.1"` |
 | [controller.sidecars.configAutoReload.imagePullPolicy](./values.yaml#L589) | string |  | `"IfNotPresent"` |
 | [controller.sidecars.configAutoReload.logging](./values.yaml#L608) | object | Config auto-reload logging settings | `{"configuration":{"backupCount":3,"formatter":"JSON","logLevel":"INFO","logToConsole":true,"logToFile":false,"maxBytes":1024,"override":false}}` |
 | [controller.sidecars.configAutoReload.logging.configuration.override](./values.yaml#L612) | bool | Enables custom log config utilizing using the settings below. | `false` |

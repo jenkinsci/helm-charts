@@ -29,7 +29,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: b66f9652e17d5d0684a1569cd90bf873c6bff8bc9520d8b3f821b7433630ef0d
+          checksum/config: c88fab4ddbe1965fb67927bfafffbeea37eb5280db5cc66bae80eef100ee62a9
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -136,7 +136,7 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -167,7 +167,7 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
@@ -245,7 +245,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: b66f9652e17d5d0684a1569cd90bf873c6bff8bc9520d8b3f821b7433630ef0d
+    checksum/config: c88fab4ddbe1965fb67927bfafffbeea37eb5280db5cc66bae80eef100ee62a9
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -259,7 +259,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: b66f9652e17d5d0684a1569cd90bf873c6bff8bc9520d8b3f821b7433630ef0d
+          checksum/config: c88fab4ddbe1965fb67927bfafffbeea37eb5280db5cc66bae80eef100ee62a9
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -366,7 +366,7 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
@@ -397,7 +397,7 @@ test scheme for config-reload:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
