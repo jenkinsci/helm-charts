@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.10.0
+
+Drop all Linux capabilities and set a `RuntimeDefault` seccomp profile on the controller and config-reload containers, completing the Pod Security Standards `restricted` profile for the controller pod
+
 ## 5.9.73
 
 Fix `jenkins/inbound-agent` image tag in the `artifacthub.io/images` annotation to include the `-jdk25` suffix.
