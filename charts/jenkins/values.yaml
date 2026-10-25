@@ -225,6 +225,11 @@ controller:
     runAsGroup: 1000
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
 
   # -- enable or disable the controller k8s service
   serviceEnabled: true
@@ -651,6 +656,11 @@ controller:
       containerSecurityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
 
     # -- Configures additional sidecar container(s) for the Jenkins controller
     additionalSidecarContainers: []

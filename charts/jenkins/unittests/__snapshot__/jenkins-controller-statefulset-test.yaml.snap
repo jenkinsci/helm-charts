@@ -88,9 +88,14 @@ default values:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             startupProbe:
               failureThreshold: 12
               httpGet:
@@ -142,7 +147,12 @@ default values:
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -173,7 +183,12 @@ default values:
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -196,9 +211,14 @@ default values:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home
                 name: jenkins-home
@@ -318,9 +338,14 @@ test scheme for config-reload:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             startupProbe:
               failureThreshold: 12
               httpGet:
@@ -372,7 +397,12 @@ test scheme for config-reload:
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -403,7 +433,12 @@ test scheme for config-reload:
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -426,9 +461,14 @@ test scheme for config-reload:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home
                 name: jenkins-home
