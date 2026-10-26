@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.10.1
+
+Update `jenkins/inbound-agent` to version `3391.va_37fa_a_305d6d-8-jdk25`
+
 ## 5.10.0
 
 Drop all Linux capabilities and set a `RuntimeDefault` seccomp profile on the controller and config-reload containers, completing the Pod Security Standards `restricted` profile for the controller pod
