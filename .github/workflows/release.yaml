@@ -90,7 +90,7 @@ jobs:
 
       - name: Run chart-releaser
         id: chart_releaser
-        uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
+        uses: helm/chart-releaser-action@df287104677278f869ca5480bd260358397cc3f9 # v1.8.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
