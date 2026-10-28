@@ -33,7 +33,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.idleMinutes](./values.yaml#L1208) | int | Allows the Pod to remain active for reuse until the configured number of minutes has passed since the last step was executed on it | `0` |
 | [agent.image.registry](./values.yaml#L1036) | string | Registry to pull the agent jnlp image from | `""` |
 | [agent.image.repository](./values.yaml#L1038) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
-| [agent.image.tag](./values.yaml#L1040) | string | Tag of the image to pull | `"3385.vf1123fb_515da_-1-jdk25"` |
+| [agent.image.tag](./values.yaml#L1040) | string | Tag of the image to pull | `"3395.v6e5377b_0fb_3c-1-jdk25"` |
 | [agent.imagePullSecretName](./values.yaml#L1047) | string | Name of the secret to be used to pull the image | `nil` |
 | [agent.inheritYamlMergeStrategy](./values.yaml#L1227) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
 | [agent.instanceCap](./values.yaml#L1191) | int | Max number of agents to launch for this type of agent | `2147483647` |

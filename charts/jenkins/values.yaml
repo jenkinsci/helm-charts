@@ -1037,7 +1037,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3385.vf1123fb_515da_-1-jdk25"
+    tag: "3395.v6e5377b_0fb_3c-1-jdk25"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
