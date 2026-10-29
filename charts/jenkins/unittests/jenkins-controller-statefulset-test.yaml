@@ -384,6 +384,46 @@ tests:
                         path: chart-admin-username
                       - key: jenkins-admin-password
                         path: chart-admin-password
+  - it: mounts the existing admin secret when createSecret is false
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.admin.createSecret: false
+      controller.admin.existingSecret: jenkins-admin
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: SECRETS
+            value: /run/secrets/additional
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    name: jenkins-admin
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+  - it: does not mount admin credentials without createSecret or existingSecret
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.admin.createSecret: false
+    asserts:
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-secrets
+          any: true
   - it: test existing secret without additionalExistingSecrets
     template: jenkins-controller-statefulset.yaml
     set:
