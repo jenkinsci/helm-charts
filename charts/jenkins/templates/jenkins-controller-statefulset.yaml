@@ -213,7 +213,7 @@ spec:
             {{- if .Values.controller.containerEnv }}
 {{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
             - name: SECRETS
               value: /run/secrets/additional
             {{- end }}
@@ -306,7 +306,7 @@ spec:
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
             - name: jenkins-secrets
               mountPath: /run/secrets/additional
               readOnly: true
@@ -366,7 +366,7 @@ spec:
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
-      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
       - name: jenkins-secrets
         projected:
           sources:
@@ -383,7 +383,7 @@ spec:
                   path: {{ tpl $value.name $ }}-{{ tpl $value.keyName $ }}
           {{- end }}
           {{- end }}
-          {{- if .Values.controller.admin.createSecret }}
+          {{- if or .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
           - secret:
               name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
               items:
