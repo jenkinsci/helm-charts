@@ -228,22 +228,18 @@ jenkins:
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}
       {{- range $name, $additionalAgent := .Values.additionalAgents }}
-        {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
-        {{- $runAsUser := $additionalAgent.runAsUser }}
-        {{- $runAsUserSet := not (kindIs "invalid" $runAsUser) }}
-        {{- $runAsGroup := $additionalAgent.runAsGroup }}
-        {{- $runAsGroupSet := not (kindIs "invalid" $runAsGroup) }}
+        {{- /* remember values explicitly set to false, 0, "" or [] on this agent; merge would replace them with the values of .Values.agent */}}
+        {{- $explicitEmptyValues := dict }}
+        {{- range $key, $value := $additionalAgent }}
+        {{- if and (not (kindIs "invalid" $value)) (not (kindIs "map" $value)) (empty $value) }}
+        {{- $_ := set $explicitEmptyValues $key $value }}
+        {{- end }}
+        {{- end }}
         {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
         {{- $additionalAgent := merge $additionalAgent $agent }}
-        {{- if $runAsUserSet }}
-        {{- $_ := set $additionalAgent "runAsUser" $runAsUser }}
-        {{- end }}
-        {{- if $runAsGroupSet }}
-        {{- $_ := set $additionalAgent "runAsGroup" $runAsGroup }}
-        {{- end }}
-        {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
-        {{- if $additionalContainersEmpty }}
-        {{- $_ := set $additionalAgent "additionalContainers" list }}
+        {{- /* restore the explicitly empty values, e.g. privileged: false or runAsUser: 0 */}}
+        {{- range $key, $value := $explicitEmptyValues }}
+        {{- $_ := set $additionalAgent $key $value }}
         {{- end }}
         {{- /* set .Values.agent to $additionalAgent */}}
         {{- $_ := set $.Values "agent" $additionalAgent }}
@@ -340,22 +336,18 @@ jenkins:
        {{- /* save .Values.agent */}}
        {{- $agent := .Values.agent }}
        {{- range $name, $additionalAgent := .Values.additionalAgents }}
-         {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
-         {{- $runAsUser := $additionalAgent.runAsUser }}
-         {{- $runAsUserSet := not (kindIs "invalid" $runAsUser) }}
-         {{- $runAsGroup := $additionalAgent.runAsGroup }}
-         {{- $runAsGroupSet := not (kindIs "invalid" $runAsGroup) }}
+         {{- /* remember values explicitly set to false, 0, "" or [] on this agent; merge would replace them with the values of .Values.agent */}}
+         {{- $explicitEmptyValues := dict }}
+         {{- range $key, $value := $additionalAgent }}
+         {{- if and (not (kindIs "invalid" $value)) (not (kindIs "map" $value)) (empty $value) }}
+         {{- $_ := set $explicitEmptyValues $key $value }}
+         {{- end }}
+         {{- end }}
          {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
          {{- $additionalAgent := merge $additionalAgent $agent }}
-         {{- if $runAsUserSet }}
-         {{- $_ := set $additionalAgent "runAsUser" $runAsUser }}
-         {{- end }}
-         {{- if $runAsGroupSet }}
-         {{- $_ := set $additionalAgent "runAsGroup" $runAsGroup }}
-         {{- end }}
-         {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
-         {{- if $additionalContainersEmpty }}
-         {{- $_ := set $additionalAgent "additionalContainers" list }}
+         {{- /* restore the explicitly empty values, e.g. privileged: false or runAsUser: 0 */}}
+         {{- range $key, $value := $explicitEmptyValues }}
+         {{- $_ := set $additionalAgent $key $value }}
          {{- end }}
          {{- /* set .Values.agent to $additionalAgent */}}
          {{- $_ := set $.Values "agent" $additionalAgent }}
