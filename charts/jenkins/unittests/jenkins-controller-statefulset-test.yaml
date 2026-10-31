@@ -949,3 +949,20 @@ tests:
       - equal:
           path: spec.replicas
           value: 1
+  - it: keeps helm.sh/chart off the pod template so chart upgrades do not restart the controller
+    template: jenkins-controller-statefulset.yaml
+    set:
+      renderHelmLabels: true
+      extraLabels:
+        team: platform
+    asserts:
+      - exists:
+          path: metadata.labels["helm.sh/chart"]
+      - notExists:
+          path: spec.template.metadata.labels["helm.sh/chart"]
+      - equal:
+          path: spec.template.metadata.labels["app.kubernetes.io/component"]
+          value: jenkins-controller
+      - equal:
+          path: spec.template.metadata.labels.team
+          value: platform
