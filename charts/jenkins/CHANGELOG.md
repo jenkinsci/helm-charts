@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.10.7
+
+Only set `host` on the secondary ingress rule when `controller.secondaryingress.hostName` is set, so enabling the secondary ingress without a hostname no longer fails to render with `wrong type for value; expected string`.
+
 ## 5.10.6
 
 Keep `false`, `0`, `""` and `[]` values set on an `additionalAgents` entry instead of replacing them with the `agent` defaults, so an additional agent can turn off settings such as `privileged` that are enabled on the default agent.

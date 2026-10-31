@@ -27,8 +27,7 @@ spec:
   ingressClassName: {{ tpl .Values.controller.secondaryingress.ingressClassName . | quote }}
 {{- end }}
   rules:
-    - host: {{ tpl .Values.controller.secondaryingress.hostName . | quote }}
-      http:
+    - http:
         paths:
         {{- range .Values.controller.secondaryingress.paths }}
           - path: {{ . | quote }}
@@ -44,6 +43,9 @@ spec:
               servicePort: {{ $servicePort }}
 {{ end }}
         {{- end}}
+      {{- if .Values.controller.secondaryingress.hostName }}
+      host: {{ tpl .Values.controller.secondaryingress.hostName . | quote }}
+      {{- end }}
 {{- if .Values.controller.secondaryingress.tls }}
 {{- $withTlsEntries := false }}
 {{- range .Values.controller.secondaryingress.tls }}
