@@ -219,3 +219,22 @@ tests:
       - equal:
           path: spec.ingressClassName
           value: nginx
+  - it: renders a host-less rule when hostName is not set
+    set:
+      controller.secondaryingress:
+        enabled: true
+        paths:
+          - /github-webhook
+    asserts:
+      - equal:
+          path: spec.rules
+          value:
+            - http:
+                paths:
+                  - backend:
+                      service:
+                        name: my-release-jenkins
+                        port:
+                          number: 8080
+                    path: /github-webhook
+                    pathType: ImplementationSpecific
