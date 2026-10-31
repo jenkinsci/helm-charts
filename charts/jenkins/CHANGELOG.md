@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.10.7
 
-Only set `host` on the secondary ingress rule when `controller.secondaryingress.hostName` is set, so enabling the secondary ingress without a host name no longer fails to render with `wrong type for value; expected string`.
+Only set `host` on the secondary ingress rule when `controller.secondaryingress.hostName` is set, so enabling the secondary ingress without a hostname no longer fails to render with `wrong type for value; expected string`.
 
 ## 5.10.6
 
