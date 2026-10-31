@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.10.7
+
+Render the controller pod template's labels without `helm.sh/chart`, so a chart version bump no longer changes the pod template and restarts the controller. The label stays on the StatefulSet and every other object.
+
 ## 5.10.6
 
 Keep `false`, `0`, `""` and `[]` values set on an `additionalAgents` entry instead of replacing them with the `agent` defaults, so an additional agent can turn off settings such as `privileged` that are enabled on the default agent.

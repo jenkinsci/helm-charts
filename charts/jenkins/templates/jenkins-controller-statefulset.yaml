@@ -33,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "jenkins.labels" . | nindent 8 }}
+        {{- include "jenkins.podLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.controller.podLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end}}

@@ -30,6 +30,14 @@ Common labels for all Jenkins resources
 {{- end -}}
 
 {{/*
+Labels for the controller pod template: the common labels without helm.sh/chart, which changes on
+every chart version bump and would otherwise restart the controller on a label-only upgrade.
+*/}}
+{{- define "jenkins.podLabels" -}}
+{{- omit (include "jenkins.labels" . | fromYaml) "helm.sh/chart" | toYaml -}}
+{{- end -}}
+
+{{/*
 sha256sum of the data of a rendered ConfigMap, for checksum/* pod annotations.
 The full manifest is not hashed: its metadata.labels carry helm.sh/chart, which changes on every
 chart version bump.
