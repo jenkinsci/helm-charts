@@ -829,6 +829,49 @@ tests:
               items:
                 - key: "some.jks"
                   path: some-file-name
+  - it: test httpsKeyStore defaults fileName to keystore.jks when empty
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          fileName: ""
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: keystore.jks
+      - equal:
+          path: spec.template.spec.containers[0].args[2]
+          value: '--httpsKeyStore=/var/jenkins_keystore/keystore.jks'
+  - it: test httpsKeyStore defaults fileName to keystore.jks when unset
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: keystore.jks
+      - equal:
+          path: spec.template.spec.containers[0].args[2]
+          value: '--httpsKeyStore=/var/jenkins_keystore/keystore.jks'
   - it:
     template: jenkins-controller-statefulset.yaml
     set:
