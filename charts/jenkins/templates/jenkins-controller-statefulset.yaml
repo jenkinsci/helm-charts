@@ -190,7 +190,7 @@ spec:
             {{- end }}
           ]
           {{- else if .Values.controller.httpsKeyStore.enable }}
-          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
+          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path (.Values.controller.httpsKeyStore.fileName | default "keystore.jks") }}
           args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
           {{- else }}
           args: [ "--httpPort={{.Values.controller.targetPort}}"]
@@ -419,7 +419,7 @@ spec:
           secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
           items:
           - key: {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretKey }}
-            path: {{ .Values.controller.httpsKeyStore.fileName }}
+            path: {{ .Values.controller.httpsKeyStore.fileName | default "keystore.jks" }}
       {{- end }}
 
 {{- if .Values.controller.imagePullSecretName }}
