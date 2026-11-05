@@ -14,7 +14,7 @@ Those entries include a reference to the git commit to be able to get more detai
 
 ## 5.10.11
 
-Fix `controller.clusterIP`: `values.yaml` documented the key as `controller.clusterIp`, which the Service template never read. The documented spelling is still accepted.
+Fix `values.yaml` and `VALUES.md` documenting the controller Service cluster IP as `controller.clusterIp`. The template reads `controller.clusterIP`, which is unchanged; the old spelling was never used and is still ignored.
 
 ## 5.10.10
 

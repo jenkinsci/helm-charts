@@ -17,9 +17,8 @@ spec:
   {{- if .Values.controller.serviceExternalTrafficPolicy }}
   externalTrafficPolicy: {{.Values.controller.serviceExternalTrafficPolicy}}
   {{- end }}
-  {{- $clusterIP := .Values.controller.clusterIP | default .Values.controller.clusterIp }}
-  {{- if (and (eq .Values.controller.serviceType "ClusterIP") (not (empty $clusterIP))) }}
-  clusterIP: {{ $clusterIP }}
+  {{- if (and (eq .Values.controller.serviceType "ClusterIP") (not (empty .Values.controller.clusterIP))) }}
+  clusterIP: {{.Values.controller.clusterIP}}
   {{- end }}
   ports:
     - port: {{.Values.controller.servicePort}}

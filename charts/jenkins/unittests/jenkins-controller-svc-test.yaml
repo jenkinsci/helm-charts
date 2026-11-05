@@ -172,11 +172,10 @@ tests:
       - equal:
           path: spec.clusterIP
           value: 10.10.10.12
-  - it: support the previously documented clusterIp key
+  - it: ignore the previously documented clusterIp key
     set:
       controller:
         clusterIp: 10.10.10.13
     asserts:
-      - equal:
+      - notExists:
           path: spec.clusterIP
-          value: 10.10.10.13
