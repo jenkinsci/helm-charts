@@ -240,7 +240,7 @@ controller:
   serviceType: ClusterIP
 
   # -- k8s service clusterIP. Only used if serviceType is ClusterIP
-  clusterIp:
+  clusterIP:
   # -- k8s service port
   servicePort: 8080
   # -- k8s target port

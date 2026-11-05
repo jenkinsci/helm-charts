@@ -164,3 +164,19 @@ tests:
       - equal:
           path: spec.publishNotReadyAddresses
           value: true
+  - it: set clusterIP
+    set:
+      controller:
+        clusterIP: 10.10.10.12
+    asserts:
+      - equal:
+          path: spec.clusterIP
+          value: 10.10.10.12
+  - it: support the previously documented clusterIp key
+    set:
+      controller:
+        clusterIp: 10.10.10.13
+    asserts:
+      - equal:
+          path: spec.clusterIP
+          value: 10.10.10.13

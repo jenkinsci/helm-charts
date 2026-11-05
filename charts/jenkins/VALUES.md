@@ -112,7 +112,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.backendconfig.spec](./values.yaml#L829) | object | backendconfig spec | `{}` |
 | [controller.cloudName](./values.yaml#L517) | string | Name of default cloud configuration. | `"kubernetes"` |
 | [controller.cloudTraits](./values.yaml#L519) | list | Traits for the chart-generated Kubernetes cloud (for example, `ephemeralContainer`). Additional clouds inherit these unless overridden by `additionalClouds.<name>.controller.cloudTraits`. | `[]` |
-| [controller.clusterIp](./values.yaml#L243) | string | k8s service clusterIP. Only used if serviceType is ClusterIP | `nil` |
+| [controller.clusterIP](./values.yaml#L243) | string | k8s service clusterIP. Only used if serviceType is ClusterIP | `nil` |
 | [controller.componentName](./values.yaml#L40) | string | Used for label app.kubernetes.io/component | `"jenkins-controller"` |
 | [controller.containerEnv](./values.yaml#L165) | list | Environment variables for Jenkins Container | `[]` |
 | [controller.containerEnvFrom](./values.yaml#L162) | list | Environment variable sources for Jenkins Container | `[]` |
