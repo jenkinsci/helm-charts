@@ -45,7 +45,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -95,7 +95,7 @@ additional clouds:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -178,7 +178,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -207,7 +207,7 @@ additional clouds inheriting additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
+                id: 550631c831848d911a6317fec25efb71bdcef2bf8efb294b7afe608be1d3803e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -257,7 +257,7 @@ additional clouds inheriting additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -286,7 +286,7 @@ additional clouds inheriting additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
+                id: 550631c831848d911a6317fec25efb71bdcef2bf8efb294b7afe608be1d3803e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -369,7 +369,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -398,7 +398,7 @@ additional clouds overriding additional agents:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 7c099826a824dcb8dff735eb3758cc9cd68ce2b5acae9eb36c7a20977a43a130
+                id: 550631c831848d911a6317fec25efb71bdcef2bf8efb294b7afe608be1d3803e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -448,7 +448,7 @@ additional clouds overriding additional agents:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -531,7 +531,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -581,7 +581,7 @@ additional clouds set skipTlsVerify:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 7cd19aaa70aad64d91e3846d0e908e205a1a26d9994053fb6375ea610d01bcbd
+                id: 396db75662afc2acd0582de98e3ecd07d5ddc705bbac6f3b4c23dd9ff0a4e522
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -664,7 +664,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -714,7 +714,7 @@ additional clouds set usageRestricted:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 734d140d5b598847f1c02a9f941be0c3ec79b53b45d0503c95c0ee261a5faea1
+                id: 736ad5529902a3565ff22db1898115402aaf7fbdec27b515ffbb8cf9e499e863
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -801,7 +801,7 @@ adds custom labels on agent pods:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: 79cca04eca7fc35ada105a90a8fecfb446c33a4778702de50065a5030d234f22
+                id: 224a39cd7a36fc7680c4c39bebb2310789ece47854707500ea33f086cd3b4635
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -884,7 +884,7 @@ agent namespace and templates:
             templates:
               - name: "default"
                 namespace: "jenkins-agents"
-                id: e87554851ae500dda04ff6a4dba3e89ab2c2bd2f7679bcf1e6a3f90adda0915f
+                id: f5c9c72a6a642aa34f0d9ba7f2a9a524f234f5d8c9644a1589fe141d85aa2fda
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -913,7 +913,7 @@ agent namespace and templates:
                 inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
-                id: 691a7c5eb3421920f70e25b14b15fbce13282d4bf7b9efd84344029d7db5f777
+                id: 2efea9ddffc4554596589e377293871fe5b2646d21b4127d9ecba47ec0dd25b2
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -942,7 +942,7 @@ agent namespace and templates:
                 inheritYamlMergeStrategy: false
               - name: "python"
                 namespace: "jenkins-agents"
-                id: b113a83d5e91a3eae813e147e118452ad5a1b458d761a826a5bb82a298419845
+                id: f855c23380e4880f12004e9e39901d206f0353f9f029eb5727370b7ad8c2ceb1
                 containers:
                 - name: "python"
                   alwaysPullImage: false
@@ -1042,7 +1042,7 @@ agent with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: c492fd780686bc6fefb64a523d0e6818dfcc9fde9a8da91929a007685f39a52a
+                id: b4c177da701bb3140589d4e24300a455937acea45307cff6b9d5e6bc9edf2306
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1132,7 +1132,7 @@ agents with liveness probe:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 67fbb148c447296c3b14aec8e7805b4b42226db2b18be343ec78d98cf419ac02
+                id: 3644009d426d324cde408395d95e3c6f26b84e1ed6df41862a85688c65a46ee3
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1237,7 +1237,7 @@ configure hostnetworking to agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: ce7e1262d694b207f84102f5cb0f0a5b2868445991c379b48cd085df8c61fc5a
+                id: 35b24af6b4ac56c321c4cd0c542b3fc3c4d9c28977da2e107a92c0487f5eca3c
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1321,7 +1321,7 @@ custom dynamic pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: cfce72c45901a3b1890e1f3da5ed210ea99bf2434d772542e39cecd06869c659
+                id: 3b2487d674cf863d644b08f7bb407555ac72e73278e1be657701758917d2893f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1409,7 +1409,7 @@ custom emptyDir workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 0d6ee619979bf4cfaf40ae3838d733158e9f59acf92a19c2b3e21dc690ed2015
+                id: 2c227ef9b89c60c9ba2fafcfa6caec37be23d5d5bfb9dd0c49bff44e4d690cf8
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1495,7 +1495,7 @@ custom hostPath workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 95afcb059e703cc7fd321f514f00bdb4ed523974d57596666536de74e035055d
+                id: a4b5db87894e2377217399a431f0fcc55d7bd6ade0abb0657a43524f27eb36cd
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1581,7 +1581,7 @@ custom jenkins label:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1664,7 +1664,7 @@ custom nfs workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 84a485c5a32ebdbcb5764b3d5633e22883024ffed3beaa4912999d8dff8be604
+                id: 2fbc38408ff61da591f58105132fd7efb167b573317bdae27e8fb2cd5ce991da
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1752,7 +1752,7 @@ custom other workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 449e93d09e82bc98f829f3f75a2c1416902734d4e7700f3f1e5f406e1d87dff4
+                id: 3fe3f430f1942b8761b632ccdd4eb46e2da9a8da34cff76d5093821ba2d82d19
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1839,7 +1839,7 @@ custom pvc workspace volume:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 39d080edf67415fabd8e14a35d3789aaae607b43ab92a8c296bb86cede946aee
+                id: ec36ed9a07f0f1a1a0358a4ad7805aade7edb03e4275773e417f7bccbcb64df9
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -1926,7 +1926,7 @@ customized config:
                 annotations:
                 - key: ci.jenkins-agent/test
                   value: "custom"
-                id: 6f198ef0113790bcef8398af6d003da44e94db65e5f9f7456587f3205008ef0c
+                id: 4fd9cca3fc52abe4129deb184aefe82a0bf59067ef34910f27f512cdec4c3a06
                 containers:
                 - name: "sideContainer"
                   alwaysPullImage: true
@@ -2058,7 +2058,7 @@ default config:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2191,7 +2191,7 @@ disable useDefaultServiceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: a20e18343687d4185eb8c5a765e7be79d9432b44c8b80950378e6591a6794e49
+                id: cf69fb1c2448a282438c150d52539694507aa7a8161655a08a3d7259934fe3a7
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2272,7 +2272,7 @@ empty projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2355,7 +2355,7 @@ legacyRemotingSecurityEnabled = false:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2440,7 +2440,7 @@ legacyRemotingSecurityEnabled = true:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2526,7 +2526,7 @@ non-string projectNamingStrategy:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2609,7 +2609,7 @@ none lts version:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2692,7 +2692,7 @@ set agent.serviceAccount:
             templates:
               - name: "default"
                 namespace: "NAMESPACE"
-                id: cadf5239af5fae8fc5788beb5662ca4df171f418c97136d59391dedbf1f40d43
+                id: a8d27fce4a840d4ec1d19f1d70c43e4a3613bee9ef3c262cf56716a81eb3d681
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2774,7 +2774,7 @@ set directConnection:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 3af63bfed3e206f7b71f885fc304e5b6d997cffcc05f15b7c54985cb8f03ecf0
+                id: 9cb43311fd88fab645b96867106824610ebb1c06a1cd9594a81e1dbf3cbf510f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2857,7 +2857,7 @@ set restrictedPssSecurityContext:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 1f499c07de96b21446ab4ff3a42a82b1a931d716160a5b8b7185f665d01f0876
+                id: f5aabd707166b56636df0985341617f70a26c5fe3fb8985dc011ebba6356fce9
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -2940,7 +2940,7 @@ set secretEnvVars:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 4d0131f56c5bffcfd90e1c2debbc8e23496dd13d99e1887080a759573baaf024
+                id: 099bbfa8abd739541e99288374b982915e1f6639c0d3e940da662b65df997a97
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3032,7 +3032,7 @@ specify additional container:
             templates:
               - name: "default"
                 namespace: "default"
-                id: d6f987e5dbedd6c110f41f996b1b9a670130912ee86b4ead151bd49bb47bc598
+                id: 4ca89f44dda700a7dc8df255eaa57c12f382e9d99da3fbbd19353979b46febcf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3131,7 +3131,7 @@ specify additional container and clear in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: d6f987e5dbedd6c110f41f996b1b9a670130912ee86b4ead151bd49bb47bc598
+                id: 4ca89f44dda700a7dc8df255eaa57c12f382e9d99da3fbbd19353979b46febcf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3176,7 +3176,7 @@ specify additional container and clear in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 8b5858196f6243912e5c20d2c16f2cddd60b37a5aad2a5ec65afc6f4b6f1385b
+                id: 682d458eee69c9699b2097ffb1c168f5583a159ebd9718a75697fbcdc2800a22
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3259,7 +3259,7 @@ specify additional container and overwrite in additional agent:
             templates:
               - name: "default"
                 namespace: "default"
-                id: d6f987e5dbedd6c110f41f996b1b9a670130912ee86b4ead151bd49bb47bc598
+                id: 4ca89f44dda700a7dc8df255eaa57c12f382e9d99da3fbbd19353979b46febcf
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3304,7 +3304,7 @@ specify additional container and overwrite in additional agent:
                 inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
-                id: 3d6b002df350fdf9d5ae2a19c0e43223d794b0e1959931a6f7db98cbabe381f7
+                id: 3c71d7795c1bfc2ebc4adc5c00a86c3e8616cf8e7bd159abfda4994dcbc523f4
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3403,7 +3403,7 @@ specify security settings with apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -3483,7 +3483,7 @@ specify security settings without apiToken override:
             templates:
               - name: "default"
                 namespace: "default"
-                id: 031a682b1e777ebd36860d43a30caa9f3ee2c5b3b672f3c43d55cb184f55e0c8
+                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
