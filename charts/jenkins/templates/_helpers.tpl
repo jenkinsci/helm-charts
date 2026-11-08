@@ -207,6 +207,9 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
@@ -316,6 +319,9 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}

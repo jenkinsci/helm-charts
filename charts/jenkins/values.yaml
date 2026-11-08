@@ -1015,6 +1015,8 @@ agent:
   skipTlsVerify: false
   # -- Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI
   usageRestricted: false
+  # -- Connect to the Kubernetes API through the proxy configured in Jenkins (Manage Jenkins > System > HTTP Proxy). This flag corresponds to the "Use Jenkins Proxy" flag in kubernetes plugin UI
+  useJenkinsProxy: false
   # -- The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5
   kubernetesConnectTimeout: 5
   # -- The read timeout in seconds for connections to Kubernetes API. The minimum value is 15
