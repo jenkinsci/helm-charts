@@ -249,7 +249,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.route.annotations](./values.yaml#L838) | object | Route annotations | `{}` |
 | [controller.route.enabled](./values.yaml#L834) | bool | Enables openshift route | `false` |
 | [controller.route.labels](./values.yaml#L836) | object | Route labels | `{}` |
-| [controller.route.path](./values.yaml#L840) | string | Route path | `nil` |
+| [controller.route.path](./values.yaml#L840) | string | Route host. When `controller.ingress.hostName` and `controller.jenkinsUrl` are not set, it is also used for the Jenkins URL (`https://<path>`, the Route terminates TLS at the edge) | `nil` |
 | [controller.runAsUser](./values.yaml#L198) | int | Deprecated in favor of `controller.podSecurityContextOverride`. uid that jenkins runs with. | `1000` |
 | [controller.schedulerName](./values.yaml#L684) | string | Name of the Kubernetes scheduler to use | `""` |
 | [controller.scriptApproval](./values.yaml#L467) | list | List of groovy functions to approve | `[]` |

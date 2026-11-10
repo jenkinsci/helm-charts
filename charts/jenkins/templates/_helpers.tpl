@@ -125,6 +125,8 @@ Returns the Jenkins URL
     {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ tpl .Values.controller.ingress.hostName $ }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- end }}
+  {{- else if and .Values.controller.route.enabled .Values.controller.route.path }}
+      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.route.path }}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- end}}

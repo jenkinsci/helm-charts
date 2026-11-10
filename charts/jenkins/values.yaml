@@ -836,7 +836,7 @@ controller:
     labels: {}
     # -- Route annotations
     annotations: {}
-    # -- Route path
+    # -- Route host. When `controller.ingress.hostName` and `controller.jenkinsUrl` are not set, it is also used for the Jenkins URL (`https://<path>`, the Route terminates TLS at the edge)
     path:
 
   # Gateway API HTTPRoute

@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.12.0
+
+Use the OpenShift Route host (`controller.route.path`) for the Jenkins URL when `controller.route.enabled` is set and neither `controller.jenkinsUrl` nor `controller.ingress.hostName` is. The URL uses `https`, since the Route terminates TLS at the edge, unless `controller.jenkinsUrlProtocol` is set.
+
 ## 5.11.0
 
 Add `agent.useJenkinsProxy` to make the Kubernetes cloud connect to the API server through the proxy configured in Jenkins.
