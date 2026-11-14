@@ -36,7 +36,7 @@ jobs:
         uses: actions/setup-python@v7
         with:
           # renovate: datasource=custom.python_actions depName=python
-          python-version: 3.14.7
+          python-version: 3.15.2
 
       - name: Set up chart-testing
         uses: helm/chart-testing-action@720270857a28afd41e2426521a7801db09e9b510 # v2.9.0
