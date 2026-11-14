@@ -1,0 +1,31 @@
+suite: Pod template agentInjection tests
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: does not set agentInjection by default
+    asserts:
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: agentInjection
+
+  - it: sets agentInjection on the default pod template when enabled
+    set:
+      agent.agentInjection: true
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "- name: \"default\"\n\\s+namespace: \"my-namespace\"\n\\s+agentInjection: true\n"
+
+  - it: lets an additional agent enable agentInjection on its own pod template
+    set:
+      additionalAgents:
+        maven:
+          podName: maven
+          agentInjection: true
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)- name: \"default\"\n\\s+namespace: \"my-namespace\"\n\\s+id: .*- name: \"maven\"\n\\s+namespace: \"my-namespace\"\n\\s+agentInjection: true\n"
