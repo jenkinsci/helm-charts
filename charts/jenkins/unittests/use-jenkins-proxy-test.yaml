@@ -1,0 +1,31 @@
+suite: Kubernetes cloud useJenkinsProxy tests
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: does not set useJenkinsProxy by default
+    asserts:
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: useJenkinsProxy
+
+  - it: sets useJenkinsProxy on the cloud when enabled
+    set:
+      agent.useJenkinsProxy: true
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "\n      useJenkinsProxy: true\n"
+
+  - it: sets useJenkinsProxy on additional clouds too
+    set:
+      agent.useJenkinsProxy: true
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)useJenkinsProxy: true.*name: \"remote-cloud-1\""

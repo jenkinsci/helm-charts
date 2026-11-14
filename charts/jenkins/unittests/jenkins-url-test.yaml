@@ -1,0 +1,60 @@
+suite: Jenkins URL tests
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: uses the service URL by default
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: http://my-release-jenkins:8080$"
+
+  - it: uses the OpenShift Route host when the Route is enabled
+    set:
+      controller.route.enabled: true
+      controller.route.path: jenkins.apps.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: https://jenkins.apps.example.com$"
+
+  - it: adds the URI prefix and honours jenkinsUrlProtocol for the Route host
+    set:
+      controller.route.enabled: true
+      controller.route.path: jenkins.apps.example.com
+      controller.jenkinsUriPrefix: /jenkins
+      controller.jenkinsUrlProtocol: http
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: http://jenkins.apps.example.com/jenkins$"
+
+  - it: ignores the Route host when the Route is disabled
+    set:
+      controller.route.path: jenkins.apps.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: http://my-release-jenkins:8080$"
+
+  - it: prefers the ingress host over the Route host
+    set:
+      controller.ingress.hostName: jenkins.example.com
+      controller.route.enabled: true
+      controller.route.path: jenkins.apps.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: http://jenkins.example.com$"
+
+  - it: prefers controller.jenkinsUrl over the Route host
+    set:
+      controller.jenkinsUrl: https://ci.example.com
+      controller.route.enabled: true
+      controller.route.path: jenkins.apps.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?m)^    url: https://ci.example.com$"

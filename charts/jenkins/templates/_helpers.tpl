@@ -125,6 +125,8 @@ Returns the Jenkins URL
     {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ tpl .Values.controller.ingress.hostName $ }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- end }}
+  {{- else if and .Values.controller.route.enabled .Values.controller.route.path }}
+      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.route.path }}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- end}}
@@ -207,6 +209,9 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
@@ -316,6 +321,9 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
@@ -420,6 +428,9 @@ Returns kubernetes pod template configuration as code
     value: {{ $value | quote }}
   {{- end }}
 {{- end }}
+  {{- if .Values.agent.agentInjection }}
+  agentInjection: true
+  {{- end }}
   id: {{ sha256sum (toYaml .Values.agent) }}
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"
