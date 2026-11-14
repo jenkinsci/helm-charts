@@ -42,7 +42,7 @@ jobs:
         uses: helm/chart-testing-action@720270857a28afd41e2426521a7801db09e9b510 # v2.9.0
         with:
           # renovate: datasource=github-tags depName=helm/chart-testing
-          version: v3.14.0
+          version: v3.15.0
 
       - name: Run chart-testing (list-changed)
         id: list-changed
