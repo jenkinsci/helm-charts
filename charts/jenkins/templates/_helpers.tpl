@@ -428,6 +428,9 @@ Returns kubernetes pod template configuration as code
     value: {{ $value | quote }}
   {{- end }}
 {{- end }}
+  {{- if .Values.agent.agentInjection }}
+  agentInjection: true
+  {{- end }}
   id: {{ sha256sum (toYaml .Values.agent) }}
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"

@@ -45,7 +45,7 @@ default-cap:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: be10449d5ece0f3d1a03dba1ec5915a77651093d1c7fd32d80211292bb574c43
+                id: c23de0f3d5543ea926e9d4d6bc00c0ab5a1f070aac96f5ec54baa473a633b3f9
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -128,7 +128,7 @@ limited-cap:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 0150413824ba2ca4c928b2870f4409bec3e8cf77e522e13aa36bc9fb76d5e3bc
+                id: 8cbfa2be1f8be354d11f32ee59d4762962a3e49701babca4c0e0c96cfac4d37e
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false

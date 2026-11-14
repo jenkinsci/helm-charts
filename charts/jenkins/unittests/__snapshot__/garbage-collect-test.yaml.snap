@@ -50,7 +50,7 @@ namespaces:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 2af4a8a83569e2487821ac5a5e0691ff0a0149b55e9e9e7427734d3fbb01b40c
+                id: 1e9819bfce9fa7e5bc7fcc26e7f984377213abe2c362e07205a26659f975655f
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -135,7 +135,7 @@ one cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: b2e6303687fc661a8a955e4de7e755c8557320fc2ab7e8d9efaad7cb3b93a8be
+                id: 02670a8b217a6794c9c9a926ec194371f5380d6c8201c81d8df18df7ee7ac5a5
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -220,7 +220,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: b2e6303687fc661a8a955e4de7e755c8557320fc2ab7e8d9efaad7cb3b93a8be
+                id: 02670a8b217a6794c9c9a926ec194371f5380d6c8201c81d8df18df7ee7ac5a5
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -272,7 +272,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: e0155d2b18fefc86d83b332310259b7d487adbe5125f754ed80ed865a961e5bf
+                id: 830df1fef88f6eb345ddd0bfdcb1fbba22872eb853e635c3926818d5ab597ccd
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
