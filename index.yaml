@@ -4,6 +4,59 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Update `docker.io/kiwigrid/k8s-sidecar` to version `2.14.3`
+      artifacthub.io/images: |
+        - name: jenkins
+          image: docker.io/jenkins/jenkins:2.580.2-jdk25
+        - name: k8s-sidecar
+          image: docker.io/kiwigrid/k8s-sidecar:2.14.3
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3395.v6e5377b_0fb_3c-4-jdk25
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.580.2
+    created: "2026-11-14T22:34:51.779549778Z"
+    description: 'Jenkins - Build great things at any scale! As the leading open source
+      automation server, Jenkins provides over 2000 plugins to support building, deploying
+      and automating any project. '
+    digest: 8b093d3858dc7780bb17ddc744390962848f95cbf6d50a661a2305b7fd81b9dd
+    home: https://www.jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    type: application
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-5.13.1/jenkins-5.13.1.tgz
+    version: 5.13.1
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Add `agent.agentInjection` to set `agentInjection` on the default pod template, so the agent is injected into the agent container instead of needing a dedicated jnlp container.
       artifacthub.io/images: |
         - name: jenkins
@@ -37012,4 +37065,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-14T21:59:39.748479682Z"
+generated: "2026-11-14T22:34:51.78207333Z"
