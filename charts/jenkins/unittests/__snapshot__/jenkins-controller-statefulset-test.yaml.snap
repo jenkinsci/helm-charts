@@ -14,10 +14,10 @@ config values:
       namespace: my-namespace
 configure empty image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.580.1
+    docker.io/jenkins/jenkins:2.580.2
 configure image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.580.1-alpine
+    docker.io/jenkins/jenkins:2.580.2-alpine
 default values:
   1: |
     replicas: 1
@@ -29,7 +29,7 @@ default values:
     template:
       metadata:
         annotations:
-          checksum/config: 72bc82bf6d3f0f7dcc76030aa29f24122048d300d369d1e64a3bc39a627a94d4
+          checksum/config: f9f943bd2409df5b70ef92b7686081d2c022bf49555f2f1663ff13896c932f9a
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -55,14 +55,13 @@ default values:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.580.1-jdk21
+            image: docker.io/jenkins/jenkins:2.580.2-jdk25
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             name: jenkins
@@ -76,7 +75,6 @@ default values:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             resources:
@@ -88,9 +86,14 @@ default values:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             startupProbe:
               failureThreshold: 12
               httpGet:
@@ -136,13 +139,18 @@ default values:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -167,13 +175,18 @@ default values:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -184,7 +197,7 @@ default values:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.580.1-jdk21
+            image: docker.io/jenkins/jenkins:2.580.2-jdk25
             imagePullPolicy: Always
             name: init
             resources:
@@ -196,9 +209,14 @@ default values:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home
                 name: jenkins-home
@@ -245,7 +263,7 @@ default values:
             name: tmp-volume
 render pod annotations:
   1: |
-    checksum/config: 72bc82bf6d3f0f7dcc76030aa29f24122048d300d369d1e64a3bc39a627a94d4
+    checksum/config: f9f943bd2409df5b70ef92b7686081d2c022bf49555f2f1663ff13896c932f9a
     fixed-annotation: some-fixed-annotation
     templated-annotations: my-release
 test scheme for config-reload:
@@ -259,7 +277,7 @@ test scheme for config-reload:
     template:
       metadata:
         annotations:
-          checksum/config: 72bc82bf6d3f0f7dcc76030aa29f24122048d300d369d1e64a3bc39a627a94d4
+          checksum/config: f9f943bd2409df5b70ef92b7686081d2c022bf49555f2f1663ff13896c932f9a
         labels:
           app.kubernetes.io/component: jenkins-controller
           app.kubernetes.io/instance: my-release
@@ -285,14 +303,13 @@ test scheme for config-reload:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.580.1-jdk21
+            image: docker.io/jenkins/jenkins:2.580.2-jdk25
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             name: jenkins
@@ -306,7 +323,6 @@ test scheme for config-reload:
               httpGet:
                 path: /login
                 port: http
-              initialDelaySeconds: null
               periodSeconds: 10
               timeoutSeconds: 5
             resources:
@@ -318,9 +334,14 @@ test scheme for config-reload:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             startupProbe:
               failureThreshold: 12
               httpGet:
@@ -366,13 +387,18 @@ test scheme for config-reload:
                 value: POST
               - name: REQ_RETRY_CONNECT
                 value: "10"
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -397,13 +423,18 @@ test scheme for config-reload:
                 value: my-namespace
               - name: METHOD
                 value: LIST
-            image: docker.io/kiwigrid/k8s-sidecar:2.11.2
+            image: docker.io/kiwigrid/k8s-sidecar:2.14.1
             imagePullPolicy: IfNotPresent
             name: config-reload-init
             resources: {}
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home/casc_configs
                 name: sc-config-volume
@@ -414,7 +445,7 @@ test scheme for config-reload:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.580.1-jdk21
+            image: docker.io/jenkins/jenkins:2.580.2-jdk25
             imagePullPolicy: Always
             name: init
             resources:
@@ -426,9 +457,14 @@ test scheme for config-reload:
                 memory: 256Mi
             securityContext:
               allowPrivilegeEscalation: false
+              capabilities:
+                drop:
+                  - ALL
               readOnlyRootFilesystem: true
               runAsGroup: 1000
               runAsUser: 1000
+              seccompProfile:
+                type: RuntimeDefault
             volumeMounts:
               - mountPath: /var/jenkins_home
                 name: jenkins-home

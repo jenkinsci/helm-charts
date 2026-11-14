@@ -698,6 +698,45 @@ tests:
       - matchRegex:
           path: data["jcasc-default-config.yaml"]
           pattern: '(?s)name: "remote-cloud".*- name: "root-agent".*runAsUser: 0.*runAsGroup: 0'
+  - it: allow additional agents to disable settings enabled on the default agent
+    set:
+      agent:
+        disableDefaultAgent: true
+        privileged: true
+        alwaysPullImage: true
+      additionalAgents:
+        unprivileged-agent:
+          podName: unprivileged-agent
+          privileged: false
+          alwaysPullImage: false
+        inheriting-agent:
+          podName: inheriting-agent
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "unprivileged-agent".*alwaysPullImage: false.*privileged: "false"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)- name: "inheriting-agent".*alwaysPullImage: true.*privileged: "true".*- name: "unprivileged-agent"'
+  - it: allow additional agents in additional clouds to disable settings enabled on the default agent
+    set:
+      agent:
+        disableDefaultAgent: true
+        privileged: true
+      additionalAgents:
+        unprivileged-agent:
+          podName: unprivileged-agent
+          privileged: false
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-cloud".*- name: "unprivileged-agent".*privileged: "false"'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'privileged: "true"'
   - it: specify additional container and overwrite in additional agent
     release:
       namespace: default

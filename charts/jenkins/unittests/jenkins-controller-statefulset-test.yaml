@@ -384,6 +384,46 @@ tests:
                         path: chart-admin-username
                       - key: jenkins-admin-password
                         path: chart-admin-password
+  - it: mounts the existing admin secret when createSecret is false
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.admin.createSecret: false
+      controller.admin.existingSecret: jenkins-admin
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: SECRETS
+            value: /run/secrets/additional
+      - contains:
+          path: spec.template.spec.containers[0].volumeMounts
+          content:
+            mountPath: /run/secrets/additional
+            name: jenkins-secrets
+            readOnly: true
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-secrets
+            projected:
+              sources:
+                - secret:
+                    name: jenkins-admin
+                    items:
+                      - key: jenkins-admin-user
+                        path: chart-admin-username
+                      - key: jenkins-admin-password
+                        path: chart-admin-password
+  - it: does not mount admin credentials without createSecret or existingSecret
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller.admin.createSecret: false
+    asserts:
+      - notContains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-secrets
+          any: true
   - it: test existing secret without additionalExistingSecrets
     template: jenkins-controller-statefulset.yaml
     set:
@@ -789,6 +829,49 @@ tests:
               items:
                 - key: "some.jks"
                   path: some-file-name
+  - it: test httpsKeyStore defaults fileName to keystore.jks when empty
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+          fileName: ""
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: keystore.jks
+      - equal:
+          path: spec.template.spec.containers[0].args[2]
+          value: '--httpsKeyStore=/var/jenkins_keystore/keystore.jks'
+  - it: test httpsKeyStore defaults fileName to keystore.jks when unset
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        httpsKeyStore:
+          enable: true
+          disableSecretMount: false
+          jenkinsHttpsJksSecretName: some-secret-name
+    asserts:
+      - contains:
+          path: spec.template.spec.volumes
+          content:
+            name: jenkins-https-keystore
+            secret:
+              secretName: some-secret-name
+              items:
+                - key: jenkins-jks-file
+                  path: keystore.jks
+      - equal:
+          path: spec.template.spec.containers[0].args[2]
+          value: '--httpsKeyStore=/var/jenkins_keystore/keystore.jks'
   - it:
     template: jenkins-controller-statefulset.yaml
     set:
@@ -909,3 +992,20 @@ tests:
       - equal:
           path: spec.replicas
           value: 1
+  - it: keeps helm.sh/chart off the pod template so chart upgrades do not restart the controller
+    template: jenkins-controller-statefulset.yaml
+    set:
+      renderHelmLabels: true
+      extraLabels:
+        team: platform
+    asserts:
+      - exists:
+          path: metadata.labels["helm.sh/chart"]
+      - notExists:
+          path: spec.template.metadata.labels["helm.sh/chart"]
+      - equal:
+          path: spec.template.metadata.labels["app.kubernetes.io/component"]
+          value: jenkins-controller
+      - equal:
+          path: spec.template.metadata.labels.team
+          value: platform
