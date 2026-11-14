@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.13.1
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `2.14.3`
+
 ## 5.13.0
 
 Add `agent.agentInjection` to set `agentInjection` on the default pod template, so the agent is injected into the agent container instead of needing a dedicated jnlp container.
