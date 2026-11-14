@@ -1,0 +1,47 @@
+name: Automatically approve and merge safe dependency updates
+
+on:
+  # Renovate pushes its branches to this repository (not a fork), so a plain pull_request
+  # event gets a write-capable GITHUB_TOKEN and access to repository secrets.
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    # Only act when the bot opened the PR and the bot itself triggered this run,
+    # so a human pushing to a renovate branch doesn't get an automatic approval.
+    if: >-
+      github.event.pull_request.user.login == 'jenkins-dependency-updater[bot]' &&
+      github.actor == 'jenkins-dependency-updater[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'renovate/') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      # The PR is authored by the app, so the app can't approve it; approve as github-actions[bot] instead.
+      - name: Approve
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Enable auto-merge with the app token rather than GITHUB_TOKEN: a merge performed by
+      # GITHUB_TOKEN does not trigger other workflows, so the chart release would never run.
+      - uses: actions/create-github-app-token@v3
+        name: Get token
+        id: get_token
+        with:
+          client-id: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_APP_ID }}
+          private-key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
+
+      - name: Enable auto-merge
+        run: gh pr merge --squash --auto "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ steps.get_token.outputs.token }}
