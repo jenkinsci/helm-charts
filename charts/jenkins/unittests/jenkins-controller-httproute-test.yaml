@@ -5,6 +5,48 @@ release:
 templates:
   - jenkins-controller-httproute.yaml
 tests:
+  - it: uses the release namespace by default
+    set:
+      controller:
+        httpRoute:
+          enabled: true
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: my-namespace
+  - it: uses the namespace override without changing explicit reference namespaces
+    set:
+      namespaceOverride: target-namespace
+      controller:
+        httpRoute:
+          enabled: true
+          parentRefs:
+            - name: shared-gateway
+              namespace: networking
+            - name: local-gateway
+          extraRules:
+            - backendRefs:
+                - name: shared-service
+                  namespace: services
+                  port: 8081
+                - name: local-service
+                  port: 8082
+    asserts:
+      - equal:
+          path: metadata.namespace
+          value: target-namespace
+      - equal:
+          path: spec.parentRefs[0].namespace
+          value: networking
+      - notExists:
+          path: spec.parentRefs[1].namespace
+      - equal:
+          path: spec.rules[0].backendRefs[0].namespace
+          value: services
+      - notExists:
+          path: spec.rules[0].backendRefs[1].namespace
+      - notExists:
+          path: spec.rules[1].backendRefs[0].namespace
   - it: reuses ingress hostnames when reuse is enabled
     set:
       controller:

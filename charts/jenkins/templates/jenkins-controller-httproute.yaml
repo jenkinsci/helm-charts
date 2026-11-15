@@ -15,6 +15,7 @@ apiVersion: {{ .Values.controller.httpRoute.apiVersion }}
 kind: {{ .Values.controller.httpRoute.kind }}
 metadata:
   name: {{ include "jenkins.fullname" . }}
+  namespace: {{ template "jenkins.namespace" . }}
   labels:
     {{- include "jenkins.labels" . | nindent 4 }}
   {{- if .Values.controller.httpRoute.annotations }}
