@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Renovate needs most of the app's installation permissions (contents, PRs, issues, workflows, statuses, ...).
-      - uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0 # zizmor: ignore[github-app]
+      - uses: actions/create-github-app-token@v3.3.0 # zizmor: ignore[github-app]
         name: Get token
         id: get_token
         with:
@@ -28,12 +28,12 @@ jobs:
           private-key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
 
       - name: Checkout
-        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        uses: actions/checkout@v7.0.1
         with:
           persist-credentials: false
 
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@266fef21329c44765ad42f9dea1f01f5d2d91084 # v46.3.13
+        uses: renovatebot/github-action@v46.3.13
         with:
           token: "${{ steps.get_token.outputs.token }}"
           docker-cmd-file: .github/renovate-entrypoint.sh
