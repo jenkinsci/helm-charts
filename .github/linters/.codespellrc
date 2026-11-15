@@ -1,0 +1,4 @@
+[codespell]
+check-hidden =
+# CHANGELOG.md is historical and lives inside the chart; editing it requires a chart version bump.
+skip = package-lock.json,*/package-lock.json,*/go.mod,*/go.sum,*.log,.git,*/CHANGELOG.md

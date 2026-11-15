@@ -1793,7 +1793,7 @@ Add an extra optional argument to extraPorts in order to specify targetPort
 
 ## 4.2.4
 
-Remove k8s capability requirements when setting priority class for controller
+Remove k8s capibility requirements when setting priority class for controller
 
 ## 4.2.3 Update plugin versions
 
@@ -2131,7 +2131,7 @@ Enable setting `controller.serviceExternalTrafficPolicy` to set [the standard Se
 
 ## 3.5.6
 
-Add optional `controller.initContainerResources`, if set, it will change resources allocation for init controller, otherwise the `controller.resources` will be used
+Add optional `controller.initContainerResources`, if set, it will change resources allocation for init controller, overwise the `controller.resources` will be used
 
 ## 3.5.5
 
@@ -2542,7 +2542,7 @@ Target port of container `jenkins-sc-config` taken the value from values.yaml.
 
 Add a secondary ingress template for those who want a second ingress with different labels or annotations or whatever else.
 
-Example: You want /github-webhook to be on a public ingress, while the main Jenkins instance to be on a private locked down ingress.
+Example: You want /github-webhook to be on a public ingress, while the main Jenkins intance to be on a private locked down ingress.
 
 ## 2.6.5
 
@@ -2585,7 +2585,7 @@ Reorder readme parameters into sections to facilitate chart usage and maintenanc
 
 ## 2.4.0 Update default agent image
 
-`jenkins/jnlp-slave` is deprecated and `jenkins/inbound-agent` should be used instead.
+`jenkins/jnlp-slave` is deprected and `jenkins/inbound-agent` should be used instead.
 Also updated it to newest version (4.3-4).
 
 ## 2.3.3 correct templating of master.slaveJenkinsUrl
@@ -2704,7 +2704,7 @@ Add support for using a different markup formatter via `master.markupFormatter`
 
 ## 1.18.1
 
-Add support for executor mode configuration with `master.executorMode`.
+Add support for executor mode configuraton with `master.executorMode`.
 
 ## 1.18.0 Make installation of configuration-as-code plugin explicit
 
@@ -2906,7 +2906,7 @@ To quote from the plugin documentation:
 
 > Because granting these permissions for secrets is not something that should be done lightly it is highly advised for security reasons that you both create a unique service account to run Jenkins as, and run Jenkins in a unique namespace.
 
-Therefore this is disabled by default.
+Therefor this is disabled by default.
 
 ## 1.9.1 Update kubernetes plugin URL
 
@@ -3051,7 +3051,7 @@ add master.JCasC.defaultConfig and configure location
   so that it can be used in `config.yaml` and `jcasc-config.yaml`
   depending on if configAutoReload is enabled or not
 
-- Jenkins Location (URL) is configured to provide a starting point
+- Jenkins Location (URL) is configured to provide a startin point
   for the config
 
 ## 1.6.1
@@ -3127,7 +3127,7 @@ commit: 7cc9b54c7
 
 ## 1.4.0
 
-Change the value name for Docker image tags - standardise to helm preferred value name - tag; this also allows auto-deployments using weaveworks flux (#15565)
+Change the value name for Docker image tags - standartise to helm preferred value name - tag; this also allows auto-deployments using weaveworks flux (#15565)
 commit: 5c3d920e7
 
 ## 1.3.6
