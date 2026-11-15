@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
@@ -27,17 +27,17 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@dbcb813823bdd20940b903addbd779551569679f # v4
+        uses: docker/login-action@v4.8.0
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Install Helm
-        uses: azure/setup-helm@9bc31f4ebc9c6b171d7bfbaa5d006ae7abdb4310 # v5
+        uses: azure/setup-helm@v5.1.0
         with:
           # renovate: datasource=github-tags depName=helm/helm
-          version: v4.3.0
+          version: v4.3.2
 
       - name: Retrieve version from Chart.yaml
         id: chart_version
@@ -90,7 +90,7 @@ jobs:
 
       - name: Run chart-releaser
         id: chart_releaser
-        uses: helm/chart-releaser-action@cae68fefc6b5f367a0275617c9f83181ba54714f # v1.7.0
+        uses: helm/chart-releaser-action@v1.9.0
         env:
           CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
 
@@ -123,7 +123,7 @@ jobs:
       - name: Update release description
         id: update_release
         if: steps.chart_releaser.outputs.changed_charts != ''
-        uses: actions/github-script@v9
+        uses: actions/github-script@v9.0.0
         env:
           ID: ${{ steps.release_info.outputs.id }}
           BODY: ${{steps.release_info.outputs.body}}

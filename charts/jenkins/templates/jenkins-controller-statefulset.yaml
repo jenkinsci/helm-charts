@@ -33,7 +33,7 @@ spec:
   template:
     metadata:
       labels:
-        {{- include "jenkins.labels" . | nindent 8 }}
+        {{- include "jenkins.podLabels" . | nindent 8 }}
         {{- range $key, $val := .Values.controller.podLabels }}
         {{ $key }}: {{ $val | quote }}
         {{- end}}
@@ -190,7 +190,7 @@ spec:
             {{- end }}
           ]
           {{- else if .Values.controller.httpsKeyStore.enable }}
-          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path .Values.controller.httpsKeyStore.fileName }}
+          {{- $httpsJKSFilePath :=  printf "%s/%s" .Values.controller.httpsKeyStore.path (.Values.controller.httpsKeyStore.fileName | default "keystore.jks") }}
           args: [ "--httpPort={{.Values.controller.httpsKeyStore.httpPort}}", "--httpsPort={{.Values.controller.targetPort}}", '--httpsKeyStore={{ $httpsJKSFilePath }}', "--httpsKeyStorePassword=$(JENKINS_HTTPS_KEYSTORE_PASSWORD)" ]
           {{- else }}
           args: [ "--httpPort={{.Values.controller.targetPort}}"]
@@ -213,7 +213,7 @@ spec:
             {{- if .Values.controller.containerEnv }}
 {{ (tpl ( toYaml .Values.controller.containerEnv) .) | indent 12 }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
             - name: SECRETS
               value: /run/secrets/additional
             {{- end }}
@@ -306,7 +306,7 @@ spec:
             - name: sc-config-volume
               mountPath: {{ .Values.controller.sidecars.configAutoReload.folder | default (printf "%s/casc_configs" (.Values.controller.jenkinsRef)) }}
             {{- end }}
-            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+            {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
             - name: jenkins-secrets
               mountPath: /run/secrets/additional
               readOnly: true
@@ -366,7 +366,7 @@ spec:
       - name: plugin-dir
         emptyDir: {}
       {{- end }}
-      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret }}
+      {{- if or .Values.controller.additionalSecrets .Values.controller.existingSecret .Values.controller.additionalExistingSecrets .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
       - name: jenkins-secrets
         projected:
           sources:
@@ -383,7 +383,7 @@ spec:
                   path: {{ tpl $value.name $ }}-{{ tpl $value.keyName $ }}
           {{- end }}
           {{- end }}
-          {{- if .Values.controller.admin.createSecret }}
+          {{- if or .Values.controller.admin.createSecret .Values.controller.admin.existingSecret }}
           - secret:
               name: {{ .Values.controller.admin.existingSecret | default (include "jenkins.fullname" .) }}
               items:
@@ -419,7 +419,7 @@ spec:
           secretName: {{ if .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretName }} {{ else }} {{ template "jenkins.fullname" . }}-https-jks  {{ end }}
           items:
           - key: {{ .Values.controller.httpsKeyStore.jenkinsHttpsJksSecretKey }}
-            path: {{ .Values.controller.httpsKeyStore.fileName }}
+            path: {{ .Values.controller.httpsKeyStore.fileName | default "keystore.jks" }}
       {{- end }}
 
 {{- if .Values.controller.imagePullSecretName }}

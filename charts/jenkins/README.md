@@ -77,6 +77,22 @@ $ helm show values jenkins/jenkins
 
 For a summary of all configurable options, see [VALUES.md](https://github.com/jenkinsci/helm-charts/blob/main/charts/jenkins/VALUES.md).
 
+### Configure Kubernetes Cloud Traits
+
+Set `controller.cloudTraits` to add traits to the chart-generated Kubernetes cloud. Additional clouds inherit this list; set `additionalClouds.<name>.controller.cloudTraits` to override it (including with `[]` to disable inherited traits).
+
+```yaml
+controller:
+  cloudTraits:
+    - ephemeralContainer
+additionalClouds:
+  remote-cloud:
+    kubernetesURL: https://api.remote-cloud.com
+    controller:
+      cloudTraits:
+        - ephemeralContainer
+```
+
 ### Configure Security Realm and Authorization Strategy
 
 This chart configured a `securityRealm` and `authorizationStrategy` as shown below:
@@ -666,19 +682,19 @@ Here is the [value file section](https://wiki.jenkins.io/pages/viewpage.action?p
 Keystore itself should be placed in front of `jenkinsKeyStoreBase64Encoded` key and in base64 encoded format. To achieve that after having `keystore.jks` file simply do this: `cat keystore.jks | base64` and paste the output in front of `jenkinsKeyStoreBase64Encoded`.
 After enabling `httpsKeyStore.enable` make sure that `httpPort` and `targetPort` are not the same, as `targetPort` will serve HTTPS.
 Do not set `controller.httpsKeyStore.httpPort` to `-1` because it will cause readiness and liveliness prob to fail.
-If you already have a kubernetes secret that has keystore and its password you can specify its' name in front of `jenkinsHttpsJksSecretName`, You need to remember that your secret should have proper data key names `jenkins-jks-file` (or override the key name using `jenkinsHttpsJksSecretKey`)
-and `https-jks-password` (or override the key name using `jenkinsHttpsJksPasswordSecretKey`; additionally you can make it get the password from a different secret using `jenkinsHttpsJksPasswordSecretName`). Example:
+If you already have a kubernetes secret that has keystore and its password you can specify its name in `jenkinsHttpsJksSecretName`. Your secret should have proper data key names `jenkins-jks-file` (or override the key name using `jenkinsHttpsJksSecretKey`)
+and `https-jks-password` (or override the key name using `jenkinsHttpsJksPasswordSecretKey`; additionally you can get the password from a different secret using `jenkinsHttpsJksPasswordSecretName`).
+
+When `jenkinsHttpsJksSecretName` is set, `password` and `jenkinsKeyStoreBase64Encoded` do not need to be provided in `values.yaml`. `fileName` determines the mounted filename under `controller.httpsKeyStore.path` (defaults to `keystore.jks`). Example:
 
 ```yaml
 controller:
   httpsKeyStore:
     enable: true
-    jenkinsHttpsJksSecretName: ""
+    jenkinsHttpsJksSecretName: "my-https-jks-secret"
     httpPort: 8081
     path: "/var/jenkins_keystore"
     fileName: "keystore.jks"
-    password: "changeit"
-    jenkinsKeyStoreBase64Encoded: ""
 ```
 
 ### AWS Security Group Policies

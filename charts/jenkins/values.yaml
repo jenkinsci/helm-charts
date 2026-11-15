@@ -48,7 +48,7 @@ controller:
     tag:
 
     # -- Controller image tag label
-    tagLabel: jdk21
+    tagLabel: jdk25
     # -- Controller image pull policy
     pullPolicy: "Always"
 
@@ -225,6 +225,11 @@ controller:
     runAsGroup: 1000
     readOnlyRootFilesystem: true
     allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - ALL
+    seccompProfile:
+      type: RuntimeDefault
 
   # -- enable or disable the controller k8s service
   serviceEnabled: true
@@ -235,7 +240,7 @@ controller:
   serviceType: ClusterIP
 
   # -- k8s service clusterIP. Only used if serviceType is ClusterIP
-  clusterIp:
+  clusterIP:
   # -- k8s service port
   servicePort: 8080
   # -- k8s target port
@@ -418,10 +423,10 @@ controller:
   # Plugins will be installed during Jenkins controller start
   # -- List of Jenkins plugins to install. If you don't want to install plugins, set it to `false`
   installPlugins:
-    - kubernetes:4547.v52f3080db_8cd
+    - kubernetes:4560.vc25b_83890c34
     - workflow-aggregator:608.v67378e9d3db_1
-    - git:5.10.1
-    - configuration-as-code:2121.v86fe99d4b_b_a_b_
+    - git:5.11.0
+    - configuration-as-code:2147.v8a_8d38668c72
 
   # If set to false, Jenkins will download the minimum required version of all dependencies.
   # -- Download the minimum required version or latest version of all dependencies
@@ -510,6 +515,8 @@ controller:
 
   # -- Name of default cloud configuration.
   cloudName: "kubernetes"
+  # -- Traits for the chart-generated Kubernetes cloud (for example, `ephemeralContainer`). Additional clouds inherit these unless overridden by `additionalClouds.<name>.controller.cloudTraits`.
+  cloudTraits: []
 
   # Below is the implementation of Jenkins Configuration as Code. Add a key under configScripts for each configuration area,
   # where each corresponds to a plugin or section of the UI. Each key (prior to | character) is just a label, and can be any value.
@@ -583,7 +590,7 @@ controller:
         # -- Repository of the image that triggers the reload
         repository: kiwigrid/k8s-sidecar
         # -- Tag for the image that triggers the reload
-        tag: 2.11.2
+        tag: 2.14.3
       imagePullPolicy: IfNotPresent
       # -- Port for sidecar health probes
       healthPort: 8060
@@ -649,6 +656,11 @@ controller:
       containerSecurityContext:
         readOnlyRootFilesystem: true
         allowPrivilegeEscalation: false
+        capabilities:
+          drop:
+            - ALL
+        seccompProfile:
+          type: RuntimeDefault
 
     # -- Configures additional sidecar container(s) for the Jenkins controller
     additionalSidecarContainers: []
@@ -824,7 +836,7 @@ controller:
     labels: {}
     # -- Route annotations
     annotations: {}
-    # -- Route path
+    # -- Route host. When `controller.ingress.hostName` and `controller.jenkinsUrl` are not set, it is also used for the Jenkins URL (`https://<path>`, the Route terminates TLS at the edge)
     path:
 
   # Gateway API HTTPRoute
@@ -1003,6 +1015,10 @@ agent:
   skipTlsVerify: false
   # -- Enable the possibility to restrict the usage of this agent to specific folder. This flag correspond to the "Restrict pipeline support to authorized folders" flag in kubernetes plugin UI
   usageRestricted: false
+  # -- Inject the agent into the pod at runtime instead of running a dedicated jnlp container. This flag corresponds to the "Inject Jenkins agent in agent container" flag of the pod template in kubernetes plugin UI
+  agentInjection: false
+  # -- Connect to the Kubernetes API through the proxy configured in Jenkins (Manage Jenkins > System > HTTP Proxy). This flag corresponds to the "Use Jenkins Proxy" flag in kubernetes plugin UI
+  useJenkinsProxy: false
   # -- The connection timeout in seconds for connections to Kubernetes API. The minimum value is 5
   kubernetesConnectTimeout: 5
   # -- The read timeout in seconds for connections to Kubernetes API. The minimum value is 15
@@ -1025,7 +1041,7 @@ agent:
     # -- Repository to pull the agent jnlp image from
     repository: "jenkins/inbound-agent"
     # -- Tag of the image to pull
-    tag: "3385.vf1123fb_515da_-1"
+    tag: "3395.v6e5377b_0fb_3c-5-jdk25"
   # -- Configure working directory for default agent
   workingDir: "/home/jenkins/agent"
   nodeUsageMode: "NORMAL"
@@ -1292,9 +1308,13 @@ additionalAgents: {}
 # you only need to specify values which differ. If you want to override
 # default additionalAgents with the additionalClouds.additionalAgents set
 # additionalAgentsOverride to `true`.
+# To override inherited cloud traits, set controller.cloudTraits for that cloud (use [] to clear them).
 additionalClouds: {}
 #  remote-cloud-1:
 #    kubernetesURL: https://api.remote-cloud.com
+#    controller:
+#      cloudTraits:
+#        - ephemeralContainer
 #    additionalAgentsOverride: true
 #    additionalAgents:
 #      maven-2:

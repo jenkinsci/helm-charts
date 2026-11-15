@@ -12,9 +12,132 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
-## 5.9.63
+## 5.13.3
 
 Honor `namespaceOverride` for HTTPRoute resources. Namespace-relative parent and backend references now use the overridden namespace.
+
+## 5.13.2
+
+Update `jenkins/inbound-agent` to version `3395.v6e5377b_0fb_3c-5-jdk25`
+
+## 5.13.1
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `2.14.3`
+
+## 5.13.0
+
+Add `agent.agentInjection` to set `agentInjection` on the default pod template, so the agent is injected into the agent container instead of needing a dedicated jnlp container.
+
+## 5.12.0
+
+Use the OpenShift Route host (`controller.route.path`) for the Jenkins URL when `controller.route.enabled` is set and neither `controller.jenkinsUrl` nor `controller.ingress.hostName` is. The URL uses `https`, since the Route terminates TLS at the edge, unless `controller.jenkinsUrlProtocol` is set.
+
+## 5.11.0
+
+Add `agent.useJenkinsProxy` to make the Kubernetes cloud connect to the API server through the proxy configured in Jenkins.
+
+## 5.10.13
+
+Update `configuration-as-code` to version `2147.v8a_8d38668c72`
+
+## 5.10.12
+
+Update `jenkins/inbound-agent` to version `3395.v6e5377b_0fb_3c-4-jdk25`
+
+## 5.10.11
+
+Fix `values.yaml` and `VALUES.md` documenting the controller Service cluster IP as `controller.clusterIp`. The template reads `controller.clusterIP`, which is unchanged; the old spelling was never used and is still ignored.
+
+## 5.10.10
+
+Default `controller.httpsKeyStore.fileName` to `keystore.jks` when empty or unset to prevent invalid `KeyToPath` specifications when using `jenkinsHttpsJksSecretName`.
+
+## 5.10.9
+
+Update `configuration-as-code` to version `2143.vc78d4eb_d4174`
+
+## 5.10.8
+
+Render the controller pod template's labels without `helm.sh/chart`, so a chart version bump no longer changes the pod template and restarts the controller. The label stays on the StatefulSet and every other object.
+
+## 5.10.7
+
+Only set `host` on the secondary ingress rule when `controller.secondaryingress.hostName` is set, so enabling the secondary ingress without a hostname no longer fails to render with `wrong type for value; expected string`.
+
+## 5.10.6
+
+Keep `false`, `0`, `""` and `[]` values set on an `additionalAgents` entry instead of replacing them with the `agent` defaults, so an additional agent can turn off settings such as `privileged` that are enabled on the default agent.
+
+## 5.10.5
+
+Update `jenkins/inbound-agent` to version `3395.v6e5377b_0fb_3c-2-jdk25`
+
+## 5.10.4
+
+Update `configuration-as-code` to version `2140.v00e72b_047734`
+
+## 5.10.3
+
+Mount `controller.admin.existingSecret` when `controller.admin.createSecret` is `false`, so JCasC can resolve the admin credentials from it.
+
+## 5.10.2
+
+Update `jenkins/inbound-agent` to version `3395.v6e5377b_0fb_3c-1-jdk25`
+
+## 5.10.1
+
+Update `jenkins/jenkins` to version `2.580.2-jdk25`
+
+## 5.10.0
+
+Drop all Linux capabilities and set a `RuntimeDefault` seccomp profile on the controller and config-reload containers, completing the Pod Security Standards `restricted` profile for the controller pod
+
+## 5.9.73
+
+Fix `jenkins/inbound-agent` image tag in the `artifacthub.io/images` annotation to include the `-jdk25` suffix.
+
+## 5.9.72
+
+Update `docker.io/kiwigrid/k8s-sidecar` to version `2.14.1`
+
+## 5.9.71
+
+Update `kubernetes` to version `4560.vc25b_83890c34`
+
+## 5.9.70
+
+Update `configuration-as-code` to version `2136.veb_3a_554550b_f`
+
+## 5.9.69
+
+Update `git` to version `5.11.0`
+
+## 5.9.68
+
+Switch images to jdk25 variant:
+
+- `jenkins/jenkins` to version `2.580.1-jdk25`
+- `jenkins/inbound-agent` to version `3385.vf1123fb_515da_-1-jdk25`
+
+## 5.9.67
+
+Update `configuration-as-code` to version `2133.ve570217cdb_cd`
+
+## 5.9.66
+
+Update `jenkins/jenkins` to version `2.580.1-jdk21`
+
+## 5.9.65
+
+Update `configuration-as-code` to version `2131.vb_a_13ed96f755`
+
+## 5.9.64
+
+Allow configuring traits on the default and additional Kubernetes clouds with `controller.cloudTraits`.
+
+## 5.9.63
+
+Update `kubernetes` to version `4557.ve746270f672f`
 
 ## 5.9.62
 

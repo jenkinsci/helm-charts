@@ -30,6 +30,14 @@ Common labels for all Jenkins resources
 {{- end -}}
 
 {{/*
+Labels for the controller pod template: the common labels without helm.sh/chart, which changes on
+every chart version bump and would otherwise restart the controller on a label-only upgrade.
+*/}}
+{{- define "jenkins.podLabels" -}}
+{{- omit (include "jenkins.labels" . | fromYaml) "helm.sh/chart" | toYaml -}}
+{{- end -}}
+
+{{/*
 sha256sum of the data of a rendered ConfigMap, for checksum/* pod annotations.
 The full manifest is not hashed: its metadata.labels carry helm.sh/chart, which changes on every
 chart version bump.
@@ -117,6 +125,8 @@ Returns the Jenkins URL
     {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ tpl .Values.controller.ingress.hostName $ }}{{ default "" .Values.controller.jenkinsUriPrefix }}
     {{- end }}
+  {{- else if and .Values.controller.route.enabled .Values.controller.route.path }}
+      {{- default "https" .Values.controller.jenkinsUrlProtocol }}://{{ .Values.controller.route.path }}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- else }}
       {{- default "http" .Values.controller.jenkinsUrlProtocol }}://{{ template "jenkins.fullname" . }}:{{.Values.controller.servicePort}}{{ default "" .Values.controller.jenkinsUriPrefix }}
   {{- end}}
@@ -199,10 +209,17 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: "{{ .Values.controller.cloudName }}"
+      {{- with .Values.controller.cloudTraits }}
+      traits:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
@@ -224,22 +241,18 @@ jenkins:
       {{- /* save .Values.agent */}}
       {{- $agent := .Values.agent }}
       {{- range $name, $additionalAgent := .Values.additionalAgents }}
-        {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
-        {{- $runAsUser := $additionalAgent.runAsUser }}
-        {{- $runAsUserSet := not (kindIs "invalid" $runAsUser) }}
-        {{- $runAsGroup := $additionalAgent.runAsGroup }}
-        {{- $runAsGroupSet := not (kindIs "invalid" $runAsGroup) }}
+        {{- /* remember values explicitly set to false, 0, "" or [] on this agent; merge would replace them with the values of .Values.agent */}}
+        {{- $explicitEmptyValues := dict }}
+        {{- range $key, $value := $additionalAgent }}
+        {{- if and (not (kindIs "invalid" $value)) (not (kindIs "map" $value)) (empty $value) }}
+        {{- $_ := set $explicitEmptyValues $key $value }}
+        {{- end }}
+        {{- end }}
         {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
         {{- $additionalAgent := merge $additionalAgent $agent }}
-        {{- if $runAsUserSet }}
-        {{- $_ := set $additionalAgent "runAsUser" $runAsUser }}
-        {{- end }}
-        {{- if $runAsGroupSet }}
-        {{- $_ := set $additionalAgent "runAsGroup" $runAsGroup }}
-        {{- end }}
-        {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
-        {{- if $additionalContainersEmpty }}
-        {{- $_ := set $additionalAgent "additionalContainers" list }}
+        {{- /* restore the explicitly empty values, e.g. privileged: false or runAsUser: 0 */}}
+        {{- range $key, $value := $explicitEmptyValues }}
+        {{- $_ := set $additionalAgent $key $value }}
         {{- end }}
         {{- /* set .Values.agent to $additionalAgent */}}
         {{- $_ := set $.Values "agent" $additionalAgent }}
@@ -263,6 +276,10 @@ jenkins:
       {{- if .additionalAgentsOverride }}
       {{- $_ := set $newRoot.Values "additionalAgents" list}}
       {{- end}}
+      {{- /* merge retains non-empty inherited lists; allow an explicit empty cloudTraits override */}}
+      {{- if and (hasKey $additionalCloud "controller") (hasKey $additionalCloud.controller "cloudTraits") }}
+      {{- $_ := set $newRoot.Values.controller "cloudTraits" $additionalCloud.controller.cloudTraits }}
+      {{- end }}
       {{- $newValues := merge $additionalCloud $newRoot.Values }}
       {{- $_ := set $newRoot "Values" $newValues }}
       {{- /* clear additionalClouds from the copy */}}
@@ -304,10 +321,17 @@ jenkins:
       {{- end }}
       skipTlsVerify: {{ .Values.agent.skipTlsVerify | default false}}
       usageRestricted: {{ .Values.agent.usageRestricted | default false}}
+      {{- if .Values.agent.useJenkinsProxy }}
+      useJenkinsProxy: true
+      {{- end }}
       maxRequestsPerHostStr: {{ .Values.agent.maxRequestsPerHostStr | quote }}
       retentionTimeout: {{ .Values.agent.retentionTimeout | quote }}
       waitForPodSec: {{ .Values.agent.waitForPodSec | quote }}
       name: {{ $name | quote }}
+      {{- with .Values.controller.cloudTraits }}
+      traits:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
@@ -328,22 +352,18 @@ jenkins:
        {{- /* save .Values.agent */}}
        {{- $agent := .Values.agent }}
        {{- range $name, $additionalAgent := .Values.additionalAgents }}
-         {{- $additionalContainersEmpty := and (hasKey $additionalAgent "additionalContainers") (empty $additionalAgent.additionalContainers)  }}
-         {{- $runAsUser := $additionalAgent.runAsUser }}
-         {{- $runAsUserSet := not (kindIs "invalid" $runAsUser) }}
-         {{- $runAsGroup := $additionalAgent.runAsGroup }}
-         {{- $runAsGroupSet := not (kindIs "invalid" $runAsGroup) }}
+         {{- /* remember values explicitly set to false, 0, "" or [] on this agent; merge would replace them with the values of .Values.agent */}}
+         {{- $explicitEmptyValues := dict }}
+         {{- range $key, $value := $additionalAgent }}
+         {{- if and (not (kindIs "invalid" $value)) (not (kindIs "map" $value)) (empty $value) }}
+         {{- $_ := set $explicitEmptyValues $key $value }}
+         {{- end }}
+         {{- end }}
          {{- /* merge original .Values.agent into additional agent to ensure it at least has the default values */}}
          {{- $additionalAgent := merge $additionalAgent $agent }}
-         {{- if $runAsUserSet }}
-         {{- $_ := set $additionalAgent "runAsUser" $runAsUser }}
-         {{- end }}
-         {{- if $runAsGroupSet }}
-         {{- $_ := set $additionalAgent "runAsGroup" $runAsGroup }}
-         {{- end }}
-         {{- /* clear list of additional containers in case it is configured empty for this agent (merge might have overwritten that) */}}
-         {{- if $additionalContainersEmpty }}
-         {{- $_ := set $additionalAgent "additionalContainers" list }}
+         {{- /* restore the explicitly empty values, e.g. privileged: false or runAsUser: 0 */}}
+         {{- range $key, $value := $explicitEmptyValues }}
+         {{- $_ := set $additionalAgent $key $value }}
          {{- end }}
          {{- /* set .Values.agent to $additionalAgent */}}
          {{- $_ := set $.Values "agent" $additionalAgent }}
@@ -408,6 +428,9 @@ Returns kubernetes pod template configuration as code
     value: {{ $value | quote }}
   {{- end }}
 {{- end }}
+  {{- if .Values.agent.agentInjection }}
+  agentInjection: true
+  {{- end }}
   id: {{ sha256sum (toYaml .Values.agent) }}
   containers:
   - name: "{{ .Values.agent.sideContainerName }}"

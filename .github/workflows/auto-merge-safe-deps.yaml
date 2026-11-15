@@ -1,0 +1,50 @@
+name: Automatically approve and merge safe dependency updates
+
+on:
+  # Renovate pushes its branches to this repository (not a fork), so a plain pull_request
+  # event gets a write-capable GITHUB_TOKEN and access to repository secrets.
+  # Only run when the PR is opened: the approval and auto-merge persist across later pushes,
+  # so re-running on synchronize/reopened would only let other people's actions trigger it.
+  pull_request:
+    types:
+      - opened
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  auto-merge:
+    runs-on: ubuntu-latest
+    # Check who created the PR rather than github.actor, which is spoofable:
+    # https://docs.zizmor.sh/audits/#bot-conditions
+    if: >-
+      github.event.pull_request.user.login == 'jenkins-dependency-updater[bot]' &&
+      startsWith(github.event.pull_request.head.ref, 'renovate/') &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    steps:
+      # The PR is authored by the app, so the app can't approve it; approve as github-actions[bot] instead.
+      - name: Approve
+        run: gh pr review --approve "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # Enable auto-merge with the app token rather than GITHUB_TOKEN: a merge performed by
+      # GITHUB_TOKEN does not trigger other workflows, so the chart release would never run.
+      - uses: actions/create-github-app-token@v3.3.0
+        name: Get token
+        id: get_token
+        with:
+          client-id: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_APP_ID }}
+          private-key: ${{ secrets.JENKINS_DEPENDENCY_UPDATER_PRIVATE_KEY }}
+          # Merging a PR that touches .github/workflows requires the workflows permission.
+          permission-contents: write
+          permission-pull-requests: write
+          permission-workflows: write
+
+      - name: Enable auto-merge
+        run: gh pr merge --squash --auto "$PR_URL"
+        env:
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          GH_TOKEN: ${{ steps.get_token.outputs.token }}
