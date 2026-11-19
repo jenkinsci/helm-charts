@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # Renovate needs most of the app's installation permissions (contents, PRs, issues, workflows, statuses, ...).
-      - uses: actions/create-github-app-token@v3.3.0 # zizmor: ignore[github-app]
+      - uses: actions/create-github-app-token@v3.4.0 # zizmor: ignore[github-app]
         name: Get token
         id: get_token
         with:
