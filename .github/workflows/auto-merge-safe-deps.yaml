@@ -32,7 +32,7 @@ jobs:
 
       # Enable auto-merge with the app token rather than GITHUB_TOKEN: a merge performed by
       # GITHUB_TOKEN does not trigger other workflows, so the chart release would never run.
-      - uses: actions/create-github-app-token@v3.3.0
+      - uses: actions/create-github-app-token@v3.4.0
         name: Get token
         id: get_token
         with:
