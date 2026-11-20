@@ -50,7 +50,7 @@ namespaces:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 44dfc7cd6122900291b77e55ca3a1967d539ca3c0af6fcbc1274d5fd0daf3fbf
+                id: 404e2aab60d11e4d647bc63ee81a7af8cf7a7b689d22e97d6f593b15b000fa56
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -59,7 +59,7 @@ namespaces:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25"
+                  image: "jenkins/inbound-agent:3396.ve02b_5cde31b_2-3-jdk25"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -135,7 +135,7 @@ one cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: e140263397112e8ab082df00dacc85d579b40703cd1a2a6a519734479ae5fe0c
+                id: cb1531aa1b36944fc6bf4a313489998275d39beb7bc6dedad8108384b36bae51
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -144,7 +144,7 @@ one cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25"
+                  image: "jenkins/inbound-agent:3396.ve02b_5cde31b_2-3-jdk25"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -220,7 +220,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: e140263397112e8ab082df00dacc85d579b40703cd1a2a6a519734479ae5fe0c
+                id: cb1531aa1b36944fc6bf4a313489998275d39beb7bc6dedad8108384b36bae51
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -229,7 +229,7 @@ second cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25"
+                  image: "jenkins/inbound-agent:3396.ve02b_5cde31b_2-3-jdk25"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi
@@ -272,7 +272,7 @@ second cloud:
             templates:
               - name: "default"
                 namespace: "my-namespace"
-                id: 3896c9c280c4d3b2ad4d104ebe4ca102c577993e1ff7a90133f8aa6b61397355
+                id: 5db2f0d0c5a8590cf7aff8ca023a5f5d826c4c01094e15e5a1e241404086e741
                 containers:
                 - name: "jnlp"
                   alwaysPullImage: false
@@ -281,7 +281,7 @@ second cloud:
                     - envVar:
                         key: "JENKINS_URL"
                         value: "http://my-release-jenkins.my-namespace.svc.cluster.local:8080/"
-                  image: "jenkins/inbound-agent:3395.v6e5377b_0fb_3c-5-jdk25"
+                  image: "jenkins/inbound-agent:3396.ve02b_5cde31b_2-3-jdk25"
                   privileged: "false"
                   resourceLimitCpu: 512m
                   resourceLimitMemory: 512Mi

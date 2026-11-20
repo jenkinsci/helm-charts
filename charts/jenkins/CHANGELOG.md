@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.13.4
+
+Update `jenkins/inbound-agent` to version `3396.ve02b_5cde31b_2-3-jdk25`
+
 ## 5.13.3
 
 Honor `namespaceOverride` for HTTPRoute resources. Namespace-relative parent and backend references now use the overridden namespace.
