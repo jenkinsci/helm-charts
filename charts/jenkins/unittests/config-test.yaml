@@ -50,8 +50,11 @@ tests:
               /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
             fi
             echo "copy plugins to shared volume"
-            # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            # Copy plugins to shared volume, skipping files that already exist
+            for f in /usr/share/jenkins/ref/plugins/*; do
+              [ -e "$f" ] || continue
+              [ -e /var/jenkins_plugins/"$(basename "$f")" ] || cp "$f" /var/jenkins_plugins/
+            done
             echo "finished initialization"
       - matchSnapshot:
           path: data["plugins.txt"]
@@ -102,8 +105,11 @@ tests:
               /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
             fi
             echo "copy plugins to shared volume"
-            # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            # Copy plugins to shared volume, skipping files that already exist
+            for f in /usr/share/jenkins/ref/plugins/*; do
+              [ -e "$f" ] || continue
+              [ -e /var/jenkins_plugins/"$(basename "$f")" ] || cp "$f" /var/jenkins_plugins/
+            done
             echo "finished initialization"
   - it: install latest specified plugins
     set:
@@ -128,6 +134,9 @@ tests:
               /usr/local/bin/install-plugins.sh `echo $(cat /var/jenkins_home/plugins.txt)`;
             fi
             echo "copy plugins to shared volume"
-            # Copy plugins to shared volume
-            yes n | cp -i /usr/share/jenkins/ref/plugins/* /var/jenkins_plugins/;
+            # Copy plugins to shared volume, skipping files that already exist
+            for f in /usr/share/jenkins/ref/plugins/*; do
+              [ -e "$f" ] || continue
+              [ -e /var/jenkins_plugins/"$(basename "$f")" ] || cp "$f" /var/jenkins_plugins/
+            done
             echo "finished initialization"

@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.13.4
+
+Skip existing plugins when the controller init container copies them into `/var/jenkins_plugins`, so a restart on a surviving `plugin-dir` volume no longer crash-loops. GNU coreutils 9.7 makes `yes n | cp -i` exit 1, which `set -e` treated as failure.
+
 ## 5.13.3
 
 Honor `namespaceOverride` for HTTPRoute resources. Namespace-relative parent and backend references now use the overridden namespace.
