@@ -43,8 +43,11 @@ data:
       /usr/local/bin/install-plugins.sh `echo $(cat {{ .Values.controller.jenkinsHome }}/plugins.txt)`;
     fi
     echo "copy plugins to shared volume"
-    # Copy plugins to shared volume
-    yes n | cp -i {{ .Values.controller.jenkinsRef }}/plugins/* /var/jenkins_plugins/;
+    # Copy plugins to shared volume, skipping files that already exist
+    for f in {{ .Values.controller.jenkinsRef }}/plugins/*; do
+      [ -e "$f" ] || continue
+      [ -e /var/jenkins_plugins/"$(basename "$f")" ] || cp "$f" /var/jenkins_plugins/
+    done
 {{- end }}
   {{- if not .Values.controller.sidecars.configAutoReload.enabled }}
     echo "copy configuration as code files"
