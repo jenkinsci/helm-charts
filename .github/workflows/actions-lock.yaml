@@ -5,8 +5,9 @@ name: Verify actions lockfile
 # Docs: https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies
 on:
   pull_request:
-    paths:
-      - '.github/workflows/**'
+  push:
+    branches:
+      - main
 
 permissions:
   contents: read
