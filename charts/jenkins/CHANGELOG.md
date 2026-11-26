@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.13.6
+
+Update `configuration-as-code` to version `2148.v9d0c041b_a_13c`
+
 ## 5.13.5
 
 Stop rendering `controller.securityContextCapabilities` in the pod `securityContext`, where Kubernetes does not allow `capabilities`. The value is now ignored and deprecated. Set capabilities with `controller.containerSecurityContext.capabilities` instead.
