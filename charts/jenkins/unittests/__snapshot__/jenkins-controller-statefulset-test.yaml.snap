@@ -14,10 +14,10 @@ config values:
       namespace: my-namespace
 configure empty image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.580.2
+    docker.io/jenkins/jenkins:2.580.3
 configure image tag label:
   1: |
-    docker.io/jenkins/jenkins:2.580.2-alpine
+    docker.io/jenkins/jenkins:2.580.3-alpine
 default values:
   1: |
     replicas: 1
@@ -55,7 +55,7 @@ default values:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.580.2-jdk25
+            image: docker.io/jenkins/jenkins:2.580.3-jdk25
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -197,7 +197,7 @@ default values:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.580.2-jdk25
+            image: docker.io/jenkins/jenkins:2.580.3-jdk25
             imagePullPolicy: Always
             name: init
             resources:
@@ -303,7 +303,7 @@ test scheme for config-reload:
                 value: "50000"
               - name: CASC_JENKINS_CONFIG
                 value: /var/jenkins_home/casc_configs
-            image: docker.io/jenkins/jenkins:2.580.2-jdk25
+            image: docker.io/jenkins/jenkins:2.580.3-jdk25
             imagePullPolicy: Always
             livenessProbe:
               failureThreshold: 5
@@ -445,7 +445,7 @@ test scheme for config-reload:
           - command:
               - sh
               - /var/jenkins_config/apply_config.sh
-            image: docker.io/jenkins/jenkins:2.580.2-jdk25
+            image: docker.io/jenkins/jenkins:2.580.3-jdk25
             imagePullPolicy: Always
             name: init
             resources:
