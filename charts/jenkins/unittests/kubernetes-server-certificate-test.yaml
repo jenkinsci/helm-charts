@@ -1,0 +1,76 @@
+suite: Kubernetes cloud serverCertificate tests
+release:
+  name: my-release
+  namespace: my-namespace
+templates:
+  - jcasc-config.yaml
+tests:
+  - it: does not set serverCertificate by default
+    asserts:
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: serverCertificate
+
+  - it: renders the certificate as a block scalar on the default cloud
+    set:
+      kubernetesServerCertificate: |
+        -----BEGIN CERTIFICATE-----
+        MIIBdefault
+        -----END CERTIFICATE-----
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "\n      serverCertificate: \\|-\n        -----BEGIN CERTIFICATE-----\n        MIIBdefault\n        -----END CERTIFICATE-----\n"
+
+  - it: sets the inherited certificate on additional clouds
+    set:
+      kubernetesServerCertificate: |
+        -----BEGIN CERTIFICATE-----
+        MIIBdefault
+        -----END CERTIFICATE-----
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)name: \"remote-cloud-1\".*serverCertificate: \\|-\n        -----BEGIN CERTIFICATE-----\n        MIIBdefault\n"
+
+  - it: lets an additional cloud set its own certificate
+    set:
+      kubernetesServerCertificate: |
+        -----BEGIN CERTIFICATE-----
+        MIIBdefault
+        -----END CERTIFICATE-----
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          kubernetesServerCertificate: |
+            -----BEGIN CERTIFICATE-----
+            MIIBremote
+            -----END CERTIFICATE-----
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)name: \"remote-cloud-1\".*serverCertificate: \\|-\n        -----BEGIN CERTIFICATE-----\n        MIIBremote\n"
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)name: \"remote-cloud-1\".*MIIBdefault"
+
+  - it: lets an additional cloud clear the inherited certificate
+    set:
+      kubernetesServerCertificate: |
+        -----BEGIN CERTIFICATE-----
+        MIIBdefault
+        -----END CERTIFICATE-----
+      additionalClouds:
+        remote-cloud-1:
+          kubernetesURL: https://api.remote-cloud.com
+          kubernetesServerCertificate: ""
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "MIIBdefault"
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "(?s)name: \"remote-cloud-1\".*serverCertificate"

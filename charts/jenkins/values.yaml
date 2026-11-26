@@ -26,6 +26,9 @@ kubernetesURL: "https://kubernetes.default"
 # -- The Jenkins credentials to access the Kubernetes API server. For the default cluster it is not needed.
 credentialsId:
 
+# -- PEM encoded CA certificate used to verify the Kubernetes API server, for example a remote cluster signed by a private CA. This corresponds to the "Kubernetes server certificate key" field in the kubernetes plugin UI. It is ignored when `agent.skipTlsVerify` is `true`. Never put a private key here.
+kubernetesServerCertificate:
+
 # -- Enables rendering of the helm.sh/chart label to the annotations
 renderHelmLabels: true
 
@@ -1305,6 +1308,7 @@ additionalAgents: {}
 # default additionalAgents with the additionalClouds.additionalAgents set
 # additionalAgentsOverride to `true`.
 # To override inherited cloud traits, set controller.cloudTraits for that cloud (use [] to clear them).
+# To override the inherited server certificate, set kubernetesServerCertificate for that cloud (use "" to clear it).
 additionalClouds: {}
 #  remote-cloud-1:
 #    kubernetesURL: https://api.remote-cloud.com

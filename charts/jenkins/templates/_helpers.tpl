@@ -223,6 +223,10 @@ jenkins:
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
+      {{- with .Values.kubernetesServerCertificate }}
+      serverCertificate: |-
+        {{- . | trim | nindent 8 }}
+      {{- end }}
       addMasterProxyEnvVars: {{ .Values.agent.addMasterProxyEnvVars | default false }}
       credentialsId: "{{ .Values.credentialsId }}"
       {{- if .Values.agent.enabled }}
@@ -280,6 +284,10 @@ jenkins:
       {{- if and (hasKey $additionalCloud "controller") (hasKey $additionalCloud.controller "cloudTraits") }}
       {{- $_ := set $newRoot.Values.controller "cloudTraits" $additionalCloud.controller.cloudTraits }}
       {{- end }}
+      {{- /* allow an explicit empty kubernetesServerCertificate to clear the inherited one */}}
+      {{- if hasKey $additionalCloud "kubernetesServerCertificate" }}
+      {{- $_ := set $newRoot.Values "kubernetesServerCertificate" $additionalCloud.kubernetesServerCertificate }}
+      {{- end }}
       {{- $newValues := merge $additionalCloud $newRoot.Values }}
       {{- $_ := set $newRoot "Values" $newValues }}
       {{- /* clear additionalClouds from the copy */}}
@@ -335,6 +343,10 @@ jenkins:
       namespace: "{{ template "jenkins.agent.namespace" . }}"
       restrictedPssSecurityContext: {{ .Values.agent.restrictedPssSecurityContext }}
       serverUrl: "{{ .Values.kubernetesURL }}"
+      {{- with .Values.kubernetesServerCertificate }}
+      serverCertificate: |-
+        {{- . | trim | nindent 8 }}
+      {{- end }}
       credentialsId: "{{ .Values.credentialsId }}"
       {{- if .Values.agent.enabled }}
       podLabels:
