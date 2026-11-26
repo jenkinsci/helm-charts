@@ -1,0 +1,17 @@
+suite: NOTES
+templates:
+  - NOTES.txt
+tests:
+  - it: warns that securityContextCapabilities is ignored
+    set:
+      controller:
+        securityContextCapabilities:
+          drop:
+            - NET_RAW
+    asserts:
+      - matchRegexRaw:
+          pattern: "WARNING: `controller.securityContextCapabilities` is ignored"
+  - it: does not warn when securityContextCapabilities is not set
+    asserts:
+      - notMatchRegexRaw:
+          pattern: securityContextCapabilities

@@ -99,10 +99,6 @@ spec:
         fsGroupChangePolicy: {{ .Values.controller.fsGroupChangePolicy }}
         runAsNonRoot: true
       {{- end }}
-      {{- if .Values.controller.securityContextCapabilities }}
-        capabilities:
-          {{- toYaml .Values.controller.securityContextCapabilities | nindent 10 }}
-      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}

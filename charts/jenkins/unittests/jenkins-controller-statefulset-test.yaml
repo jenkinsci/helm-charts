@@ -141,9 +141,6 @@ tests:
             fsGroup: 4000
             fsGroupChangePolicy: OnRootMismatch
             runAsNonRoot: true
-            capabilities:
-              drop:
-                - NET_RAW
       - equal:
           path: spec.template.spec.serviceAccountName
           value: my-serviceaccount
@@ -1009,3 +1006,20 @@ tests:
       - equal:
           path: spec.template.metadata.labels.team
           value: platform
+  - it: does not render securityContextCapabilities into the pod security context
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        securityContextCapabilities:
+          add:
+            - IPC_LOCK
+          drop:
+            - NET_RAW
+    asserts:
+      - notExists:
+          path: spec.template.spec.securityContext.capabilities
+      - equal:
+          path: spec.template.spec.containers[0].securityContext.capabilities
+          value:
+            drop:
+              - ALL
