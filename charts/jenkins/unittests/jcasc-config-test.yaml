@@ -984,6 +984,72 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: do not pass the additional agents of one additional cloud to the next one
+    set:
+      additionalClouds:
+        cloud-a:
+          kubernetesURL: https://a.example.com
+          additionalAgentsOverride: true
+          additionalAgents:
+            gpu:
+              podName: gpu
+              nodeSelector:
+                accelerator: nvidia
+        cloud-b:
+          kubernetesURL: https://b.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "cloud-a".*- name: "default".*- name: "gpu".*nodeSelector: accelerator=nvidia.*name: "cloud-b"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "cloud-b".*- name: "default"'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "cloud-b".*(- name: "gpu"|accelerator=nvidia)'
+  - it: keep the default agent on every additional cloud that inherits additional agents
+    set:
+      additionalAgents:
+        maven:
+          podName: maven
+      additionalClouds:
+        remote-1:
+          kubernetesURL: https://one.example.com
+        remote-2:
+          kubernetesURL: https://two.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-1".*- name: "default".*- name: "maven".*name: "remote-2"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-2".*- name: "default".*- name: "maven"'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-2".*- name: "maven".*- name: "maven"'
+  - it: render the custom pod templates of an additional cloud with the values of that cloud
+    set:
+      agent:
+        namespace: main-agents
+        podTemplates:
+          python: |
+            - name: python
+              label: {{ .Values.agent.namespace }}-python
+      additionalClouds:
+        remote-cloud:
+          kubernetesURL: https://api.remote-cloud.com
+          agent:
+            namespace: remote-agents
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "kubernetes".*label: main-agents-python.*name: "remote-cloud"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-cloud".*label: remote-agents-python'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote-cloud".*label: main-agents-python'
   - it: custom configmap annotations
     set:
       controller:

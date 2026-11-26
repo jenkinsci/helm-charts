@@ -377,16 +377,16 @@ jenkins:
          {{- range $key, $value := $explicitEmptyValues }}
          {{- $_ := set $additionalAgent $key $value }}
          {{- end }}
-         {{- /* set .Values.agent to $additionalAgent */}}
-         {{- $_ := set $.Values "agent" $additionalAgent }}
-         {{- include "jenkins.casc.podTemplate" $ | nindent 8 }}
+         {{- /* set .Values.agent to $additionalAgent on the copy of this cloud, so the next cloud does not inherit it */}}
+         {{- $_ := set $newRoot.Values "agent" $additionalAgent }}
+         {{- include "jenkins.casc.podTemplate" $newRoot | nindent 8 }}
        {{- end }}
        {{- /* restore .Values.agent */}}
        {{- $_ := set .Values "agent" $agent }}
      {{- end }}
        {{- with .Values.agent.podTemplates }}
          {{- range $key, $val := . }}
-           {{- tpl $val $ | nindent 8 }}
+           {{- tpl $val $newRoot | nindent 8 }}
          {{- end }}
        {{- end }}
        {{- end }}
