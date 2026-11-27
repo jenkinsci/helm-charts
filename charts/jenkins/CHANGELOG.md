@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.13.10
+
+Update `configuration-as-code` to version `2151.va_012b_08f3cc4`
+
 ## 5.13.9
 
 Update `jenkins/inbound-agent` to version `3396.ve02b_5cde31b_2-5-jdk25`
