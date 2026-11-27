@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.14.0
+
+Add `kubernetesServerCertificate` to set `serverCertificate` on the Kubernetes cloud, so Jenkins can verify an API server signed by a private CA instead of disabling the check with `agent.skipTlsVerify`. Additional clouds inherit the value and can override or clear it.
+
 ## 5.13.10
 
 Update `configuration-as-code` to version `2151.va_012b_08f3cc4`
