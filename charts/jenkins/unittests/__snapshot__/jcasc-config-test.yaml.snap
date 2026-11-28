@@ -1951,7 +1951,7 @@ customized config:
                 envVars:
                   - envVar:
                       key: VAR
-                      value: value
+                      value: "value"
                 idleMinutes: 30
                 instanceCap: 2147483647
                 imagePullSecrets:
@@ -2960,7 +2960,7 @@ set secretEnvVars:
                 envVars:
                   - envVar:
                       key: UNITTEST_ENV
-                      value: testvalue
+                      value: "testvalue"
                   - secretEnvVar:
                       key: UNITTEST_PATH
                       secretName: k8s-unittest-secret-name

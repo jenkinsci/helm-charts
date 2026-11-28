@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.14.2
+
+Quote the values of `agent.envVars` in the agent pod template. A value such as `*.svc,localhost` or `key: value` no longer breaks the Configuration as Code YAML, and a value such as `-Dfoo=bar #baz` is no longer cut off at the `#`. If you added quotes inside a value to work around this, remove them, because they are now kept as part of the value.
+
 ## 5.14.1
 
 Fix additional clouds that are rendered after a cloud with `additionalAgents`: they no longer get the last additional agent of that cloud in place of their own `default` pod template. The custom `agent.podTemplates` of an additional cloud now also render with the values of that cloud.
