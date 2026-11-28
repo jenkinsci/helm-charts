@@ -156,6 +156,33 @@ controller:
   installPlugins: false
 ```
 
+### Upgrading plugins
+
+The init container downloads the plugins listed in `controller.installPlugins` and `controller.additionalPlugins`.
+The startup script of the `jenkins/jenkins` image then copies them into `JENKINS_HOME`, but it keeps an installed plugin in these cases:
+
+- The plugin was updated in the UI after the chart installed it.
+- The plugin has no `<name>.jpi.version_from_image` marker file in `JENKINS_HOME/plugins`, for example because it was installed by other means.
+
+The script logs the first case to `JENKINS_HOME/copy_reference_file.log`, and skips the second one without a log entry.
+To upgrade these plugins to the versions the chart installs, set the [environment variables of the image](https://github.com/jenkinsci/docker#upgrading-plugins) on the controller container:
+
+```yaml
+controller:
+  containerEnv:
+    - name: PLUGINS_FORCE_UPGRADE
+      value: "true"
+    - name: TRY_UPGRADE_IF_NO_MARKER
+      value: "true"
+```
+
+The script only checks whether a variable is set, so `value: "false"` enables it as well. Remove the variable to disable it.
+
+Another option is `controller.overwritePlugins: true`, which deletes all plugins from `JENKINS_HOME` on every start.
+Jenkins then only has the plugins that the chart installs, and plugins installed in the UI are removed.
+
+With `controller.initializeOnce: true`, the init container stops installing plugins after the first start, so the chart does not upgrade plugins at all.
+
 ### External URL Configuration
 
 If you are using the ingress definitions provided by this chart via the `controller.ingress` block the configured hostname will be the ingress hostname starting with `https://` or `http://` depending on the `tls` configuration.
