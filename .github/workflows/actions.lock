@@ -25,7 +25,7 @@ workflows:
     '.github/workflows/renovate.yaml':
         - 'actions/checkout@v7.0.1'
         - 'actions/create-github-app-token@v3.4.0'
-        - 'renovatebot/github-action@v47.0.0'
+        - 'renovatebot/github-action@v48.0.0'
     '.github/workflows/sync-readme.yaml':
         - 'actions/checkout@v7.0.1'
 dependencies:
@@ -82,9 +82,9 @@ dependencies:
         commit: 'sha1-ea822c7bf1874f08e5a491df991c228edffc3376'
         owner_id: 15859888
         repo_id: 224289715
-    'renovatebot/github-action@v47.0.0':
-        ref: 'v47.0.0'
-        commit: 'sha1-7b402fe76b7bc4273576663a09be2f0f85266e2f'
+    'renovatebot/github-action@v48.0.0':
+        ref: 'v48.0.0'
+        commit: 'sha1-1376d90bcd3a4d4e7393ae762eea56ac684aee38'
         owner_id: 38656520
         repo_id: 252754603
     'sigstore/cosign-installer@6f9f17788090df1f26f669e9d70d6ae9567deba6':
