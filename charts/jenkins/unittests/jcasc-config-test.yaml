@@ -816,6 +816,61 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: quote agent envVars values
+    set:
+      agent:
+        envVars:
+          - name: NO_PROXY
+            value: "*.svc,localhost"
+          - name: JAVA_OPTS
+            value: "-Dfoo=bar #baz"
+          - name: LABEL
+            value: "key: value"
+          - name: GREETING
+            value: 'say "hi"'
+          - name: AGENT_NAME
+            value: "{{ .Release.Name }}-agent"
+          - name: MULTI_LINE
+            value: "line1\nline2"
+          - name: WINDOWS_PATH
+            value: 'C:\tools\bin'
+          - name: LEADING_ZERO
+            value: "0123"
+          - name: YES_STRING
+            value: "yes"
+    release:
+      name: my-release
+      namespace: default
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: NO_PROXY\n\s+value: "\*\.svc,localhost"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: JAVA_OPTS\n\s+value: "-Dfoo=bar #baz"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: LABEL\n\s+value: "key: value"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: GREETING\n\s+value: "say \\"hi\\""\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: AGENT_NAME\n\s+value: "my-release-agent"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: MULTI_LINE\n\s+value: "line1\\nline2"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: WINDOWS_PATH\n\s+value: "C:\\\\tools\\\\bin"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: LEADING_ZERO\n\s+value: "0123"\n'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'key: YES_STRING\n\s+value: "yes"\n'
   - it: set directConnection
     set:
       agent:

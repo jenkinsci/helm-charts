@@ -549,7 +549,7 @@ Returns kubernetes pod template configuration as code
   {{- range $index, $var := .Values.agent.envVars }}
     - envVar:
         key: {{ $var.name }}
-        value: {{ tpl $var.value $ }}
+        value: {{ tpl $var.value $ | quote }}
   {{- end }}
   {{- range $index, $var := .Values.agent.secretEnvVars }}
     - secretEnvVar:
