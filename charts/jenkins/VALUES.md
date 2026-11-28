@@ -186,10 +186,10 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [controller.installLatestPlugins](./values.yaml#L432) | bool | Download the minimum required version or latest version of all dependencies | `true` |
 | [controller.installLatestSpecifiedPlugins](./values.yaml#L435) | bool | Set to true to download the latest version of any plugin that is requested to have the latest version | `false` |
 | [controller.installPlugins](./values.yaml#L424) | list | List of Jenkins plugins to install. If you don't want to install plugins, set it to `false` | `["kubernetes:4560.vc25b_83890c34","workflow-aggregator:608.v67378e9d3db_1","git:5.11.0","configuration-as-code:2151.va_012b_08f3cc4"]` |
-| [controller.javaOpts](./values.yaml#L174) | string | Append to `JAVA_OPTS` env var | `nil` |
+| [controller.javaOpts](./values.yaml#L174) | string | Append to `JAVA_OPTS` env var. Put JVM options and system properties (`-D...`) here. Line breaks are replaced with spaces | `nil` |
 | [controller.jenkinsAdminEmail](./values.yaml#L108) | string | Email address for the administrator of the Jenkins instance | `nil` |
 | [controller.jenkinsHome](./values.yaml#L113) | string | Custom Jenkins home path | `"/var/jenkins_home"` |
-| [controller.jenkinsOpts](./values.yaml#L176) | string | Append to `JENKINS_OPTS` env var | `nil` |
+| [controller.jenkinsOpts](./values.yaml#L176) | string | Append to `JENKINS_OPTS` env var. These are Jenkins command line arguments (`--...`), so system properties (`-D...`) belong in `javaOpts`. Line breaks are replaced with spaces | `nil` |
 | [controller.jenkinsRef](./values.yaml#L118) | string | Custom Jenkins reference path | `"/usr/share/jenkins/ref"` |
 | [controller.jenkinsUriPrefix](./values.yaml#L191) | string | Root URI Jenkins will be served on | `nil` |
 | [controller.jenkinsUrl](./values.yaml#L186) | string | Set Jenkins URL if you are not using the ingress definitions provided by the chart | `nil` |
