@@ -4,6 +4,59 @@ entries:
   - annotations:
       artifacthub.io/category: integration-delivery
       artifacthub.io/changes: |
+        - Fix additional clouds that are rendered after a cloud with `additionalAgents`: they no longer get the last additional agent of that cloud in place of their own `default` pod template. The custom `agent.podTemplates` of an additional cloud now also render with the values of that cloud.
+      artifacthub.io/images: |
+        - name: jenkins
+          image: docker.io/jenkins/jenkins:2.580.3-jdk25
+        - name: k8s-sidecar
+          image: docker.io/kiwigrid/k8s-sidecar:2.14.3
+        - name: inbound-agent
+          image: jenkins/inbound-agent:3396.ve02b_5cde31b_2-5-jdk25
+      artifacthub.io/license: Apache-2.0
+      artifacthub.io/links: |
+        - name: Chart Source
+          url: https://github.com/jenkinsci/helm-charts/tree/main/charts/jenkins
+        - name: Jenkins
+          url: https://www.jenkins.io/
+        - name: support
+          url: https://github.com/jenkinsci/helm-charts/issues
+    apiVersion: v2
+    appVersion: 2.580.3
+    created: "2026-11-28T08:14:44.72991898Z"
+    description: 'Jenkins - Build great things at any scale! As the leading open source
+      automation server, Jenkins provides over 2000 plugins to support building, deploying
+      and automating any project. '
+    digest: 8621ac2eeabec4905c79ba02de47f701aaf72e24249e2a77f8311dd986693fae
+    home: https://www.jenkins.io/
+    icon: https://get.jenkins.io/art/jenkins-logo/logo.svg
+    keywords:
+    - jenkins
+    - ci
+    - devops
+    maintainers:
+    - email: maor.friedman@redhat.com
+      name: maorfr
+    - email: mail@torstenwalter.de
+      name: torstenwalter
+    - email: garridomota@gmail.com
+      name: mogaal
+    - email: wmcdona89@gmail.com
+      name: wmcdona89
+    - email: timjacomb1@gmail.com
+      name: timja
+    name: jenkins
+    sources:
+    - https://github.com/jenkinsci/jenkins
+    - https://github.com/jenkinsci/docker-agent
+    - https://github.com/maorfr/kube-tasks
+    - https://github.com/jenkinsci/configuration-as-code-plugin
+    type: application
+    urls:
+    - https://github.com/jenkinsci/helm-charts/releases/download/jenkins-5.14.1/jenkins-5.14.1.tgz
+    version: 5.14.1
+  - annotations:
+      artifacthub.io/category: integration-delivery
+      artifacthub.io/changes: |
         - Add `kubernetesServerCertificate` to set `serverCertificate` on the Kubernetes cloud, so Jenkins can verify an API server signed by a private CA instead of disabling the check with `agent.skipTlsVerify`. Additional clouds inherit the value and can override or clear it.
       artifacthub.io/images: |
         - name: jenkins
@@ -37595,4 +37648,4 @@ entries:
     urls:
     - https://charts.jenkins.io/jenkins-0.1.0.tgz
     version: 0.1.0
-generated: "2026-11-27T22:06:00.848101466Z"
+generated: "2026-11-28T08:14:44.731261218Z"
