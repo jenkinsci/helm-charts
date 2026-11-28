@@ -633,7 +633,10 @@ Returns kubernetes pod template configuration as code
     {{- tpl (trim .Values.agent.yamlTemplate) . | nindent 4 }}
 {{- end }}
   yamlMergeStrategy: {{ .Values.agent.yamlMergeStrategy }}
+{{- /* only render when enabled: kubernetes plugin versions before 4199.va_1647c280eb_2 reject the attribute, and leaving it out means false */}}
+{{- if .Values.agent.inheritYamlMergeStrategy }}
   inheritYamlMergeStrategy: {{ .Values.agent.inheritYamlMergeStrategy }}
+{{- end }}
 {{- end -}}
 
 {{- define "jenkins.kubernetes-version" -}}

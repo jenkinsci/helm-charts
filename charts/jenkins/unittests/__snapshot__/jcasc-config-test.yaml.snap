@@ -71,7 +71,6 @@ additional clouds:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -121,7 +120,6 @@ additional clouds:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -204,7 +202,6 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: ac16a84b973f3877f19c3cb2eca05b061eccfbb3b6f038cbeebbde203da2d8ee
@@ -233,7 +230,6 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -283,7 +279,6 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: ac16a84b973f3877f19c3cb2eca05b061eccfbb3b6f038cbeebbde203da2d8ee
@@ -312,7 +307,6 @@ additional clouds inheriting additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -395,7 +389,6 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: ac16a84b973f3877f19c3cb2eca05b061eccfbb3b6f038cbeebbde203da2d8ee
@@ -424,7 +417,6 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -474,7 +466,6 @@ additional clouds overriding additional agents:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -557,7 +548,6 @@ additional clouds set skipTlsVerify:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -607,7 +597,6 @@ additional clouds set skipTlsVerify:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -690,7 +679,6 @@ additional clouds set usageRestricted:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "10"
             defaultsProviderTemplate: ""
@@ -740,7 +728,6 @@ additional clouds set usageRestricted:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -827,7 +814,6 @@ adds custom labels on agent pods:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -910,7 +896,6 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "maven"
                 namespace: "maven"
                 id: 0d4a6d368e85839fa384943efc1fb211dfe78437fcd07900df237b0eb3a2b7b3
@@ -939,7 +924,6 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "python"
                 namespace: "jenkins-agents"
                 id: c49a0c10b8d2a88726554938edd6bc37c680dab2041db5662851057df91cc184
@@ -969,7 +953,6 @@ agent namespace and templates:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: python3
                 label: jenkins-python3
                 serviceAccount: jenkins
@@ -1075,7 +1058,6 @@ agent with liveness probe:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1180,7 +1162,6 @@ agents with liveness probe:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1264,7 +1245,6 @@ configure hostnetworking to agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1352,7 +1332,6 @@ custom dynamic pvc workspace volume:
                     requestsSize: "2Gi"
                     storageClassName: "gp2"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1438,7 +1417,6 @@ custom emptyDir workspace volume:
                   emptyDirWorkspaceVolume:
                     memory: true
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1524,7 +1502,6 @@ custom hostPath workspace volume:
                   hostPathWorkspaceVolume:
                     hostPath: "/data"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1607,7 +1584,6 @@ custom jenkins label:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1695,7 +1671,6 @@ custom nfs workspace volume:
                     serverAddress: "1.1.1.1"
                     serverPath: "/data"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1782,7 +1757,6 @@ custom other workspace volume:
                     claimName: "my-claim"
                     readOnly: false
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -1869,7 +1843,6 @@ custom pvc workspace volume:
                     claimName: "my-claim"
                     readOnly: false
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2000,7 +1973,6 @@ customized config:
                       operator: "Equal"
                       value: "value"
                 yamlMergeStrategy: merge
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2084,7 +2056,6 @@ default config:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2216,7 +2187,6 @@ disable useDefaultServiceAccount:
                 showRawYaml: true
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2298,7 +2268,6 @@ empty projectNamingStrategy:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2381,7 +2350,6 @@ legacyRemotingSecurityEnabled = false:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2466,7 +2434,6 @@ legacyRemotingSecurityEnabled = true:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2552,7 +2519,6 @@ non-string projectNamingStrategy:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2635,7 +2601,6 @@ none lts version:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2718,7 +2683,6 @@ set agent.serviceAccount:
                 serviceAccount: "testing"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2800,7 +2764,6 @@ set directConnection:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2883,7 +2846,6 @@ set restrictedPssSecurityContext:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -2975,7 +2937,6 @@ set secretEnvVars:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -3074,7 +3035,6 @@ specify additional container:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -3173,7 +3133,6 @@ specify additional container and clear in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
                 id: 5dfc73e324a2a1c261394cfa64643fe715cd435988e69d5e0c02fc48e62fa720
@@ -3202,7 +3161,6 @@ specify additional container and clear in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -3301,7 +3259,6 @@ specify additional container and overwrite in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
               - name: "additional-agent"
                 namespace: "default"
                 id: cc81afc13f23ce47f556005e8efc8ad78f26a5e96043825a46fbb573f7ae5778
@@ -3346,7 +3303,6 @@ specify additional container and overwrite in additional agent:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -3429,7 +3385,6 @@ specify security settings with apiToken override:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken: overridden
@@ -3509,7 +3464,6 @@ specify security settings without apiToken override:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:

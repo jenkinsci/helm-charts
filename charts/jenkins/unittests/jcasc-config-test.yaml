@@ -1244,3 +1244,71 @@ tests:
           pattern: ^jenkins-
       - matchSnapshot:
           path: data["jcasc-default-config.yaml"]
+  - it: omit inheritYamlMergeStrategy when it is not enabled
+    set:
+      additionalAgents:
+        maven:
+          podName: maven
+      additionalClouds:
+        remote:
+          kubernetesURL: https://remote.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: "yamlMergeStrategy: override"
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: inheritYamlMergeStrategy
+  - it: render inheritYamlMergeStrategy on every pod template when it is enabled
+    set:
+      agent:
+        inheritYamlMergeStrategy: true
+      additionalAgents:
+        maven:
+          podName: maven
+      additionalClouds:
+        remote:
+          kubernetesURL: https://remote.example.com
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'inheritYamlMergeStrategy: true\n\s+- name: "maven"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'name: "maven"(?s:.*?)inheritYamlMergeStrategy: true\n\s+- kubernetes:'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "remote".*?inheritYamlMergeStrategy: true\n\s+- name: "maven".*?inheritYamlMergeStrategy: true'
+  - it: render inheritYamlMergeStrategy only on the additional agent that enables it
+    set:
+      additionalAgents:
+        maven:
+          podName: maven
+          inheritYamlMergeStrategy: true
+        python:
+          podName: python
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'yamlMergeStrategy: override\n\s+- name: "maven"'
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'inheritYamlMergeStrategy: true\n\s+- name: "python"'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "python".*inheritYamlMergeStrategy'
+  - it: omit inheritYamlMergeStrategy on an additional agent that disables it
+    set:
+      agent:
+        inheritYamlMergeStrategy: true
+      additionalAgents:
+        python:
+          podName: python
+          inheritYamlMergeStrategy: false
+    asserts:
+      - matchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: 'inheritYamlMergeStrategy: true\n\s+- name: "python"'
+      - notMatchRegex:
+          path: data["jcasc-default-config.yaml"]
+          pattern: '(?s)name: "python".*inheritYamlMergeStrategy'

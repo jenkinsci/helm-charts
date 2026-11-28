@@ -36,7 +36,7 @@ The following tables list the configurable parameters of the Jenkins chart and t
 | [agent.image.repository](./values.yaml#L1041) | string | Repository to pull the agent jnlp image from | `"jenkins/inbound-agent"` |
 | [agent.image.tag](./values.yaml#L1043) | string | Tag of the image to pull | `"3396.ve02b_5cde31b_2-5-jdk25"` |
 | [agent.imagePullSecretName](./values.yaml#L1050) | string | Name of the secret to be used to pull the image | `nil` |
-| [agent.inheritYamlMergeStrategy](./values.yaml#L1230) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one | `false` |
+| [agent.inheritYamlMergeStrategy](./values.yaml#L1230) | bool | Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one. It is only rendered when `true`, which needs kubernetes plugin version 4199.va_1647c280eb_2 or later | `false` |
 | [agent.instanceCap](./values.yaml#L1194) | int | Max number of agents to launch for this type of agent | `2147483647` |
 | [agent.jenkinsTunnel](./values.yaml#L1012) | string | Overrides the Kubernetes Jenkins tunnel | `nil` |
 | [agent.jenkinsUrl](./values.yaml#L1008) | string | Overrides the Kubernetes Jenkins URL | `nil` |

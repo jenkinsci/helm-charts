@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.14.2
+
+Only render `inheritYamlMergeStrategy` in the agent pod templates when `agent.inheritYamlMergeStrategy` is `true`. Kubernetes plugin versions before `4199.va_1647c280eb_2` do not know the attribute, so the always rendered `inheritYamlMergeStrategy: false` stopped Jenkins from starting when Configuration as Code was applied before the plugin was upgraded. Leaving the attribute out has the same effect as `false`.
+
 ## 5.14.1
 
 Fix additional clouds that are rendered after a cloud with `additionalAgents`: they no longer get the last additional agent of that cloud in place of their own `default` pod template. The custom `agent.podTemplates` of an additional cloud now also render with the values of that cloud.

@@ -1226,7 +1226,7 @@ agent:
 
   # -- Defines how the raw yaml field gets merged with yaml definitions from inherited pod templates. Possible values: "merge" or "override"
   yamlMergeStrategy: "override"
-  # -- Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one
+  # -- Controls whether the defined yaml merge strategy will be inherited if another defined pod template is configured to inherit from the current one. It is only rendered when `true`, which needs kubernetes plugin version 4199.va_1647c280eb_2 or later
   inheritYamlMergeStrategy: false
   # -- Timeout in seconds for an agent to be online
   connectTimeout: 100

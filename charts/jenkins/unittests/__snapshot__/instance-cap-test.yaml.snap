@@ -71,7 +71,6 @@ default-cap:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -154,7 +153,6 @@ limited-cap:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:

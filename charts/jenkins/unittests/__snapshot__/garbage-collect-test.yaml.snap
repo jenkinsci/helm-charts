@@ -76,7 +76,6 @@ namespaces:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -161,7 +160,6 @@ one cloud:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
@@ -246,7 +244,6 @@ second cloud:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         - kubernetes:
             containerCapStr: "5"
             garbageCollection:
@@ -298,7 +295,6 @@ second cloud:
                 serviceAccount: "default"
                 slaveConnectTimeoutStr: "100"
                 yamlMergeStrategy: override
-                inheritYamlMergeStrategy: false
         slaveAgentPort: 50000
       security:
         apiToken:
