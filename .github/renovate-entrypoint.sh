@@ -8,7 +8,7 @@ export YQ_VERSION=v4.54.3
 export HELM_VERSION=v4.3.2
 
 # renovate: datasource=github-tags depName=helm-unittest/helm-unittest
-export HELM_UNITTEST_VERSION=v1.2.1
+export HELM_UNITTEST_VERSION=v1.3.0
 
 # renovate: datasource=github-releases depName=jenkins-x-plugins/jx-release-version
 export JENKINS_JX_VERSION=v2.10.8
