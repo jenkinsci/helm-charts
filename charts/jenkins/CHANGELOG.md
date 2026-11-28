@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.14.2
+
+Document why `helm upgrade` can leave plugins at their old versions, and how to upgrade them with `PLUGINS_FORCE_UPGRADE`, `TRY_UPGRADE_IF_NO_MARKER` or `controller.overwritePlugins`.
+
 ## 5.14.1
 
 Fix additional clouds that are rendered after a cloud with `additionalAgents`: they no longer get the last additional agent of that cloud in place of their own `default` pod template. The custom `agent.podTemplates` of an additional cloud now also render with the values of that cloud.
