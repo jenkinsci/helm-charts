@@ -270,6 +270,52 @@ tests:
             name: JENKINS_OPTS
             value: >-
               --webroot=/var/jenkins_cache/war -Dcontroller.image=registry/image:my-tag
+  - it: multi-line java & jenkins opts are joined into one line
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        image:
+          repository: registry/image
+        jenkinsUriPrefix: /jenkins
+        javaOpts: |
+          -Xms512m
+          -Dcontroller.image={{ .Values.controller.image.repository }}
+        jenkinsOpts: |
+          --sessionTimeout=60
+          --httpKeepAliveTimeout=30000
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: >-
+              -Dcasc.reload.token=$(POD_NAME) -Xms512m -Dcontroller.image=registry/image
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JENKINS_OPTS
+            value: >-
+              --prefix=/jenkins  --webroot=/var/jenkins_cache/war --sessionTimeout=60 --httpKeepAliveTimeout=30000
+  - it: java & jenkins opts with blank lines and Windows line breaks are joined into one line
+    template: jenkins-controller-statefulset.yaml
+    set:
+      controller:
+        sidecars:
+          configAutoReload:
+            enabled: false
+        javaOpts: "-Xms512m \r\n\r\n  -Xmx512m\n\n"
+        jenkinsOpts: "--sessionTimeout=60\r\n--httpKeepAliveTimeout=30000\n"
+    asserts:
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JAVA_OPTS
+            value: -Xms512m -Xmx512m
+      - contains:
+          path: spec.template.spec.containers[0].env
+          content:
+            name: JENKINS_OPTS
+            value: --webroot=/var/jenkins_cache/war --sessionTimeout=60 --httpKeepAliveTimeout=30000
   - it: test empty controller.podSecurityContextOverride
     template: jenkins-controller-statefulset.yaml
     set:

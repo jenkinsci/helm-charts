@@ -690,6 +690,15 @@ Create a full tag name for controller image
 {{- end -}}
 
 {{/*
+Join a multi-line controller.javaOpts or controller.jenkinsOpts value into one line,
+so it can be rendered inside the JAVA_OPTS or JENKINS_OPTS block scalar.
+Trailing line breaks are dropped and every other line break becomes one space.
+*/}}
+{{- define "controller.oneLineOpts" -}}
+{{- regexReplaceAll "\\s*[\r\n]\\s*" (regexReplaceAll "[\r\n]\\s*$" . "") " " -}}
+{{- end -}}
+
+{{/*
 Create the HTTP port for interacting with the controller
 */}}
 {{- define "controller.httpPort" -}}

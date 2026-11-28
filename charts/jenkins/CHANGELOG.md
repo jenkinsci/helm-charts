@@ -12,6 +12,10 @@ Use the following links to reference issues, PRs, and commits prior to v2.6.0.
 The changelog until v1.5.7 was auto-generated based on git commits.
 Those entries include a reference to the git commit to be able to get more details.
 
+## 5.14.2
+
+Join line breaks in `controller.javaOpts` and `controller.jenkinsOpts` into spaces, so multi-line values (for example a `|` block) no longer break the rendering of the controller StatefulSet. The descriptions of both values now say that system properties (`-D...`) belong in `controller.javaOpts`, because Jenkins rejects them as command line arguments in `JENKINS_OPTS`.
+
 ## 5.14.1
 
 Fix additional clouds that are rendered after a cloud with `additionalAgents`: they no longer get the last additional agent of that cloud in place of their own `default` pod template. The custom `agent.podTemplates` of an additional cloud now also render with the values of that cloud.

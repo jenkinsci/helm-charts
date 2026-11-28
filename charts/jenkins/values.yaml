@@ -170,9 +170,9 @@ controller:
   #     value: "http://192.168.64.1:3128"
 
   # Set min/max heap here if needed with "-Xms512m -Xmx512m"
-  # -- Append to `JAVA_OPTS` env var
+  # -- Append to `JAVA_OPTS` env var. Put JVM options and system properties (`-D...`) here. Line breaks are replaced with spaces
   javaOpts:
-  # -- Append to `JENKINS_OPTS` env var
+  # -- Append to `JENKINS_OPTS` env var. These are Jenkins command line arguments (`--...`), so system properties (`-D...`) belong in `javaOpts`. Line breaks are replaced with spaces
   jenkinsOpts:
 
   # If you are using the ingress definitions provided by this chart via the `controller.ingress` block,
